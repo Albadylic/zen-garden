@@ -189,7 +189,7 @@
     "speed": 2,
     "attraction": {
       "kind": "perch",
-      "plants": ["bamboo"],
+      "plants": ["bamboo", "camellia"],
       "minCount": 2,
       "bonus": {
         "plant": "japanese-maple",
@@ -212,6 +212,10 @@
       {
         "text": "White-eyes often travel in pairs, chattering softly to each other.",
         "after": 5
+      },
+      {
+        "text": "In the court it drinks nectar from camellia flowers.",
+        "after": 6
       }
     ],
     "hints": [
@@ -991,6 +995,117 @@
       {
         "text": "Wagtails stand on stepping and resting stones once stream insects are about.",
         "after": "a-crossing"
+      }
+    ]
+  },
+  {
+    "id": "brown-eared-bulbul",
+    "name": "Brown-eared bulbul",
+    "description": "A noisy grey bird with chestnut cheeks and a fondness for fruit.",
+    "movement": "flying",
+    "speed": 2.4,
+    "attraction": {
+      "kind": "feeder",
+      "structure": "fruit-table",
+      "perMinute": 0.5
+    },
+    "maxPresent": 2,
+    "staySec": [90, 240],
+    "colour": "#7a7a80",
+    "look": {
+      "form": "bird",
+      "colour": "#7a7a80",
+      "accent": "#8a5a3a",
+      "size": 1.15
+    },
+    "facts": [
+      {
+        "text": "Comes to a fruit table set with quince.",
+        "after": 1
+      },
+      {
+        "text": "Bulbuls carry fruit seeds far across the sanctuary.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A fruit-loving bird might visit if fruit were set out.",
+        "after": "first-fruit"
+      }
+    ]
+  },
+  {
+    "id": "bush-warbler",
+    "name": "Japanese bush warbler",
+    "description": "A plain olive bird with one of the loveliest songs in Japan.",
+    "movement": "flying",
+    "speed": 2,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["flowering-cherry", "old-cherry", "hydrangea"],
+      "minCount": 3,
+      "perMinute": 0.4
+    },
+    "alongside": {
+      "wildlife": ["carpenter-bee", "bumblebee", "hawk-moth", "swallowtail"],
+      "count": 1
+    },
+    "maxPresent": 1,
+    "staySec": [90, 240],
+    "colour": "#8a8a5a",
+    "look": {
+      "form": "bird",
+      "colour": "#8a8a5a",
+      "accent": "#5a5a3a",
+      "size": 0.9
+    },
+    "facts": [
+      {
+        "text": "Sings from blossom in a court already busy with insects.",
+        "after": 1
+      },
+      {
+        "text": "Its song, “hō-hokekyo”, announces spring.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A songbird might sing from blossoming branches.",
+        "after": "a-blossom-tree"
+      }
+    ]
+  },
+  {
+    "id": "carpenter-bee",
+    "name": "Carpenter bee",
+    "description": "A big, glossy black bee with yellow fur, gentle and slow.",
+    "movement": "flying",
+    "speed": 1.4,
+    "attraction": {
+      "kind": "nectar",
+      "minNectar": 3,
+      "minSpecies": 3,
+      "perMinute": 0.5
+    },
+    "maxPresent": 2,
+    "staySec": [60, 180],
+    "colour": "#2a2620",
+    "look": {
+      "form": "bee",
+      "colour": "#2a2620",
+      "accent": "#e0c050",
+      "size": 1.3
+    },
+    "facts": [
+      {
+        "text": "Comes where several kinds of shrub are in flower.",
+        "after": 1
+      },
+      {
+        "text": "It nests by tunnelling into dry wood.",
+        "after": 3
       }
     ]
   }

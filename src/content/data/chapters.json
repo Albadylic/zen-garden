@@ -957,5 +957,154 @@
         "unlocks": []
       }
     ]
+  },
+  {
+    "id": "blossom-court",
+    "title": "Blossom Court",
+    "requires": "chapter:whispering-stream",
+    "completionUnlock": "chapter:blossom-court",
+    "gift": {
+      "cherry-sapling": 2,
+      "camellia-cuttings": 2,
+      "azalea-cuttings": 2,
+      "hydrangea-cuttings": 2,
+      "quince-cuttings": 2
+    },
+    "completion": {
+      "title": "Blossom and song",
+      "body": [
+        "Cherry blossom drifts across the court, the border flowers from low to high, and birds come for the fruit.",
+        "South of the court, through a timber gate, the canopy of a great old tree shades the way."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-court",
+        "title": "Into the court",
+        "description": "You looked around the old blossom court.",
+        "hint": "Go through the stream’s west gate and take a look around the court.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "blossom-court"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-plan-for-the-court",
+        "title": "A plan for the court",
+        "description": "You chose how to begin restoring the court.",
+        "hint": "Open Restore and choose how to begin restoring the court.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "restore-court"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "shrubs-planted",
+        "title": "Shrubs planted",
+        "description": "Flowering shrubs are growing in the border.",
+        "hint": "Plant three flowering shrubs: camellia, azalea, hydrangea or quince.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "blossom-court",
+            "plants": ["camellia", "satsuki-azalea", "hydrangea", "flowering-quince"],
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-blossom-tree",
+        "title": "A blossom tree",
+        "description": "A young flowering cherry is growing in the court.",
+        "hint": "Plant a flowering cherry in a sunny spot.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "blossom-court",
+            "plants": ["flowering-cherry"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-layered-border",
+        "title": "A layered border",
+        "description": "Four different species grow in the court.",
+        "hint": "Grow four different species in the court, from low to tall.",
+        "conditions": [
+          {
+            "kind": "speciesIn",
+            "garden": "blossom-court",
+            "count": 4
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "first-fruit",
+        "title": "First fruit",
+        "description": "You gathered quince fruit. You can now build a fruit table.",
+        "hint": "Flowering quince fruits once it flowers; gather three.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "quince-fruit",
+            "count": 3
+          }
+        ],
+        "unlocks": ["recipe:fruit-table", "recipe:petal-lantern"]
+      },
+      {
+        "id": "a-table-for-birds",
+        "title": "A table for birds",
+        "description": "You built a fruit table.",
+        "hint": "Build a fruit table and set quince out on it.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "blossom-court",
+            "ids": ["fruit-table"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-bulbul",
+        "title": "A bulbul",
+        "description": "A brown-eared bulbul came for the fruit.",
+        "hint": "Fill the fruit table with quince; bulbuls come while it holds fruit.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "brown-eared-bulbul",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-court-restored",
+        "title": "The court restored",
+        "description": "You completed one approach to restoring the court.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "restore-court",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ]
   }
 ]

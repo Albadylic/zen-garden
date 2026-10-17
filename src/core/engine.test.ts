@@ -68,9 +68,10 @@ describe('seasons', () => {
     const content = withPlant(base.content, 'wildflower-mix', { flowerSeasons: ['autumn'] })
     const { state } = base
     addPlant(state, content, 'wildflower-mix', 6, 8)
-    expect(nectarAvailable(state, content)).toBeGreaterThan(0)
+    const garden = content.world.gardens[0]
+    expect(nectarAvailable(state, content, garden)).toBeGreaterThan(0)
     state.unlocks.push(SEASONS_UNLOCK)
-    expect(nectarAvailable(state, content)).toBe(0)
+    expect(nectarAvailable(state, content, garden)).toBe(0)
   })
 })
 
@@ -115,6 +116,24 @@ describe('structures that work while filled', () => {
     fillFeeder(state, content, feederId)
     produce(state, content, 2 * MIN, ctx)
     expect(fromFeeder().length).toBeGreaterThan(0)
+  })
+
+  it('do not hold up anything else while they are empty', () => {
+    const { content, state } = setup()
+    state.entities.unshift({
+      id: state.nextId++,
+      kind: 'structure',
+      defId: 'leaf-litter-bed',
+      x: 6,
+      y: 8,
+      level: 0,
+      visits: 0,
+      produceMs: [0],
+      fixed: false,
+    })
+    produce(state, content, 10 * MIN, { offline: true, events: [] })
+    // The old pines still shed twigs and leaves.
+    expect(state.drops.length).toBeGreaterThan(0)
   })
 })
 

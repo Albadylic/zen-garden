@@ -480,5 +480,55 @@
         "after": "into-the-meadow"
       }
     ]
+  },
+  {
+    "id": "fruit-table",
+    "name": "Fruit table",
+    "description": "A low wooden table where fruit is set out for birds.",
+    "terrain": ["grass", "moss", "path"],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0,
+        "max": 1
+      },
+      "cover": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "feeder": {
+      "item": "quince-fruit",
+      "durationSec": 1800
+    },
+    "look": {
+      "form": "post",
+      "colour": "#a8843a",
+      "accent": "#6b4c33"
+    },
+    "levels": [
+      {
+        "name": "Fruit table",
+        "tier": 0,
+        "attraction": 1,
+        "capacity": 2,
+        "produces": []
+      }
+    ],
+    "facts": [
+      {
+        "text": "A filled table lasts about half an hour.",
+        "after": 1
+      }
+    ],
+    "hints": [
+      {
+        "text": "Fruit set out on a table might bring fruit-loving birds.",
+        "after": "first-fruit"
+      }
+    ]
   }
 ]

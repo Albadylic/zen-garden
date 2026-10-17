@@ -224,5 +224,43 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "stone-bench",
+    "name": "Stone bench",
+    "description": "A plain stone bench beneath the blossom.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": false,
+    "cover": 0.1,
+    "look": {
+      "form": "bench",
+      "colour": "#a3a29a",
+      "accent": "#7f7e78"
+    },
+    "facts": [
+      {
+        "text": "A place to sit and watch the court.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "petal-lantern",
+    "name": "Petal lantern",
+    "description": "A paper lantern on a post, painted with blossom.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": false,
+    "cover": 0,
+    "look": {
+      "form": "post",
+      "colour": "#f4dcc8",
+      "accent": "#6b4c33"
+    },
+    "facts": [
+      {
+        "text": "Its glow softens the court at dusk.",
+        "after": 1
+      }
+    ]
   }
 ]

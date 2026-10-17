@@ -630,5 +630,108 @@
         "after": "into-the-stream"
       }
     ]
+  },
+  {
+    "id": "cherry-sapling",
+    "name": "Cherry sapling",
+    "category": "seed",
+    "description": "A young flowering cherry, a whip of a tree with a few buds.",
+    "colour": "#8a5a4a",
+    "facts": [
+      {
+        "text": "Flowering cherries are grafted to keep their blossom true.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "camellia-cuttings",
+    "name": "Camellia cuttings",
+    "category": "seed",
+    "description": "Glossy-leaved cuttings of camellia.",
+    "colour": "#3f5f3a",
+    "facts": [
+      {
+        "text": "Camellias flower in the cold months when little else does.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "azalea-cuttings",
+    "name": "Azalea cuttings",
+    "category": "seed",
+    "description": "Small-leaved cuttings of satsuki azalea.",
+    "colour": "#4f7244",
+    "facts": [
+      {
+        "text": "Satsuki azaleas flower in early summer, a month after others.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "hydrangea-cuttings",
+    "name": "Hydrangea cuttings",
+    "category": "seed",
+    "description": "Soft cuttings of a lacecap hydrangea.",
+    "colour": "#5f7a8a",
+    "facts": [
+      {
+        "text": "Its flower colour changes with the soil.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "quince-cuttings",
+    "name": "Quince cuttings",
+    "category": "seed",
+    "description": "Thorny cuttings of flowering quince.",
+    "colour": "#8a6a45",
+    "facts": [
+      {
+        "text": "Flowering quince bears small, fragrant fruit after its blossom.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "blossom-petals",
+    "name": "Blossom petals",
+    "category": "material",
+    "description": "Soft pink petals, fallen from the cherry.",
+    "colour": "#f0c8d0",
+    "facts": [
+      {
+        "text": "Falling blossom is celebrated in spring across Japan.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "The old cherry drops petals as it flowers.",
+        "after": "into-the-court"
+      }
+    ]
+  },
+  {
+    "id": "quince-fruit",
+    "name": "Quince fruit",
+    "category": "food",
+    "description": "Small, hard, golden fruit with a sweet scent.",
+    "colour": "#e0c050",
+    "facts": [
+      {
+        "text": "Birds come for it in autumn.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Flowering quince fruits once it has flowered.",
+        "after": "shrubs-planted"
+      }
+    ]
   }
 ]

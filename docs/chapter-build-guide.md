@@ -145,12 +145,12 @@ A narrow stream with stepping stones and shaded banks. **New idea: flowing water
 
 A flowering court with a blossom tree. **New idea: flowering shrubs and fruit that birds come for.**
 
-- [ ] Map with a court, a curved path and an old cherry.
-- [ ] Plants: flowering cherry, camellia, azalea, hydrangea.
-- [ ] Wildlife: brown-eared bulbul (fruiting shrubs), Japanese white-eye (already met) on camellias, hawk moth.
-- [ ] Materials: blossom petals, berries.
-- [ ] Decoration: a stone bench; petals and berries in recipes.
-- [ ] Milestones and the "Restore the court" project (blossom walk · layered border · fruit for birds).
+- [x] Map with a court, a curved path and an old cherry.
+- [x] Plants: flowering cherry, camellia, satsuki azalea, hydrangea, flowering quince (fruit); an old cherry at the heart of the court.
+- [x] Wildlife: brown-eared bulbul (a fruit table filled with quince), Japanese bush warbler (blossoming trees, alongside insects), carpenter bee (three kinds of shrub in flower); white-eyes now also come to camellias. The autoplayer finishes the chapter in under an hour.
+- [x] Materials: blossom petals and quince fruit; the layered border also spends leaf mould from Fernwood Hollow.
+- [x] Structure: fruit table (a feeder filled with quince). Decorations: stone bench and petal lantern (blossom petals).
+- [x] Milestones and the "Restore the court" project (blossom walk · layered border · fruit for birds).
 
 ### Chapter 9 — Ancient Canopy
 

@@ -105,7 +105,8 @@ function buildWorld(
   const file = parse(worldSchema, rawWorld, 'world.json', problems)
   if (!file) return undefined
   const maps = new Map<string, string[]>()
-  rawMaps.forEach((raw, i) => {
+  // Array.from turns any empty slot into undefined, so it is reported rather than skipped.
+  Array.from(rawMaps).forEach((raw, i) => {
     const map = parse(gardenMapSchema, raw, `gardens/${i}.json`, problems)
     if (!map) return
     if (maps.has(map.id)) problems.push(`gardens/${map.id}.json: duplicate garden map`)

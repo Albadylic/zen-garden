@@ -213,5 +213,43 @@
       "id": "resting-stone"
     },
     "unlock": "recipe:resting-stone"
+  },
+  {
+    "id": "fruit-table",
+    "name": "Fruit table",
+    "inputs": {
+      "twigs": 4,
+      "bark": 1
+    },
+    "output": {
+      "kind": "structure",
+      "id": "fruit-table"
+    },
+    "unlock": "recipe:fruit-table"
+  },
+  {
+    "id": "stone-bench",
+    "name": "Stone bench",
+    "inputs": {
+      "stones": 3
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "stone-bench"
+    },
+    "unlock": "recipe:petal-lantern"
+  },
+  {
+    "id": "petal-lantern",
+    "name": "Petal lantern",
+    "inputs": {
+      "blossom-petals": 3,
+      "twigs": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "petal-lantern"
+    },
+    "unlock": "recipe:petal-lantern"
   }
 ]

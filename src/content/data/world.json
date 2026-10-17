@@ -126,6 +126,13 @@
         "kind": "decoration",
         "id": "cascade"
       }
+    },
+    "Q": {
+      "terrain": "grass",
+      "fixed": {
+        "kind": "plant",
+        "id": "old-cherry"
+      }
     }
   },
   "startingInventory": {
@@ -451,7 +458,38 @@
       "slot": {
         "col": 1,
         "row": -2
-      }
+      },
+      "origin": {
+        "x": 14,
+        "y": -27
+      },
+      "unlock": "chapter:whispering-stream",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "item": "leaf-litter",
+          "min": 1,
+          "max": 1,
+          "chance": 0.4
+        },
+        {
+          "item": "stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.4
+        },
+        {
+          "item": "quince-cuttings",
+          "min": 1,
+          "max": 1,
+          "chance": 0.15
+        }
+      ]
     },
     {
       "id": "ancient-canopy",
@@ -577,7 +615,17 @@
     },
     {
       "gardens": ["whispering-stream", "blossom-court"],
-      "kind": "main"
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 0,
+          "y": 10
+        },
+        "passage": {
+          "x": 15,
+          "y": 10
+        }
+      }
     },
     {
       "gardens": ["blossom-court", "ancient-canopy"],

@@ -38,7 +38,7 @@ export function produce(state: GameState, content: Content, dtMs: number, ctx: S
     const rate = e.kind === 'plant' ? growthRate(state, content, e) : 1
     // A compost bed and the like only work while they hold something.
     if (e.kind === 'structure' && content.structures[e.defId]?.feeder?.whileFilled && !isFilled(e))
-      return
+      continue
     rules.forEach((rule, i) => {
       if (stageOf(e) < rule.minStage) return
       const period = rule.everySec * 1000

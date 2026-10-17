@@ -28,7 +28,7 @@ describe('pollinators', () => {
   it('arrive once flowers bloom, feed, and eventually leave', () => {
     const { content, state } = setup(3)
     addPlant(state, content, 'wildflower-mix', 5, 11)
-    expect(nectarAvailable(state, content)).toBe(1)
+    expect(nectarAvailable(state, content, content.world.gardens[0])).toBe(1)
     const events = run(state, content, 15 * MIN)
     expect(events.some((e) => e.type === 'wildlifeArrived' && e.speciesId === 'small-white')).toBe(
       true,

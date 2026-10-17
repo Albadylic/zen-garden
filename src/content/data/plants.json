@@ -1846,5 +1846,343 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "old-cherry",
+    "name": "Old cherry",
+    "description": "A gnarled flowering cherry, the heart of the court.",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Old tree"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "blossom-petals",
+        "everySec": 420,
+        "amount": 1,
+        "minStage": 0
+      }
+    ],
+    "nectar": 1,
+    "flowerStage": 0,
+    "cover": 0.5,
+    "shade": {
+      "radius": 2,
+      "strength": 0.4,
+      "minStage": 0
+    },
+    "look": {
+      "form": "tree",
+      "colour": "#5f7a46",
+      "accent": "#f0b8c8",
+      "size": 1.2
+    },
+    "facts": [
+      {
+        "text": "Its blossom draws the first bees of the year.",
+        "after": 1
+      },
+      {
+        "text": "Old cherries are often propped with wooden crutches.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "flowering-cherry",
+    "name": "Flowering cherry",
+    "description": "A young cherry tree that will cloud the court with blossom.",
+    "seedItem": "cherry-sapling",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Sapling",
+        "durationSec": 600
+      },
+      {
+        "name": "Young tree",
+        "durationSec": 1800
+      },
+      {
+        "name": "Blossoming tree"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.4
+      },
+      "moisture": {
+        "min": 0.3,
+        "max": 0.7
+      }
+    },
+    "produces": [
+      {
+        "item": "blossom-petals",
+        "everySec": 600,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "cherry-sapling",
+        "everySec": 3600,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1.2,
+    "flowerStage": 2,
+    "cover": 0.5,
+    "shade": {
+      "radius": 1.5,
+      "strength": 0.35,
+      "minStage": 2
+    },
+    "look": {
+      "form": "tree",
+      "colour": "#6f8a4a",
+      "accent": "#f4c4d2"
+    },
+    "facts": [
+      {
+        "text": "Bush warblers sing from blossoming branches.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "camellia",
+    "name": "Camellia",
+    "description": "A glossy evergreen shrub with waxy red flowers.",
+    "seedItem": "camellia-cuttings",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Cutting",
+        "durationSec": 420
+      },
+      {
+        "name": "Young shrub",
+        "durationSec": 1500
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.1,
+        "max": 0.8
+      },
+      "moisture": {
+        "min": 0.35,
+        "max": 0.8
+      }
+    },
+    "produces": [
+      {
+        "item": "camellia-cuttings",
+        "everySec": 1800,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.8,
+    "flowerStage": 2,
+    "cover": 0.7,
+    "look": {
+      "form": "shrub",
+      "colour": "#2f4a2c",
+      "accent": "#c83a4a",
+      "size": 1
+    },
+    "facts": [
+      {
+        "text": "White-eyes come to drink from its flowers.",
+        "after": 1
+      },
+      {
+        "text": "Whole flowers drop to the ground, petals intact.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "satsuki-azalea",
+    "name": "Satsuki azalea",
+    "description": "A low, clipped azalea smothered in pink flowers.",
+    "seedItem": "azalea-cuttings",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Cutting",
+        "durationSec": 300
+      },
+      {
+        "name": "Young shrub",
+        "durationSec": 1200
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.6
+      },
+      "moisture": {
+        "min": 0.3,
+        "max": 0.75
+      }
+    },
+    "produces": [
+      {
+        "item": "azalea-cuttings",
+        "everySec": 1800,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1,
+    "flowerStage": 2,
+    "cover": 0.7,
+    "look": {
+      "form": "shrub",
+      "colour": "#3a5530",
+      "accent": "#e57fa8",
+      "size": 0.85
+    },
+    "facts": [
+      {
+        "text": "Bees crowd its open flowers.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "hydrangea",
+    "name": "Hydrangea",
+    "description": "Lacecap flowers of blue and pink in dappled shade.",
+    "seedItem": "hydrangea-cuttings",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Cutting",
+        "durationSec": 300
+      },
+      {
+        "name": "Young shrub",
+        "durationSec": 1200
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.2,
+        "max": 0.8
+      },
+      "moisture": {
+        "min": 0.45,
+        "max": 0.9
+      }
+    },
+    "produces": [
+      {
+        "item": "hydrangea-cuttings",
+        "everySec": 1800,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.4,
+    "flowerStage": 2,
+    "cover": 0.7,
+    "look": {
+      "form": "shrub",
+      "colour": "#4f7244",
+      "accent": "#8fa8e0",
+      "size": 1
+    },
+    "facts": [
+      {
+        "text": "Its small inner flowers feed insects; the showy outer ones do not.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "flowering-quince",
+    "name": "Flowering quince",
+    "description": "A spreading, thorny shrub with scarlet blossom and golden fruit.",
+    "seedItem": "quince-cuttings",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Cutting",
+        "durationSec": 240
+      },
+      {
+        "name": "Young shrub",
+        "durationSec": 900
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.6
+      },
+      "moisture": {
+        "min": 0.3,
+        "max": 0.75
+      }
+    },
+    "produces": [
+      {
+        "item": "quince-cuttings",
+        "everySec": 1800,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "quince-fruit",
+        "everySec": 420,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.6,
+    "flowerStage": 2,
+    "cover": 0.7,
+    "look": {
+      "form": "shrub",
+      "colour": "#4a6a3a",
+      "accent": "#e05a3a",
+      "size": 1
+    },
+    "facts": [
+      {
+        "text": "Its fruit is hard and sour, but birds love it.",
+        "after": 1
+      }
+    ]
   }
 ]

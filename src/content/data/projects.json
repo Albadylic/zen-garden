@@ -773,5 +773,132 @@
         ]
       }
     ]
+  },
+  {
+    "id": "restore-court",
+    "title": "Restore the court",
+    "description": "The court’s borders are overgrown and its blossom forgotten. Choose where to begin; every approach can be finished in time.",
+    "garden": "blossom-court",
+    "requires": "chapter:whispering-stream",
+    "approaches": [
+      {
+        "id": "blossom-walk",
+        "title": "A blossom walk",
+        "description": "Plant young cherries along the court’s path.",
+        "unlocks": ["recipe:petal-lantern"],
+        "stages": [
+          {
+            "id": "plant-cherries",
+            "title": "Plant cherries",
+            "description": "Plant two flowering cherries in the court.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "blossom-court",
+                "plants": ["flowering-cherry"],
+                "count": 2
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "falling-blossom",
+            "title": "Falling blossom",
+            "description": "Gather eight blossom petals.",
+            "conditions": [
+              {
+                "kind": "gathered",
+                "item": "blossom-petals",
+                "count": 8
+              }
+            ],
+            "cost": {
+              "stones": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "layered-border",
+        "title": "A layered border",
+        "description": "Plant a border of many kinds, from low azaleas to tall camellias.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "border-variety",
+            "title": "Variety",
+            "description": "Grow five different species in the court.",
+            "conditions": [
+              {
+                "kind": "speciesIn",
+                "garden": "blossom-court",
+                "count": 5
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "border-flowers",
+            "title": "In flower",
+            "description": "Grow four border shrubs to flowering.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "blossom-court",
+                "plants": ["camellia", "satsuki-azalea", "hydrangea", "flowering-quince"],
+                "minStage": 2,
+                "count": 4
+              }
+            ],
+            "cost": {
+              "leaf-mould": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "fruit-for-birds",
+        "title": "Fruit for birds",
+        "description": "Grow fruit and set it out for the court’s birds.",
+        "unlocks": ["recipe:fruit-table"],
+        "stages": [
+          {
+            "id": "set-a-table",
+            "title": "Set a table",
+            "description": "Build a fruit table in the court.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "blossom-court",
+                "ids": ["fruit-table"],
+                "count": 1
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "birds-visit",
+            "title": "Birds visit",
+            "description": "See two visits from the court’s birds.",
+            "conditions": [
+              {
+                "kind": "seenAny",
+                "wildlife": ["brown-eared-bulbul", "bush-warbler"],
+                "count": 2
+              }
+            ],
+            "cost": {
+              "quince-fruit": 1
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
   }
 ]
