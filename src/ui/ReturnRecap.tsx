@@ -23,13 +23,10 @@ function lines(recap: Recap): string[] {
     out.push(`Wildlife visited ${recap.visits === 1 ? 'once' : `${recap.visits} times`}.`)
   if (recap.shelterResidents > 0) out.push('Creatures settled into your shelter.')
   if (recap.itemsWaiting > 0) out.push(`${recap.itemsWaiting} natural items are ready to gather.`)
-  if (recap.newEntries > 0 || recap.factsLearned > 0) {
-    const parts = []
-    if (recap.newEntries > 0)
-      parts.push(`${recap.newEntries} new ${recap.newEntries === 1 ? 'entry' : 'entries'}`)
-    if (recap.factsLearned > 0)
-      parts.push(`${recap.factsLearned} new ${recap.factsLearned === 1 ? 'fact' : 'facts'}`)
-    out.push(`Journal: ${parts.join(' and ')}.`)
+  if ((recap.newEntries > 0 || recap.factsLearned > 0) && recap.unreadNotes > 0) {
+    out.push(
+      `Your journal has ${recap.unreadNotes} new ${recap.unreadNotes === 1 ? 'note' : 'notes'}.`,
+    )
   }
   for (const m of recap.milestones) out.push(`Milestone reached: ${m}.`)
   return out

@@ -55,11 +55,11 @@ Owner's report: about 60 seeds by the end of the chapter, without many places to
 
 Owner's report: the interface gets too busy.
 
-- [ ] Replace "Gathered …" and "Cleared overgrowth and found …" toasts with small **item icons** that rise from where the item was gathered, drift towards the Inventory tab, and fade out within about a second. Several items show as a short cluster with a count, for example "+2".
-- [ ] Keep text only for milestones, shown as one compact line at a time, never stacked.
-- [ ] No journal pop-ups at all. New entries and newly learned facts put a notification badge on the Journal tab, inviting the player to visit when they choose. Inside, new entries and facts are highlighted until read. This keeps the journal optional and intentional.
-- [ ] The return recap mentions journal additions in a single line ("Your journal has 3 new notes") rather than listing them.
-- [ ] Respect reduced motion: icons fade in place without travelling.
+- [x] Replace "Gathered …" and "Cleared overgrowth and found …" toasts with small **item icons** that rise from where the item was gathered (or harvested) and fade out within about a second. Several items show as a short cluster with a count, for example "+2". They rise rather than drift to the Inventory tab, which keeps them in the garden and readable at any zoom. "Made …" and "Harvested …" text is gone too.
+- [x] Keep text only for milestones (and the occasional "can't do that" note), shown as one compact line at a time, never stacked.
+- [x] No journal pop-ups at all. New entries and newly learned facts put a notification badge on the Journal tab, inviting the player to visit when they choose. Inside, new entries and facts are highlighted until read. This keeps the journal optional and intentional.
+- [x] The return recap mentions journal additions in a single line ("Your journal has 3 new notes") rather than listing them.
+- [x] Respect reduced motion: icons fade in place without travelling.
 
 ### A5. More shade in the first garden
 

@@ -203,7 +203,9 @@ button:focus-visible {
   background: var(--earth);
   color: #fff;
   font-size: 0.72rem;
+  font-weight: 700;
   line-height: 18px;
+  text-align: center;
 }
 
 /* Sheets */
@@ -850,4 +852,38 @@ button:focus-visible {
 .toggle--active {
   color: var(--ink);
   cursor: pointer;
+}
+
+/* Journal notifications: a quiet badge invites a visit; nothing pops up. */
+
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: var(--earth);
+  vertical-align: middle;
+}
+
+.tag-new {
+  margin-left: 8px;
+  padding: 1px 7px;
+  border-radius: 8px;
+  background: var(--moss);
+  color: var(--paper);
+  font-size: 11px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.journal-entry.is-new,
+.journal-entry .facts li.is-new {
+  background: rgba(95, 127, 69, 0.1);
+  border-radius: 8px;
+}
+
+.journal-entry .facts li.is-new {
+  padding: 2px 6px;
+  margin-left: -6px;
 }

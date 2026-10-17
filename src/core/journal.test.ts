@@ -2,7 +2,16 @@ import { describe, expect, it } from 'vitest'
 import { setup } from '../test/fixtures'
 import { addPlant } from '../test/helpers'
 import type { GameEvent } from './events'
-import { encounter, journalEntries, knownFacts, observe, recordJournal } from './journal'
+import {
+  encounter,
+  isUnread,
+  journalEntries,
+  knownFacts,
+  markRead,
+  observe,
+  recordJournal,
+  unreadCount,
+} from './journal'
 import { plant } from './plants'
 import { advance } from './simulation'
 
@@ -61,5 +70,25 @@ describe('journal', () => {
     expect(observe(state, content, 'plant:old-pine')).toHaveLength(1)
     expect(observe(state, content, 'plant:old-pine')).toHaveLength(0)
     expect(state.journal['plant:old-pine']!.encounters).toBe(1)
+  })
+})
+
+describe('reading the journal', () => {
+  it('starts with nothing unread', () => {
+    const { content, state } = setup()
+    expect(unreadCount(state, content)).toBe(0)
+  })
+
+  it('marks new entries and new facts as unread until read', () => {
+    const { content, state } = setup()
+    const events: GameEvent[] = []
+    encounter(state, content, 'wildlife:small-white', events)
+    expect(isUnread(state, content, 'wildlife:small-white')).toBe(true)
+    expect(unreadCount(state, content)).toBe(1)
+    markRead(state, content, ['wildlife:small-white'])
+    expect(unreadCount(state, content)).toBe(0)
+    encounter(state, content, 'wildlife:small-white', events)
+    encounter(state, content, 'wildlife:small-white', events)
+    expect(isUnread(state, content, 'wildlife:small-white')).toBe(true)
   })
 })

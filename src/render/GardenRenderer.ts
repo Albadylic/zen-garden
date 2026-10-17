@@ -1,7 +1,7 @@
 // Draws the garden with PixiJS. It reads game state through a RenderHost and
 // reports taps back; it never changes the game itself.
 
-import { Application, Container, Sprite } from 'pixi.js'
+import { Application, Container, Sprite, Text } from 'pixi.js'
 import type { Content } from '../core/content'
 import type { GameState } from '../core/state'
 import { type Overlay, PlaceholderArt } from './art'
@@ -42,6 +42,21 @@ export interface RenderView {
   gateOpen: boolean
   /** Turns off decorative motion such as bobbing and wing flaps. */
   reduceMotion: boolean
+  /** Small item icons shown briefly where something was gathered. */
+  flyouts: Flyout[]
+}
+
+export interface Flyout {
+  id: number
+  /** Tile the item came from. */
+  x: number
+  y: number
+  itemId: string
+  amount: number
+  /** Position in a cluster from the same spot, to spread icons apart. */
+  index: number
+  /** How far through its life the icon is, from 0 to 1. */
+  t: number
 }
 
 /** What lies under a tap: the tile (if inside the garden) and any creature or drop nearest the finger. */
@@ -76,6 +91,14 @@ const CREATURE_SCALE = 1.5
 const DROP_HIT_PX = 24
 /** How much closer a drop must be than a creature to be picked instead. */
 const CREATURE_PRIORITY_PX = 14
+/** How far an item icon rises as it fades, in world pixels. */
+const FLYOUT_RISE = 30
+
+interface FlyoutSprite {
+  root: Container
+  icon: Sprite
+  label: Text | null
+}
 
 interface CreatureSprite {
   sprite: Sprite
@@ -103,6 +126,8 @@ export class GardenRenderer {
   private restingMarkers = new Map<number, Sprite>()
   private dropSprites = new Map<number, Sprite>()
   private creatureSprites = new Map<number, CreatureSprite>()
+  private flyoutLayer = new Container()
+  private flyoutSprites = new Map<number, FlyoutSprite>()
   private openKey = ''
   private dirty = true
   private drawnVersion = -1
@@ -162,6 +187,7 @@ export class GardenRenderer {
       this.flatObjects,
       this.markers,
       this.objects,
+      this.flyoutLayer,
     )
     app.stage.addChild(this.world)
 
@@ -274,9 +300,13 @@ export class GardenRenderer {
     const version = this.host.getVersion()
     if (version !== this.drawnVersion) this.dirty = true
     const state = this.host.getState()
-    // Creatures moving and items bobbing need gentle animation, which 30 fps covers.
+    const view = this.host.getView()
+    // Creatures moving, items bobbing and icons fading need gentle animation, which 30 fps covers.
     const animating =
-      state.creatures.length > 0 || (state.drops.length > 0 && !this.host.getView().reduceMotion)
+      state.creatures.length > 0 ||
+      view.flyouts.length > 0 ||
+      this.flyoutSprites.size > 0 ||
+      (state.drops.length > 0 && !view.reduceMotion)
     if (!this.dirty && !(animating && this.sinceDraw >= AMBIENT_FRAME_MS)) return
     this.drawnVersion = version
     this.dirty = false
@@ -297,6 +327,7 @@ export class GardenRenderer {
     this.syncDrops(state, view)
     this.syncCreatures(state, view, dtMs)
     this.syncMarkers(view)
+    this.syncFlyouts(view)
     this.world.scale.set(this.camera.zoom)
     this.world.position.set(
       this.camera.viewWidth / 2 - this.camera.x * this.camera.zoom,
@@ -455,6 +486,57 @@ export class GardenRenderer {
       if (!seen.has(id)) {
         sprite.destroy()
         this.dropSprites.delete(id)
+      }
+    }
+  }
+
+  private syncFlyouts(view: RenderView): void {
+    const seen = new Set<number>()
+    // Icons keep a readable size on screen however far the camera is zoomed out.
+    const k = Math.max(1, 1 / this.camera.zoom)
+    for (const f of view.flyouts) {
+      seen.add(f.id)
+      let entry = this.flyoutSprites.get(f.id)
+      if (!entry) {
+        const root = new Container()
+        const icon = new Sprite()
+        this.applyArt(icon, `drop:${f.itemId}`)
+        root.addChild(icon)
+        let label: Text | null = null
+        if (f.amount > 1) {
+          label = new Text({
+            text: `+${f.amount}`,
+            style: {
+              fontFamily: 'system-ui, sans-serif',
+              fontSize: 13,
+              fontWeight: '700',
+              fill: 0xfaf7ee,
+              stroke: { color: 0x2f3a2a, width: 3 },
+            },
+            resolution: 2,
+          })
+          label.anchor.set(0, 0.5)
+          label.position.set(7, -9)
+          root.addChild(label)
+        }
+        entry = { root, icon, label }
+        this.flyoutSprites.set(f.id, entry)
+        this.flyoutLayer.addChild(root)
+      }
+      // A cluster from one spot fans out sideways so every item can be seen.
+      const offset = (f.index % 2 === 0 ? 1 : -1) * Math.ceil(f.index / 2) * 36 * k
+      const c = gridToWorld(f.x + 0.5, f.y + 0.5)
+      const eased = 1 - (1 - f.t) * (1 - f.t)
+      const rise = view.reduceMotion ? 0 : eased * FLYOUT_RISE * k
+      entry.root.scale.set(1.1 * k)
+      entry.root.position.set(c.x + offset, c.y - 14 * k - rise)
+      // Hold briefly, then fade out.
+      entry.root.alpha = f.t < 0.4 ? 1 : Math.max(0, 1 - (f.t - 0.4) / 0.6)
+    }
+    for (const [id, entry] of this.flyoutSprites) {
+      if (!seen.has(id)) {
+        entry.root.destroy({ children: true })
+        this.flyoutSprites.delete(id)
       }
     }
   }

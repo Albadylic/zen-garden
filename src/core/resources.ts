@@ -76,6 +76,10 @@ export function produce(state: GameState, content: Content, dtMs: number, ctx: S
   }
 }
 
+function origins(drops: Drop[]) {
+  return drops.map((d) => ({ x: d.x, y: d.y, itemId: d.itemId, amount: d.amount }))
+}
+
 function gather(state: GameState, drops: Drop[]): Record<string, number> {
   const items: Record<string, number> = {}
   for (const d of drops) items[d.itemId] = (items[d.itemId] ?? 0) + d.amount
@@ -100,20 +104,31 @@ export function ageDrops(
   for (const d of state.drops) d.ageMs += dtMs
   const ripe = state.drops.filter((d) => d.ageMs >= AUTO_GATHER_MS)
   if (ripe.length === 0) return
-  ctx.events.push({ type: 'collected', items: gather(state, ripe), auto: true })
+  ctx.events.push({
+    type: 'collected',
+    items: gather(state, ripe),
+    auto: true,
+    from: origins(ripe),
+  })
 }
 
 export function collectDrop(state: GameState, dropId: number): ActionResult {
   const drop = state.drops.find((d) => d.id === dropId)
   if (!drop) return { ok: false, reason: 'Already gathered' }
-  return { ok: true, events: [{ type: 'collected', items: gather(state, [drop]), auto: false }] }
+  return {
+    ok: true,
+    events: [
+      { type: 'collected', items: gather(state, [drop]), auto: false, from: origins([drop]) },
+    ],
+  }
 }
 
 export function collectAll(state: GameState): ActionResult {
   if (state.drops.length === 0) return { ok: false, reason: 'Nothing to gather' }
+  const all = [...state.drops]
   return {
     ok: true,
-    events: [{ type: 'collected', items: gather(state, [...state.drops]), auto: false }],
+    events: [{ type: 'collected', items: gather(state, all), auto: false, from: origins(all) }],
   }
 }
 

@@ -76,6 +76,18 @@ test('first session: plant, clear, gather, attract a butterfly and house the fir
   await expect(page.getByTestId('inspect-panel')).toContainText('Small white butterfly')
   await page.getByRole('button', { name: 'Close Small white butterfly' }).click()
 
+  // Nothing pops up about the journal; a badge on its tab invites a visit instead.
+  await expect(page.getByTestId('journal-badge')).toBeVisible()
+  await openTab(page, 'Journal')
+  await page.getByRole('tab', { name: /Wildlife/ }).click()
+  await expect(page.getByTestId('journal-wildlife:small-white')).toContainText('New')
+  // Reading every section clears the badge.
+  for (const section of ['Plants', 'Habitats', 'Materials']) {
+    await page.getByRole('tab', { name: new RegExp(section) }).click()
+  }
+  await expect(page.getByTestId('journal-badge')).toHaveCount(0)
+  await page.getByRole('button', { name: 'Close Journal' }).click()
+
   // Wait until a shelter is affordable, then build it in the shade of the old pines.
   await expect
     .poll(

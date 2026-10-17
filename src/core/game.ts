@@ -40,7 +40,11 @@ export function createGame(content: Content, seed: number): GameState {
     journal: Object.fromEntries(
       Object.keys(map.startingInventory).map((id) => [
         `item:${id}`,
-        { discoveredAtMs: 0, encounters: 1 },
+        {
+          discoveredAtMs: 0,
+          encounters: 1,
+          read: (content.items[id]?.facts ?? []).filter((f) => f.after <= 1).length,
+        },
       ]),
     ),
     milestones: {},

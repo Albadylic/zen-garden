@@ -26,7 +26,7 @@ import {
   type UndoRecord,
 } from '../core/layout'
 import { upgradeStructure } from '../core/habitats'
-import { entryFor, observe, recordJournal } from '../core/journal'
+import { markRead, observe, recordJournal } from '../core/journal'
 import { fillFeeder } from '../core/feeders'
 import { harvest, plant, water } from '../core/plants'
 import { chooseApproach, completeStage } from '../core/projects'
@@ -35,7 +35,7 @@ import { catchUp, hasNews, type Recap } from '../core/offline'
 import { advance } from '../core/simulation'
 import type { GameState } from '../core/state'
 import type { Point } from '../render/iso'
-import type { RenderHost, RenderView, Selection, TapTarget } from '../render/GardenRenderer'
+import type { Flyout, RenderHost, RenderView, Selection, TapTarget } from '../render/GardenRenderer'
 import { createStore, type Store } from './store'
 import { loadReduceMotion, saveReduceMotion } from './preferences'
 import { formatItems } from './text'
@@ -86,6 +86,13 @@ export interface PlacementInfo {
 /** How often (ms of real time) the UI is told that game state has moved on. */
 const UI_REFRESH_MS = 500
 const TOAST_MS = 4000
+/** How long a gathered item's icon stays on screen. */
+const FLYOUT_MS = 1100
+/** The most icons one gathering shows; a large haul is summed into fewer icons. */
+const FLYOUT_LIMIT = 8
+
+type FlyoutSource = { x: number; y: number; itemId: string; amount: number }
+type ActiveFlyout = Omit<Flyout, 't'> & { born: number }
 const UNDO_LIMIT = 20
 
 export class GameController {
@@ -97,6 +104,8 @@ export class GameController {
   private sinceRefresh = 0
   private realTime = 0
   private toastId = 0
+  private flyoutId = 0
+  private flyouts: ActiveFlyout[] = []
   private undoStack: UndoRecord[] = []
   private hoverTile: Point | null = null
   private overlayCache: { key: string; overlay: RenderView['overlay'] } | null = null
@@ -182,6 +191,7 @@ export class GameController {
     this.state = state
     this.undoStack = []
     this.overlayCache = null
+    this.flyouts = []
     this.ui.set({
       mode: { type: 'idle' },
       selection: null,
@@ -202,19 +212,43 @@ export class GameController {
     const events = advance(this.state, this.content, dt * this.timeScale)
     if (events.length > 0) this.handleEvents(events)
     this.expireToasts()
+    this.expireFlyouts()
     this.sinceRefresh += dt
     if (events.length > 0 || this.sinceRefresh >= UI_REFRESH_MS) this.notify()
   }
 
-  /** Turns simulation and action events into player-facing feedback. */
+  /**
+   * Turns simulation and action events into player-facing feedback. Gathering
+   * shows as small item icons in the garden, the journal waits behind a badge,
+   * and text is kept for moments worth pausing on.
+   */
   private handleEvents(events: GameEvent[], { quiet = false } = {}): void {
     for (const e of events) {
       // While catching up, only lasting moments are surfaced; the recap covers the rest.
       if (quiet && e.type !== 'chapterComplete') continue
       switch (e.type) {
         case 'collected':
-          if (!e.auto) this.toast(`Gathered ${formatItems(this.content, e.items)}`)
+          this.addFlyouts(e.from)
           break
+        case 'cleared':
+          this.addFlyouts(
+            Object.entries(e.items).map(([itemId, amount]) => ({ x: e.x, y: e.y, itemId, amount })),
+          )
+          break
+        case 'harvested': {
+          const at = entityById(this.state, e.entityId)
+          if (at) {
+            this.addFlyouts(
+              Object.entries(e.items).map(([itemId, amount]) => ({
+                x: at.x,
+                y: at.y,
+                itemId,
+                amount,
+              })),
+            )
+          }
+          break
+        }
         case 'stageComplete':
           this.toast(`Restoration: ${e.title}`, 'milestone')
           break
@@ -223,19 +257,6 @@ export class GameController {
           break
         case 'gift':
           this.toast(`Waiting in the grove: ${formatItems(this.content, e.items)}`, 'milestone')
-          break
-        case 'crafted':
-          this.toast(`Made ${formatItems(this.content, e.items)}`)
-          break
-        case 'harvested':
-          this.toast(`Harvested ${formatItems(this.content, e.items)}`)
-          break
-        case 'cleared':
-          this.toast(
-            Object.keys(e.items).length > 0
-              ? `Cleared overgrowth and found ${formatItems(this.content, e.items)}`
-              : 'Cleared overgrowth',
-          )
           break
         case 'milestone':
           this.toast(`Milestone: ${e.title}`, 'milestone')
@@ -251,17 +272,56 @@ export class GameController {
         case 'chapterComplete':
           this.ui.set({ chapterCelebration: e.chapterId, panel: null, mode: { type: 'idle' } })
           break
-        case 'discovery':
-          // Starting items and old features are known already; announce what is new.
-          this.toast(`New in your journal: ${e.name}`, 'milestone')
-          break
-        case 'factRevealed': {
-          const name = entryFor(this.content, e.key)?.name
-          if (name) this.toast(`Journal: you learned more about the ${name.toLowerCase()}`)
-          break
-        }
       }
     }
+  }
+
+  // --- Item icons -------------------------------------------------------------
+
+  /** Shows gathered items as icons rising from where they were found. */
+  private addFlyouts(sources: FlyoutSource[]): void {
+    if (sources.length === 0) return
+    // One icon per item per spot, with the amount summed.
+    const grouped = new Map<string, FlyoutSource>()
+    for (const s of sources) {
+      const key = `${s.x},${s.y},${s.itemId}`
+      const g = grouped.get(key)
+      if (g) g.amount += s.amount
+      else grouped.set(key, { ...s })
+    }
+    let list = [...grouped.values()]
+    // A large haul from many spots sums into one icon per item at the first spot.
+    if (list.length > FLYOUT_LIMIT) {
+      const byItem = new Map<string, FlyoutSource>()
+      for (const s of list) {
+        const g = byItem.get(s.itemId)
+        if (g) g.amount += s.amount
+        else byItem.set(s.itemId, { ...s })
+      }
+      list = [...byItem.values()].slice(0, FLYOUT_LIMIT)
+    }
+    const perSpot = new Map<string, number>()
+    for (const s of list) {
+      const spot = `${s.x},${s.y}`
+      const index = perSpot.get(spot) ?? 0
+      perSpot.set(spot, index + 1)
+      this.flyouts.push({ ...s, id: ++this.flyoutId, index, born: this.realTime })
+    }
+    this.renderVersion++
+  }
+
+  private expireFlyouts(): void {
+    if (this.flyouts.length === 0) return
+    this.flyouts = this.flyouts.filter((f) => this.realTime - f.born < FLYOUT_MS)
+    // Fading icons need redrawing every frame they are on screen.
+    this.renderVersion++
+  }
+
+  // --- Journal ----------------------------------------------------------------
+
+  /** Marks journal entries as read once the player has seen them. */
+  markJournalRead(keys: string[]): void {
+    if (markRead(this.state, this.content, keys)) this.notify()
   }
 
   dismissCelebration(): void {
@@ -301,7 +361,8 @@ export class GameController {
 
   toast(text: string, tone: Toast['tone'] = 'info'): void {
     const toast: Toast = { id: ++this.toastId, text, tone, expiresAt: this.realTime + TOAST_MS }
-    this.ui.set((s) => ({ toasts: [...s.toasts.slice(-2), toast] }))
+    // One line at a time: a new message replaces the one showing.
+    this.ui.set({ toasts: [toast] })
   }
 
   dismissToast(id: number): void {
@@ -617,6 +678,10 @@ export class GameController {
       overlay,
       selection,
       reduceMotion: this.reduceMotion,
+      flyouts: this.flyouts.map(({ born, ...f }) => ({
+        ...f,
+        t: Math.min(1, (this.realTime - born) / FLYOUT_MS),
+      })),
       gateOpen: this.content.map.areas.some(
         (a) => a.unlock && this.state.unlocks.includes(a.unlock),
       ),

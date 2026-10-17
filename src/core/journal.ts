@@ -167,3 +167,29 @@ export function currentHint(state: GameState, content: Content, key: string): st
   for (const h of hints) if (!h.after || state.milestones[h.after] !== undefined) found = h.text
   return found
 }
+
+/** Whether an entry has something the player has not read yet: it is new, or has new facts. */
+export function isUnread(state: GameState, content: Content, key: string): boolean {
+  const record = state.journal[key]
+  if (!record) return false
+  return record.read === undefined || knownFacts(state, content, key).length > record.read
+}
+
+export function unreadCount(state: GameState, content: Content): number {
+  return Object.keys(state.journal).filter((key) => isUnread(state, content, key)).length
+}
+
+/** Marks entries as read up to the facts known now. */
+export function markRead(state: GameState, content: Content, keys: string[]): boolean {
+  let changed = false
+  for (const key of keys) {
+    const record = state.journal[key]
+    if (!record) continue
+    const known = knownFacts(state, content, key).length
+    if (record.read !== known) {
+      record.read = known
+      changed = true
+    }
+  }
+  return changed
+}

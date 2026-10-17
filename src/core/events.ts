@@ -1,4 +1,4 @@
-// Events the simulation reports. The UI, return recap, journal toasts and
+// Events the simulation reports. The UI, return recap, journal badge and
 // milestones all read from this stream rather than diffing state.
 
 export type GameEvent =
@@ -11,7 +11,13 @@ export type GameEvent =
   | { type: 'filled'; entityId: number; structureId: string }
   | { type: 'crafted'; recipeId: string; items: Record<string, number> }
   | { type: 'dropProduced'; dropId: number; itemId: string; amount: number }
-  | { type: 'collected'; items: Record<string, number>; auto: boolean }
+  | {
+      type: 'collected'
+      items: Record<string, number>
+      auto: boolean
+      /** Where each item was picked up, for on-screen feedback. */
+      from: { x: number; y: number; itemId: string; amount: number }[]
+    }
   | { type: 'cleared'; x: number; y: number; items: Record<string, number> }
   | { type: 'built'; entityId: number; structureId: string }
   | { type: 'placed'; entityId: number; decorationId: string }

@@ -99,6 +99,8 @@ export interface Stats {
 export interface JournalRecord {
   discoveredAtMs: number
   encounters: number
+  /** Facts known when the player last read this entry; absent until first read. */
+  read?: number
 }
 
 export interface ProjectProgress {

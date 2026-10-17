@@ -2,6 +2,7 @@
 
 import type { Content } from './content'
 import type { GameEvent } from './events'
+import { unreadCount } from './journal'
 import { advance } from './simulation'
 import type { GameState } from './state'
 
@@ -23,6 +24,8 @@ export interface Recap {
   newSpecies: string[]
   newEntries: number
   factsLearned: number
+  /** Journal entries with something unread, shown as one line rather than listed. */
+  unreadNotes: number
   milestones: string[]
   shelterResidents: number
 }
@@ -63,6 +66,7 @@ export function summarise(
     newSpecies,
     newEntries: 0,
     factsLearned: 0,
+    unreadNotes: unreadCount(state, content),
     milestones: [],
     shelterResidents: 0,
   }
