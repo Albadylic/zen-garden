@@ -1,4 +1,4 @@
-import { openOvergrowth } from '../core/areas'
+import { openOvergrowth } from '../core/gardens'
 import { useGame } from './hooks'
 
 export function ClearBar() {

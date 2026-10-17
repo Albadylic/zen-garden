@@ -1,9 +1,12 @@
 // Save format: a versioned wrapper around the game state, with migrations so
 // older saves keep loading as the state shape changes.
 
-import { isInArea } from './areas'
-import type { Content, FixedObject, Terrain } from './content'
+import type { Content } from './content'
+import { fixedEntity, freshGardenTiles } from './game'
+import { migrations } from './migrations'
 import { emptyStats, STATE_VERSION, type GameState } from './state'
+
+export { type Migration, migrations } from './migrations'
 
 export const SAVE_FORMAT = 'zen-garden-save'
 
@@ -22,120 +25,32 @@ export class SaveError extends Error {
   }
 }
 
-export type Migration = (
-  state: Record<string, unknown>,
-  content: Content,
-) => Record<string, unknown>
-
-/**
- * Migrations from version N to N + 1, keyed by N. Add one whenever
- * STATE_VERSION is bumped, transforming the raw saved state.
- */
-export const migrations: Record<number, Migration> = {
-  1: addBambooGrove,
-  2: addShadeToFirstGarden,
-}
-
-/** A fixed feature from the map as a new entity. */
-function fixedEntity(content: Content, f: FixedObject, id: number): GameState['entities'][number] {
-  if (f.kind === 'plant') {
-    const def = content.plants[f.id]
-    return {
-      id,
-      kind: 'plant',
-      defId: f.id,
-      x: f.x,
-      y: f.y,
-      stage: f.stage ?? (def ? def.stages.length - 1 : 0),
-      progressMs: 0,
-      produceMs: def ? def.produces.map(() => 0) : [],
-      wateredMs: 0,
-      fixed: true,
-    }
-  }
-  return { id, kind: 'decoration', defId: f.id, x: f.x, y: f.y, fixed: true }
-}
-
-/**
- * Version 1 → 2: the map grows east to include the bamboo grove. The old
- * garden keeps its terrain and everything in it; the gate moves from the
- * north wall to the east wall, and the grove's fixed features are added.
- */
-function addBambooGrove(raw: Record<string, unknown>, content: Content): Record<string, unknown> {
-  const s = raw as unknown as GameState
-  const map = content.map
-  const oldWidth = s.width
-  const terrain: Terrain[] = [...map.terrain]
-  for (let y = 0; y < Math.min(s.height, map.height); y++) {
-    for (let x = 0; x < Math.min(oldWidth, map.width); x++)
-      terrain[y * map.width + x] = s.terrain[y * oldWidth + x]!
-  }
-  // Fixed features that have moved in the new map (the gate) go to their new place.
-  for (const e of s.entities) {
-    if (!e.fixed) continue
-    const home = map.fixed.find((f) => f.id === e.defId && f.x === e.x && f.y === e.y)
-    if (home) continue
-    const moved = map.fixed.find(
-      (f) => f.id === e.defId && !s.entities.some((o) => o.x === f.x && o.y === f.y),
-    )
-    if (!moved) continue
-    terrain[e.y * map.width + e.x] = map.terrain[e.y * map.width + e.x]!
-    e.x = moved.x
-    e.y = moved.y
-    terrain[e.y * map.width + e.x] = map.terrain[e.y * map.width + e.x]!
-  }
-  // Fixed features in the new columns.
-  for (const f of map.fixed) {
-    if (f.x < oldWidth) continue
-    s.entities.push(fixedEntity(content, f, s.nextId++))
-  }
-  s.terrain = terrain
-  s.width = map.width
-  s.height = map.height
-  s.mapId = map.id
-  s.areasVisited = []
-  s.stats.clearedIn = {}
-  s.layoutVersion++
-  return s as unknown as Record<string, unknown>
-}
-
-/**
- * Version 2 → 3: the first garden gains more shade (a third old pine, old
- * azaleas and a mossy strip along the north wall). New features go in where
- * the tile is free; a spot the player has already used is left as it is.
- * Lawn becomes moss where the new map has moss; everything else is kept.
- */
-function addShadeToFirstGarden(
-  raw: Record<string, unknown>,
-  content: Content,
-): Record<string, unknown> {
-  const s = raw as unknown as GameState
-  const map = content.map
-  const garden = map.areas.find((a) => a.id === 'forgotten-garden')
-  if (!garden || s.width !== map.width || s.height !== map.height) return raw
-  for (let y = 0; y < map.height; y++) {
-    for (let x = 0; x < map.width; x++) {
-      const i = y * map.width + x
-      if (isInArea(garden, x, y) && map.terrain[i] === 'moss' && s.terrain[i] === 'grass')
-        s.terrain[i] = 'moss'
-    }
-  }
-  for (const f of map.fixed) {
-    if (!isInArea(garden, f.x, f.y)) continue
-    if (s.entities.some((e) => e.x === f.x && e.y === f.y)) continue
-    s.entities.push(fixedEntity(content, f, s.nextId++))
-    s.terrain[f.y * map.width + f.x] = map.terrain[f.y * map.width + f.x]!
-  }
-  s.layoutVersion++
-  return s as unknown as Record<string, unknown>
-}
-
 export function serialize(state: GameState, savedAt: number): SaveData {
   return {
     format: SAVE_FORMAT,
     version: STATE_VERSION,
     savedAt,
     state: JSON.parse(JSON.stringify(state)) as GameState,
+  }
+}
+
+/**
+ * Gardens added to the content since the save was made arrive as they are
+ * authored, with their fixed features, so new gardens need no migration.
+ */
+function addNewGardens(s: GameState, content: Content): void {
+  for (const g of content.world.gardens) {
+    if (s.gardens[g.id]) continue
+    s.gardens[g.id] = freshGardenTiles(content, g.id)!
+    for (const f of content.world.fixed) {
+      const inside =
+        f.x >= g.bounds.x &&
+        f.y >= g.bounds.y &&
+        f.x < g.bounds.x + g.bounds.w &&
+        f.y < g.bounds.y + g.bounds.h
+      if (inside) s.entities.push(fixedEntity(content, f, s.nextId++))
+    }
+    s.layoutVersion++
   }
 }
 
@@ -167,10 +82,10 @@ export function deserialize(
   }
   const s = state as unknown as GameState
   const valid =
-    Array.isArray(s.terrain) &&
-    typeof s.width === 'number' &&
-    typeof s.height === 'number' &&
-    s.terrain.length === s.width * s.height &&
+    isRecord(s.gardens) &&
+    Object.values(s.gardens).every(
+      (g) => isRecord(g) && Array.isArray(g.terrain) && g.terrain.length === g.width * g.height,
+    ) &&
     Array.isArray(s.entities) &&
     Array.isArray(s.drops) &&
     Array.isArray(s.creatures) &&
@@ -180,8 +95,9 @@ export function deserialize(
   if (!valid) throw new SaveError('The saved garden is damaged')
   // Fields added within a version get their defaults rather than a migration.
   s.stats = { ...emptyStats(), ...s.stats }
-  s.areasVisited ??= []
+  s.gardensVisited ??= []
   s.projects ??= {}
+  addNewGardens(s, content)
   s.version = currentVersion
   return { format: SAVE_FORMAT, version: currentVersion, savedAt: raw.savedAt, state: s }
 }

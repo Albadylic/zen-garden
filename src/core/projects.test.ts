@@ -46,10 +46,10 @@ describe('restoration projects', () => {
     expect(stageStatus(state, content, first).kind).toBe('waiting')
     expect(completeStage(state, content, 'restore-grove').ok).toBe(false)
     for (const [x, y] of [
-      [17, 1],
-      [18, 1],
-      [18, 2],
-      [16, 3],
+      [-1, -3],
+      [-1, -4],
+      [0, -4],
+      [1, -2],
     ] as const) {
       expect(clearOvergrowth(state, content, x, y).ok).toBe(true)
     }
@@ -57,9 +57,9 @@ describe('restoration projects', () => {
     const second = currentStage(state, project)!
     expect(second.id).toBe('plant-the-shade')
     for (const [x, y] of [
-      [16, 2],
-      [17, 2],
-      [19, 2],
+      [0, -2],
+      [0, -3],
+      [0, -5],
     ] as const) {
       addPlant(state, content, 'hosta', x, y, 2)
     }

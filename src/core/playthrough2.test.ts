@@ -4,7 +4,7 @@
 import { describe, expect, it } from 'vitest'
 import { setup } from '../test/fixtures'
 import { addShelter } from '../test/helpers'
-import { visitArea } from './areas'
+import { visitGarden } from './gardens'
 import { upgradeOptions, upgradeStructure } from './habitats'
 import { plant, harvest } from './plants'
 import { isChapterComplete } from './progression'
@@ -38,24 +38,24 @@ describe('Chapter 2 playthrough', () => {
     play(1000) // The chapter starts and its gift arrives.
     expect(state.inventory['bamboo-shoots']).toBe(2)
 
-    expect(visitArea(state, content, 20, 5)).toBe(true)
+    expect(visitGarden(state, content, 3, -6)).toBe(true)
     expect(chooseApproach(state, content, 'restore-grove', 'shaded-corner').ok).toBe(true)
-    expect(plant(state, content, 'bamboo', 20, 2).ok).toBe(true)
-    expect(plant(state, content, 'forest-grass', 16, 2).ok).toBe(true)
-    expect(plant(state, content, 'hosta', 17, 2).ok).toBe(true)
+    expect(plant(state, content, 'bamboo', 0, -6).ok).toBe(true)
+    expect(plant(state, content, 'forest-grass', 0, -2).ok).toBe(true)
+    expect(plant(state, content, 'hosta', 0, -3).ok).toBe(true)
     for (const [x, y] of [
-      [17, 1],
-      [18, 1],
-      [18, 2],
-      [16, 3],
-      [16, 4],
+      [-1, -3],
+      [-1, -4],
+      [0, -4],
+      [1, -2],
+      [2, -2],
     ] as const) {
       clearOvergrowth(state, content, x, y)
     }
     for (const [x, y] of [
-      [19, 1],
-      [22, 1],
-      [23, 3],
+      [-1, -5],
+      [-1, -8],
+      [1, -9],
     ] as const) {
       expect(
         harvest(
@@ -68,10 +68,10 @@ describe('Chapter 2 playthrough', () => {
 
     let minutes = 0
     const spare = [
-      [19, 2],
-      [17, 4],
-      [18, 4],
-      [19, 4],
+      [0, -5],
+      [2, -3],
+      [2, -4],
+      [2, -5],
     ]
     while (!done() && minutes < 60) {
       play(MIN)

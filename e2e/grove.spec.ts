@@ -32,7 +32,7 @@ test('the grove opens, an approach is chosen, and a stage is completed', async (
   await expect(page.getByRole('heading', { name: /The Bamboo Grove/ })).toBeVisible()
 
   // Look around the grove.
-  await tapTile(page, 20, 5)
+  await tapTile(page, 3, -6)
   await expect.poll(() => milestone(page, 'into-the-grove')).toBe(true)
   await page.keyboard.press('Escape')
 
@@ -47,10 +47,10 @@ test('the grove opens, an approach is chosen, and a stage is completed', async (
   // Clear four overgrown patches in the grove, then complete the stage.
   await page.getByRole('button', { name: 'Start clearing' }).click()
   for (const [x, y] of [
-    [17, 1],
-    [18, 1],
-    [18, 2],
-    [16, 3],
+    [-1, -3],
+    [-1, -4],
+    [0, -4],
+    [1, -2],
   ] as const) {
     await tapTile(page, x, y)
   }

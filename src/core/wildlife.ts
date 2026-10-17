@@ -2,11 +2,11 @@
 // autonomous behaviour (moving, feeding, resting, perching) until it leaves.
 
 import type { Activity, Content, WildlifeDef } from './content'
-import { isTileOpen } from './areas'
+import { isTileOpen } from './gardens'
 import { structureSuitability } from './environment'
 import { isFilled } from './feeders'
 import { nextId } from './game'
-import { distance, entityById, isOpenGround, terrainAt } from './grid'
+import { distance, entityById, forEachTile, isOpenGround, terrainAt } from './grid'
 import { isFlowering } from './plants'
 import { chance, pick, random, randomRange } from './rng'
 import type { StepContext } from './simulation'
@@ -75,12 +75,9 @@ function perches(
 /** Wall tiles of the open areas: where visitors come and go. */
 function boundaryTiles(state: GameState, content: Content): { x: number; y: number }[] {
   const out: { x: number; y: number }[] = []
-  for (let y = 0; y < state.height; y++) {
-    for (let x = 0; x < state.width; x++) {
-      if (terrainAt(state, x, y) === 'boundary' && isTileOpen(state, content, x, y))
-        out.push({ x, y })
-    }
-  }
+  forEachTile(state, (x, y, t) => {
+    if (t === 'boundary' && isTileOpen(state, content, x, y)) out.push({ x, y })
+  })
   return out
 }
 

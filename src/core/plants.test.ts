@@ -89,9 +89,10 @@ describe('moss', () => {
   it('spreads from a mature carpet onto shaded grass', () => {
     const { content, state } = setup(5)
     plant(state, content, 'garden-moss', 3, 5)
-    const before = state.terrain.filter((t) => t === 'moss').length
+    const moss = () => state.gardens['forgotten-garden']!.terrain.filter((t) => t === 'moss').length
+    const before = moss()
     advance(state, content, 12 * 60 * MIN, { offline: true })
-    const after = state.terrain.filter((t) => t === 'moss').length
+    const after = moss()
     expect(after).toBeGreaterThan(before)
     expect(terrainAt(state, 5, 11)).toBe('grass')
   })

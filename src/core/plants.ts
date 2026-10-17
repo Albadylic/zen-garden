@@ -1,7 +1,7 @@
 // Planting, growth through stages, flowering, moss spreading and watering.
 
 import type { Content, PlantDef } from './content'
-import { isTileOpen } from './areas'
+import { isTileOpen } from './gardens'
 import { plantSuitability } from './environment'
 import { nextId } from './game'
 import { distance, entityAt, entityById, neighbours, setTerrain, terrainAt } from './grid'

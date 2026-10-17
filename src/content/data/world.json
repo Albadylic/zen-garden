@@ -1,0 +1,334 @@
+{
+  "id": "sanctuary",
+  "name": "The Sanctuary",
+  "legend": {
+    ".": {
+      "terrain": "grass"
+    },
+    "m": {
+      "terrain": "moss"
+    },
+    "#": {
+      "terrain": "path"
+    },
+    "~": {
+      "terrain": "water"
+    },
+    ",": {
+      "terrain": "margin"
+    },
+    "%": {
+      "terrain": "overgrown"
+    },
+    "X": {
+      "terrain": "boundary"
+    },
+    "P": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "plant",
+        "id": "old-pine",
+        "stage": 0
+      }
+    },
+    "L": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "decoration",
+        "id": "stone-lantern"
+      }
+    },
+    "B": {
+      "terrain": "grass",
+      "fixed": {
+        "kind": "decoration",
+        "id": "old-boulder"
+      }
+    },
+    "G": {
+      "terrain": "path",
+      "fixed": {
+        "kind": "decoration",
+        "id": "grove-gate"
+      }
+    },
+    "T": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "plant",
+        "id": "bamboo"
+      }
+    },
+    "W": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "decoration",
+        "id": "stone-basin"
+      }
+    },
+    "n": {
+      "terrain": "moss",
+      "shade": 0.4
+    },
+    "o": {
+      "terrain": "overgrown",
+      "shade": 0.4
+    },
+    "A": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "plant",
+        "id": "old-azalea"
+      }
+    }
+  },
+  "startingInventory": {
+    "wildflower-seeds": 4,
+    "moss-spores": 2,
+    "fern-spores": 2,
+    "grass-seeds": 2,
+    "maple-seeds": 1,
+    "rush-cuttings": 2,
+    "twigs": 2,
+    "bark": 1,
+    "leaf-litter": 1,
+    "stones": 4
+  },
+  "clearing": [
+    {
+      "item": "twigs",
+      "min": 1,
+      "max": 2,
+      "chance": 1
+    },
+    {
+      "item": "leaf-litter",
+      "min": 1,
+      "max": 1,
+      "chance": 0.5
+    },
+    {
+      "item": "stones",
+      "min": 1,
+      "max": 1,
+      "chance": 0.3
+    },
+    {
+      "item": "bark",
+      "min": 1,
+      "max": 1,
+      "chance": 0.15
+    }
+  ],
+  "gardens": [
+    {
+      "id": "forgotten-garden",
+      "number": 1,
+      "name": "The Forgotten Garden",
+      "slot": {
+        "col": 0,
+        "row": 0
+      },
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "bamboo-grove",
+      "number": 2,
+      "name": "The Bamboo Grove",
+      "slot": {
+        "col": 0,
+        "row": -1
+      },
+      "origin": {
+        "x": -2,
+        "y": -11
+      },
+      "unlock": "area:bamboo-grove",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "item": "leaf-litter",
+          "min": 1,
+          "max": 1,
+          "chance": 0.4
+        },
+        {
+          "item": "stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.25
+        },
+        {
+          "item": "grass-divisions",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        },
+        {
+          "item": "hosta-divisions",
+          "min": 1,
+          "max": 1,
+          "chance": 0.25
+        }
+      ]
+    },
+    {
+      "id": "living-waters",
+      "number": 3,
+      "name": "Living Waters",
+      "slot": {
+        "col": 0,
+        "row": -2
+      }
+    },
+    {
+      "id": "quiet-stone-garden",
+      "number": 4,
+      "name": "Quiet Stone Garden",
+      "slot": {
+        "col": 0,
+        "row": -3
+      }
+    },
+    {
+      "id": "fernwood-hollow",
+      "number": 5,
+      "name": "Fernwood Hollow",
+      "slot": {
+        "col": 1,
+        "row": -3
+      }
+    },
+    {
+      "id": "wildflower-meadow",
+      "number": 6,
+      "name": "Wildflower Meadow",
+      "slot": {
+        "col": 2,
+        "row": -3
+      }
+    },
+    {
+      "id": "whispering-stream",
+      "number": 7,
+      "name": "Whispering Stream",
+      "slot": {
+        "col": 2,
+        "row": -2
+      }
+    },
+    {
+      "id": "blossom-court",
+      "number": 8,
+      "name": "Blossom Court",
+      "slot": {
+        "col": 1,
+        "row": -2
+      }
+    },
+    {
+      "id": "ancient-canopy",
+      "number": 9,
+      "name": "Ancient Canopy",
+      "slot": {
+        "col": 1,
+        "row": -1
+      }
+    },
+    {
+      "id": "reed-marsh",
+      "number": 10,
+      "name": "Reed Marsh",
+      "slot": {
+        "col": 2,
+        "row": -1
+      }
+    },
+    {
+      "id": "four-seasons-garden",
+      "number": 11,
+      "name": "Four Seasons Garden",
+      "slot": {
+        "col": 2,
+        "row": 0
+      }
+    },
+    {
+      "id": "noble-garden",
+      "number": 12,
+      "name": "Noble Garden",
+      "slot": {
+        "col": 1,
+        "row": 0
+      }
+    }
+  ],
+  "connections": [
+    {
+      "gardens": ["forgotten-garden", "bamboo-grove"],
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 10,
+          "y": 0
+        },
+        "passage": {
+          "x": 12,
+          "y": 10
+        }
+      }
+    },
+    {
+      "gardens": ["bamboo-grove", "living-waters"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["living-waters", "quiet-stone-garden"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["quiet-stone-garden", "fernwood-hollow"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["fernwood-hollow", "wildflower-meadow"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["wildflower-meadow", "whispering-stream"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["whispering-stream", "blossom-court"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["blossom-court", "ancient-canopy"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["ancient-canopy", "reed-marsh"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["reed-marsh", "four-seasons-garden"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["four-seasons-garden", "noble-garden"],
+      "kind": "main"
+    },
+    {
+      "gardens": ["noble-garden", "forgotten-garden"],
+      "kind": "return"
+    }
+  ]
+}

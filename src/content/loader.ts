@@ -2,17 +2,26 @@
 // uses. Reports every problem at once, with the file and entry it came from.
 
 import { z } from 'zod'
-import type { Condition, Content, FixedObject, MapDef, Terrain } from '../core/content'
+import type {
+  Condition,
+  Content,
+  FixedObject,
+  GardenDef,
+  GateDef,
+  Terrain,
+  WorldDef,
+} from '../core/content'
 import {
   chapterSchema,
   decorationSchema,
   itemSchema,
-  mapFileSchema,
+  gardenMapSchema,
   plantSchema,
   projectSchema,
   recipeSchema,
   structureSchema,
   wildlifeSchema,
+  worldSchema,
 } from './schema'
 
 export interface RawContent {
@@ -24,7 +33,9 @@ export interface RawContent {
   wildlife: unknown
   chapters: unknown
   projects: unknown
-  map: unknown
+  world: unknown
+  /** One map file per built garden. */
+  gardens: unknown[]
 }
 
 export class ContentError extends Error {
@@ -85,41 +96,137 @@ function wallShade(terrain: Terrain[], width: number, height: number): number[] 
   })
 }
 
-function buildMap(raw: unknown, problems: string[]): MapDef | undefined {
-  const file = parse(mapFileSchema, raw, 'map.json', problems)
+/** Assembles the world: each built garden's map placed at its origin, and the gates between them. */
+function buildWorld(
+  rawWorld: unknown,
+  rawMaps: unknown[],
+  problems: string[],
+): WorldDef | undefined {
+  const file = parse(worldSchema, rawWorld, 'world.json', problems)
   if (!file) return undefined
-  const height = file.rows.length
-  const width = file.rows[0]?.length ?? 0
-  const terrain: Terrain[] = []
-  const fixed: FixedObject[] = []
-  const extraShade: number[] = []
-  file.rows.forEach((row, y) => {
-    if (row.length !== width)
-      problems.push(`map.json: row ${y} has ${row.length} tiles, expected ${width}`)
-    ;[...row].forEach((char, x) => {
-      const entry = file.legend[char]
-      if (!entry) {
-        problems.push(`map.json: unknown tile "${char}" at ${x},${y}`)
-        terrain.push('grass')
-        extraShade.push(0)
-        return
-      }
-      terrain.push(entry.terrain)
-      extraShade.push(entry.shade ?? 0)
-      if (entry.fixed) fixed.push({ ...entry.fixed, x, y })
-    })
+  const maps = new Map<string, string[]>()
+  rawMaps.forEach((raw, i) => {
+    const map = parse(gardenMapSchema, raw, `gardens/${i}.json`, problems)
+    if (!map) return
+    if (maps.has(map.id)) problems.push(`gardens/${map.id}.json: duplicate garden map`)
+    maps.set(map.id, map.rows)
   })
+
+  const gardens: GardenDef[] = []
+  const fixed: FixedObject[] = []
+  for (const g of file.gardens) {
+    const rows = maps.get(g.id)
+    if (!g.origin) {
+      if (rows) problems.push(`world.json: garden ${g.id} has a map but no origin`)
+      continue
+    }
+    if (!rows) {
+      problems.push(`world.json: garden ${g.id} has an origin but no map file`)
+      continue
+    }
+    const where = `gardens/${g.id}.json`
+    const height = rows.length
+    const width = rows[0]?.length ?? 0
+    const terrain: Terrain[] = []
+    const extraShade: number[] = []
+    rows.forEach((row, y) => {
+      if (row.length !== width)
+        problems.push(`${where}: row ${y} has ${row.length} tiles, expected ${width}`)
+      ;[...row].forEach((char, x) => {
+        const entry = file.legend[char]
+        if (!entry) {
+          problems.push(`${where}: unknown tile "${char}" at ${x},${y}`)
+          terrain.push('grass')
+          extraShade.push(0)
+          return
+        }
+        terrain.push(entry.terrain)
+        extraShade.push(entry.shade ?? 0)
+        if (entry.fixed) fixed.push({ ...entry.fixed, x: g.origin!.x + x, y: g.origin!.y + y })
+      })
+    })
+    gardens.push({
+      id: g.id,
+      name: g.name,
+      number: g.number,
+      bounds: { x: g.origin.x, y: g.origin.y, w: width, h: height },
+      terrain,
+      baseShade: wallShade(terrain, width, height).map((s, i) => Math.min(1, s + extraShade[i]!)),
+      unlock: g.unlock,
+      clearing: g.clearing,
+    })
+  }
+  for (const id of maps.keys()) {
+    if (!file.gardens.some((g) => g.id === id))
+      problems.push(`gardens/${id}.json: no garden "${id}" in world.json`)
+  }
+
+  // Built gardens must not overlap.
+  for (const [i, a] of gardens.entries()) {
+    for (const b of gardens.slice(i + 1)) {
+      const A = a.bounds
+      const B = b.bounds
+      if (A.x < B.x + B.w && B.x < A.x + A.w && A.y < B.y + B.h && B.y < A.y + A.h)
+        problems.push(`world.json: gardens ${a.id} and ${b.id} overlap`)
+    }
+  }
+  const numbers = new Set<number>()
+  const slots = new Set<string>()
+  for (const g of file.gardens) {
+    if (numbers.has(g.number)) problems.push(`world.json: garden number ${g.number} is used twice`)
+    numbers.add(g.number)
+    const slot = `${g.slot.col},${g.slot.row}`
+    if (slots.has(slot)) problems.push(`world.json: two gardens share slot ${slot}`)
+    slots.add(slot)
+  }
+
+  // Connections join neighbouring slots; gates sit in touching walls.
+  const gates: GateDef[] = []
+  const byId = new Map(file.gardens.map((g) => [g.id, g]))
+  const built = new Map(gardens.map((g) => [g.id, g]))
+  for (const c of file.connections) {
+    const [a, b] = c.gardens.map((id) => byId.get(id))
+    const where = `world.json connection ${c.gardens.join(' ↔ ')}`
+    if (!a || !b) {
+      problems.push(`${where}: unknown garden`)
+      continue
+    }
+    if (Math.abs(a.slot.col - b.slot.col) + Math.abs(a.slot.row - b.slot.row) !== 1)
+      problems.push(`${where}: the gardens are not side by side on the world map`)
+    if (!c.gate) continue
+    const from = built.get(a.id)
+    const to = built.get(b.id)
+    if (!from || !to) {
+      problems.push(`${where}: a gate needs both gardens to be built`)
+      continue
+    }
+    const at = { x: from.bounds.x + c.gate.at.x, y: from.bounds.y + c.gate.at.y }
+    const passage = { x: to.bounds.x + c.gate.passage.x, y: to.bounds.y + c.gate.passage.y }
+    if (Math.abs(at.x - passage.x) + Math.abs(at.y - passage.y) !== 1)
+      problems.push(`${where}: the gate and its passage are not next to each other`)
+    const terrainOf = (g: GardenDef, local: { x: number; y: number }) =>
+      g.terrain[local.y * g.bounds.w + local.x]
+    if (terrainOf(from, c.gate.at) !== 'path' || terrainOf(to, c.gate.passage) !== 'path')
+      problems.push(`${where}: the gate and its passage must be path tiles`)
+    gates.push({ from: a.id, to: b.id, at, passage })
+  }
+
   return {
     id: file.id,
     name: file.name,
-    width,
-    height,
-    terrain,
-    baseShade: wallShade(terrain, width, height).map((s, i) => Math.min(1, s + extraShade[i]!)),
+    gardens,
+    layout: file.gardens.map((g) => ({
+      id: g.id,
+      number: g.number,
+      name: g.name,
+      slot: g.slot,
+      built: built.has(g.id),
+    })),
+    connections: file.connections.map((c) => ({ gardens: c.gardens, kind: c.kind })),
+    gates,
     fixed,
     startingInventory: file.startingInventory,
     clearing: file.clearing,
-    areas: file.areas,
   }
 }
 
@@ -161,7 +268,7 @@ export function loadContent(raw: RawContent): Content {
     'projects.json',
     problems,
   )
-  const map = buildMap(raw.map, problems)
+  const world = buildWorld(raw.world, raw.gardens, problems)
 
   // Cross-references between files.
   const needItem = (itemId: string, where: string) => {
@@ -208,7 +315,7 @@ export function loadContent(raw: RawContent): Content {
       problems.push(`wildlife.json ${w.id}: unknown structure "${w.attraction.structure}"`)
     }
   }
-  const areaIds = new Set(map?.areas.map((a) => a.id) ?? [])
+  const gardenIds = new Set(world?.gardens.map((g) => g.id) ?? [])
   const milestoneIds = new Set(
     (chapters ?? []).flatMap((ch) => [...ch.milestones, ...(ch.optional ?? [])].map((m) => m.id)),
   )
@@ -230,17 +337,17 @@ export function loadContent(raw: RawContent): Content {
       case 'milestone':
         need(milestoneIds.has(c.id), `milestone "${c.id}"`)
         break
-      case 'visitedArea':
+      case 'visitedGarden':
       case 'visitedIn':
       case 'clearedIn':
-        need(areaIds.has(c.area), `area "${c.area}"`)
+        need(gardenIds.has(c.garden), `garden "${c.garden}"`)
         break
       case 'plantedIn':
-        need(areaIds.has(c.area), `area "${c.area}"`)
+        need(gardenIds.has(c.garden), `garden "${c.garden}"`)
         for (const id of c.plants ?? []) need(!!plants[id], `plant "${id}"`)
         break
       case 'builtIn':
-        need(areaIds.has(c.area), `area "${c.area}"`)
+        need(gardenIds.has(c.garden), `garden "${c.garden}"`)
         for (const id of c.ids)
           need(!!structures[id] || !!decorations[id], `structure or decoration "${id}"`)
         break
@@ -278,8 +385,8 @@ export function loadContent(raw: RawContent): Content {
     for (const itemId of Object.keys(ch.gift ?? {})) needItem(itemId, `chapters.json ${ch.id}.gift`)
   }
   for (const project of Object.values(projects)) {
-    if (!areaIds.has(project.area))
-      problems.push(`projects.json ${project.id}: unknown area "${project.area}"`)
+    if (!gardenIds.has(project.garden))
+      problems.push(`projects.json ${project.id}: unknown garden "${project.garden}"`)
     for (const a of project.approaches) {
       for (const stage of a.stages) {
         const where = `projects.json ${project.id}/${a.id}/${stage.id}`
@@ -288,35 +395,19 @@ export function loadContent(raw: RawContent): Content {
       }
     }
   }
-  if (map) {
-    for (const f of map.fixed) {
+  if (world) {
+    for (const f of world.fixed) {
       const known = f.kind === 'plant' ? plants[f.id] : decorations[f.id]
-      if (!known) problems.push(`map.json: unknown fixed ${f.kind} "${f.id}"`)
+      if (!known) problems.push(`world.json legend: unknown fixed ${f.kind} "${f.id}"`)
     }
-    for (const itemId of Object.keys(map.startingInventory))
-      needItem(itemId, 'map.json startingInventory')
-    for (const c of map.clearing) needItem(c.item, 'map.json clearing')
-    for (const area of map.areas) {
-      for (const c of area.clearing ?? []) needItem(c.item, `map.json area ${area.id} clearing`)
-      const b = area.bounds
-      if (b.x + b.w > map.width || b.y + b.h > map.height)
-        problems.push(`map.json: area ${area.id} extends beyond the map`)
-    }
-    for (let y = 0; y < map.height; y++) {
-      for (let x = 0; x < map.width; x++) {
-        const inAreas = map.areas.filter(
-          (a) =>
-            x >= a.bounds.x &&
-            y >= a.bounds.y &&
-            x < a.bounds.x + a.bounds.w &&
-            y < a.bounds.y + a.bounds.h,
-        )
-        if (inAreas.length !== 1)
-          problems.push(`map.json: tile ${x},${y} is in ${inAreas.length} areas, expected 1`)
-      }
+    for (const itemId of Object.keys(world.startingInventory))
+      needItem(itemId, 'world.json startingInventory')
+    for (const c of world.clearing) needItem(c.item, 'world.json clearing')
+    for (const g of world.gardens) {
+      for (const c of g.clearing ?? []) needItem(c.item, `world.json garden ${g.id} clearing`)
     }
   }
 
-  if (problems.length > 0 || !chapters || !map) throw new ContentError(problems)
-  return { items, plants, structures, decorations, recipes, wildlife, chapters, projects, map }
+  if (problems.length > 0 || !chapters || !world) throw new ContentError(problems)
+  return { items, plants, structures, decorations, recipes, wildlife, chapters, projects, world }
 }

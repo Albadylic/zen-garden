@@ -2,12 +2,14 @@ import type { Content } from '../core/content'
 import chapters from './data/chapters.json'
 import decorations from './data/decorations.json'
 import items from './data/items.json'
-import map from './data/map.json'
 import plants from './data/plants.json'
 import projects from './data/projects.json'
 import recipes from './data/recipes.json'
 import structures from './data/structures.json'
 import wildlife from './data/wildlife.json'
+import world from './data/world.json'
+import bambooGrove from './data/gardens/bamboo-grove.json'
+import forgottenGarden from './data/gardens/forgotten-garden.json'
 import { loadContent } from './loader'
 
 export const rawContent = {
@@ -19,7 +21,8 @@ export const rawContent = {
   wildlife,
   chapters,
   projects,
-  map,
+  world,
+  gardens: [forgottenGarden, bambooGrove],
 }
 
 let cached: Content | undefined

@@ -26,7 +26,7 @@ function run(s: ReturnType<typeof grove>, ms: number) {
 describe('bamboo', () => {
   it('can be harvested for canes, then recovers', () => {
     const { content, state } = grove()
-    const clump = entityAt(state, 19, 1) as PlantEntity
+    const clump = entityAt(state, -1, -5) as PlantEntity
     expect(clump.defId).toBe('bamboo')
     expect(harvestStatus(content, clump).kind).toBe('ready')
     const result = harvest(state, content, clump.id)
@@ -43,7 +43,7 @@ describe('bamboo', () => {
 
   it('cannot be harvested before it matures', () => {
     const { content, state } = grove()
-    const young = addPlant(state, content, 'bamboo', 20, 4, 0)
+    const young = addPlant(state, content, 'bamboo', 2, -6, 0)
     expect(harvest(state, content, young.id)).toMatchObject({
       ok: false,
       reason: 'Not ready to harvest yet',
@@ -67,7 +67,7 @@ describe('bamboo', () => {
     const before = state.entities.length
     advance(state, content, 8 * 60 * MIN, { offline: true })
     expect(state.entities.filter((e) => e.defId === 'bamboo').length).toBe(
-      content.map.fixed.filter((f) => f.id === 'bamboo').length,
+      content.world.fixed.filter((f) => f.id === 'bamboo').length,
     )
     expect(state.entities.length).toBe(before)
   })
@@ -99,8 +99,8 @@ describe('grove wildlife', () => {
     state.unlocks.push('recipe:sap-feeder')
     state.inventory['bamboo-canes'] = 4
     state.inventory['maple-sap'] = 2
-    expect(buildRecipe(state, content, 'sap-feeder', 20, 6).ok).toBe(true)
-    const feeder = entityAt(state, 20, 6) as StructureEntity
+    expect(buildRecipe(state, content, 'sap-feeder', 4, -6).ok).toBe(true)
+    const feeder = entityAt(state, 4, -6) as StructureEntity
     expect(isFilled(feeder)).toBe(true)
     const events = run(s, 15 * MIN)
     expect(events.some((e) => e.type === 'wildlifeArrived' && e.speciesId === 'red-admiral')).toBe(

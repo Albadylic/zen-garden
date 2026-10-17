@@ -118,7 +118,7 @@
       "title": "The forgotten garden is alive again",
       "body": [
         "Flowers draw butterflies along the old paths, and small creatures shelter beneath the pines.",
-        "With a creak, the old gate in the east wall swings open. Beyond it, bamboo rustles in the wind: the Bamboo Grove is waiting."
+        "With a creak, the old gate in the north wall swings open. Beyond it, bamboo rustles in the wind: the Bamboo Grove is waiting."
       ]
     }
   },
@@ -147,8 +147,8 @@
         "hint": "Step through the open gate and take a look around the grove: tap anywhere inside it.",
         "conditions": [
           {
-            "kind": "visitedArea",
-            "area": "bamboo-grove"
+            "kind": "visitedGarden",
+            "garden": "bamboo-grove"
           }
         ],
         "unlocks": []
@@ -174,13 +174,13 @@
         "conditions": [
           {
             "kind": "plantedIn",
-            "area": "bamboo-grove",
+            "garden": "bamboo-grove",
             "plants": ["bamboo"],
             "count": 1
           },
           {
             "kind": "plantedIn",
-            "area": "bamboo-grove",
+            "garden": "bamboo-grove",
             "plants": ["forest-grass", "hosta"],
             "count": 2
           }

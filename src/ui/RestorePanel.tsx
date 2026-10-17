@@ -1,4 +1,4 @@
-import { openOvergrowth } from '../core/areas'
+import { openOvergrowth } from '../core/gardens'
 import type { ProjectDef } from '../core/content'
 import { conditionProgress } from '../core/progression'
 import {

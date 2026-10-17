@@ -2,7 +2,8 @@
 // or structure suits a tile. Shared by growth, habitats and wildlife.
 
 import type { Content, Range, Terrain } from './content'
-import { distance, inBounds, tileIndex } from './grid'
+import { distance, gardenTilesAt, localIndex } from './grid'
+import { gardenById } from './gardens'
 import type { GameState } from './state'
 
 export interface Environment {
@@ -36,27 +37,32 @@ const TOLERANCE = 0.35
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v))
 
-const waterCache = new WeakMap<GameState, { version: number; grid: number[] }>()
+const waterCache = new WeakMap<GameState, { version: number; grids: Map<string, number[]> }>()
 
-/** Proximity to the nearest water tile: 1 on or beside water, falling to 0 four tiles away. */
-function waterGrid(state: GameState): number[] {
-  const cached = waterCache.get(state)
-  if (cached && cached.version === state.layoutVersion) return cached.grid
+/**
+ * Proximity to the nearest water tile, per garden: 1 on or beside water,
+ * falling to 0 four tiles away. Walls keep each garden's water to itself.
+ */
+function waterGrid(state: GameState, gardenId: string): number[] {
+  let cached = waterCache.get(state)
+  if (!cached || cached.version !== state.layoutVersion) {
+    cached = { version: state.layoutVersion, grids: new Map() }
+    waterCache.set(state, cached)
+  }
+  const hit = cached.grids.get(gardenId)
+  if (hit) return hit
+  const g = state.gardens[gardenId]!
   const water: { x: number; y: number }[] = []
-  for (let y = 0; y < state.height; y++) {
-    for (let x = 0; x < state.width; x++) {
-      if (state.terrain[tileIndex(state, x, y)] === 'water') water.push({ x, y })
-    }
-  }
-  const grid: number[] = []
-  for (let y = 0; y < state.height; y++) {
-    for (let x = 0; x < state.width; x++) {
-      let best = Infinity
-      for (const w of water) best = Math.min(best, distance(w, { x, y }))
-      grid.push(best === Infinity ? 0 : clamp01(1 - Math.max(0, best - 1) / 3))
-    }
-  }
-  waterCache.set(state, { version: state.layoutVersion, grid })
+  g.terrain.forEach((t, i) => {
+    if (t === 'water') water.push({ x: i % g.width, y: Math.floor(i / g.width) })
+  })
+  const grid = g.terrain.map((_, i) => {
+    const at = { x: i % g.width, y: Math.floor(i / g.width) }
+    let best = Infinity
+    for (const w of water) best = Math.min(best, distance(w, at))
+    return best === Infinity ? 0 : clamp01(1 - Math.max(0, best - 1) / 3)
+  })
+  cached.grids.set(gardenId, grid)
   return grid
 }
 
@@ -78,9 +84,10 @@ export function environmentAt(
   y: number,
   excludeId?: number,
 ): Environment {
-  if (!inBounds(state, x, y)) return { shade: 0, moisture: 0, water: 0, cover: 0 }
-  const i = tileIndex(state, x, y)
-  let shade = content.map.baseShade[i] ?? 0
+  const hit = gardenTilesAt(state, x, y)
+  if (!hit) return { shade: 0, moisture: 0, water: 0, cover: 0 }
+  const i = localIndex(hit.garden, x, y)
+  let shade = gardenById(content, hit.id)?.baseShade[i] ?? 0
   let cover = 0
   for (const e of state.entities) {
     if (e.id === excludeId) continue
@@ -97,9 +104,9 @@ export function environmentAt(
       if (def && d <= 1.5) cover += def.cover * (d === 0 ? 1 : 0.5)
     }
   }
-  const water = waterGrid(state)[i] ?? 0
+  const water = waterGrid(state, hit.id)[i] ?? 0
   shade = clamp01(shade)
-  const terrain = state.terrain[i] ?? 'grass'
+  const terrain = hit.garden.terrain[i] ?? 'grass'
   const moisture = clamp01(TERRAIN_MOISTURE[terrain] + 0.45 * water + 0.25 * shade - 0.1)
   return { shade, moisture, water, cover: clamp01(cover) }
 }

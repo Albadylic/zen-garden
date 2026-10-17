@@ -1,35 +1,64 @@
 import { describe, expect, it } from 'vitest'
 import { ContentError, getContent, loadContent, rawContent } from '.'
 
+const garden = (id: string) => getContent().world.gardens.find((g) => g.id === id)!
+
 describe('content', () => {
   it('loads the built-in content without problems', () => {
     const content = getContent()
     expect(Object.keys(content.plants).length).toBeGreaterThanOrEqual(6)
-    expect(content.map.width).toBe(26)
-    expect(content.map.height).toBe(16)
-    expect(content.map.terrain).toHaveLength(26 * 16)
-    expect(content.map.areas.map((a) => a.id)).toEqual(['forgotten-garden', 'bamboo-grove'])
+    expect(content.world.gardens.map((g) => g.id)).toEqual(['forgotten-garden', 'bamboo-grove'])
   })
 
-  it('places fixed objects from the map legend', () => {
-    const { map } = getContent()
-    expect(map.fixed.filter((f) => f.id === 'old-pine')).toHaveLength(3)
-    expect(map.fixed.filter((f) => f.id === 'old-azalea')).toHaveLength(4)
-    expect(map.fixed.some((f) => f.id === 'grove-gate')).toBe(true)
+  it('places each garden at its origin with its own map', () => {
+    expect(garden('forgotten-garden').bounds).toEqual({ x: 0, y: 0, w: 16, h: 16 })
+    expect(garden('bamboo-grove').bounds).toEqual({ x: -2, y: -11, w: 16, h: 11 })
+    expect(garden('bamboo-grove').terrain).toHaveLength(16 * 11)
+  })
+
+  it('lists all twelve gardens of the first batch on the world map', () => {
+    const { world } = getContent()
+    expect(world.layout).toHaveLength(12)
+    expect(world.layout.filter((g) => g.built).map((g) => g.number)).toEqual([1, 2])
+    // The main route visits every garden in order, and the return gate joins 12 and 1.
+    const main = world.connections.filter((c) => c.kind === 'main')
+    expect(main).toHaveLength(11)
+    expect(world.connections.find((c) => c.kind === 'return')?.gardens).toEqual([
+      'noble-garden',
+      'forgotten-garden',
+    ])
+  })
+
+  it('puts the grove gate in the garden’s north wall, beside the grove’s opening', () => {
+    const [gate] = getContent().world.gates
+    expect(gate).toEqual({
+      from: 'forgotten-garden',
+      to: 'bamboo-grove',
+      at: { x: 10, y: 0 },
+      passage: { x: 10, y: -1 },
+    })
+  })
+
+  it('places fixed objects from the legend in world tiles', () => {
+    const { world } = getContent()
+    expect(world.fixed.filter((f) => f.id === 'old-pine')).toHaveLength(3)
+    expect(world.fixed.filter((f) => f.id === 'old-azalea')).toHaveLength(4)
+    expect(world.fixed.find((f) => f.id === 'grove-gate')).toMatchObject({ x: 10, y: 0 })
+    expect(world.fixed.filter((f) => f.id === 'bamboo').every((f) => f.y < 0)).toBe(true)
   })
 
   it('adds shade from the legend, such as along the north wall', () => {
-    const { map } = getContent()
+    const { baseShade } = garden('forgotten-garden')
     // (5, 1) is in the shaded strip; (5, 6) is open lawn.
-    expect(map.baseShade[1 * 26 + 5]).toBeCloseTo(0.5)
-    expect(map.baseShade[6 * 26 + 5]).toBe(0)
+    expect(baseShade[1 * 16 + 5]).toBeCloseTo(0.5)
+    expect(baseShade[6 * 16 + 5]).toBe(0)
   })
 
   it('gives tiles beside the wall a little shade', () => {
-    const { map } = getContent()
-    expect(map.baseShade[1 * 26 + 1]).toBeGreaterThan(0)
-    expect(map.baseShade[0]).toBe(0)
-    expect(map.baseShade[8 * 26 + 8]).toBe(0)
+    const { baseShade } = garden('forgotten-garden')
+    expect(baseShade[1 * 16 + 1]).toBeGreaterThan(0)
+    expect(baseShade[0]).toBe(0)
+    expect(baseShade[8 * 16 + 8]).toBe(0)
   })
 
   it('reports schema problems with the file and path', () => {
@@ -42,10 +71,22 @@ describe('content', () => {
     }
   })
 
-  it('requires every tile to belong to exactly one area', () => {
-    const map = structuredClone(rawContent.map)
-    map.areas[1]!.bounds.x = 15
-    expect(() => loadContent({ ...rawContent, map })).toThrow(/is in 2 areas/)
+  it('rejects gardens that overlap', () => {
+    const world = structuredClone(rawContent.world)
+    world.gardens[1]!.origin = { x: 5, y: -3 }
+    expect(() => loadContent({ ...rawContent, world })).toThrow(/overlap/)
+  })
+
+  it('rejects a gate whose passage is not beside it', () => {
+    const world = structuredClone(rawContent.world)
+    world.gardens[1]!.origin = { x: -3, y: -11 }
+    expect(() => loadContent({ ...rawContent, world })).toThrow(/not next to each other/)
+  })
+
+  it('rejects connections between gardens that are not neighbours', () => {
+    const world = structuredClone(rawContent.world)
+    world.connections[1]!.gardens = ['forgotten-garden', 'reed-marsh']
+    expect(() => loadContent({ ...rawContent, world })).toThrow(/not side by side/)
   })
 
   it('reports references to unknown items', () => {
@@ -55,8 +96,8 @@ describe('content', () => {
   })
 
   it('rejects rows of the wrong width', () => {
-    const map = structuredClone(rawContent.map)
-    map.rows[3] = map.rows[3]!.slice(1)
-    expect(() => loadContent({ ...rawContent, map })).toThrow(/row 3 has 25 tiles/)
+    const gardens = structuredClone(rawContent.gardens)
+    gardens[0]!.rows[3] = gardens[0]!.rows[3]!.slice(1)
+    expect(() => loadContent({ ...rawContent, gardens })).toThrow(/row 3 has 15 tiles/)
   })
 })

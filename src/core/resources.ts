@@ -1,7 +1,7 @@
 // Natural production, items lying in the garden, gathering and clearing.
 
 import type { Content, ProductionDef } from './content'
-import { areaAt, isTileOpen } from './areas'
+import { gardenAt, isTileOpen } from './gardens'
 import { nextId } from './game'
 import { entityById, setTerrain, terrainAt } from './grid'
 import { addItems } from './inventory'
@@ -143,8 +143,9 @@ export function clearOvergrowth(
     return { ok: false, reason: 'Nothing to clear here' }
   }
   setTerrain(state, x, y, 'grass')
+  const garden = gardenAt(content, x, y)
   const items: Record<string, number> = {}
-  for (const find of areaAt(content, x, y)?.clearing ?? content.map.clearing) {
+  for (const find of garden?.clearing ?? content.world.clearing) {
     if (random(state) >= find.chance) continue
     const n = randomInt(state, find.min, find.max)
     if (n > 0) items[find.item] = (items[find.item] ?? 0) + n
@@ -153,8 +154,7 @@ export function clearOvergrowth(
   for (const [id, n] of Object.entries(items))
     state.stats.gathered[id] = (state.stats.gathered[id] ?? 0) + n
   state.stats.cleared++
-  const area = areaAt(content, x, y)
-  if (area) state.stats.clearedIn[area.id] = (state.stats.clearedIn[area.id] ?? 0) + 1
+  if (garden) state.stats.clearedIn[garden.id] = (state.stats.clearedIn[garden.id] ?? 0) + 1
   state.stats.collected += Object.values(items).reduce((a, b) => a + b, 0)
   return { ok: true, events: [{ type: 'cleared', x, y, items }] }
 }

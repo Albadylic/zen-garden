@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { isTileOpen } from '../core/areas'
+import { isTileOpen } from '../core/gardens'
 import { plantSuitability, structureSuitability } from '../core/environment'
+import { forEachTile } from '../core/grid'
 import { checkPlacement } from '../core/layout'
 import { setup } from '../test/fixtures'
 
@@ -12,17 +13,15 @@ const SHADE_LOVERS = ['garden-moss', 'fern']
 function excellentTiles(kind: 'plant' | 'structure', id: string) {
   const { content, state } = setup()
   const tiles: { x: number; y: number }[] = []
-  for (let y = 0; y < state.height; y++) {
-    for (let x = 0; x < state.width; x++) {
-      if (!isTileOpen(state, content, x, y)) continue
-      if (!checkPlacement(state, content, { kind, defId: id }, x, y).ok) continue
-      const s =
-        kind === 'plant'
-          ? plantSuitability(state, content, id, x, y)
-          : structureSuitability(state, content, id, x, y)
-      if (s.rating === 'excellent') tiles.push({ x, y })
-    }
-  }
+  forEachTile(state, (x, y) => {
+    if (!isTileOpen(state, content, x, y)) return
+    if (!checkPlacement(state, content, { kind, defId: id }, x, y).ok) return
+    const s =
+      kind === 'plant'
+        ? plantSuitability(state, content, id, x, y)
+        : structureSuitability(state, content, id, x, y)
+    if (s.rating === 'excellent') tiles.push({ x, y })
+  })
   return tiles
 }
 

@@ -1,7 +1,7 @@
 // Up to three optional, context-aware suggestions. They describe things the
 // player might enjoy doing next; none of them are required.
 
-import { openOvergrowth } from './areas'
+import { openOvergrowth } from './gardens'
 import type { Content } from './content'
 import { structureSuitability } from './environment'
 import { isFilled } from './feeders'

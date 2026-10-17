@@ -7,11 +7,11 @@ import type { GameState } from '../core/state'
 import { type Overlay, PlaceholderArt } from './art'
 import { Camera } from './camera'
 import { PointerInput } from './input'
-import { openAreas, isTileOpen } from '../core/areas'
+import { gateAt, isGateOpen, isTileOpen, openGardens } from '../core/gardens'
+import { forEachTile, inBounds, tileKey } from '../core/grid'
 import {
   depth,
   gridToWorld,
-  mapBounds,
   type Point,
   rectBounds,
   tileCentre,
@@ -36,10 +36,9 @@ export interface PlacementPreview {
 
 export interface RenderView {
   preview: PlacementPreview | null
-  /** Suitability overlay per tile index while placing, or null. */
-  overlay: (Overlay | null)[] | null
+  /** Suitability overlay by tile key while placing or clearing, or null. */
+  overlay: Map<string, Overlay> | null
   selection: Selection | null
-  gateOpen: boolean
   /** Turns off decorative motion such as bobbing and wing flaps. */
   reduceMotion: boolean
   /** Small item icons shown briefly where something was gathered. */
@@ -119,9 +118,9 @@ export class GardenRenderer {
   private flatObjects = new Container({ sortableChildren: true })
   private markers = new Container()
   private objects = new Container({ sortableChildren: true })
-  private terrainSprites: Sprite[] = []
-  private terrainKeys: string[] = []
-  private overlaySprites: Sprite[] = []
+  private terrainSprites = new Map<string, Sprite>()
+  private terrainKeys = new Map<string, string>()
+  private overlaySprites = new Map<string, Sprite>()
   private entitySprites = new Map<number, Sprite>()
   private restingMarkers = new Map<number, Sprite>()
   private dropSprites = new Map<number, Sprite>()
@@ -171,7 +170,9 @@ export class GardenRenderer {
     }
     this.art = new PlaceholderArt(app.renderer, colours)
     const state = this.host.getState()
-    this.camera = new Camera(mapBounds(state.width, state.height))
+    this.camera = new Camera(
+      unionBounds(Object.values(state.gardens).map((g) => rectBounds(g.x, g.y, g.width, g.height))),
+    )
     this.camera.resize(app.screen.width, app.screen.height)
     this.camera.reset()
 
@@ -256,10 +257,7 @@ export class GardenRenderer {
   private hitTest(screen: Point, pointerType: string): TapTarget {
     const state = this.host.getState()
     const t = this.tileAt(screen)
-    const tile =
-      t.x >= 0 && t.y >= 0 && t.x < state.width && t.y < state.height && this.tileOpen(t.x, t.y)
-        ? t
-        : null
+    const tile = inBounds(state, t.x, t.y) && this.tileOpen(t.x, t.y) ? t : null
     const target: TapTarget = { tile, pointerType }
     // Whichever creature or drop is nearest the finger wins. Creatures get a
     // head start, since a butterfly feeding on top of fallen seeds is the more
@@ -336,54 +334,52 @@ export class GardenRenderer {
   }
 
   private syncTerrain(state: GameState): void {
-    for (let y = 0; y < state.height; y++) {
-      for (let x = 0; x < state.width; x++) {
-        const i = y * state.width + x
-        const terrain = state.terrain[i]!
-        const key = `terrain:${terrain}:${(x * 7 + y * 13) % 3}`
-        if (this.terrainKeys[i] === key) continue
-        this.terrainKeys[i] = key
-        let sprite = this.terrainSprites[i]
-        if (!sprite) {
-          sprite = new Sprite()
-          const c = tileCentre(x, y)
-          sprite.position.set(c.x, c.y)
-          this.terrainSprites[i] = sprite
-        }
-        this.applyArt(sprite, key)
-        sprite.visible = this.tileOpen(x, y)
-        // Walls stand up, so they sort with objects; everything else is ground.
-        sprite.removeFromParent()
-        if (terrain === 'boundary') {
-          sprite.zIndex = depth(x + 0.5, y + 0.5) * 10
-          this.objects.addChild(sprite)
-        } else {
-          this.ground.addChild(sprite)
-        }
+    forEachTile(state, (x, y, terrain) => {
+      const i = tileKey(x, y)
+      const key = `terrain:${terrain}:${(((x * 7 + y * 13) % 3) + 3) % 3}`
+      if (this.terrainKeys.get(i) === key) return
+      this.terrainKeys.set(i, key)
+      let sprite = this.terrainSprites.get(i)
+      if (!sprite) {
+        sprite = new Sprite()
+        const c = tileCentre(x, y)
+        sprite.position.set(c.x, c.y)
+        this.terrainSprites.set(i, sprite)
       }
-    }
+      this.applyArt(sprite, key)
+      sprite.visible = this.tileOpen(x, y)
+      // Walls stand up, so they sort with objects; everything else is ground.
+      sprite.removeFromParent()
+      if (terrain === 'boundary') {
+        sprite.zIndex = depth(x + 0.5, y + 0.5) * 10
+        this.objects.addChild(sprite)
+      } else {
+        this.ground.addChild(sprite)
+      }
+    })
   }
 
   private syncOverlay(view: RenderView): void {
     const overlay = view.overlay
     this.overlayLayer.visible = overlay !== null
     if (!overlay) return
-    const state = this.host.getState()
-    overlay.forEach((value, i) => {
-      let sprite = this.overlaySprites[i]
+    for (const sprite of this.overlaySprites.values()) sprite.visible = false
+    for (const [key, value] of overlay) {
+      let sprite = this.overlaySprites.get(key)
       if (!sprite) {
         sprite = new Sprite()
-        const c = tileCentre(i % state.width, Math.floor(i / state.width))
+        const [x, y] = key.split(',').map(Number) as [number, number]
+        const c = tileCentre(x, y)
         sprite.position.set(c.x, c.y)
-        this.overlaySprites[i] = sprite
+        this.overlaySprites.set(key, sprite)
         this.overlayLayer.addChild(sprite)
       }
-      sprite.visible = value !== null
-      if (value) this.applyArt(sprite, `overlay:${value}`)
-    })
+      sprite.visible = true
+      this.applyArt(sprite, `overlay:${value}`)
+    }
   }
 
-  private entityArt(state: GameState, view: RenderView, id: number): string | null {
+  private entityArt(state: GameState, id: number): string | null {
     const e = state.entities.find((en) => en.id === id)
     if (!e) return null
     if (e.kind === 'plant') return `plant:${e.defId}:${e.stage}`
@@ -394,8 +390,11 @@ export class GardenRenderer {
       const level = this.host.content.structures[e.defId]?.levels[e.level]
       return `structure:${e.defId}:${level?.art ?? e.level}`
     }
-    if (e.defId === 'grove-gate')
-      return `decoration:grove-gate:${view.gateOpen ? 'open' : 'closed'}`
+    const gate = gateAt(this.host.content, e.x, e.y)
+    if (gate) {
+      const open = isGateOpen(state, this.host.content, gate)
+      return `decoration:${e.defId}:${open ? 'open' : 'closed'}`
+    }
     return `decoration:${e.defId}`
   }
 
@@ -408,7 +407,7 @@ export class GardenRenderer {
         sprite = new Sprite()
         this.entitySprites.set(e.id, sprite)
       }
-      const key = this.entityArt(state, view, e.id)!
+      const key = this.entityArt(state, e.id)!
       this.applyArt(sprite, key)
       const flat = e.kind === 'decoration' && this.host.content.decorations[e.defId]?.flat
       const parent = flat ? this.flatObjects : this.objects
@@ -598,14 +597,7 @@ export class GardenRenderer {
       sprite.visible = true
     }
     this.hoverSprite.visible = false
-    if (
-      this.hover &&
-      !view.preview &&
-      this.hover.x >= 0 &&
-      this.hover.y >= 0 &&
-      this.hover.x < state.width &&
-      this.hover.y < state.height
-    ) {
+    if (this.hover && !view.preview && inBounds(state, this.hover.x, this.hover.y)) {
       placeTile(this.hoverSprite, 'tile:hover', this.hover.x, this.hover.y)
     }
     this.selectSprite.visible = false
@@ -649,12 +641,12 @@ export class GardenRenderer {
 
   /** Fits the camera to the open areas, and redraws terrain when an area opens. */
   private syncAreas(state: GameState): void {
-    const open = openAreas(state, this.host.content)
+    const open = openGardens(state, this.host.content)
     const key = open.map((a) => a.id).join(',')
     if (key === this.openKey) return
     const first = this.openKey === ''
     this.openKey = key
-    this.terrainKeys = []
+    this.terrainKeys.clear()
     this.camera.setBounds(
       unionBounds(open.map((a) => rectBounds(a.bounds.x, a.bounds.y, a.bounds.w, a.bounds.h))),
     )

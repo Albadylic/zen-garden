@@ -206,14 +206,14 @@ export type Condition =
   | { kind: 'visited'; structure: string; count: number }
   | { kind: 'speciesMature'; count: number }
   | { kind: 'milestone'; id: string }
-  | { kind: 'visitedArea'; area: string }
+  | { kind: 'visitedGarden'; garden: string }
   /** Plants currently growing in an area, optionally of given kinds and at least a given stage. */
-  | { kind: 'plantedIn'; area: string; plants?: string[]; minStage?: number; count: number }
+  | { kind: 'plantedIn'; garden: string; plants?: string[]; minStage?: number; count: number }
   /** Structures or decorations currently standing in an area. */
-  | { kind: 'builtIn'; area: string; ids: string[]; count: number }
+  | { kind: 'builtIn'; garden: string; ids: string[]; count: number }
   /** Wildlife visits to shelters standing in an area. */
-  | { kind: 'visitedIn'; area: string; count: number }
-  | { kind: 'clearedIn'; area: string; count: number }
+  | { kind: 'visitedIn'; garden: string; count: number }
+  | { kind: 'clearedIn'; garden: string; count: number }
   | { kind: 'gathered'; item: string; count: number }
   | { kind: 'branched'; count: number }
   | { kind: 'seenAny'; wildlife: string[]; count: number }
@@ -271,7 +271,7 @@ export interface ProjectDef {
   id: string
   title: string
   description: string
-  area: string
+  garden: string
   /** Unlock key that makes the project available. */
   requires: string
   approaches: ApproachDef[]
@@ -302,29 +302,65 @@ export interface Rect {
   h: number
 }
 
-/** A part of the map, hidden and closed until its unlock key is granted. */
-export interface AreaDef {
+/** A built garden: its own map, placed in the world at a fixed origin. */
+export interface GardenDef {
   id: string
   name: string
+  /** Position on the sanctuary's main restoration route (1 is the first garden). */
+  number: number
+  /** World tiles covered by the garden's map, walls included. */
   bounds: Rect
-  /** Unlock key that opens the area; absent for the starting area. */
+  /** Terrain per tile of the garden's own map, row by row. */
+  terrain: Terrain[]
+  /** Base shade per tile of the garden's own map before plants are considered (0–1). */
+  baseShade: number[]
+  /** Unlock key that opens the garden; absent for the starting garden. */
   unlock?: string
-  /** Clearing yields for overgrowth in this area; defaults to the map's. */
+  /** Clearing yields for overgrowth in this garden; defaults to the world's. */
   clearing?: ClearingYield[]
 }
 
-export interface MapDef {
+/** A garden on the world map, built or still to come. */
+export interface WorldGardenDef {
+  id: string
+  number: number
+  name: string
+  slot: { col: number; row: number }
+  built: boolean
+}
+
+/** A gate between two neighbouring gardens, in world tiles. */
+export interface GateDef {
+  /** Garden whose wall holds the gate. */
+  from: string
+  /** Garden the gate opens into; the gate is open once that garden is. */
+  to: string
+  /** The gate tile in the first garden's wall. */
+  at: { x: number; y: number }
+  /** The opening in the second garden's wall, beside the gate. */
+  passage: { x: number; y: number }
+}
+
+/** A route between neighbouring gardens on the world map. */
+export interface ConnectionDef {
+  gardens: [string, string]
+  /** The main restoration route, or the special return gate. */
+  kind: 'main' | 'return'
+}
+
+export interface WorldDef {
   id: string
   name: string
-  width: number
-  height: number
-  terrain: Terrain[]
-  /** Base shade per tile before plants are considered (0–1). */
-  baseShade: number[]
+  /** Gardens that have been built, in route order. */
+  gardens: GardenDef[]
+  /** Every garden on the world map, built or not. */
+  layout: WorldGardenDef[]
+  connections: ConnectionDef[]
+  gates: GateDef[]
+  /** Fixed features of every built garden, in world tiles. */
   fixed: FixedObject[]
   startingInventory: Record<string, number>
   clearing: ClearingYield[]
-  areas: AreaDef[]
 }
 
 export interface Content {
@@ -336,5 +372,5 @@ export interface Content {
   wildlife: Record<string, WildlifeDef>
   chapters: ChapterDef[]
   projects: Record<string, ProjectDef>
-  map: MapDef
+  world: WorldDef
 }

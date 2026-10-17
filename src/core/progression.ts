@@ -1,6 +1,6 @@
 // Chapter milestones: conditions, completion, unlocks, and progress for the UI.
 
-import { isInArea } from './areas'
+import { isInGarden } from './gardens'
 import type { ChapterDef, Condition, Content, MilestoneDef } from './content'
 import { addItems } from './inventory'
 import type { StepContext } from './simulation'
@@ -16,9 +16,9 @@ export function conditionProgress(
   c: Condition,
 ): { current: number; target: number } {
   const s = state.stats
-  const inArea = (areaId: string, x: number, y: number) => {
-    const area = content.map.areas.find((a) => a.id === areaId)
-    return !!area && isInArea(area, x, y)
+  const inGarden = (gardenId: string, x: number, y: number) => {
+    const garden = content.world.gardens.find((g) => g.id === gardenId)
+    return !!garden && isInGarden(garden, x, y)
   }
   switch (c.kind) {
     case 'planted':
@@ -41,8 +41,8 @@ export function conditionProgress(
       return { current: Object.keys(s.matured).length, target: c.count }
     case 'milestone':
       return { current: state.milestones[c.id] !== undefined ? 1 : 0, target: 1 }
-    case 'visitedArea':
-      return { current: state.areasVisited.includes(c.area) ? 1 : 0, target: 1 }
+    case 'visitedGarden':
+      return { current: state.gardensVisited.includes(c.garden) ? 1 : 0, target: 1 }
     case 'plantedIn': {
       const n = state.entities.filter(
         (e) =>
@@ -50,24 +50,24 @@ export function conditionProgress(
           !e.fixed &&
           e.stage >= (c.minStage ?? 0) &&
           (!c.plants || c.plants.includes(e.defId)) &&
-          inArea(c.area, e.x, e.y),
+          inGarden(c.garden, e.x, e.y),
       ).length
       return { current: n, target: c.count }
     }
     case 'builtIn': {
       const n = state.entities.filter(
-        (e) => !e.fixed && c.ids.includes(e.defId) && inArea(c.area, e.x, e.y),
+        (e) => !e.fixed && c.ids.includes(e.defId) && inGarden(c.garden, e.x, e.y),
       ).length
       return { current: n, target: c.count }
     }
     case 'visitedIn': {
       let n = 0
       for (const e of state.entities)
-        if (e.kind === 'structure' && inArea(c.area, e.x, e.y)) n += e.visits
+        if (e.kind === 'structure' && inGarden(c.garden, e.x, e.y)) n += e.visits
       return { current: n, target: c.count }
     }
     case 'clearedIn':
-      return { current: s.clearedIn[c.area] ?? 0, target: c.count }
+      return { current: s.clearedIn[c.garden] ?? 0, target: c.count }
     case 'gathered':
       return { current: s.gathered[c.item] ?? 0, target: c.count }
     case 'branched':

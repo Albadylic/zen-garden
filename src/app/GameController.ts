@@ -9,8 +9,8 @@ import {
   type Suitability,
 } from '../core/environment'
 import type { GameEvent } from '../core/events'
-import { isTileOpen, visitArea } from '../core/areas'
-import { entityAt, entityById, terrainAt } from '../core/grid'
+import { isTileOpen, visitGarden } from '../core/gardens'
+import { entityAt, entityById, forEachTile, terrainAt, tileKey } from '../core/grid'
 import {
   type ActionResult,
   buildRecipe,
@@ -391,7 +391,7 @@ export class GameController {
     // Looking around a newly opened area counts towards exploring it.
     if (selection?.kind === 'tile' || selection?.kind === 'entity') {
       const at = selection.kind === 'tile' ? selection : entityById(this.state, selection.id)
-      if (at && visitArea(this.state, this.content, at.x, at.y)) this.notify()
+      if (at && visitGarden(this.state, this.content, at.x, at.y)) this.notify()
     }
     // Looking closely at something is how it first enters the journal.
     const key = this.journalKeyFor(selection)
@@ -666,12 +666,12 @@ export class GameController {
       }
       if (placeable) overlay = this.overlayFor(placeable, movingId)
     } else if (mode.type === 'clear') {
-      overlay = this.state.terrain.map((t, i) =>
-        t === 'overgrown' &&
-        isTileOpen(this.state, this.content, i % this.state.width, Math.floor(i / this.state.width))
-          ? 'good'
-          : null,
-      )
+      const clearable = new Map<string, Rating | 'invalid'>()
+      forEachTile(this.state, (x, y, t) => {
+        if (t === 'overgrown' && isTileOpen(this.state, this.content, x, y))
+          clearable.set(tileKey(x, y), 'good')
+      })
+      overlay = clearable
     }
     return {
       preview,
@@ -682,9 +682,6 @@ export class GameController {
         ...f,
         t: Math.min(1, (this.realTime - born) / FLYOUT_MS),
       })),
-      gateOpen: this.content.map.areas.some(
-        (a) => a.unlock && this.state.unlocks.includes(a.unlock),
-      ),
     }
   }
 
@@ -692,19 +689,16 @@ export class GameController {
   private overlayFor(placeable: Placeable, movingId?: number): RenderView['overlay'] {
     const key = `${placeable.kind}:${placeable.defId}:${movingId ?? ''}:${this.state.layoutVersion}`
     if (this.overlayCache?.key === key) return this.overlayCache.overlay
-    const overlay: (Rating | 'invalid' | null)[] = []
-    for (let y = 0; y < this.state.height; y++) {
-      for (let x = 0; x < this.state.width; x++) {
-        const terrain = terrainAt(this.state, x, y)
-        if (terrain === 'boundary' || !isTileOpen(this.state, this.content, x, y)) {
-          overlay.push(null)
-          continue
-        }
-        const ok = checkPlacement(this.state, this.content, placeable, x, y, movingId).ok
-        if (!ok) overlay.push('invalid')
-        else overlay.push(this.suitabilityFor(placeable, x, y, movingId)?.rating ?? null)
+    const overlay = new Map<string, Rating | 'invalid'>()
+    forEachTile(this.state, (x, y, terrain) => {
+      if (terrain === 'boundary' || !isTileOpen(this.state, this.content, x, y)) return
+      if (!checkPlacement(this.state, this.content, placeable, x, y, movingId).ok) {
+        overlay.set(tileKey(x, y), 'invalid')
+        return
       }
-    }
+      const rating = this.suitabilityFor(placeable, x, y, movingId)?.rating
+      if (rating) overlay.set(tileKey(x, y), rating)
+    })
     this.overlayCache = { key, overlay }
     return overlay
   }

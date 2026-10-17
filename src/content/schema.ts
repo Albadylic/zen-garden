@@ -209,22 +209,22 @@ const conditionSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('visited'), structure: id, count: z.number().int().positive() }),
   z.object({ kind: z.literal('speciesMature'), count: z.number().int().positive() }),
   z.object({ kind: z.literal('milestone'), id }),
-  z.object({ kind: z.literal('visitedArea'), area: id }),
+  z.object({ kind: z.literal('visitedGarden'), garden: id }),
   z.object({
     kind: z.literal('plantedIn'),
-    area: id,
+    garden: id,
     plants: z.array(id).optional(),
     minStage: count.optional(),
     count: z.number().int().positive(),
   }),
   z.object({
     kind: z.literal('builtIn'),
-    area: id,
+    garden: id,
     ids: z.array(id).min(1),
     count: z.number().int().positive(),
   }),
-  z.object({ kind: z.literal('visitedIn'), area: id, count: z.number().int().positive() }),
-  z.object({ kind: z.literal('clearedIn'), area: id, count: z.number().int().positive() }),
+  z.object({ kind: z.literal('visitedIn'), garden: id, count: z.number().int().positive() }),
+  z.object({ kind: z.literal('clearedIn'), garden: id, count: z.number().int().positive() }),
   z.object({ kind: z.literal('gathered'), item: id, count: z.number().int().positive() }),
   z.object({ kind: z.literal('branched'), count: z.number().int().positive() }),
   z.object({
@@ -250,7 +250,7 @@ export const projectSchema = z.object({
   id,
   title: z.string().min(1),
   description: z.string().min(1),
-  area: id,
+  garden: id,
   requires: z.string().min(1),
   approaches: z
     .array(
@@ -297,8 +297,18 @@ const clearingSchema = z
   .object({ item: id, min: count, max: count, chance: unit })
   .refine((c) => c.min <= c.max, 'min must not exceed max')
 
-/** The map as authored: rows of single-character tiles plus a legend. */
-export const mapFileSchema = z.object({
+const tile = z.object({ x: z.number().int(), y: z.number().int() })
+
+/** One garden's map as authored: rows of single-character tiles, read with the world's legend. */
+export const gardenMapSchema = z.object({
+  id,
+  rows: z.array(z.string()).min(1),
+})
+
+export type GardenMapFile = z.infer<typeof gardenMapSchema>
+
+/** The sanctuary: every garden on the world map, how they connect, and the shared legend. */
+export const worldSchema = z.object({
   id,
   name: z.string().min(1),
   legend: z.record(
@@ -310,25 +320,31 @@ export const mapFileSchema = z.object({
       shade: z.number().min(0).max(1).optional(),
     }),
   ),
-  rows: z.array(z.string()).min(1),
   startingInventory: itemCounts,
   clearing: z.array(clearingSchema),
-  areas: z
+  gardens: z
     .array(
       z.object({
         id,
+        number: z.number().int().positive(),
         name: z.string().min(1),
-        bounds: z.object({
-          x: count,
-          y: count,
-          w: z.number().int().positive(),
-          h: z.number().int().positive(),
-        }),
+        /** Column and row on the world map, for adjacency and the overview. */
+        slot: z.object({ col: z.number().int(), row: z.number().int() }),
+        /** World tile of the map's top-left corner; only gardens that have been built have one. */
+        origin: tile.optional(),
         unlock: z.string().min(1).optional(),
         clearing: z.array(clearingSchema).optional(),
       }),
     )
     .min(1),
+  connections: z.array(
+    z.object({
+      gardens: z.tuple([id, id]),
+      kind: z.enum(['main', 'return']),
+      /** Where the gate stands in the first garden's wall, and the opening in the second's (local tiles). */
+      gate: z.object({ at: tile, passage: tile }).optional(),
+    }),
+  ),
 })
 
-export type MapFile = z.infer<typeof mapFileSchema>
+export type WorldFile = z.infer<typeof worldSchema>

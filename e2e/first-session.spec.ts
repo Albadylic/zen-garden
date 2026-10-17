@@ -52,11 +52,17 @@ test('first session: plant, clear, gather, attract a butterfly and house the fir
       async () => {
         await play(page, 5000)
         return page.evaluate(() => {
-          const c = window.__zen!.controller.state.creatures.find(
-            (c) => c.speciesId === 'small-white' && c.activity === 'feeding',
+          // A butterfly feeding on its own, so the tap cannot land on a bee beside it.
+          const all = window.__zen!.controller.state.creatures
+          const c = all.find(
+            (c) =>
+              c.speciesId === 'small-white' &&
+              c.activity === 'feeding' &&
+              all.every((o) => o === c || Math.hypot(o.x - c.x, o.y - c.y) > 1),
           )
           if (!c) return false
           window.__zen!.focusTile(Math.floor(c.x), Math.floor(c.y))
+          ;(window as unknown as { __target: number }).__target = c.id
           return true
         })
       },
@@ -64,12 +70,9 @@ test('first session: plant, clear, gather, attract a butterfly and house the fir
     )
     .toBe(true)
   await page.waitForTimeout(300)
-  const point = await page.evaluate(() => {
-    const c = window.__zen!.controller.state.creatures.find(
-      (c) => c.speciesId === 'small-white' && c.activity === 'feeding',
-    )
-    return c ? window.__zen!.creatureToScreen(c.id) : null
-  })
+  const point = await page.evaluate(() =>
+    window.__zen!.creatureToScreen((window as unknown as { __target: number }).__target),
+  )
   const box = await page.locator('canvas').boundingBox()
   expect(point && box).toBeTruthy()
   await tapAt(page, box!.x + point!.x, box!.y + point!.y)

@@ -112,6 +112,15 @@ export interface ProjectProgress {
   approachesDone: string[]
 }
 
+/** One garden's tiles: where its map sits in the world, and its terrain row by row. */
+export interface GardenTiles {
+  x: number
+  y: number
+  width: number
+  height: number
+  terrain: Terrain[]
+}
+
 export interface GameState {
   version: number
   seed: number
@@ -122,10 +131,9 @@ export interface GameState {
   /** Simulated time not yet consumed by a full step. */
   pendingMs: number
   nextId: number
-  mapId: string
-  width: number
-  height: number
-  terrain: Terrain[]
+  worldId: string
+  /** Terrain of every built garden, by garden id. Positions everywhere else are world tiles. */
+  gardens: Record<string, GardenTiles>
   entities: Entity[]
   drops: Drop[]
   creatures: Creature[]
@@ -137,13 +145,13 @@ export interface GameState {
   unlocks: string[]
   /** Restoration projects started, by project id. */
   projects: Record<string, ProjectProgress>
-  /** Areas the player has looked around since they opened. */
-  areasVisited: string[]
+  /** Gardens the player has looked around since they opened. */
+  gardensVisited: string[]
   /** Bumped whenever terrain or anything affecting the environment changes. */
   layoutVersion: number
 }
 
-export const STATE_VERSION = 3
+export const STATE_VERSION = 4
 
 export function emptyStats(): Stats {
   return {

@@ -3,7 +3,7 @@
     "id": "restore-grove",
     "title": "Restore the bamboo grove",
     "description": "The grove has run wild. Choose where to begin; every approach can be finished in time.",
-    "area": "bamboo-grove",
+    "garden": "bamboo-grove",
     "requires": "area:bamboo-grove",
     "approaches": [
       {
@@ -19,7 +19,7 @@
             "conditions": [
               {
                 "kind": "clearedIn",
-                "area": "bamboo-grove",
+                "garden": "bamboo-grove",
                 "count": 4
               }
             ],
@@ -33,7 +33,7 @@
             "conditions": [
               {
                 "kind": "plantedIn",
-                "area": "bamboo-grove",
+                "garden": "bamboo-grove",
                 "plants": ["forest-grass", "hosta"],
                 "minStage": 2,
                 "count": 3
@@ -59,7 +59,7 @@
             "conditions": [
               {
                 "kind": "builtIn",
-                "area": "bamboo-grove",
+                "garden": "bamboo-grove",
                 "ids": ["natural-shelter"],
                 "count": 1
               }
@@ -74,7 +74,7 @@
             "conditions": [
               {
                 "kind": "visitedIn",
-                "area": "bamboo-grove",
+                "garden": "bamboo-grove",
                 "count": 1
               }
             ],
@@ -98,7 +98,7 @@
             "conditions": [
               {
                 "kind": "builtIn",
-                "area": "bamboo-grove",
+                "garden": "bamboo-grove",
                 "ids": ["stepping-stone", "stone-path"],
                 "count": 3
               }
@@ -113,7 +113,7 @@
             "conditions": [
               {
                 "kind": "builtIn",
-                "area": "bamboo-grove",
+                "garden": "bamboo-grove",
                 "ids": ["bamboo-water-spout"],
                 "count": 1
               }
