@@ -29,15 +29,15 @@ Each has a default I will build with so work is not blocked. Values live in data
 
 ### Phase 01 — Garden foundation
 
-| Status | Decision                                                           | Placeholder default                                                               |
-| ------ | ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| ☐      | Starting garden size in tiles                                      | 16 × 16                                                                           |
-| ☐      | Starting layout: pond, paths, shaded corner, trees, boundary       | Hand-authored layout in a JSON map file, following GDD Chapter 1 "Starting state" |
-| ☐      | Tile dimensions / art scale                                        | 128 × 64 px tiles, 2:1 isometric                                                  |
-| ☐      | Camera rotation                                                    | None (single fixed view)                                                          |
-| ☐      | Zoom limits                                                        | 0.5× – 2×                                                                         |
-| ☐      | Terrain types in the starting garden                               | Grass, moss, stone path, water, pond edge, overgrown                              |
-| ☐      | Can terrain be edited (e.g. clearing overgrowth, extending paths)? | Paths and stepping stones placeable; other terrain fixed in the slice             |
+| Status | Decision                                                           | Placeholder default                                                                                                        |
+| ------ | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| ☐      | Starting garden size in tiles                                      | 16 × 16                                                                                                                    |
+| ☐      | Starting layout: pond, paths, shaded corner, trees, boundary       | Hand-authored layout in a JSON map file, following GDD Chapter 1 "Starting state"                                          |
+| ☐      | Tile dimensions / art scale                                        | 128 × 64 px tiles, 2:1 isometric                                                                                           |
+| ☐      | Camera rotation                                                    | None (single fixed view)                                                                                                   |
+| ☐      | Zoom limits                                                        | 0.5× – 2×; on phones the minimum drops so the whole garden still fits, and the camera opens with tiles at least 56 px wide |
+| ☐      | Terrain types in the starting garden                               | Grass, moss, stone path, water, pond edge, overgrown                                                                       |
+| ☐      | Can terrain be edited (e.g. clearing overgrowth, extending paths)? | Paths and stepping stones placeable; other terrain fixed in the slice                                                      |
 
 ### Phase 02 — Planting and growth
 

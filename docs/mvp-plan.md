@@ -6,14 +6,14 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 1. Garden foundation
 
-- [ ] Isometric grid model and grid ↔ screen coordinate maths
-- [ ] Starting garden map as data: terrain, pond, paths, existing trees, shaded corner, boundary
-- [ ] Terrain rendering with placeholder tiles and correct depth sorting
-- [ ] Camera: pan, pinch/scroll zoom, limits, fit-to-screen
-- [ ] Unified pointer input for mouse and touch: tap, drag, pinch
-- [ ] Tile selection and highlight
-- [ ] Placement system: preview, valid/invalid feedback, confirm, cancel, move, remove, undo
-- [ ] Placeable decorations: stepping stones, stone paths, loose stones
+- [x] Isometric grid model and grid ↔ screen coordinate maths
+- [x] Starting garden map as data: terrain, pond, paths, existing trees, shaded corner, boundary
+- [x] Terrain rendering with placeholder tiles and correct depth sorting
+- [x] Camera: pan, pinch/scroll zoom, limits, fit-to-screen
+- [x] Unified pointer input for mouse and touch: tap, drag, pinch
+- [x] Tile selection and highlight
+- [x] Placement system: preview, valid/invalid feedback, confirm, cancel, move, remove, undo
+- [x] Placeable decorations: stepping stones, stone paths, loose stones
 
 ## 2. Simulation core
 

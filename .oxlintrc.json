@@ -3,7 +3,12 @@
   "plugins": ["react", "typescript", "oxc"],
   "rules": {
     "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+    "react/only-export-components": [
+      "warn",
+      {
+        "allowConstantExport": true
+      }
+    ]
   },
   "overrides": [
     {
@@ -20,6 +25,46 @@
               {
                 "group": ["**/ui/**", "**/render/**", "**/persistence/**", "**/app/**"],
                 "message": "src/core must not import from other layers."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/ui/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["pixi.js", "pixi.js/*"],
+                "message": "React UI must not draw with PixiJS; rendering lives in src/render."
+              },
+              {
+                "group": ["**/render/GardenRenderer", "**/render/art", "**/render/input"],
+                "message": "React UI talks to the renderer through src/app, not directly."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/render/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["react", "react-*", "react/*"],
+                "message": "The renderer must not depend on React."
+              },
+              {
+                "group": ["**/ui/**", "**/app/**"],
+                "message": "The renderer reads state through RenderHost, not the UI or app layers."
               }
             ]
           }

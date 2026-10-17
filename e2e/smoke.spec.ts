@@ -10,7 +10,7 @@ test('loads the garden canvas with the HUD overlay', async ({ page }) => {
   await page.goto('./')
 
   await expect(page).toHaveTitle('Zen Garden')
-  await expect(page.getByTestId('hud')).toContainText('Zen Garden')
+  await expect(page.getByRole('heading', { name: 'The Forgotten Garden' })).toBeVisible()
 
   const canvas = page.locator('canvas[data-testid="garden-canvas"]')
   await expect(canvas).toHaveCount(1)

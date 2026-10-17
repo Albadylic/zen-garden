@@ -1,16 +1,18 @@
 import { useEffect, useRef } from 'react'
-import { GardenRenderer } from '../render/GardenRenderer'
 
-export function GardenView() {
+interface Props {
+  /** Mounts the garden renderer into the element and returns a cleanup function. */
+  mount: (element: HTMLElement) => () => void
+}
+
+export function GardenView({ mount }: Props) {
   const hostRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const host = hostRef.current
     if (!host) return
-    const renderer = new GardenRenderer()
-    void renderer.mount(host)
-    return () => renderer.destroy()
-  }, [])
+    return mount(host)
+  }, [mount])
 
   return <div ref={hostRef} className="garden-view" />
 }
