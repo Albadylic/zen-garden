@@ -7,6 +7,8 @@ Files here are copied into the build as-is and served from `assets/…` relative
 - `sprites/` — 56 PNGs with transparent backgrounds, @1x only. Ground tiles and placement overlays are 128×64 isometric diamonds; other sprites range from 32×32 to 256×256. The pack describes them as having "custom ground anchors", but no anchor data was included, so anchors are assumed to be bottom-centre until a manifest records otherwise.
 - `icons/` — 15 SVG UI and inventory icons on a 64×64 viewBox.
 
+The target look is the concept image at `docs/art/forgotten-garden-concept.jpg` (kept in `docs/` so it is not shipped with the game).
+
 Known quirks in the pack as delivered:
 
 - `fx_growth_sparkle.png` and `fx_planting_sparkle.png` are byte-identical.

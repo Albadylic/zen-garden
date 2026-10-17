@@ -122,6 +122,8 @@ All art starts as shapes drawn in code (`pixi.js` Graphics) or simple generated 
 
 **Target format for final art:** PNG spritesheets with JSON atlases, @1x and @2x (possibly @3x for iPhone), consistent bottom-centre anchor on each sprite's tile footprint, soft watercolour style per GDD 2.2–2.3.
 
+**Art direction reference:** [`docs/art/forgotten-garden-concept.jpg`](art/forgotten-garden-concept.jpg) is the target look for Level 1 ("Day 0 – Forgotten Garden"). It shows overgrown, partly restored and fully restored areas side by side, labelled with the asset-pack filenames. The sprites currently in the pack are much simpler than this, so the final art should be judged against the concept image.
+
 **Level 1 MVP asset pack received (2026-10-17):** 56 PNG sprites and 15 SVG icons in [`public/assets/`](../public/assets/README.md), covering terrain tiles, plants by growth stage, maple, bamboo, pond, butterfly and bee frames, resources, natural shelter stages, placement overlays, effects and core UI icons. They are not wired into the renderer yet (that happens with the sprite manifest), and they are @1x individual PNGs rather than the target atlas format, so the rows below stay open.
 
 | Status | Asset group           | Placeholder                              | Final asset needed                                                                   |
