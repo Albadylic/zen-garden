@@ -52,7 +52,7 @@
   {
     "id": "grove-gate",
     "name": "Old garden gate",
-    "description": "A wooden gate in the garden wall. Beyond it, bamboo rustles in the wind.",
+    "description": "A wooden gate in the garden wall. Beyond it lies the next garden of the sanctuary.",
     "terrain": ["path"],
     "flat": false,
     "cover": 0,

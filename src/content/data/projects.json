@@ -126,5 +126,134 @@
         ]
       }
     ]
+  },
+  {
+    "id": "restore-pond",
+    "title": "Restore the pond",
+    "description": "The old pond is clogged and bare. Choose where to begin; every approach can be finished in time.",
+    "garden": "living-waters",
+    "requires": "chapter:bamboo-grove",
+    "approaches": [
+      {
+        "id": "lily-pond",
+        "title": "A lily pond",
+        "description": "Plant water lilies across the open water and let them flower.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-lilies",
+            "title": "Plant lilies",
+            "description": "Plant three water lilies in the pond.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "living-waters",
+                "plants": ["water-lily"],
+                "count": 3
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "lilies-flower",
+            "title": "Lilies in flower",
+            "description": "Grow three water lilies to flowering.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "living-waters",
+                "plants": ["water-lily"],
+                "minStage": 2,
+                "count": 3
+              }
+            ],
+            "cost": {
+              "reed-stems": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "reed-margin",
+        "title": "A reed margin",
+        "description": "Plant reeds and rushes all along the water’s edge.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-margin",
+            "title": "Plant the margin",
+            "description": "Grow four reeds or rushes beside the water.",
+            "conditions": [
+              {
+                "kind": "plantedBeside",
+                "garden": "living-waters",
+                "terrain": ["water", "deep-water"],
+                "plants": ["common-reed", "soft-rush"],
+                "count": 4
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "cut-reeds",
+            "title": "Cut reeds",
+            "description": "Gather twelve reed stems.",
+            "conditions": [
+              {
+                "kind": "gathered",
+                "item": "reed-stems",
+                "count": 12
+              }
+            ],
+            "cost": {
+              "clay": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "frog-haven",
+        "title": "A frog haven",
+        "description": "Build a damp refuge by the water for frogs.",
+        "unlocks": ["recipe:frog-shelter"],
+        "stages": [
+          {
+            "id": "build-haven",
+            "title": "Build a frog shelter",
+            "description": "Build a frog shelter in Living Waters.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "living-waters",
+                "ids": ["frog-shelter"],
+                "count": 1
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "frogs-settle",
+            "title": "Frogs settle",
+            "description": "Wait for frogs to use the shelter twice.",
+            "conditions": [
+              {
+                "kind": "visitedIn",
+                "garden": "living-waters",
+                "count": 2
+              }
+            ],
+            "cost": {
+              "clay": 1
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
   }
 ]

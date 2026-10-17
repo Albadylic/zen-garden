@@ -110,5 +110,19 @@
       "id": "seed-bundle",
       "amount": 1
     }
+  },
+  {
+    "id": "frog-shelter",
+    "name": "Frog shelter",
+    "inputs": {
+      "stones": 3,
+      "clay": 2,
+      "reed-stems": 2
+    },
+    "output": {
+      "kind": "structure",
+      "id": "frog-shelter"
+    },
+    "unlock": "recipe:frog-shelter"
   }
 ]

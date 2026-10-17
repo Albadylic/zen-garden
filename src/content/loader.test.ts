@@ -7,7 +7,10 @@ describe('content', () => {
   it('loads the built-in content without problems', () => {
     const content = getContent()
     expect(Object.keys(content.plants).length).toBeGreaterThanOrEqual(6)
-    expect(content.world.gardens.map((g) => g.id)).toEqual(['forgotten-garden', 'bamboo-grove'])
+    expect(content.world.gardens.slice(0, 2).map((g) => g.id)).toEqual([
+      'forgotten-garden',
+      'bamboo-grove',
+    ])
   })
 
   it('places each garden at its origin with its own map', () => {
@@ -19,7 +22,9 @@ describe('content', () => {
   it('lists all twelve gardens of the first batch on the world map', () => {
     const { world } = getContent()
     expect(world.layout).toHaveLength(12)
-    expect(world.layout.filter((g) => g.built).map((g) => g.number)).toEqual([1, 2])
+    // Gardens are built in route order.
+    const built = world.layout.filter((g) => g.built).map((g) => g.number)
+    expect(built).toEqual(built.map((_, i) => i + 1))
     // The main route visits every garden in order, and the return gate joins 12 and 1.
     const main = world.connections.filter((c) => c.kind === 'main')
     expect(main).toHaveLength(11)
@@ -30,7 +35,7 @@ describe('content', () => {
   })
 
   it('puts the grove gate in the garden’s north wall, beside the grove’s opening', () => {
-    const [gate] = getContent().world.gates
+    const gate = getContent().world.gates.find((g) => g.to === 'bamboo-grove')
     expect(gate).toEqual({
       from: 'forgotten-garden',
       to: 'bamboo-grove',

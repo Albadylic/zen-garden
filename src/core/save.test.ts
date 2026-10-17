@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { setup } from '../test/fixtures'
 import type { Content } from './content'
 import { fixedEntity } from './game'
+import { isInGarden } from './gardens'
 import { terrainAt } from './grid'
 import { legacyMap } from './migrations'
 import { plant } from './plants'
@@ -132,7 +133,7 @@ describe('migration from version 1', () => {
   it('keeps the garden and its plants where they were', () => {
     const { content, old } = version1Save()
     const { state } = deserialize(old, content)
-    expect(Object.keys(state.gardens)).toEqual(['forgotten-garden', 'bamboo-grove'])
+    expect(Object.keys(state.gardens)).toEqual(content.world.gardens.map((g) => g.id))
     expect(
       state.entities.some((e) => e.defId === 'wildflower-mix' && e.x === 5 && e.y === 11),
     ).toBe(true)
@@ -151,8 +152,9 @@ describe('migration from version 1', () => {
   it('adds the grove features with fresh ids', () => {
     const { content, old } = version1Save()
     const { state } = deserialize(old, content)
-    const grove = state.entities.filter((e) => e.y < 0)
-    expect(grove.length).toBe(content.world.fixed.filter((f) => f.y < 0).length)
+    const bounds = content.world.gardens[1]!
+    const inGrove = (p: { x: number; y: number }) => isInGarden(bounds, p.x, p.y)
+    expect(state.entities.filter(inGrove).length).toBe(content.world.fixed.filter(inGrove).length)
     expect(new Set(state.entities.map((e) => e.id)).size).toBe(state.entities.length)
   })
 

@@ -225,5 +225,82 @@
         "after": 2
       }
     ]
+  },
+  {
+    "id": "lily-rhizomes",
+    "name": "Water lily rhizomes",
+    "category": "seed",
+    "description": "A knobbly root of water lily, ready to sink into pond mud.",
+    "colour": "#7a6a4a",
+    "facts": [
+      {
+        "text": "Water lilies root in the mud and send their leaves up to the surface.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "reed-rhizomes",
+    "name": "Reed rhizomes",
+    "category": "seed",
+    "description": "A length of creeping reed root with a fresh shoot.",
+    "colour": "#a08a5a",
+    "facts": [
+      {
+        "text": "Reeds spread along the margin by creeping roots.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "hornwort-sprigs",
+    "name": "Hornwort sprigs",
+    "category": "seed",
+    "description": "Feathery sprigs of a pond plant that lives wholly under water.",
+    "colour": "#4f7a3a",
+    "facts": [
+      {
+        "text": "Hornwort has no roots; it drifts in deeper water.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "reed-stems",
+    "name": "Reed stems",
+    "category": "material",
+    "description": "Dry, hollow reed stems, light and easy to weave.",
+    "colour": "#cdb77a",
+    "facts": [
+      {
+        "text": "Bundled reed stems make shelters and screens.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Mature reeds shed stems you can gather.",
+        "after": "into-the-waters"
+      }
+    ]
+  },
+  {
+    "id": "clay",
+    "name": "Clay",
+    "category": "material",
+    "description": "Smooth grey clay from the pond banks.",
+    "colour": "#9a8f80",
+    "facts": [
+      {
+        "text": "Clay holds water, which is why the old pond still has its shape.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Clearing the overgrown banks may turn up clay.",
+        "after": "into-the-waters"
+      }
+    ]
   }
 ]

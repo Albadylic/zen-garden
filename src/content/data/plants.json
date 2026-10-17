@@ -645,5 +645,202 @@
         "after": "into-the-grove"
       }
     ]
+  },
+  {
+    "id": "water-lily",
+    "name": "Water lily",
+    "description": "Round floating leaves and cup-shaped flowers that open in the sun.",
+    "seedItem": "lily-rhizomes",
+    "terrain": ["water", "deep-water"],
+    "stages": [
+      {
+        "name": "Rhizome",
+        "durationSec": 420
+      },
+      {
+        "name": "Floating pads",
+        "durationSec": 1200
+      },
+      {
+        "name": "Flowering"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.4
+      },
+      "moisture": {
+        "min": 0.8,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "lily-rhizomes",
+        "everySec": 1800,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.5,
+    "flowerStage": 2,
+    "cover": 0.5,
+    "look": {
+      "form": "floating",
+      "colour": "#5f8f4a",
+      "accent": "#f3c1d0"
+    },
+    "facts": [
+      {
+        "text": "Its pads shade the water, keeping it cool for pond life.",
+        "after": 1
+      },
+      {
+        "text": "Pond skaters rest on the pads between dashes across the water.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Some plants grow out in open water, not on the bank.",
+        "after": "into-the-waters"
+      }
+    ]
+  },
+  {
+    "id": "common-reed",
+    "name": "Common reed",
+    "description": "Tall feathery reeds that colonise the shallow margin.",
+    "seedItem": "reed-rhizomes",
+    "terrain": ["margin", "water"],
+    "stages": [
+      {
+        "name": "Shoot",
+        "durationSec": 240
+      },
+      {
+        "name": "Young reeds",
+        "durationSec": 900
+      },
+      {
+        "name": "Reed bed"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.5
+      },
+      "moisture": {
+        "min": 0.65,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "reed-stems",
+        "everySec": 300,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "reed-rhizomes",
+        "everySec": 2400,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.7,
+    "spread": {
+      "chancePerHour": 0.3,
+      "minStage": 2,
+      "mode": "plant",
+      "maxNearby": 4
+    },
+    "look": {
+      "form": "reed",
+      "colour": "#8a9a50",
+      "accent": "#8a6a45"
+    },
+    "facts": [
+      {
+        "text": "Dragonflies rest on the tall stems between flights.",
+        "after": 1
+      },
+      {
+        "text": "A reed bed slowly spreads along the margin by its roots.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Clearing the banks may turn up something that grows at the water’s edge.",
+        "after": "into-the-waters"
+      }
+    ]
+  },
+  {
+    "id": "hornwort",
+    "name": "Hornwort",
+    "description": "A submerged pond plant of soft, feathery whorls.",
+    "seedItem": "hornwort-sprigs",
+    "terrain": ["deep-water", "water"],
+    "stages": [
+      {
+        "name": "Sprig",
+        "durationSec": 360
+      },
+      {
+        "name": "Drifting",
+        "durationSec": 1200
+      },
+      {
+        "name": "Thicket"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.8
+      },
+      "moisture": {
+        "min": 0.8,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "hornwort-sprigs",
+        "everySec": 1500,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.3,
+    "look": {
+      "form": "submerged",
+      "colour": "#4f7a3a"
+    },
+    "facts": [
+      {
+        "text": "It keeps deep water clear and fresh.",
+        "after": 1
+      },
+      {
+        "text": "Young pond insects shelter among its whorls.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Something can grow wholly under water in the deepest part of the pond.",
+        "after": "into-the-waters"
+      }
+    ]
   }
 ]

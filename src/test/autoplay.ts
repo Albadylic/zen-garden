@@ -431,12 +431,12 @@ class Autoplayer {
       else
         for (const [input, k] of Object.entries(r.inputs)) this.acquire(input, k, garden, depth + 1)
     }
-    // Grow it: plant something that produces or yields it, if none is growing.
+    // Grow it: a patient player keeps a couple of plants growing that produce it.
     const growers = Object.values(content.plants).filter(
       (p) => p.produces.some((r) => r.item === item) || p.harvest?.item === item,
     )
-    const growing = state.entities.some((e) => growers.some((p) => p.id === e.defId))
-    if (!growing && growers.length)
+    const growing = state.entities.filter((e) => growers.some((p) => p.id === e.defId)).length
+    if (growing < 2 && growers.length)
       this.plantSome(
         garden,
         growers.map((p) => p.id),

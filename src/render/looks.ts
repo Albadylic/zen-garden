@@ -45,7 +45,8 @@ export function drawPlantLook(
 ): void {
   const colour = hex(look.colour)
   const accent = hex(look.accent, colour)
-  const s = (look.size ?? 1) * (0.35 + 0.65 * growth)
+  // Drawn a little larger than the hand-made art's units, so new plants read well.
+  const s = (look.size ?? 1) * 1.5 * (0.35 + 0.65 * growth)
   const r = scatter(seedOf(id), 24)
   switch (look.form) {
     case 'tuft': {
@@ -132,7 +133,7 @@ export function drawPlantLook(
       for (let i = 0; i < 4; i++) {
         const x = (r[i]! - 0.5) * 34 * s
         const y = (r[i + 4]! - 0.5) * 14 * s
-        g.ellipse(x, y, 12 * s, 6 * s).fill(colour)
+        g.ellipse(x, y, 13 * s, 6.5 * s).fill(colour)
         g.moveTo(x, y)
           .lineTo(x + 9 * s, y - 2 * s)
           .stroke({ color: 0x7aa1af, width: 1.5 })
@@ -148,7 +149,7 @@ export function drawPlantLook(
         const x = (r[i]! - 0.5) * 34 * s
         g.moveTo(x, 6 * s)
           .quadraticCurveTo(x + 8, -6 * s, x - 2, -16 * s)
-          .stroke({ color: colour, width: 3, alpha: 0.75 })
+          .stroke({ color: colour, width: 4, alpha: 0.9 })
       }
       return
     }

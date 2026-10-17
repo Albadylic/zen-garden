@@ -90,12 +90,12 @@ Every chapter brings a garden with its own character and **one or two new ideas*
 
 The first water district: a larger pond with shallow margins, deep water and a rocky inlet. **New idea: aquatic planting by depth.**
 
-- [ ] Map with margin, shallow water and deep water, a rocky inlet and overgrown banks.
-- [ ] Plants: water lily (shallow or deep water), common reed (margin), hornwort (submerged, deep water).
-- [ ] Wildlife: common darter dragonfly (rests on reeds and rushes), pond skater (on lily pads), Japanese tree frog (a frog shelter, alongside pond insects).
-- [ ] Materials: reed stems (from reeds), clay (from clearing the banks).
-- [ ] Structure: frog shelter (stones, clay, reed stems), placed on damp ground by the water.
-- [ ] Milestones and the "Restore the pond" project (lily pond · reed margin · frog haven).
+- [x] Map with margin, shallow water and deep water, a rocky inlet and overgrown banks.
+- [x] Plants: water lily (shallow or deep water), common reed (margin), hornwort (submerged, deep water). The autoplayer finishes the chapter in about an hour of play.
+- [x] Wildlife: common darter dragonfly (rests on reeds and rushes), pond skater (on lily pads), Japanese tree frog (a frog shelter, alongside pond insects).
+- [x] Materials: reed stems (from reeds), clay (from clearing the banks).
+- [x] Structure: frog shelter (stones, clay, reed stems), placed on damp ground by the water.
+- [x] Milestones and the "Restore the pond" project (lily pond · reed margin · frog haven).
 
 ### Chapter 4 — Quiet Stone Garden
 

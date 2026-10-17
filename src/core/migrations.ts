@@ -9,6 +9,7 @@
 
 import type { Content, FixedObject, Terrain } from './content'
 import { fixedEntity } from './game'
+import { isInGarden } from './gardens'
 import type { Creature, Drop, Entity, GameState, GardenTiles } from './state'
 
 export type Migration = (
@@ -78,12 +79,14 @@ export function legacyMap(content: Content): LegacyMap {
   }
   terrain[NORTH_GATE.y * LEGACY_WIDTH + NORTH_GATE.x] = 'boundary'
   terrain[EAST_GATE.y * LEGACY_WIDTH + EAST_GATE.x] = 'path'
-  const fixed = content.world.fixed.map((f) => {
-    if (f.x === NORTH_GATE.x && f.y === NORTH_GATE.y) return { ...f, ...EAST_GATE }
-    // The garden lies at y ≥ 0; the grove north of it.
-    if (f.y >= 0) return f
-    return { ...f, ...groveToLegacy(content, f.x, f.y) }
-  })
+  // Only the two gardens of the old single map, and none of the gardens built since.
+  const fixed = content.world.fixed
+    .filter((f) => isInGarden(garden, f.x, f.y) || isInGarden(grove, f.x, f.y))
+    .map((f) => {
+      if (f.x === NORTH_GATE.x && f.y === NORTH_GATE.y) return { ...f, ...EAST_GATE }
+      if (isInGarden(garden, f.x, f.y)) return f
+      return { ...f, ...groveToLegacy(content, f.x, f.y) }
+    })
   return {
     width: LEGACY_WIDTH,
     height: LEGACY_HEIGHT,

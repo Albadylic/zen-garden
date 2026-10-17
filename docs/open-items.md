@@ -132,6 +132,14 @@ Each has a default I will build with so work is not blocked. Values live in data
 | ☐      | Bamboo harvest and spread | 2 canes per harvest, 10 min to recover; spreads about once every 3 hours per clump, never more than 4 close together                                                              |
 | ☐      | Sap feeder                | Lasts 1 hour per measure of sap, up to 2 in reserve                                                                                                                               |
 
+### Chapters 3–12 — the first-batch gardens
+
+All proposals, kept in data. Times are for the autoplayer, which plays efficiently; expect longer for a relaxed play.
+
+| Status | Chapter           | Placeholder in use                                                                                                                                                                                                                                                                                                      |
+| ------ | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ☐      | 3 · Living Waters | Pond with margin, shallow and deep water (new terrain). Water lily, common reed, hornwort; common darter (reeds), pond skater (lilies), Japanese tree frog (frog shelter, alongside pond insects). Reed stems and clay; frog shelter with a mossy upgrade. Project: lily pond · reed margin · frog haven. About an hour |
+
 ### Phases 08–12 — Later systems
 
 | Status | Decision                                   | Placeholder default                                                                                                                                                                                                                                                                                 |

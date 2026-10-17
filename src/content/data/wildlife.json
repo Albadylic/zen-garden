@@ -339,5 +339,134 @@
         "after": "a-specialised-refuge"
       }
     ]
+  },
+  {
+    "id": "common-darter",
+    "name": "Common darter",
+    "description": "A slim red dragonfly that perches, darts out, and returns to the same stem.",
+    "movement": "flying",
+    "speed": 2.6,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["common-reed", "soft-rush"],
+      "minCount": 2,
+      "perMinute": 0.45
+    },
+    "maxPresent": 3,
+    "staySec": [90, 240],
+    "colour": "#c8553d",
+    "look": {
+      "form": "dragonfly",
+      "colour": "#c8553d",
+      "accent": "#5a2a1a"
+    },
+    "facts": [
+      {
+        "text": "Comes to ponds with tall reeds and rushes to perch on.",
+        "after": 1
+      },
+      {
+        "text": "It returns again and again to a favourite perch.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Tall stems at the water’s edge make good perches.",
+        "after": "into-the-waters"
+      },
+      {
+        "text": "Two or more mature reeds or rushes may bring a dragonfly.",
+        "after": "planting-by-depth"
+      }
+    ]
+  },
+  {
+    "id": "pond-skater",
+    "name": "Pond skater",
+    "description": "A long-legged insect that glides over the water’s surface.",
+    "movement": "flying",
+    "speed": 1.4,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["water-lily"],
+      "minCount": 2,
+      "perMinute": 0.5
+    },
+    "maxPresent": 4,
+    "staySec": [60, 200],
+    "colour": "#4a4038",
+    "look": {
+      "form": "spider",
+      "colour": "#4a4038",
+      "accent": "#6a5a48",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Water-repellent hairs on its feet let it stand on the surface.",
+        "after": 1
+      },
+      {
+        "text": "It rests in the calm water between lily pads.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Calm water between floating leaves suits a small skating insect.",
+        "after": "planting-by-depth"
+      }
+    ]
+  },
+  {
+    "id": "tree-frog",
+    "name": "Japanese tree frog",
+    "description": "A tiny bright green frog with a big voice on summer evenings.",
+    "movement": "ground",
+    "speed": 0.8,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "frog-shelter",
+      "minTier": 0,
+      "minSuitability": 0.4,
+      "perMinute": 0.5
+    },
+    "alongside": {
+      "wildlife": ["common-darter", "pond-skater"],
+      "count": 1
+    },
+    "maxPresent": 3,
+    "staySec": [300, 900],
+    "colour": "#7fb04a",
+    "look": {
+      "form": "amphibian",
+      "colour": "#7fb04a",
+      "accent": "#2a2a20"
+    },
+    "facts": [
+      {
+        "text": "Comes to ponds already busy with insect life.",
+        "after": 1
+      },
+      {
+        "text": "It shelters in cool, damp places close to the water.",
+        "after": 2
+      },
+      {
+        "text": "Sticky toe pads let it climb reeds and leaves.",
+        "after": 4
+      }
+    ],
+    "hints": [
+      {
+        "text": "A damp shelter by a pond full of life might tempt a small frog.",
+        "after": "gathering-reeds"
+      },
+      {
+        "text": "Frogs come to a frog shelter once dragonflies or pond skaters are about.",
+        "after": "a-home-by-the-water"
+      }
+    ]
   }
 ]

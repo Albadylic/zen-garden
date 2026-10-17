@@ -259,5 +259,143 @@
         "unlocks": ["recipe:sap-feeder", "recipe:maple-leaf-lantern"]
       }
     ]
+  },
+  {
+    "id": "living-waters",
+    "title": "Living Waters",
+    "requires": "chapter:bamboo-grove",
+    "completionUnlock": "chapter:living-waters",
+    "gift": {
+      "lily-rhizomes": 3,
+      "reed-rhizomes": 3,
+      "hornwort-sprigs": 2
+    },
+    "completion": {
+      "title": "The pond comes alive",
+      "body": [
+        "Lilies float on clear water, reeds sway along the margin, and frogs call from the shallows.",
+        "Up the bank, beyond a low stone gate, a quiet garden of stone and moss waits to be found."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-waters",
+        "title": "To the water",
+        "description": "You stepped through the gate and looked around the old pond.",
+        "hint": "Step through the grove’s north gate and take a look around the pond.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "living-waters"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-plan-for-the-pond",
+        "title": "A plan for the pond",
+        "description": "You chose how to begin restoring the pond.",
+        "hint": "Open Restore and choose how to begin restoring the pond.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "restore-pond"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "planting-by-depth",
+        "title": "Planting by depth",
+        "description": "Plants are growing in the water and along its edge.",
+        "hint": "Plant lilies or hornwort out in the water, and reeds on the margin.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "living-waters",
+            "plants": ["water-lily", "hornwort"],
+            "count": 2
+          },
+          {
+            "kind": "plantedIn",
+            "garden": "living-waters",
+            "plants": ["common-reed"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "dragonflies-return",
+        "title": "Dragonflies return",
+        "description": "A dragonfly found a perch among the reeds.",
+        "hint": "Dragonflies come once two reeds or rushes are fully grown.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "common-darter",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering-reeds",
+        "title": "Gathering reeds",
+        "description": "You gathered reed stems. You can now build a frog shelter.",
+        "hint": "Mature reeds shed stems; gather six.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "reed-stems",
+            "count": 6
+          }
+        ],
+        "unlocks": ["recipe:frog-shelter"]
+      },
+      {
+        "id": "a-home-by-the-water",
+        "title": "A home by the water",
+        "description": "You built a frog shelter by the pond.",
+        "hint": "Build a frog shelter on damp ground beside the water.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "living-waters",
+            "ids": ["frog-shelter"],
+            "count": 1
+          }
+        ],
+        "unlocks": ["upgrade:frog-shelter"]
+      },
+      {
+        "id": "frogs-arrive",
+        "title": "Frogs arrive",
+        "description": "A tree frog has come to the pond.",
+        "hint": "Frogs come to a frog shelter once dragonflies or pond skaters are about.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "tree-frog",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-pond-restored",
+        "title": "The pond restored",
+        "description": "You completed one approach to restoring the pond.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "restore-pond",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ]
   }
 ]

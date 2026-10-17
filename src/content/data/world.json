@@ -80,6 +80,16 @@
         "kind": "plant",
         "id": "old-azalea"
       }
+    },
+    "D": {
+      "terrain": "deep-water"
+    },
+    "r": {
+      "terrain": "margin",
+      "fixed": {
+        "kind": "decoration",
+        "id": "old-boulder"
+      }
     }
   },
   "startingInventory": {
@@ -187,7 +197,44 @@
       "slot": {
         "col": 0,
         "row": -2
-      }
+      },
+      "origin": {
+        "x": -2,
+        "y": -27
+      },
+      "unlock": "chapter:bamboo-grove",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "item": "clay",
+          "min": 1,
+          "max": 1,
+          "chance": 0.5
+        },
+        {
+          "item": "stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        },
+        {
+          "item": "leaf-litter",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        },
+        {
+          "item": "reed-rhizomes",
+          "min": 1,
+          "max": 1,
+          "chance": 0.2
+        }
+      ]
     },
     {
       "id": "quiet-stone-garden",
@@ -288,7 +335,17 @@
     },
     {
       "gardens": ["bamboo-grove", "living-waters"],
-      "kind": "main"
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 11,
+          "y": 0
+        },
+        "passage": {
+          "x": 11,
+          "y": 15
+        }
+      }
     },
     {
       "gardens": ["living-waters", "quiet-stone-garden"],

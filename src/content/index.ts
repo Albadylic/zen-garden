@@ -10,6 +10,7 @@ import wildlife from './data/wildlife.json'
 import world from './data/world.json'
 import bambooGrove from './data/gardens/bamboo-grove.json'
 import forgottenGarden from './data/gardens/forgotten-garden.json'
+import livingWaters from './data/gardens/living-waters.json'
 import { loadContent } from './loader'
 
 export const rawContent = {
@@ -22,7 +23,7 @@ export const rawContent = {
   chapters,
   projects,
   world,
-  gardens: [forgottenGarden, bambooGrove],
+  gardens: [forgottenGarden, bambooGrove, livingWaters],
 }
 
 let cached: Content | undefined

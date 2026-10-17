@@ -83,6 +83,12 @@ export interface PlacementInfo {
   cost: Record<string, number>
 }
 
+/** "the Bamboo Grove", "Living Waters": a chapter's garden named mid-sentence. */
+function gardenTitle(content: Content, chapterId: string): string {
+  const title = content.chapters.find((c) => c.id === chapterId)?.title ?? 'The new garden'
+  return title.replace(/^The /, 'the ')
+}
+
 /** How often (ms of real time) the UI is told that game state has moved on. */
 const UI_REFRESH_MS = 500
 const TOAST_MS = 4000
@@ -257,7 +263,10 @@ export class GameController {
           this.toast(`Approach complete: ${e.title}`, 'milestone')
           break
         case 'gift':
-          this.toast(`Waiting in the grove: ${formatItems(this.content, e.items)}`, 'milestone')
+          this.toast(
+            `Waiting in ${gardenTitle(this.content, e.chapterId)}: ${formatItems(this.content, e.items)}`,
+            'milestone',
+          )
           break
         case 'milestone':
           this.toast(`Milestone: ${e.title}`, 'milestone')

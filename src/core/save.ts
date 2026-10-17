@@ -3,6 +3,7 @@
 
 import type { Content } from './content'
 import { fixedEntity, freshGardenTiles } from './game'
+import { setTerrain, terrainAt } from './grid'
 import { migrations } from './migrations'
 import { emptyStats, STATE_VERSION, type GameState } from './state'
 
@@ -54,6 +55,21 @@ function addNewGardens(s: GameState, content: Content): void {
   }
 }
 
+/**
+ * Gates added to the content since the save was made: the gate tile and its
+ * opening become path, and the gate itself stands in the wall.
+ */
+function addNewGates(s: GameState, content: Content): void {
+  for (const gate of content.world.gates) {
+    for (const t of [gate.at, gate.passage]) {
+      if (terrainAt(s, t.x, t.y) === 'boundary') setTerrain(s, t.x, t.y, 'path')
+    }
+    if (s.entities.some((e) => e.x === gate.at.x && e.y === gate.at.y)) continue
+    const f = content.world.fixed.find((d) => d.x === gate.at.x && d.y === gate.at.y)
+    if (f) s.entities.push(fixedEntity(content, f, s.nextId++))
+  }
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
@@ -98,6 +114,7 @@ export function deserialize(
   s.gardensVisited ??= []
   s.projects ??= {}
   addNewGardens(s, content)
+  addNewGates(s, content)
   s.version = currentVersion
   return { format: SAVE_FORMAT, version: currentVersion, savedAt: raw.savedAt, state: s }
 }
