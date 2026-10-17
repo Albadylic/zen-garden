@@ -101,6 +101,15 @@ export interface JournalRecord {
   encounters: number
 }
 
+export interface ProjectProgress {
+  /** The approach being worked on, or null when it is time to choose one. */
+  approach: string | null
+  /** Completed stage ids, across all approaches. */
+  stagesDone: string[]
+  /** Approaches finished so far. */
+  approachesDone: string[]
+}
+
 export interface GameState {
   version: number
   seed: number
@@ -124,6 +133,8 @@ export interface GameState {
   /** Completed milestone ids mapped to the simulated time they completed. */
   milestones: Record<string, number>
   unlocks: string[]
+  /** Restoration projects started, by project id. */
+  projects: Record<string, ProjectProgress>
   /** Areas the player has looked around since they opened. */
   areasVisited: string[]
   /** Bumped whenever terrain or anything affecting the environment changes. */

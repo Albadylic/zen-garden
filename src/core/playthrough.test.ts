@@ -6,7 +6,7 @@ import { setup } from '../test/fixtures'
 import type { GameEvent } from './events'
 import { buildRecipe } from './layout'
 import { plant } from './plants'
-import { chapterComplete } from './progression'
+import { isChapterComplete } from './progression'
 import { clearOvergrowth, collectAll } from './resources'
 import { advance } from './simulation'
 
@@ -19,7 +19,7 @@ describe('Chapter 1 playthrough', () => {
     const play = (ms: number) => {
       for (let t = 0; t < ms; t += 1000) {
         events.push(...advance(state, content, 1000))
-        if (chapterComplete(state, content)) return
+        if (isChapterComplete(state, content.chapters[0]!)) return
       }
     }
 
@@ -59,15 +59,17 @@ describe('Chapter 1 playthrough', () => {
     expect(state.entities.some((e) => e.defId === 'natural-shelter')).toBe(true)
 
     // Then let the garden grow, gathering now and then.
-    for (let i = 0; i < 60 && !chapterComplete(state, content); i++) {
+    for (let i = 0; i < 60 && !isChapterComplete(state, content.chapters[0]!); i++) {
       play(MIN)
       collectAll(state)
       minutes++
     }
 
-    expect(chapterComplete(state, content)).toBe(true)
+    expect(isChapterComplete(state, content.chapters[0]!)).toBe(true)
     expect(minutes).toBeLessThan(60)
     expect(events.some((e) => e.type === 'shelterVisited')).toBe(true)
-    expect(Object.keys(state.milestones)).toHaveLength(content.chapters[0]!.milestones.length)
+    expect(content.chapters[0]!.milestones.every((m) => state.milestones[m.id] !== undefined)).toBe(
+      true,
+    )
   })
 })

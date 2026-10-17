@@ -101,13 +101,13 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 
 ### B2. Restoration projects
 
-- [ ] Staged restoration projects in data. Each stage combines materials, ecological conditions (for example "two shade plants established") and discoveries.
-- [ ] When the grove opens, the player chooses an approach:
+- [x] Staged restoration projects in data. Each stage combines materials, ecological conditions (for example "two shade plants established") and discoveries.
+- [x] When the grove opens, the player chooses an approach:
   - **shaded planting corner**
   - **sheltered wildlife refuge**
   - **path and stone feature**
-- [ ] The choice changes which discoveries come first. All three approaches stay completable later.
-- [ ] A Restore panel shows project progress and the possible approaches.
+- [x] The choice changes which discoveries come first. All three approaches stay completable later.
+- [x] A Restore panel shows project progress and the possible approaches.
 
 ### B3. New content (data)
 
@@ -139,9 +139,9 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 
 ### B6. Chapter 2 milestones
 
-- [ ] Inspect the grove → choose an approach → plant bamboo and understory plants → gather canes → branch-upgrade a shelter → discover a new creature or behaviour → complete the grove's first restoration stage.
-- [ ] Optional milestone: "A tree comes of age" (the maple matures).
-- [ ] Playthrough test proving Chapter 2 can be completed, with its pacing measured.
+- [x] Inspect the grove → choose an approach → plant bamboo and understory plants → gather canes → branch-upgrade a shelter → discover a new creature or behaviour → complete the grove's first restoration stage.
+- [x] Optional milestone: "A tree comes of age" (the maple matures).
+- [x] Playthrough test proving Chapter 2 can be completed, with its pacing measured.
 
 ### B7. Carry-overs
 

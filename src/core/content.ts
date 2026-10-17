@@ -185,6 +185,19 @@ export type Condition =
   | { kind: 'speciesMature'; count: number }
   | { kind: 'milestone'; id: string }
   | { kind: 'visitedArea'; area: string }
+  /** Plants currently growing in an area, optionally of given kinds and at least a given stage. */
+  | { kind: 'plantedIn'; area: string; plants?: string[]; minStage?: number; count: number }
+  /** Structures or decorations currently standing in an area. */
+  | { kind: 'builtIn'; area: string; ids: string[]; count: number }
+  /** Wildlife visits to shelters standing in an area. */
+  | { kind: 'visitedIn'; area: string; count: number }
+  | { kind: 'clearedIn'; area: string; count: number }
+  | { kind: 'gathered'; item: string; count: number }
+  | { kind: 'branched'; count: number }
+  | { kind: 'seenAny'; wildlife: string[]; count: number }
+  | { kind: 'matured'; plant: string; count: number }
+  | { kind: 'approachChosen'; project: string }
+  | { kind: 'stagesDone'; project: string; count: number }
 
 export interface MilestoneDef {
   id: string
@@ -206,6 +219,40 @@ export interface ChapterDef {
   completionUnlock: string
   /** Shown when the chapter is completed. */
   completion: { title: string; body: string[] }
+  /** Items given when the chapter starts, to get the player going. */
+  gift?: Record<string, number>
+  /** Milestones that can be reached at any time once the chapter starts, in any order. */
+  optional?: MilestoneDef[]
+}
+
+export interface ProjectStageDef {
+  id: string
+  title: string
+  description: string
+  conditions: Condition[]
+  /** Materials spent to complete the stage. */
+  cost: Record<string, number>
+  unlocks: string[]
+}
+
+export interface ApproachDef {
+  id: string
+  title: string
+  description: string
+  /** Granted when the approach is chosen: the first discoveries it brings. */
+  unlocks: string[]
+  stages: ProjectStageDef[]
+}
+
+/** A staged restoration project with alternative approaches. */
+export interface ProjectDef {
+  id: string
+  title: string
+  description: string
+  area: string
+  /** Unlock key that makes the project available. */
+  requires: string
+  approaches: ApproachDef[]
 }
 
 export interface FixedObject {
@@ -266,5 +313,6 @@ export interface Content {
   recipes: Record<string, RecipeDef>
   wildlife: Record<string, WildlifeDef>
   chapters: ChapterDef[]
+  projects: Record<string, ProjectDef>
   map: MapDef
 }

@@ -23,5 +23,9 @@ export type GameEvent =
   | { type: 'milestone'; milestoneId: string; title: string }
   | { type: 'unlocked'; key: string }
   | { type: 'chapterComplete'; chapterId: string }
+  | { type: 'gift'; chapterId: string; items: Record<string, number> }
+  | { type: 'approachChosen'; projectId: string; approachId: string }
+  | { type: 'stageComplete'; projectId: string; stageId: string; title: string }
+  | { type: 'approachComplete'; projectId: string; approachId: string; title: string }
 
 export type EventSink = GameEvent[]

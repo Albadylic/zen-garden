@@ -28,6 +28,7 @@ import { upgradeStructure } from '../core/habitats'
 import { entryFor, observe, recordJournal } from '../core/journal'
 import { fillFeeder } from '../core/feeders'
 import { harvest, plant, water } from '../core/plants'
+import { chooseApproach, completeStage } from '../core/projects'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
 import { catchUp, hasNews, type Recap } from '../core/offline'
 import { advance } from '../core/simulation'
@@ -45,7 +46,8 @@ export type PlaceSource =
 export type Mode =
   { type: 'idle' } | { type: 'place'; source: PlaceSource; tile: Point | null } | { type: 'clear' }
 
-export type Panel = null | 'plants' | 'build' | 'inventory' | 'journal' | 'goals' | 'settings'
+export type Panel =
+  null | 'plants' | 'build' | 'restore' | 'inventory' | 'journal' | 'goals' | 'settings'
 
 export interface Toast {
   id: number
@@ -196,6 +198,15 @@ export class GameController {
         case 'collected':
           if (!e.auto) this.toast(`Gathered ${formatItems(this.content, e.items)}`)
           break
+        case 'stageComplete':
+          this.toast(`Restoration: ${e.title}`, 'milestone')
+          break
+        case 'approachComplete':
+          this.toast(`Approach complete: ${e.title}`, 'milestone')
+          break
+        case 'gift':
+          this.toast(`Waiting in the grove: ${formatItems(this.content, e.items)}`, 'milestone')
+          break
         case 'harvested':
           this.toast(`Harvested ${formatItems(this.content, e.items)}`)
           break
@@ -245,6 +256,14 @@ export class GameController {
 
   collectAll(): void {
     this.applyResult(collectAll(this.state))
+  }
+
+  chooseApproach(projectId: string, approachId: string): void {
+    this.applyResult(chooseApproach(this.state, this.content, projectId, approachId))
+  }
+
+  completeStage(projectId: string): void {
+    this.applyResult(completeStage(this.state, this.content, projectId))
   }
 
   startClearing(): void {

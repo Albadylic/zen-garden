@@ -145,6 +145,7 @@ export function deserialize(
   // Fields added within a version get their defaults rather than a migration.
   s.stats = { ...emptyStats(), ...s.stats }
   s.areasVisited ??= []
+  s.projects ??= {}
   s.version = currentVersion
   return { format: SAVE_FORMAT, version: currentVersion, savedAt: raw.savedAt, state: s }
 }

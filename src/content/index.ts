@@ -4,6 +4,7 @@ import decorations from './data/decorations.json'
 import items from './data/items.json'
 import map from './data/map.json'
 import plants from './data/plants.json'
+import projects from './data/projects.json'
 import recipes from './data/recipes.json'
 import structures from './data/structures.json'
 import wildlife from './data/wildlife.json'
@@ -17,6 +18,7 @@ export const rawContent = {
   recipes,
   wildlife,
   chapters,
+  projects,
   map,
 }
 

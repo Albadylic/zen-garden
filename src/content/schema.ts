@@ -9,6 +9,7 @@ import type {
   Fact,
   ItemDef,
   PlantDef,
+  ProjectDef,
   ProductionDef,
   Range,
   RecipeDef,
@@ -198,23 +199,80 @@ const conditionSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('speciesMature'), count: z.number().int().positive() }),
   z.object({ kind: z.literal('milestone'), id }),
   z.object({ kind: z.literal('visitedArea'), area: id }),
+  z.object({
+    kind: z.literal('plantedIn'),
+    area: id,
+    plants: z.array(id).optional(),
+    minStage: count.optional(),
+    count: z.number().int().positive(),
+  }),
+  z.object({
+    kind: z.literal('builtIn'),
+    area: id,
+    ids: z.array(id).min(1),
+    count: z.number().int().positive(),
+  }),
+  z.object({ kind: z.literal('visitedIn'), area: id, count: z.number().int().positive() }),
+  z.object({ kind: z.literal('clearedIn'), area: id, count: z.number().int().positive() }),
+  z.object({ kind: z.literal('gathered'), item: id, count: z.number().int().positive() }),
+  z.object({ kind: z.literal('branched'), count: z.number().int().positive() }),
+  z.object({
+    kind: z.literal('seenAny'),
+    wildlife: z.array(id).min(1),
+    count: z.number().int().positive(),
+  }),
+  z.object({ kind: z.literal('matured'), plant: id, count: z.number().int().positive() }),
+  z.object({ kind: z.literal('approachChosen'), project: id }),
+  z.object({ kind: z.literal('stagesDone'), project: id, count: z.number().int().positive() }),
 ]) satisfies z.ZodType<Condition>
+
+const milestoneSchema = z.object({
+  id,
+  title: z.string().min(1),
+  description: z.string().min(1),
+  hint: z.string().min(1),
+  conditions: z.array(conditionSchema).min(1),
+  unlocks: z.array(z.string()),
+})
+
+export const projectSchema = z.object({
+  id,
+  title: z.string().min(1),
+  description: z.string().min(1),
+  area: id,
+  requires: z.string().min(1),
+  approaches: z
+    .array(
+      z.object({
+        id,
+        title: z.string().min(1),
+        description: z.string().min(1),
+        unlocks: z.array(z.string()),
+        stages: z
+          .array(
+            z.object({
+              id,
+              title: z.string().min(1),
+              description: z.string().min(1),
+              conditions: z.array(conditionSchema).min(1),
+              cost: z.record(id, z.number().int().positive()),
+              unlocks: z.array(z.string()),
+            }),
+          )
+          .min(1),
+      }),
+    )
+    .min(1),
+}) satisfies z.ZodType<ProjectDef>
 
 export const chapterSchema = z.object({
   id,
   title: z.string().min(1),
   requires: z.string().min(1).optional(),
   completion: z.object({ title: z.string().min(1), body: z.array(z.string().min(1)).min(1) }),
-  milestones: z.array(
-    z.object({
-      id,
-      title: z.string().min(1),
-      description: z.string().min(1),
-      hint: z.string().min(1),
-      conditions: z.array(conditionSchema).min(1),
-      unlocks: z.array(z.string()),
-    }),
-  ),
+  gift: z.record(id, z.number().int().positive()).optional(),
+  optional: z.array(milestoneSchema).optional(),
+  milestones: z.array(milestoneSchema),
   completionUnlock: z.string().min(1),
 }) satisfies z.ZodType<ChapterDef>
 

@@ -32,14 +32,14 @@ describe('milestones', () => {
   })
 
   it('reports progress towards a condition', () => {
-    const { state } = setup()
+    const { content, state } = setup()
     state.stats.cleared = 1
-    expect(conditionProgress(state, { kind: 'cleared', count: 3 })).toEqual({
+    expect(conditionProgress(state, content, { kind: 'cleared', count: 3 })).toEqual({
       current: 1,
       target: 3,
     })
     state.stats.matured = { fern: 1, 'garden-moss': 2 }
-    expect(conditionProgress(state, { kind: 'speciesMature', count: 3 })).toEqual({
+    expect(conditionProgress(state, content, { kind: 'speciesMature', count: 3 })).toEqual({
       current: 2,
       target: 3,
     })

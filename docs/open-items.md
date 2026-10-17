@@ -115,6 +115,19 @@ Each has a default I will build with so work is not blocked. Values live in data
 | ☐      | What counts as an encounter              | Plants: planting and each new growth stage. Wildlife: each arrival. Shelters: building, upgrading and each new resident. Items: each gathering         |
 | ☐      | Journal visual style                     | Simple notebook-styled panel with Plants / Wildlife / Habitats / Materials tabs until final art                                                        |
 
+### Chapter 2 — The Bamboo Grove
+
+| Status | Decision                  | Placeholder in use                                                                                                                                                                |
+| ------ | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ☐      | Grove layout              | 9 × 14 open tiles east of the garden: old bamboo clumps, a stone basin, a path, lots of overgrowth                                                                                |
+| ☐      | Chapter 2 starting gift   | 2 bamboo shoots, 2 forest grass divisions, 2 hosta divisions, given when the grove opens                                                                                          |
+| ☐      | Restoration approaches    | Shaded corner (clear 4, grow 3 shade plants to full size), wildlife refuge (build a shelter, a resident moves in), path and stone (3 stepping stones or paths, a water spout)     |
+| ☐      | Chapter 2 milestones      | Look around the grove → choose an approach → plant bamboo and 2 shade plants → gather 10 canes (unlocks branches) → branch a shelter → a new species arrives → finish an approach |
+| ☐      | Optional milestone        | "A tree comes of age" when a maple matures: unlocks the sap feeder and maple-leaf lantern                                                                                         |
+| ☐      | Chapter 2 length          | About 24 minutes when played efficiently (tested); expect 40+ for a relaxed play                                                                                                  |
+| ☐      | Bamboo harvest and spread | 2 canes per harvest, 10 min to recover; spreads about once every 3 hours per clump, never more than 4 close together                                                              |
+| ☐      | Sap feeder                | Lasts 1 hour per measure of sap, up to 2 in reserve                                                                                                                               |
+
 ### Phases 08–12 — Later systems
 
 | Status | Decision                                       | Placeholder default                                                                                                                                                                  |

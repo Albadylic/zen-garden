@@ -1,0 +1,130 @@
+[
+  {
+    "id": "restore-grove",
+    "title": "Restore the bamboo grove",
+    "description": "The grove has run wild. Choose where to begin; every approach can be finished in time.",
+    "area": "bamboo-grove",
+    "requires": "area:bamboo-grove",
+    "approaches": [
+      {
+        "id": "shaded-corner",
+        "title": "A shaded planting corner",
+        "description": "Clear the tangled understory and fill the deep shade with forest grass and hostas.",
+        "unlocks": ["recipe:bamboo-fence"],
+        "stages": [
+          {
+            "id": "clear-understory",
+            "title": "Clear the understory",
+            "description": "Clear four overgrown patches in the grove.",
+            "conditions": [
+              {
+                "kind": "clearedIn",
+                "area": "bamboo-grove",
+                "count": 4
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "plant-the-shade",
+            "title": "Plant the shade",
+            "description": "Grow three forest grasses or hostas in the grove to their full size.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "area": "bamboo-grove",
+                "plants": ["forest-grass", "hosta"],
+                "minStage": 2,
+                "count": 3
+              }
+            ],
+            "cost": {
+              "bamboo-canes": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "wildlife-refuge",
+        "title": "A sheltered wildlife refuge",
+        "description": "Build a refuge among the bamboo, and let wildlife find it.",
+        "unlocks": ["branch:natural-shelter"],
+        "stages": [
+          {
+            "id": "build-refuge",
+            "title": "Build a refuge",
+            "description": "Build a natural shelter in the grove.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "area": "bamboo-grove",
+                "ids": ["natural-shelter"],
+                "count": 1
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "residents-settle",
+            "title": "Residents settle",
+            "description": "Wait for wildlife to move into a shelter in the grove.",
+            "conditions": [
+              {
+                "kind": "visitedIn",
+                "area": "bamboo-grove",
+                "count": 1
+              }
+            ],
+            "cost": {
+              "leaf-litter": 3
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "path-and-stone",
+        "title": "A path and stone feature",
+        "description": "Lay stepping stones deeper into the grove, and set a bamboo water spout beside the old basin.",
+        "unlocks": ["recipe:bamboo-water-spout"],
+        "stages": [
+          {
+            "id": "open-the-way",
+            "title": "Open the way",
+            "description": "Place three stepping stones or stone paths in the grove.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "area": "bamboo-grove",
+                "ids": ["stepping-stone", "stone-path"],
+                "count": 3
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "water-and-stone",
+            "title": "Water and stone",
+            "description": "Build a bamboo water spout in the grove.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "area": "bamboo-grove",
+                "ids": ["bamboo-water-spout"],
+                "count": 1
+              }
+            ],
+            "cost": {
+              "stones": 2
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
+  }
+]

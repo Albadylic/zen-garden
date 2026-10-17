@@ -36,7 +36,7 @@
         "id": "clearing-the-way",
         "title": "Clearing the way",
         "description": "You cleared some of the overgrowth.",
-        "hint": "Use Restore to clear overgrown tiles. You'll find twigs and leaf litter underneath.",
+        "hint": "Open Restore and clear overgrown tiles. You'll find twigs and leaf litter underneath.",
         "conditions": [
           {
             "kind": "cleared",
@@ -121,5 +121,143 @@
         "With a creak, the old gate in the east wall swings open. Beyond it, bamboo rustles in the wind: the Bamboo Grove is waiting."
       ]
     }
+  },
+  {
+    "id": "bamboo-grove",
+    "title": "The Bamboo Grove",
+    "requires": "area:bamboo-grove",
+    "completionUnlock": "chapter:bamboo-grove",
+    "gift": {
+      "bamboo-shoots": 2,
+      "grass-divisions": 2,
+      "hosta-divisions": 2
+    },
+    "completion": {
+      "title": "The grove breathes again",
+      "body": [
+        "Light falls through the bamboo onto soft forest grass, and small creatures have found homes among the canes.",
+        "Somewhere beyond the grove, water is moving. The old wetland will be the next part of your sanctuary to wake."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-grove",
+        "title": "Into the grove",
+        "description": "You stepped through the gate and looked around the bamboo grove.",
+        "hint": "Step through the open gate and take a look around the grove: tap anywhere inside it.",
+        "conditions": [
+          {
+            "kind": "visitedArea",
+            "area": "bamboo-grove"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-way-forward",
+        "title": "A way forward",
+        "description": "You chose how to begin restoring the grove.",
+        "hint": "Open Restore and choose how to begin restoring the grove.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "restore-grove"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "bamboo-and-understory",
+        "title": "Bamboo and understory",
+        "description": "Young bamboo and shade plants are growing in the grove.",
+        "hint": "Plant bamboo shoots and a couple of forest grasses or hostas in the grove.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "area": "bamboo-grove",
+            "plants": ["bamboo"],
+            "count": 1
+          },
+          {
+            "kind": "plantedIn",
+            "area": "bamboo-grove",
+            "plants": ["forest-grass", "hosta"],
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering-canes",
+        "title": "Gathering canes",
+        "description": "You harvested bamboo canes. Shelters can now grow in new directions.",
+        "hint": "Tap a mature bamboo clump and harvest its canes.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "bamboo-canes",
+            "count": 10
+          }
+        ],
+        "unlocks": ["branch:natural-shelter"]
+      },
+      {
+        "id": "a-specialised-refuge",
+        "title": "A specialised refuge",
+        "description": "You turned an improved shelter into a specialised home.",
+        "hint": "Improve a shelter that already has residents, then choose a direction for it.",
+        "conditions": [
+          {
+            "kind": "branched",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-new-arrival",
+        "title": "A new arrival",
+        "description": "A creature new to your sanctuary found its way to the grove.",
+        "hint": "White-eyes visit established bamboo, and each specialised shelter draws its own residents.",
+        "conditions": [
+          {
+            "kind": "seenAny",
+            "wildlife": ["white-eye", "mason-bee", "wood-mouse", "red-admiral"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-grove-restored",
+        "title": "The grove restored",
+        "description": "You completed one approach to restoring the grove.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "restore-grove",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ],
+    "optional": [
+      {
+        "id": "a-tree-comes-of-age",
+        "title": "A tree comes of age",
+        "description": "Your Japanese maple is fully grown. Its leaves and sap open new things to make.",
+        "hint": "A maple takes a few hours to mature; it keeps growing while you are away.",
+        "conditions": [
+          {
+            "kind": "matured",
+            "plant": "japanese-maple",
+            "count": 1
+          }
+        ],
+        "unlocks": ["recipe:sap-feeder", "recipe:maple-leaf-lantern"]
+      }
+    ]
   }
 ]

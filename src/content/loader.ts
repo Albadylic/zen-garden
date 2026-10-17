@@ -2,13 +2,14 @@
 // uses. Reports every problem at once, with the file and entry it came from.
 
 import { z } from 'zod'
-import type { Content, FixedObject, MapDef, Terrain } from '../core/content'
+import type { Condition, Content, FixedObject, MapDef, Terrain } from '../core/content'
 import {
   chapterSchema,
   decorationSchema,
   itemSchema,
   mapFileSchema,
   plantSchema,
+  projectSchema,
   recipeSchema,
   structureSchema,
   wildlifeSchema,
@@ -22,6 +23,7 @@ export interface RawContent {
   recipes: unknown
   wildlife: unknown
   chapters: unknown
+  projects: unknown
   map: unknown
 }
 
@@ -151,6 +153,11 @@ export function loadContent(raw: RawContent): Content {
     problems,
   )
   const chapters = parse(z.array(chapterSchema).min(1), raw.chapters, 'chapters.json', problems)
+  const projects = byId(
+    parse(z.array(projectSchema), raw.projects, 'projects.json', problems),
+    'projects.json',
+    problems,
+  )
   const map = buildMap(raw.map, problems)
 
   // Cross-references between files.
@@ -194,26 +201,71 @@ export function loadContent(raw: RawContent): Content {
       problems.push(`wildlife.json ${w.id}: unknown structure "${w.attraction.structure}"`)
     }
   }
-  if (chapters) {
-    const milestoneIds = new Set(chapters.flatMap((ch) => ch.milestones.map((m) => m.id)))
-    const areaIds = new Set(map?.areas.map((a) => a.id) ?? [])
-    for (const ch of chapters) {
-      for (const m of ch.milestones) {
-        const where = `chapters.json ${ch.id}/${m.id}`
-        for (const c of m.conditions) {
-          if (c.kind === 'planted' && c.plant && !plants[c.plant])
-            problems.push(`${where}: unknown plant "${c.plant}"`)
-          if (c.kind === 'seen' && c.wildlife && !wildlife[c.wildlife]) {
-            problems.push(`${where}: unknown wildlife "${c.wildlife}"`)
-          }
-          if ((c.kind === 'built' || c.kind === 'visited') && !structures[c.structure]) {
-            problems.push(`${where}: unknown structure "${c.structure}"`)
-          }
-          if (c.kind === 'milestone' && !milestoneIds.has(c.id))
-            problems.push(`${where}: unknown milestone "${c.id}"`)
-          if (c.kind === 'visitedArea' && !areaIds.has(c.area))
-            problems.push(`${where}: unknown area "${c.area}"`)
-        }
+  const areaIds = new Set(map?.areas.map((a) => a.id) ?? [])
+  const milestoneIds = new Set(
+    (chapters ?? []).flatMap((ch) => [...ch.milestones, ...(ch.optional ?? [])].map((m) => m.id)),
+  )
+  const checkCondition = (c: Condition, where: string) => {
+    const need = (ok: boolean, what: string) => {
+      if (!ok) problems.push(`${where}: unknown ${what}`)
+    }
+    switch (c.kind) {
+      case 'planted':
+        if (c.plant) need(!!plants[c.plant], `plant "${c.plant}"`)
+        break
+      case 'seen':
+        if (c.wildlife) need(!!wildlife[c.wildlife], `wildlife "${c.wildlife}"`)
+        break
+      case 'built':
+      case 'visited':
+        need(!!structures[c.structure], `structure "${c.structure}"`)
+        break
+      case 'milestone':
+        need(milestoneIds.has(c.id), `milestone "${c.id}"`)
+        break
+      case 'visitedArea':
+      case 'visitedIn':
+      case 'clearedIn':
+        need(areaIds.has(c.area), `area "${c.area}"`)
+        break
+      case 'plantedIn':
+        need(areaIds.has(c.area), `area "${c.area}"`)
+        for (const id of c.plants ?? []) need(!!plants[id], `plant "${id}"`)
+        break
+      case 'builtIn':
+        need(areaIds.has(c.area), `area "${c.area}"`)
+        for (const id of c.ids)
+          need(!!structures[id] || !!decorations[id], `structure or decoration "${id}"`)
+        break
+      case 'gathered':
+        needItem(c.item, where)
+        break
+      case 'seenAny':
+        for (const id of c.wildlife) need(!!wildlife[id], `wildlife "${id}"`)
+        break
+      case 'matured':
+        need(!!plants[c.plant], `plant "${c.plant}"`)
+        break
+      case 'approachChosen':
+      case 'stagesDone':
+        need(!!projects[c.project], `project "${c.project}"`)
+        break
+    }
+  }
+  for (const ch of chapters ?? []) {
+    for (const m of [...ch.milestones, ...(ch.optional ?? [])]) {
+      for (const c of m.conditions) checkCondition(c, `chapters.json ${ch.id}/${m.id}`)
+    }
+    for (const itemId of Object.keys(ch.gift ?? {})) needItem(itemId, `chapters.json ${ch.id}.gift`)
+  }
+  for (const project of Object.values(projects)) {
+    if (!areaIds.has(project.area))
+      problems.push(`projects.json ${project.id}: unknown area "${project.area}"`)
+    for (const a of project.approaches) {
+      for (const stage of a.stages) {
+        const where = `projects.json ${project.id}/${a.id}/${stage.id}`
+        for (const c of stage.conditions) checkCondition(c, where)
+        for (const itemId of Object.keys(stage.cost)) needItem(itemId, where)
       }
     }
   }
@@ -247,5 +299,5 @@ export function loadContent(raw: RawContent): Content {
   }
 
   if (problems.length > 0 || !chapters || !map) throw new ContentError(problems)
-  return { items, plants, structures, decorations, recipes, wildlife, chapters, map }
+  return { items, plants, structures, decorations, recipes, wildlife, chapters, projects, map }
 }

@@ -28,6 +28,7 @@ test('first session: plant, clear, gather, attract a butterfly and house the fir
 
   // Clear overgrowth with the Restore tool.
   await openTab(page, 'Restore')
+  await page.getByRole('button', { name: 'Start clearing' }).click()
   await expect(page.getByTestId('clear-bar')).toBeVisible()
   for (const [x, y] of [
     [3, 10],

@@ -1,6 +1,8 @@
 // Chapter milestones: conditions, completion, unlocks, and progress for the UI.
 
+import { isInArea } from './areas'
 import type { ChapterDef, Condition, Content, MilestoneDef } from './content'
+import { addItems } from './inventory'
 import type { StepContext } from './simulation'
 import type { GameEvent } from './events'
 import type { GameState } from './state'
@@ -10,9 +12,14 @@ const sum = (record: Record<string, number>) => Object.values(record).reduce((a,
 /** How far along a condition is: current value against its target. */
 export function conditionProgress(
   state: GameState,
+  content: Content,
   c: Condition,
 ): { current: number; target: number } {
   const s = state.stats
+  const inArea = (areaId: string, x: number, y: number) => {
+    const area = content.map.areas.find((a) => a.id === areaId)
+    return !!area && isInArea(area, x, y)
+  }
   switch (c.kind) {
     case 'planted':
       return { current: c.plant ? (s.planted[c.plant] ?? 0) : sum(s.planted), target: c.count }
@@ -36,11 +43,53 @@ export function conditionProgress(
       return { current: state.milestones[c.id] !== undefined ? 1 : 0, target: 1 }
     case 'visitedArea':
       return { current: state.areasVisited.includes(c.area) ? 1 : 0, target: 1 }
+    case 'plantedIn': {
+      const n = state.entities.filter(
+        (e) =>
+          e.kind === 'plant' &&
+          !e.fixed &&
+          e.stage >= (c.minStage ?? 0) &&
+          (!c.plants || c.plants.includes(e.defId)) &&
+          inArea(c.area, e.x, e.y),
+      ).length
+      return { current: n, target: c.count }
+    }
+    case 'builtIn': {
+      const n = state.entities.filter(
+        (e) => !e.fixed && c.ids.includes(e.defId) && inArea(c.area, e.x, e.y),
+      ).length
+      return { current: n, target: c.count }
+    }
+    case 'visitedIn': {
+      let n = 0
+      for (const e of state.entities)
+        if (e.kind === 'structure' && inArea(c.area, e.x, e.y)) n += e.visits
+      return { current: n, target: c.count }
+    }
+    case 'clearedIn':
+      return { current: s.clearedIn[c.area] ?? 0, target: c.count }
+    case 'gathered':
+      return { current: s.gathered[c.item] ?? 0, target: c.count }
+    case 'branched':
+      return { current: sum(s.branched), target: c.count }
+    case 'seenAny':
+      return { current: c.wildlife.reduce((n, w) => n + (s.seen[w] ?? 0), 0), target: c.count }
+    case 'matured':
+      return { current: s.matured[c.plant] ?? 0, target: c.count }
+    case 'approachChosen': {
+      const p = state.projects[c.project]
+      return {
+        current: p && (p.approach !== null || p.approachesDone.length > 0) ? 1 : 0,
+        target: 1,
+      }
+    }
+    case 'stagesDone':
+      return { current: state.projects[c.project]?.stagesDone.length ?? 0, target: c.count }
   }
 }
 
-export function conditionMet(state: GameState, c: Condition): boolean {
-  const { current, target } = conditionProgress(state, c)
+export function conditionMet(state: GameState, content: Content, c: Condition): boolean {
+  const { current, target } = conditionProgress(state, content, c)
   return current >= target
 }
 
@@ -91,10 +140,25 @@ function unlock(state: GameState, key: string, events: GameEvent[]): void {
 export function checkMilestones(state: GameState, content: Content): GameEvent[] {
   const events: GameEvent[] = []
   for (const chapter of content.chapters) {
-    if (!isChapterStarted(state, chapter) || isChapterComplete(state, chapter)) continue
+    if (!isChapterStarted(state, chapter)) continue
+    const giftKey = `gift:${chapter.id}`
+    if (chapter.gift && !state.unlocks.includes(giftKey)) {
+      state.unlocks.push(giftKey)
+      addItems(state, chapter.gift)
+      events.push({ type: 'gift', chapterId: chapter.id, items: { ...chapter.gift } })
+    }
+    // Optional milestones can be reached at any time once their chapter has started.
+    for (const m of chapter.optional ?? []) {
+      if (state.milestones[m.id] !== undefined) continue
+      if (!m.conditions.every((c) => conditionMet(state, content, c))) continue
+      state.milestones[m.id] = state.elapsedMs
+      events.push({ type: 'milestone', milestoneId: m.id, title: m.title })
+      for (const key of m.unlocks) unlock(state, key, events)
+    }
+    if (isChapterComplete(state, chapter)) continue
     for (const m of chapter.milestones) {
       if (state.milestones[m.id] !== undefined) continue
-      if (!m.conditions.every((c) => conditionMet(state, c))) break
+      if (!m.conditions.every((c) => conditionMet(state, content, c))) break
       state.milestones[m.id] = state.elapsedMs
       events.push({ type: 'milestone', milestoneId: m.id, title: m.title })
       for (const key of m.unlocks) unlock(state, key, events)

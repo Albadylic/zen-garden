@@ -822,3 +822,21 @@ button:focus-visible {
   color: #e8e2d0;
   font-family: system-ui, sans-serif;
 }
+
+/* Restoration projects */
+
+.project {
+  margin-top: 14px;
+}
+
+.project__title {
+  margin: 0 0 2px;
+  font-size: 1rem;
+}
+
+.stage-list {
+  margin: 2px 0 4px;
+  padding-left: 20px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}

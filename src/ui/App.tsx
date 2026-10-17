@@ -12,6 +12,7 @@ import { InventoryPanel } from './InventoryPanel'
 import { JournalPanel } from './JournalPanel'
 import { PlacementBar } from './PlacementBar'
 import { PlantsPanel } from './PlantsPanel'
+import { RestorePanel } from './RestorePanel'
 import { ReturnRecap } from './ReturnRecap'
 import { SettingsPanel } from './SettingsPanel'
 import { Toasts } from './Toasts'
@@ -52,6 +53,7 @@ export function App({ mountGarden }: Props) {
             <>
               {panel === 'plants' && <PlantsPanel />}
               {panel === 'build' && <BuildPanel />}
+              {panel === 'restore' && <RestorePanel />}
               {panel === 'inventory' && <InventoryPanel />}
               {panel === 'goals' && <GoalsPanel />}
               {panel === 'journal' && <JournalPanel />}

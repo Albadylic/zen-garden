@@ -46,6 +46,7 @@ export function createGame(content: Content, seed: number): GameState {
     milestones: {},
     unlocks: [],
     areasVisited: [],
+    projects: {},
     layoutVersion: 0,
   }
 }
