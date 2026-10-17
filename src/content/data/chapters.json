@@ -205,7 +205,7 @@
         "id": "a-specialised-refuge",
         "title": "A specialised refuge",
         "description": "You turned an improved shelter into a specialised home.",
-        "hint": "Improve a shelter that already has residents, then choose a direction for it.",
+        "hint": "Grow a shelter into a Mossy log lodge, then choose a direction for it.",
         "conditions": [
           {
             "kind": "branched",

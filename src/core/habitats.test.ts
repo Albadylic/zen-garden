@@ -81,9 +81,29 @@ describe('shelter upgrades', () => {
   })
 })
 
-describe('branching upgrades', () => {
-  it('offers three branches from the improved shelter once discovered', () => {
+describe('the Mossy log lodge', () => {
+  it('follows the Sheltered log pile once several residents have visited', () => {
     const { content, state, shelter } = ready(1)
+    state.inventory['seed-bundle'] = 1
+    const lodge = upgradeOptions(state, content, shelter)
+    expect(lodge.map((o) => o.def.name)).toEqual(['Mossy log lodge'])
+    expect(lodge[0]!.status).toEqual({ kind: 'needsVisits', visits: 0, needed: 3 })
+    shelter.visits = 3
+    expect(upgradeStructure(state, content, shelter.id).ok).toBe(true)
+    expect(tierOf(content, shelter)).toBe(2)
+    expect(state.inventory['seed-bundle'] ?? 0).toBe(0)
+  })
+
+  it('needs a seed bundle', () => {
+    const { content, state, shelter } = ready(1)
+    shelter.visits = 3
+    expect(upgradeOptions(state, content, shelter)[0]!.status.kind).toBe('needsItems')
+  })
+})
+
+describe('branching upgrades', () => {
+  it('offers three branches from the Mossy log lodge once discovered', () => {
+    const { content, state, shelter } = ready(5)
     shelter.visits = 1
     const options = upgradeOptions(state, content, shelter)
     expect(options.map((o) => o.def.branch)).toEqual([
@@ -99,21 +119,21 @@ describe('branching upgrades', () => {
   })
 
   it('takes the chosen branch and records it', () => {
-    const { content, state, shelter } = ready(1)
+    const { content, state, shelter } = ready(5)
     shelter.visits = 1
     state.unlocks.push('branch:natural-shelter')
     const lodge = upgradeOptions(state, content, shelter).find((o) => o.def.branch === 'log-lodge')!
     expect(upgradeStructure(state, content, shelter.id, lodge.level).ok).toBe(true)
     expect(content.structures['natural-shelter']!.levels[shelter.level]!.branch).toBe('log-lodge')
-    expect(tierOf(content, shelter)).toBe(2)
+    expect(tierOf(content, shelter)).toBe(3)
     expect(state.stats.branched['log-lodge']).toBe(1)
     expect(upgradeOptions(state, content, shelter)).toEqual([])
   })
 
   it('keeps every branch open by building another shelter', () => {
-    const { content, state } = ready(1)
+    const { content, state } = ready(5)
     state.unlocks.push('branch:natural-shelter')
-    const second = addShelter(state, content, 2, 4, 1)
+    const second = addShelter(state, content, 2, 4, 5)
     second.visits = 1
     expect(upgradeOptions(state, content, second)).toHaveLength(3)
   })
@@ -123,7 +143,7 @@ describe('branching upgrades', () => {
       ['insect-hotel', 'mason-bee'],
       ['log-lodge', 'wood-mouse'],
     ] as const) {
-      const s = ready(1)
+      const s = ready(5)
       shade(s)
       s.shelter.visits = 1
       s.state.unlocks.push('branch:natural-shelter')

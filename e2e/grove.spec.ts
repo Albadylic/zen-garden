@@ -84,7 +84,7 @@ test('an improved shelter can branch into an insect hotel', async ({ page }) => 
     c.confirmPlacement()
     c.cancelMode()
     const shelter = c.state.entities.find((e) => e.kind === 'structure')!
-    shelter.level = 1
+    shelter.level = 5
     shelter.visits = 1
   })
   await tapTile(page, 2, 4)

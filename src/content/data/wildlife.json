@@ -261,7 +261,7 @@
     "attraction": {
       "kind": "shelter",
       "structure": "natural-shelter",
-      "minTier": 2,
+      "minTier": 3,
       "branches": ["insect-hotel"],
       "minSuitability": 0.35,
       "perMinute": 0.6
@@ -299,7 +299,7 @@
     "attraction": {
       "kind": "shelter",
       "structure": "natural-shelter",
-      "minTier": 2,
+      "minTier": 3,
       "branches": ["log-lodge"],
       "minSuitability": 0.4,
       "perMinute": 0.4

@@ -36,6 +36,20 @@ export function suggestions(state: GameState, content: Content): Suggestion[] {
     }
   }
   for (const s of shelters) {
+    const needsBundle = upgradeOptions(state, content, s).some(
+      (o) =>
+        o.status.kind === 'needsItems' &&
+        (o.status.cost['seed-bundle'] ?? 0) > (state.inventory['seed-bundle'] ?? 0),
+    )
+    if (needsBundle && s.visits >= 3) {
+      add(
+        'seed-bundle',
+        'Your shelter could grow into a Mossy log lodge. Make a seed bundle from spare seeds in Inventory.',
+      )
+      break
+    }
+  }
+  for (const s of shelters) {
     const suit = structureSuitability(state, content, s.defId, s.x, s.y, s.id)
     if (suit.rating === 'poor' && s.visits === 0) {
       add('shelter-spot', 'Your shelter would suit wildlife better in shade, with plants close by.')

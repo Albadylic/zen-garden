@@ -27,7 +27,7 @@ describe('Chapter 2 playthrough', () => {
       'chapter:forgotten-garden',
     )
     state.unlocks.push(content.chapters[0]!.completionUnlock)
-    const shelter = addShelter(state, content, 2, 4, 1)
+    const shelter = addShelter(state, content, 2, 4, 5)
     shelter.visits = 2
     Object.assign(state.inventory, { twigs: 6, stones: 3, bark: 2 })
     const chapter = content.chapters[1]!

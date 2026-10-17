@@ -40,16 +40,16 @@ Owner's report: about 60 seeds by the end of the chapter, without many places to
 
 - [x] Slow seed production: longer intervals for wildflower seeds and other propagules, and a lower cap per plant.
 - [x] Stop producing a seed type once the player holds plenty of it (a soft inventory cap, for example 12), so seeds never pile up.
-- [ ] Give seeds a use: a **seed bundle** recipe used as an ingredient in shelter upgrades (seed heads draw insects), and later as a bird-feeding feature in Chapter 2.
+- [x] Give seeds a use: a **seed bundle** recipe used as an ingredient in shelter upgrades (seed heads draw insects), and later as a bird-feeding feature in Chapter 2.
 - [x] Rebalance the playthrough test so its end-of-chapter inventory stays within sensible bounds.
 
 ### A3. A second upgrade tier for the first shelter
 
-- [ ] Add a third level to the natural shelter in Chapter 1, for example **Mossy log lodge** (higher capacity and attraction, its own look).
+- [x] Add a third level to the natural shelter in Chapter 1, for example **Mossy log lodge** (higher capacity and attraction, its own look).
   - It is reached after the shelter has had several residents.
   - It costs materials that include the new seed bundle.
-- [ ] Chapter 2's branching choice (insect hotel, log lodge, nesting bundle) then becomes the fourth level.
-- [ ] Tune wren arrival so the second tier is when birds become regular visitors.
+- [x] Chapter 2's branching choice (insect hotel, log lodge, nesting bundle) then becomes the fourth level.
+- [x] Tune wren arrival so the second tier is when birds become regular visitors.
 
 ### A4. A calmer interface: icons instead of wordy pop-ups
 

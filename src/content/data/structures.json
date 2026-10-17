@@ -51,8 +51,8 @@
       },
       {
         "name": "Insect hotel",
-        "tier": 2,
-        "from": 1,
+        "tier": 3,
+        "from": 5,
         "branch": "insect-hotel",
         "art": "insect-hotel",
         "unlock": "branch:natural-shelter",
@@ -73,8 +73,8 @@
       },
       {
         "name": "Log lodge",
-        "tier": 2,
-        "from": 1,
+        "tier": 3,
+        "from": 5,
         "branch": "log-lodge",
         "art": "log-lodge",
         "unlock": "branch:natural-shelter",
@@ -102,8 +102,8 @@
       },
       {
         "name": "Nesting bundle",
-        "tier": 2,
-        "from": 1,
+        "tier": 3,
+        "from": 5,
         "branch": "nesting-bundle",
         "art": "nesting-bundle",
         "unlock": "branch:natural-shelter",
@@ -120,6 +120,33 @@
           "wren": 3
         },
         "produces": []
+      },
+      {
+        "name": "Mossy log lodge",
+        "tier": 2,
+        "from": 1,
+        "art": "mossy-lodge",
+        "description": "A settled, moss-topped lodge of logs and stones, stocked with a seed bundle. Small birds now visit often.",
+        "attraction": 2.2,
+        "capacity": 5,
+        "upgradeCost": {
+          "twigs": 6,
+          "bark": 3,
+          "seed-bundle": 1
+        },
+        "upgradeAfterVisits": 3,
+        "favours": {
+          "wren": 2,
+          "ground-beetle": 1.2
+        },
+        "produces": [
+          {
+            "item": "leaf-litter",
+            "everySec": 600,
+            "amount": 1,
+            "minStage": 0
+          }
+        ]
       }
     ],
     "facts": [
@@ -134,6 +161,10 @@
       {
         "text": "A larger, stone-weighted log pile can host more residents, and even nesting birds.",
         "after": 5
+      },
+      {
+        "text": "Given time and residents, a log pile settles under moss into a lodge that birds return to again and again.",
+        "after": 7
       }
     ]
   },

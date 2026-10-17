@@ -278,6 +278,33 @@ function drawStructure(g: Graphics, id: string, variant: string): void {
     g.rect(-16, -30, 32, 30).fill(0xff00ff)
     return
   }
+  if (variant === 'mossy-lodge') {
+    g.ellipse(0, 0, 44, 18).fill({ color: 0x3a3020, alpha: 0.3 })
+    for (const [x, y] of [
+      [-34, 2],
+      [32, 0],
+      [-8, 12],
+      [14, 10],
+    ] as const)
+      g.ellipse(x, y, 11, 7).fill(0x9a9a92)
+    for (const [x, y, w, rot] of [
+      [-18, -8, 44, 0.2],
+      [16, -10, 42, -0.25],
+      [0, -22, 46, 0.05],
+      [-6, -34, 36, -0.3],
+    ] as const) {
+      const dx = Math.cos(rot) * w
+      const dy = Math.sin(rot) * w * 0.5
+      g.moveTo(x - dx / 2, y - dy / 2)
+        .lineTo(x + dx / 2, y + dy / 2)
+        .stroke({ color: 0x6b4c33, width: 11, cap: 'round' })
+    }
+    g.poly([-38, -32, 0, -54, 38, -32, 0, -22]).fill(0x5d4330)
+    g.ellipse(-6, -42, 22, 8).fill(0x7f9a4f)
+    g.ellipse(14, -36, 12, 5).fill(0x8db055)
+    g.ellipse(4, -10, 9, 4).fill(0xd8b25a)
+    return
+  }
   if (variant === 'insect-hotel') {
     g.ellipse(0, 0, 30, 12).fill({ color: 0x3a3020, alpha: 0.3 })
     g.rect(-4, -18, 8, 18).fill(0x6b4c33)
