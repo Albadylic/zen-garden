@@ -18,6 +18,13 @@ export interface Fact {
   after: number
 }
 
+/** A clue shown for an undiscovered journal entry once a milestone is reached. */
+export interface Hint {
+  text: string
+  /** Milestone after which the hint appears; absent means from the start. */
+  after?: string
+}
+
 export interface ItemDef {
   id: string
   name: string
@@ -25,6 +32,8 @@ export interface ItemDef {
   description: string
   colour: string
   facts: Fact[]
+  /** Clues shown in the journal before it is discovered, getting more specific over time. */
+  hints?: Hint[]
 }
 
 export interface ProductionDef {
@@ -73,6 +82,8 @@ export interface PlantDef {
   /** Can be harvested by hand once mature, then needs time to recover. */
   harvest?: { item: string; amount: number; cooldownSec: number; minStage: number }
   facts: Fact[]
+  /** Clues shown in the journal before it is discovered, getting more specific over time. */
+  hints?: Hint[]
 }
 
 export interface StructureLevelDef {
@@ -112,6 +123,8 @@ export interface StructureDef {
   /** A feeder is filled with an item and attracts visitors while it lasts. */
   feeder?: { item: string; durationSec: number }
   facts: Fact[]
+  /** Clues shown in the journal before it is discovered, getting more specific over time. */
+  hints?: Hint[]
 }
 
 export interface DecorationDef {
@@ -171,6 +184,8 @@ export interface WildlifeDef {
   staySec: [number, number]
   colour: string
   facts: Fact[]
+  /** Clues shown in the journal before it is discovered, getting more specific over time. */
+  hints?: Hint[]
 }
 
 export type Condition =

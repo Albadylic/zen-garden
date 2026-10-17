@@ -4,7 +4,11 @@
 import { openOvergrowth } from './areas'
 import type { Content } from './content'
 import { structureSuitability } from './environment'
+import { isFilled } from './feeders'
 import { upgradeOptions } from './habitats'
+import { harvestStatus } from './plants'
+import { isChapterStarted } from './progression'
+import { availableProjects, currentStage, stageStatus } from './projects'
 import { currentMilestone } from './progression'
 import type { GameState, StructureEntity } from './state'
 
@@ -37,6 +41,48 @@ export function suggestions(state: GameState, content: Content): Suggestion[] {
       add('shelter-spot', 'Your shelter would suit wildlife better in shade, with plants close by.')
       break
     }
+  }
+
+  for (const project of availableProjects(state, content)) {
+    const stage = currentStage(state, project)
+    if (stage && stageStatus(state, content, stage).kind === 'ready') {
+      add('stage-ready', `A restoration stage is ready: "${stage.title}". Complete it in Restore.`)
+    }
+  }
+
+  const sap = state.inventory['maple-sap'] ?? 0
+  if (sap > 0 && shelters.some((s) => content.structures[s.defId]?.feeder && !isFilled(s))) {
+    add('feeder', 'Your sap feeder is empty. Fill it with maple sap to welcome butterflies back.')
+  }
+
+  const grove = content.chapters.find((c) => c.id === 'bamboo-grove')
+  if (grove && isChapterStarted(state, grove) && (state.stats.gathered['bamboo-canes'] ?? 0) < 10) {
+    const ready = state.entities.some(
+      (e) => e.kind === 'plant' && harvestStatus(content, e).kind === 'ready',
+    )
+    if (ready) add('harvest', 'Mature bamboo is ready to harvest for canes.')
+  }
+
+  const maples = state.entities.filter((e) => e.kind === 'plant' && e.defId === 'japanese-maple')
+  if (
+    maples.length === 0 &&
+    (state.inventory['maple-seeds'] ?? 0) > 0 &&
+    state.milestones['first-planting'] !== undefined
+  ) {
+    add(
+      'maple',
+      'Plant your maple samara early: a tree takes a few hours to grow, and keeps growing while you are away.',
+    )
+  } else if (
+    grove &&
+    isChapterStarted(state, grove) &&
+    maples.length > 0 &&
+    !state.stats.matured['japanese-maple']
+  ) {
+    add(
+      'maple-growing',
+      'Your maple is still growing. Once mature, it yields leaves and sap for new things to make.',
+    )
   }
 
   if (state.drops.length >= 3)

@@ -47,3 +47,45 @@ describe('suggestions', () => {
     expect(suggestions(state, content).map((s) => s.id)).toContain('gather')
   })
 })
+
+describe('grove suggestions', () => {
+  function grove() {
+    const s = setup(4)
+    for (const m of s.content.chapters[0]!.milestones) s.state.milestones[m.id] = 0
+    s.state.unlocks.push('area:bamboo-grove', s.content.chapters[0]!.completionUnlock)
+    return s
+  }
+
+  it('points to bamboo ready to harvest', () => {
+    const { content, state } = grove()
+    state.milestones['into-the-grove'] = 0
+    state.milestones['a-way-forward'] = 0
+    state.milestones['bamboo-and-understory'] = 0
+    expect(suggestions(state, content).map((s) => s.id)).toContain('harvest')
+  })
+
+  it('points to a restoration stage that is ready', () => {
+    const { content, state } = grove()
+    state.projects['restore-grove'] = {
+      approach: 'shaded-corner',
+      stagesDone: [],
+      approachesDone: [],
+    }
+    state.stats.clearedIn['bamboo-grove'] = 4
+    expect(suggestions(state, content).map((s) => s.id)).toContain('stage-ready')
+  })
+})
+
+describe('journal hints', () => {
+  it('grow more specific as milestones are reached', async () => {
+    const { currentHint } = await import('./journal')
+    const { content, state } = setup()
+    expect(currentHint(state, content, 'wildlife:white-eye')).toBeUndefined()
+    state.milestones['into-the-grove'] = 0
+    expect(currentHint(state, content, 'wildlife:white-eye')).toMatch(/tall, dense growth/)
+    state.milestones['bamboo-and-understory'] = 0
+    expect(currentHint(state, content, 'wildlife:white-eye')).toMatch(/mature bamboo/)
+    state.journal['wildlife:white-eye'] = { discoveredAtMs: 0, encounters: 1 }
+    expect(currentHint(state, content, 'wildlife:white-eye')).toBeUndefined()
+  })
+})

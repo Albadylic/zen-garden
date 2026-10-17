@@ -298,6 +298,11 @@
         "text": "A mature maple sheds its finely cut leaves and weeps a little sweet sap.",
         "after": 5
       }
+    ],
+    "hints": [
+      {
+        "text": "You carry a winged seed. Plant it early: a tree takes time."
+      }
     ]
   },
   {
@@ -472,7 +477,13 @@
       "minStage": 2,
       "mode": "plant",
       "maxNearby": 3
-    }
+    },
+    "hints": [
+      {
+        "text": "Something tall grows beyond the east wall.",
+        "after": "first-residents"
+      }
+    ]
   },
   {
     "id": "forest-grass",
@@ -522,6 +533,12 @@
       {
         "text": "Grows happily in the dappled shade under bamboo.",
         "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Clearing the grove's overgrowth may turn up something to plant.",
+        "after": "into-the-grove"
       }
     ]
   },
@@ -573,6 +590,12 @@
       {
         "text": "Deep shade suits it best; strong sun scorches the leaves.",
         "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Clearing the grove's overgrowth may turn up something to plant.",
+        "after": "into-the-grove"
       }
     ]
   }

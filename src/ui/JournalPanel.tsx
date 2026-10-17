@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { journalEntries, type JournalSection, knownFacts } from '../core/journal'
+import { currentHint, journalEntries, type JournalSection, knownFacts } from '../core/journal'
 import { useGame } from './hooks'
 import { Sheet } from './Sheet'
 
@@ -39,9 +39,15 @@ export function JournalPanel() {
         {entries.map((entry) => {
           const record = state.journal[entry.key]
           if (!record) {
+            const hint = currentHint(state, content, entry.key)
             return (
-              <li key={entry.key} className="journal-entry is-unknown">
+              <li
+                key={entry.key}
+                className="journal-entry is-unknown"
+                data-testid={`journal-${entry.key}`}
+              >
                 <span className="journal-entry__name">Not yet discovered</span>
+                {hint && <span className="journal-entry__hint">{hint}</span>}
               </li>
             )
           }

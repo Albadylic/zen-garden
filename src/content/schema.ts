@@ -42,6 +42,8 @@ const factSchema = z.object({
   after: z.number().int().min(1),
 }) satisfies z.ZodType<Fact>
 
+const hintSchema = z.object({ text: z.string().min(1), after: id.optional() })
+
 const productionSchema = z.object({
   item: id,
   everySec: z.number().positive(),
@@ -56,6 +58,7 @@ export const itemSchema = z.object({
   description: z.string().min(1),
   colour: z.string().regex(/^#[0-9a-f]{6}$/i),
   facts: z.array(factSchema),
+  hints: z.array(hintSchema).optional(),
 }) satisfies z.ZodType<ItemDef>
 
 export const plantSchema = z
@@ -91,6 +94,7 @@ export const plantSchema = z
       })
       .optional(),
     facts: z.array(factSchema),
+    hints: z.array(hintSchema).optional(),
   })
   .refine(
     (p) => p.stages.slice(0, -1).every((s) => s.durationSec !== undefined),
@@ -124,6 +128,7 @@ export const structureSchema = z.object({
     )
     .min(1),
   facts: z.array(factSchema),
+  hints: z.array(hintSchema).optional(),
 }) satisfies z.ZodType<StructureDef>
 
 export const decorationSchema = z.object({
@@ -177,6 +182,7 @@ export const wildlifeSchema = z.object({
   staySec: z.tuple([z.number().positive(), z.number().positive()]),
   colour: z.string().regex(/^#[0-9a-f]{6}$/i),
   facts: z.array(factSchema),
+  hints: z.array(hintSchema).optional(),
 }) satisfies z.ZodType<WildlifeDef>
 
 const conditionSchema = z.discriminatedUnion('kind', [

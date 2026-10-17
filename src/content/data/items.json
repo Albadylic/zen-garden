@@ -143,6 +143,12 @@
         "text": "Hollow canes make ideal nesting tubes for solitary bees.",
         "after": 3
       }
+    ],
+    "hints": [
+      {
+        "text": "Mature bamboo can be harvested.",
+        "after": "into-the-grove"
+      }
     ]
   },
   {
@@ -182,6 +188,11 @@
         "text": "Fallen leaves make soft, insulating nest linings.",
         "after": 2
       }
+    ],
+    "hints": [
+      {
+        "text": "A fully grown maple may yield something new."
+      }
     ]
   },
   {
@@ -194,6 +205,11 @@
       {
         "text": "Some butterflies, like the red admiral, feed on tree sap as well as nectar.",
         "after": 1
+      }
+    ],
+    "hints": [
+      {
+        "text": "A fully grown maple may yield something new."
       }
     ]
   }

@@ -81,7 +81,7 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 - [ ] Remind the player about it gently:
   - the inspect panel shows "fully grown in about N hours"
   - the return recap mentions the maple's progress
-  - a Chapter 1 suggestion encourages planting it early
+  - a Chapter 1 suggestion encourages planting it early (done)
 - [x] When mature, the maple yields **maple leaves**, a seasonal-looking material.
 - [x] It also yields **maple sap**, gathered from the tree rather than processed by people. Its use: a **sap feeder**, a small dish on a post that draws a sap-feeding butterfly (for example a red admiral). Some real butterflies feed on tree sap rather than nectar, so the sap gives the maple an ecological role, not just a crafting one.
 - [ ] Chapter 2 uses maple leaves in a reward:
@@ -134,8 +134,8 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 
 ### B5. Contextual hints
 
-- [ ] Undiscovered journal entries show hints that get more specific with progress, for example "favours tall, dense growth" → "nests in mature bamboo".
-- [ ] Suggestions cover the grove, its project and the maple payoff.
+- [x] Undiscovered journal entries show hints that get more specific with progress, for example "favours tall, dense growth" → "nests in mature bamboo".
+- [x] Suggestions cover the grove, its project and the maple payoff.
 
 ### B6. Chapter 2 milestones
 

@@ -252,6 +252,18 @@ export function loadContent(raw: RawContent): Content {
         break
     }
   }
+  const hinted = [
+    ...Object.values(items).map((d) => ['items.json', d] as const),
+    ...Object.values(plants).map((d) => ['plants.json', d] as const),
+    ...Object.values(structures).map((d) => ['structures.json', d] as const),
+    ...Object.values(wildlife).map((d) => ['wildlife.json', d] as const),
+  ]
+  for (const [file, def] of hinted) {
+    for (const h of def.hints ?? []) {
+      if (h.after && !milestoneIds.has(h.after))
+        problems.push(`${file} ${def.id}: hint after unknown milestone "${h.after}"`)
+    }
+  }
   for (const ch of chapters ?? []) {
     for (const m of [...ch.milestones, ...(ch.optional ?? [])]) {
       for (const c of m.conditions) checkCondition(c, `chapters.json ${ch.id}/${m.id}`)

@@ -26,6 +26,11 @@
         "text": "More flowering patches mean more butterflies at once.",
         "after": 5
       }
+    ],
+    "hints": [
+      {
+        "text": "Something pale and fluttering might come to flowers in bloom."
+      }
     ]
   },
   {
@@ -51,6 +56,12 @@
         "text": "Its tailed hindwings give the swallowtail its name.",
         "after": 2
       }
+    ],
+    "hints": [
+      {
+        "text": "A rarer butterfly might visit a garden that is full of flowers.",
+        "after": "first-visitor"
+      }
     ]
   },
   {
@@ -75,6 +86,12 @@
       {
         "text": "Carries pollen between flowers as it feeds.",
         "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A humming visitor may come once more than one patch is in flower.",
+        "after": "first-visitor"
       }
     ]
   },
@@ -103,6 +120,16 @@
         "text": "Spends most of its time hidden, venturing out to forage nearby.",
         "after": 3
       }
+    ],
+    "hints": [
+      {
+        "text": "Something small might hide in a shady pile of logs and leaves.",
+        "after": "gathering"
+      },
+      {
+        "text": "A shelter in shade, with plants close around it, suits ground beetles.",
+        "after": "a-place-to-shelter"
+      }
     ]
   },
   {
@@ -129,6 +156,16 @@
       {
         "text": "Wrens often build nests in log piles and dense cover.",
         "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "An improved shelter might tempt a small bird.",
+        "after": "first-residents"
+      },
+      {
+        "text": "Wrens visit improved shelters in good spots, and love a nesting bundle.",
+        "after": "gathering-canes"
       }
     ]
   },
@@ -164,6 +201,20 @@
         "text": "White-eyes often travel in pairs, chattering softly to each other.",
         "after": 5
       }
+    ],
+    "hints": [
+      {
+        "text": "Some songbirds like tall, dense growth to rest in.",
+        "after": "into-the-grove"
+      },
+      {
+        "text": "Two or more mature bamboo clumps might draw a small green songbird.",
+        "after": "bamboo-and-understory"
+      },
+      {
+        "text": "A mature maple near the bamboo makes white-eyes visit more often.",
+        "after": "a-new-arrival"
+      }
     ]
   },
   {
@@ -188,6 +239,16 @@
       {
         "text": "Often basks with its wings spread flat in the sun.",
         "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Not every butterfly feeds on nectar. Some prefer sap.",
+        "after": "into-the-grove"
+      },
+      {
+        "text": "A sap feeder filled with maple sap draws the red admiral.",
+        "after": "a-tree-comes-of-age"
       }
     ]
   },
@@ -217,6 +278,16 @@
         "text": "Solitary bees rarely sting; there is no hive for them to defend.",
         "after": 3
       }
+    ],
+    "hints": [
+      {
+        "text": "Hollow canes could make homes for a solitary insect.",
+        "after": "gathering-canes"
+      },
+      {
+        "text": "An insect hotel, built from a shelter, is where mason bees nest.",
+        "after": "a-specialised-refuge"
+      }
     ]
   },
   {
@@ -244,6 +315,16 @@
       {
         "text": "Prefers dense cover; it seldom crosses open ground.",
         "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A deep, dry lodge of logs might suit a small mammal.",
+        "after": "gathering-canes"
+      },
+      {
+        "text": "A log lodge, built from a shelter, draws wood mice.",
+        "after": "a-specialised-refuge"
       }
     ]
   }

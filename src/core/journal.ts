@@ -1,7 +1,7 @@
 // The naturalist's journal: entries are discovered by encountering things in
 // the garden, and their facts are revealed through repeated encounters.
 
-import type { Content, Fact } from './content'
+import type { Content, Fact, Hint } from './content'
 import type { GameEvent } from './events'
 import type { StepContext } from './simulation'
 import type { GameState } from './state'
@@ -14,6 +14,7 @@ export interface JournalEntryDef {
   name: string
   description: string
   facts: Fact[]
+  hints?: Hint[]
 }
 
 /** Every entry the journal can hold, in content order. */
@@ -55,7 +56,14 @@ export function entryFor(content: Content, key: string): JournalEntryDef | undef
             ? content.items[id]
             : undefined
   return def
-    ? { key, section, name: def.name, description: def.description, facts: def.facts }
+    ? {
+        key,
+        section,
+        name: def.name,
+        description: def.description,
+        facts: def.facts,
+        hints: def.hints,
+      }
     : undefined
 }
 
@@ -146,4 +154,16 @@ export function journalSystem(
   const out = recordJournal(state, content, fresh)
   ctx.events.push(...out)
   cursors.set(ctx, ctx.events.length)
+}
+
+/**
+ * The clue to show for an undiscovered entry: the most specific hint whose
+ * milestone has been reached, or none if the player has not got that far.
+ */
+export function currentHint(state: GameState, content: Content, key: string): string | undefined {
+  if (state.journal[key]) return undefined
+  const hints = entryFor(content, key)?.hints ?? []
+  let found: string | undefined
+  for (const h of hints) if (!h.after || state.milestones[h.after] !== undefined) found = h.text
+  return found
 }
