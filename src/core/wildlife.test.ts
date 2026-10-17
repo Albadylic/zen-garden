@@ -112,3 +112,50 @@ describe('describeActivity', () => {
     for (const c of state.creatures) expect(describeActivity(state, content, c)).toMatch(/\w/)
   })
 })
+
+describe('no predation is ever shown', () => {
+  it('birds settle beside a shelter, never on the spot where residents rest', () => {
+    const { content, state } = setup(8)
+    addPlant(state, content, 'fern', 3, 3)
+    addPlant(state, content, 'fern', 2, 5)
+    addPlant(state, content, 'fern', 4, 5)
+    const shelter = addShelter(state, content, 3, 4, 1)
+    let checked = 0
+    for (let i = 0; i < 90 * 60 && checked < 20; i++) {
+      advance(state, content, 1000)
+      for (const c of state.creatures) {
+        if (c.speciesId !== 'wren' || c.homeId !== shelter.id || c.activity !== 'perching') continue
+        const fromCentre = Math.hypot(c.x - (shelter.x + 0.5), c.y - (shelter.y + 0.5))
+        expect(fromCentre).toBeGreaterThan(0.3)
+        checked++
+      }
+    }
+    expect(checked).toBeGreaterThan(0)
+  })
+
+  it('never removes one creature because of another', () => {
+    const { content, state } = setup(9)
+    for (let i = 0; i < 5; i++) addPlant(state, content, 'wildflower-mix', 3 + i, 11)
+    addPlant(state, content, 'fern', 3, 3)
+    addPlant(state, content, 'fern', 2, 5)
+    addShelter(state, content, 3, 4, 1)
+    const leaving = new Set<number>()
+    let departures = 0
+    // One simulation step at a time, so every state a creature passes through is seen.
+    for (let i = 0; i < 60 * 60 * 4; i++) {
+      for (const c of state.creatures) if (c.activity === 'leaving') leaving.add(c.id)
+      for (const e of advance(state, content, 250)) {
+        if (e.type !== 'wildlifeLeft') continue
+        // Every departure is a creature that set off on its own journey out of the garden.
+        expect(leaving.has(e.creatureId)).toBe(true)
+        departures++
+      }
+    }
+    expect(departures).toBeGreaterThan(0)
+    const ids = new Set<number>()
+    for (const c of state.creatures) {
+      expect(ids.has(c.id)).toBe(false)
+      ids.add(c.id)
+    }
+  })
+})

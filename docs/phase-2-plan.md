@@ -28,11 +28,11 @@ Owner's report: the wren seemed to eat other animals. No creature is ever remove
 
 Fixes:
 
-- [ ] Show that a hidden creature is resting inside its shelter (a small resting marker on the shelter, plus residents listed in its panel), so nothing appears to vanish.
-- [ ] Birds perch beside the shelter, never on top of a resident's spot, and never at the moment a resident goes inside.
-- [ ] Rewrite journal and description text so no species is described hunting or eating another animal. Check every fact against the no-predation rule.
-- [ ] Add a content test that fails if facts mention hunting, eating or catching other animals.
-- [ ] Record the no-predation rule in `CLAUDE.md` and `open-items.md` so future species follow it.
+- [x] Show that a hidden creature is resting inside its shelter (a small resting marker on the shelter, plus residents listed in its panel), so nothing appears to vanish.
+- [x] Birds perch beside the shelter, never on top of a resident's spot, and never at the moment a resident goes inside.
+- [x] Rewrite journal and description text so no species is described hunting or eating another animal. Check every fact against the no-predation rule.
+- [x] Add a content test that fails if facts mention hunting, eating or catching other animals.
+- [x] Record the no-predation rule in `CLAUDE.md` and `open-items.md` so future species follow it.
 
 ### A2. Seeds pile up with nowhere to use them
 

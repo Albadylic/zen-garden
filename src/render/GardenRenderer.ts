@@ -100,6 +100,7 @@ export class GardenRenderer {
   private terrainKeys: string[] = []
   private overlaySprites: Sprite[] = []
   private entitySprites = new Map<number, Sprite>()
+  private restingMarkers = new Map<number, Sprite>()
   private dropSprites = new Map<number, Sprite>()
   private creatureSprites = new Map<number, CreatureSprite>()
   private openKey = ''
@@ -391,6 +392,35 @@ export class GardenRenderer {
       if (!seen.has(id)) {
         sprite.destroy()
         this.entitySprites.delete(id)
+      }
+    }
+    this.syncRestingMarkers(state)
+  }
+
+  /** Shows when residents are resting inside a shelter, so nothing seems to vanish. */
+  private syncRestingMarkers(state: GameState): void {
+    const homes = new Set(
+      state.creatures.filter((c) => c.hidden && c.homeId !== null).map((c) => c.homeId!),
+    )
+    for (const id of homes) {
+      const e = state.entities.find((en) => en.id === id)
+      if (!e) continue
+      let marker = this.restingMarkers.get(id)
+      if (!marker) {
+        marker = new Sprite()
+        this.applyArt(marker, 'marker:resting')
+        this.restingMarkers.set(id, marker)
+        this.objects.addChild(marker)
+      }
+      const c = tileCentre(e.x, e.y)
+      marker.position.set(c.x - 26, c.y - 62)
+      marker.zIndex = depth(e.x + 0.5, e.y + 0.5) * 10 + 6
+      marker.visible = this.tileOpen(e.x, e.y)
+    }
+    for (const [id, marker] of this.restingMarkers) {
+      if (!homes.has(id)) {
+        marker.destroy()
+        this.restingMarkers.delete(id)
       }
     }
   }

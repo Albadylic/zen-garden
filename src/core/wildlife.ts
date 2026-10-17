@@ -97,6 +97,19 @@ function nearestBoundary(state: GameState, content: Content, from: { x: number; 
   return best
 }
 
+/**
+ * Where a resident settles at its shelter: ground creatures go inside; birds
+ * perch beside it, so nothing ever appears to vanish next to them.
+ */
+export function homeSpot(
+  def: WildlifeDef,
+  home: { x: number; y: number },
+): { x: number; y: number } {
+  return def.movement === 'flying'
+    ? { x: home.x + 0.92, y: home.y + 0.42 }
+    : { x: home.x + 0.5, y: home.y + 0.5 }
+}
+
 /** Shelters this species could live in, with how well each suits it right now. */
 export function sheltersFor(state: GameState, content: Content, def: WildlifeDef) {
   if (def.attraction.kind !== 'shelter') return []
@@ -194,7 +207,13 @@ export function attractWildlife(
           def.movement === 'ground'
             ? nearestBoundary(state, content, shelter)
             : pick(state, boundaryTiles(state, content))
-        if (from) spawn(state, def, ctx, from, shelter, shelter.id)
+        if (!from) break
+        spawn(state, def, ctx, from, shelter, shelter.id)
+        // Birds settle beside the shelter, never on top of residents resting inside it.
+        const spot = homeSpot(def, shelter)
+        const c = state.creatures.at(-1)!
+        c.targetX = spot.x
+        c.targetY = spot.y
         break
       }
     }
@@ -261,9 +280,10 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
     leave(state, content, def, c)
     return
   }
-  const atHome = distance({ x: c.x, y: c.y }, { x: home.x + 0.5, y: home.y + 0.5 }) < 0.3
+  const spot = homeSpot(def, home)
+  const atHome = distance({ x: c.x, y: c.y }, spot) < 0.3
   if (!atHome) {
-    setTarget(c, home.x + 0.5, home.y + 0.5, home.id, 'moving')
+    setTarget(c, spot.x, spot.y, home.id, 'moving')
     return
   }
   if (def.movement === 'ground') {

@@ -613,6 +613,16 @@ export class PlaceholderArt {
         diamond(g, 0.98).fill({ color: colour, alpha })
         break
       }
+      case 'marker':
+        if (id === 'resting') {
+          // A small, calm "resting inside" bubble shown above a shelter.
+          g.roundRect(-15, -11, 30, 18, 9)
+            .fill({ color: 0xfaf7ee, alpha: 0.92 })
+            .stroke({ color: 0x8a7a55, width: 1.5 })
+          g.poly([-4, 7, 0, 13, 4, 7]).fill({ color: 0xfaf7ee, alpha: 0.92 })
+          for (const x of [-7, 0, 7]) g.circle(x, -2, 2.2).fill(0x8a6a45)
+        }
+        break
       case 'scenery':
         drawScenery(g, id)
         break
