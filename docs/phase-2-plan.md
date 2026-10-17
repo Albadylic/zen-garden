@@ -56,8 +56,9 @@ Owner's report: about 60 seeds by the end of the chapter, without many places to
 Owner's report: the interface gets too busy.
 
 - [ ] Replace "Gathered …" and "Cleared overgrowth and found …" toasts with small **item icons** that rise from where the item was gathered, drift towards the Inventory tab, and fade out within about a second. Several items show as a short cluster with a count, for example "+2".
-- [ ] Keep text only for things that matter: milestones and new journal entries. Show these as one compact line at a time, never stacked three deep.
-- [ ] Quiet routine notices entirely, such as journal fact reveals. Mark new facts with a dot on the Journal tab instead.
+- [ ] Keep text only for milestones, shown as one compact line at a time, never stacked.
+- [ ] No journal pop-ups at all. New entries and newly learned facts put a notification badge on the Journal tab, inviting the player to visit when they choose. Inside, new entries and facts are highlighted until read. This keeps the journal optional and intentional.
+- [ ] The return recap mentions journal additions in a single line ("Your journal has 3 new notes") rather than listing them.
 - [ ] Respect reduced motion: icons fade in place without travelling.
 
 ### A5. More shade in the first garden
@@ -82,7 +83,7 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
   - the return recap mentions the maple's progress
   - a Chapter 1 suggestion encourages planting it early
 - [ ] When mature, the maple yields **maple leaves**, a seasonal-looking material.
-- [ ] Optionally it also yields **maple sap**, an ingredient for something special. It must stay framed as gathered from the tree, not processed by people.
+- [ ] It also yields **maple sap**, gathered from the tree rather than processed by people. Its use: a **sap feeder**, a small dish on a post that draws a sap-feeding butterfly (for example a red admiral). Some real butterflies feed on tree sap rather than nectar, so the sap gives the maple an ecological role, not just a crafting one.
 - [ ] Chapter 2 uses maple leaves in a reward:
   - an optional milestone, "A tree comes of age"
   - leaves as an ingredient in the nesting bundle branch and in a decorative maple-leaf lantern
@@ -119,7 +120,8 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
   - **Songbird:** nests in mature bamboo, and is drawn more strongly by a mature maple.
   - **Wood mouse:** lives in the log lodge branch.
   - **A new behaviour from an existing species:** beetles overwintering in a refuge.
-- [ ] **Structures and decorations:** bamboo fence or screen, bamboo water spout (ahead of Chapter 3), maple-leaf lantern.
+- [ ] **Structures and decorations:** bamboo fence or screen, bamboo water spout (ahead of Chapter 3), maple-leaf lantern, sap feeder (maple sap).
+- [ ] **Sap-feeding butterfly:** visits a filled sap feeder; its own journal entry and facts.
 
 ### B4. Branching habitat upgrades
 
