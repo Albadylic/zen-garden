@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  },
+  "overrides": [
+    {
+      "files": ["src/core/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["react", "react-*", "react/*", "pixi.js", "pixi.js/*", "@capacitor/*"],
+                "message": "src/core must stay independent of UI, rendering and platform code."
+              },
+              {
+                "group": ["**/ui/**", "**/render/**", "**/persistence/**", "**/app/**"],
+                "message": "src/core must not import from other layers."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
