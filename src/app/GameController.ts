@@ -49,7 +49,7 @@ export type Mode =
   { type: 'idle' } | { type: 'place'; source: PlaceSource; tile: Point | null } | { type: 'clear' }
 
 export type Panel =
-  null | 'plants' | 'build' | 'restore' | 'inventory' | 'journal' | 'goals' | 'settings'
+  null | 'plants' | 'build' | 'restore' | 'inventory' | 'journal' | 'goals' | 'gardens' | 'settings'
 
 export interface Toast {
   id: number
@@ -106,6 +106,7 @@ export class GameController {
   private toastId = 0
   private flyoutId = 0
   private flyouts: ActiveFlyout[] = []
+  private focus: RenderView['focus'] = null
   private undoStack: UndoRecord[] = []
   private hoverTile: Point | null = null
   private overlayCache: { key: string; overlay: RenderView['overlay'] } | null = null
@@ -314,6 +315,19 @@ export class GameController {
     if (this.flyouts.length === 0) return
     this.flyouts = this.flyouts.filter((f) => this.realTime - f.born < FLYOUT_MS)
     // Fading icons need redrawing every frame they are on screen.
+    this.renderVersion++
+  }
+
+  // --- Travelling between gardens -------------------------------------------
+
+  /** Turns the camera to the middle of a garden and closes the panel. */
+  visitGarden(gardenId: string): void {
+    const g = this.content.world.gardens.find((d) => d.id === gardenId)
+    if (!g) return
+    const x = Math.floor(g.bounds.x + g.bounds.w / 2)
+    const y = Math.floor(g.bounds.y + g.bounds.h / 2)
+    this.focus = { x, y, seq: (this.focus?.seq ?? 0) + 1 }
+    this.ui.set({ panel: null, selection: null })
     this.renderVersion++
   }
 
@@ -678,6 +692,7 @@ export class GameController {
       overlay,
       selection,
       reduceMotion: this.reduceMotion,
+      focus: this.focus,
       flyouts: this.flyouts.map(({ born, ...f }) => ({
         ...f,
         t: Math.min(1, (this.realTime - born) / FLYOUT_MS),

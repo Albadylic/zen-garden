@@ -33,6 +33,7 @@ export function openGardens(state: GameState, content: Content): GardenDef[] {
 
 /** A gate stands open once the garden beyond it has opened. */
 export function isGateOpen(state: GameState, content: Content, gate: GateDef): boolean {
+  if (gate.unlock) return state.unlocks.includes(gate.unlock)
   return isGardenOpen(state, gardenById(content, gate.to))
 }
 

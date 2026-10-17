@@ -43,6 +43,8 @@ export interface RenderView {
   reduceMotion: boolean
   /** Small item icons shown briefly where something was gathered. */
   flyouts: Flyout[]
+  /** A request to turn the camera to a tile; `seq` changes with each new request. */
+  focus: { x: number; y: number; seq: number } | null
 }
 
 export interface Flyout {
@@ -128,6 +130,7 @@ export class GardenRenderer {
   private flyoutLayer = new Container()
   private flyoutSprites = new Map<number, FlyoutSprite>()
   private openKey = ''
+  private focusSeq = 0
   private dirty = true
   private drawnVersion = -1
   private sinceDraw = 0
@@ -163,12 +166,7 @@ export class GardenRenderer {
     app.canvas.dataset.testid = 'garden-canvas'
     element.appendChild(app.canvas)
 
-    const { content } = this.host
-    const colours = {
-      items: Object.fromEntries(Object.values(content.items).map((i) => [i.id, i.colour])),
-      wildlife: Object.fromEntries(Object.values(content.wildlife).map((w) => [w.id, w.colour])),
-    }
-    this.art = new PlaceholderArt(app.renderer, colours)
+    this.art = new PlaceholderArt(app.renderer, this.host.content)
     const state = this.host.getState()
     this.camera = new Camera(
       unionBounds(Object.values(state.gardens).map((g) => rectBounds(g.x, g.y, g.width, g.height))),
@@ -319,6 +317,10 @@ export class GardenRenderer {
     const state = this.host.getState()
     const view = this.host.getView()
     this.syncAreas(state)
+    if (view.focus && view.focus.seq !== this.focusSeq) {
+      this.focusSeq = view.focus.seq
+      this.centreOn(view.focus.x, view.focus.y)
+    }
     this.syncTerrain(state)
     this.syncOverlay(view)
     this.syncEntities(state, view)

@@ -2,7 +2,7 @@
 // or structure suits a tile. Shared by growth, habitats and wildlife.
 
 import type { Content, Range, Terrain } from './content'
-import { distance, gardenTilesAt, localIndex } from './grid'
+import { distance, gardenTilesAt, isWater, localIndex } from './grid'
 import { gardenById } from './gardens'
 import type { GameState } from './state'
 
@@ -27,7 +27,10 @@ const TERRAIN_MOISTURE: Record<Terrain, number> = {
   moss: 0.55,
   path: 0.15,
   water: 1,
+  'deep-water': 1,
+  stream: 1,
   margin: 0.75,
+  gravel: 0.1,
   overgrown: 0.4,
   boundary: 0.3,
 }
@@ -54,7 +57,7 @@ function waterGrid(state: GameState, gardenId: string): number[] {
   const g = state.gardens[gardenId]!
   const water: { x: number; y: number }[] = []
   g.terrain.forEach((t, i) => {
-    if (t === 'water') water.push({ x: i % g.width, y: Math.floor(i / g.width) })
+    if (isWater(t)) water.push({ x: i % g.width, y: Math.floor(i / g.width) })
   })
   const grid = g.terrain.map((_, i) => {
     const at = { x: i % g.width, y: Math.floor(i / g.width) }

@@ -208,7 +208,13 @@ function buildWorld(
       g.terrain[local.y * g.bounds.w + local.x]
     if (terrainOf(from, c.gate.at) !== 'path' || terrainOf(to, c.gate.passage) !== 'path')
       problems.push(`${where}: the gate and its passage must be path tiles`)
-    gates.push({ from: a.id, to: b.id, at, passage })
+    gates.push({
+      from: a.id,
+      to: b.id,
+      at,
+      passage,
+      ...(c.gate.unlock ? { unlock: c.gate.unlock } : {}),
+    })
   }
 
   return {
@@ -278,6 +284,10 @@ export function loadContent(raw: RawContent): Content {
     if (plant.seedItem) needItem(plant.seedItem, `plants.json ${plant.id}.seedItem`)
     for (const p of plant.produces) needItem(p.item, `plants.json ${plant.id}.produces`)
     if (plant.harvest) needItem(plant.harvest.item, `plants.json ${plant.id}.harvest`)
+    for (const id of plant.near?.ids ?? []) {
+      if (!plants[id] && !decorations[id] && !structures[id])
+        problems.push(`plants.json ${plant.id}.near: unknown "${id}"`)
+    }
     if (plant.flowerStage >= plant.stages.length) {
       problems.push(`plants.json ${plant.id}: flowerStage is beyond its last stage`)
     }
@@ -307,6 +317,12 @@ export function loadContent(raw: RawContent): Content {
       for (const pid of [...a.plants, ...(a.bonus ? [a.bonus.plant] : [])]) {
         if (!plants[pid]) problems.push(`wildlife.json ${w.id}: unknown plant "${pid}"`)
       }
+      for (const tid of a.things ?? []) {
+        if (!decorations[tid] && !structures[tid])
+          problems.push(`wildlife.json ${w.id}: unknown decoration or structure "${tid}"`)
+      }
+      if (a.plants.length === 0 && !a.things?.length)
+        problems.push(`wildlife.json ${w.id}: a perch needs plants or things to rest on`)
     }
     if (a.kind === 'feeder' && !structures[a.structure]?.feeder) {
       problems.push(`wildlife.json ${w.id}: "${a.structure}" is not a feeder structure`)
@@ -357,6 +373,14 @@ export function loadContent(raw: RawContent): Content {
       case 'gathered':
         needItem(c.item, where)
         break
+      case 'plantedBeside':
+        need(gardenIds.has(c.garden), `garden "${c.garden}"`)
+        for (const id of c.plants ?? []) need(!!plants[id], `plant "${id}"`)
+        break
+      case 'speciesIn':
+      case 'openWater':
+        need(gardenIds.has(c.garden), `garden "${c.garden}"`)
+        break
       case 'seenAny':
         for (const id of c.wildlife) need(!!wildlife[id], `wildlife "${id}"`)
         break
@@ -382,6 +406,7 @@ export function loadContent(raw: RawContent): Content {
     }
   }
   for (const ch of chapters ?? []) {
+    if (!gardenIds.has(ch.id)) problems.push(`chapters.json ${ch.id}: no garden with this id`)
     for (const m of [...ch.milestones, ...(ch.optional ?? [])]) {
       for (const c of m.conditions) checkCondition(c, `chapters.json ${ch.id}/${m.id}`)
     }

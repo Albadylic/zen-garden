@@ -4,6 +4,7 @@ import { BuildPanel } from './BuildPanel'
 import { ClearBar } from './ClearBar'
 import { ChapterComplete } from './ChapterComplete'
 import { GardenView } from './GardenView'
+import { GardensPanel } from './GardensPanel'
 import { GoalsPanel } from './GoalsPanel'
 import { useController, useUi } from './hooks'
 import { Hud } from './Hud'
@@ -56,6 +57,7 @@ export function App({ mountGarden }: Props) {
               {panel === 'restore' && <RestorePanel />}
               {panel === 'inventory' && <InventoryPanel />}
               {panel === 'goals' && <GoalsPanel />}
+              {panel === 'gardens' && <GardensPanel />}
               {panel === 'journal' && <JournalPanel />}
               {panel === 'settings' && <SettingsPanel />}
               {!panel && selection && <InspectPanel />}

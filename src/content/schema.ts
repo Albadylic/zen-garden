@@ -28,10 +28,25 @@ export const terrainSchema = z.enum([
   'moss',
   'path',
   'water',
+  'deep-water',
+  'stream',
   'margin',
+  'gravel',
   'overgrown',
   'boundary',
 ]) satisfies z.ZodType<Terrain>
+
+const seasonSchema = z.enum(['spring', 'summer', 'autumn', 'winter'])
+
+const lookSchema = z.object({
+  form: z.string().min(1),
+  colour: z.string().regex(/^#[0-9a-f]{6}$/i),
+  accent: z
+    .string()
+    .regex(/^#[0-9a-f]{6}$/i)
+    .optional(),
+  size: z.number().positive().optional(),
+})
 
 const rangeSchema = z
   .object({ min: unit, max: unit })
@@ -93,6 +108,9 @@ export const plantSchema = z
         minStage: count,
       })
       .optional(),
+    near: z.object({ ids: z.array(id).min(1), distance: z.number().positive() }).optional(),
+    flowerSeasons: z.array(seasonSchema).min(1).optional(),
+    look: lookSchema.optional(),
     facts: z.array(factSchema),
     hints: z.array(hintSchema).optional(),
   })
@@ -107,7 +125,10 @@ export const structureSchema = z.object({
   description: z.string().min(1),
   terrain: z.array(terrainSchema).min(1),
   prefers: z.object({ shade: rangeSchema, moisture: rangeSchema, cover: rangeSchema }),
-  feeder: z.object({ item: id, durationSec: z.number().positive() }).optional(),
+  feeder: z
+    .object({ item: id, durationSec: z.number().positive(), whileFilled: z.boolean().optional() })
+    .optional(),
+  look: lookSchema.optional(),
   levels: z
     .array(
       z.object({
@@ -139,6 +160,7 @@ export const decorationSchema = z.object({
   terrain: z.array(terrainSchema).min(1),
   flat: z.boolean(),
   cover: unit,
+  look: lookSchema.optional(),
   facts: z.array(factSchema),
 }) satisfies z.ZodType<DecorationDef>
 
@@ -164,6 +186,7 @@ export const wildlifeSchema = z.object({
     z.object({
       kind: z.literal('nectar'),
       minNectar: z.number().positive(),
+      minSpecies: z.number().int().positive().optional(),
       perMinute: z.number().positive(),
     }),
     z.object({
@@ -176,7 +199,8 @@ export const wildlifeSchema = z.object({
     }),
     z.object({
       kind: z.literal('perch'),
-      plants: z.array(id).min(1),
+      plants: z.array(id),
+      things: z.array(id).optional(),
       minCount: z.number().int().positive(),
       bonus: z.object({ plant: id, multiplier: z.number().positive() }).optional(),
       perMinute: z.number().positive(),
@@ -186,9 +210,11 @@ export const wildlifeSchema = z.object({
   alongside: z
     .object({ wildlife: z.array(id).min(1), count: z.number().int().positive() })
     .optional(),
+  seasons: z.array(seasonSchema).min(1).optional(),
   maxPresent: z.number().int().positive(),
   staySec: z.tuple([z.number().positive(), z.number().positive()]),
   colour: z.string().regex(/^#[0-9a-f]{6}$/i),
+  look: lookSchema.optional(),
   facts: z.array(factSchema),
   hints: z.array(hintSchema).optional(),
 }) satisfies z.ZodType<WildlifeDef>
@@ -238,6 +264,16 @@ const conditionSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('matured'), plant: id, count: z.number().int().positive() }),
   z.object({ kind: z.literal('approachChosen'), project: id }),
   z.object({ kind: z.literal('stagesDone'), project: id, count: z.number().int().positive() }),
+  z.object({
+    kind: z.literal('plantedBeside'),
+    garden: id,
+    terrain: z.array(terrainSchema).min(1),
+    plants: z.array(id).optional(),
+    count: z.number().int().positive(),
+  }),
+  z.object({ kind: z.literal('speciesIn'), garden: id, count: z.number().int().positive() }),
+  z.object({ kind: z.literal('openWater'), garden: id, count: z.number().int().positive() }),
+  z.object({ kind: z.literal('seasonsSeen'), count: z.number().int().positive() }),
 ]) satisfies z.ZodType<Condition>
 
 const milestoneSchema = z.object({
@@ -345,7 +381,7 @@ export const worldSchema = z.object({
       gardens: z.tuple([id, id]),
       kind: z.enum(['main', 'return']),
       /** Where the gate stands in the first garden's wall, and the opening in the second's (local tiles). */
-      gate: z.object({ at: tile, passage: tile }).optional(),
+      gate: z.object({ at: tile, passage: tile, unlock: z.string().min(1).optional() }).optional(),
     }),
   ),
 })

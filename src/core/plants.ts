@@ -8,6 +8,7 @@ import { distance, entityAt, entityById, neighbours, setTerrain, terrainAt } fro
 import { addItems, hasItems, removeItems } from './inventory'
 import { type ActionResult, checkPlacement } from './layout'
 import { chance, pick } from './rng'
+import { inSeason } from './seasons'
 import type { StepContext } from './simulation'
 import type { GameState, PlantEntity } from './state'
 
@@ -46,9 +47,11 @@ export function isFinalStage(def: PlantDef, stage: number): boolean {
   return stage >= def.stages.length - 1
 }
 
-export function isFlowering(content: Content, plant: PlantEntity): boolean {
+/** Whether a plant is in flower: old enough, and (once the seasons have begun) in its season. */
+export function isFlowering(content: Content, plant: PlantEntity, state?: GameState): boolean {
   const def = content.plants[plant.defId]
-  return !!def && def.nectar > 0 && plant.stage >= def.flowerStage
+  if (!def || def.nectar <= 0 || plant.stage < def.flowerStage) return false
+  return !state || inSeason(state, def.flowerSeasons)
 }
 
 /** Milliseconds until the next stage at the current rate, or null at the final stage. */
@@ -207,6 +210,16 @@ export function spreadPlants(
         !checkPlacement(state, content, { kind: 'plant', defId: e.defId }, n.x, n.y).ok
       ) {
         return false
+      }
+      if (spread.mode === 'plant' && spread.maxNearby !== undefined) {
+        // Neither the new clump nor any clump beside it may end up too crowded.
+        const max = spread.maxNearby
+        const kin = (p: { x: number; y: number }) =>
+          state.entities.filter(
+            (o) => o.kind === 'plant' && o.defId === e.defId && distance(o, p) <= 1.5,
+          )
+        const around = kin(n)
+        if (around.length > max || around.some((o) => kin(o).length > max)) return false
       }
       return plantSuitability(state, content, e.defId, n.x, n.y).score >= SPREAD_MIN_SUITABILITY
     })

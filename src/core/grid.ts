@@ -92,5 +92,10 @@ export function neighbours(state: GameState, x: number, y: number): GridPos[] {
 
 /** Tiles a creature can stand on or fly over inside the garden walls. */
 export function isOpenGround(terrain: Terrain | undefined): boolean {
-  return terrain !== undefined && terrain !== 'boundary' && terrain !== 'water'
+  return terrain !== undefined && terrain !== 'boundary' && !isWater(terrain)
+}
+
+/** Open water of any kind: pond, deep water or stream. */
+export function isWater(terrain: Terrain | undefined): boolean {
+  return terrain === 'water' || terrain === 'deep-water' || terrain === 'stream'
 }

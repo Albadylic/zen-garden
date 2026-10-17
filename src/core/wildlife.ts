@@ -1,46 +1,71 @@
 // Wildlife: arrival when the garden offers what a species needs, then
 // autonomous behaviour (moving, feeding, resting, perching) until it leaves.
 
-import type { Activity, Content, WildlifeDef } from './content'
-import { isTileOpen } from './gardens'
+import type { Activity, Content, GardenDef, WildlifeDef } from './content'
+import { gardenAt, isInGarden, isTileOpen, openGardens } from './gardens'
 import { structureSuitability } from './environment'
 import { isFilled } from './feeders'
 import { nextId } from './game'
 import { distance, entityById, forEachTile, isOpenGround, terrainAt } from './grid'
 import { isFlowering } from './plants'
+import { inSeason } from './seasons'
 import { chance, pick, random, randomRange } from './rng'
 import type { StepContext } from './simulation'
-import type { Creature, GameState, PlantEntity, StructureEntity } from './state'
+import type { Creature, Entity, GameState, PlantEntity, StructureEntity } from './state'
+
+// Each garden has its own wildlife community: visitors arrive from its walls,
+// stay within it, and count only the companions and food in the same garden.
+// Without a garden, these helpers look across the whole sanctuary.
+
+/** Whether a position (a tile or a creature) lies within the garden, if one is given. */
+function within(garden: GardenDef | undefined, p: { x: number; y: number }): boolean {
+  return !garden || isInGarden(garden, Math.floor(p.x), Math.floor(p.y))
+}
+
+/** The garden a creature is in. */
+export function gardenOfCreature(content: Content, c: { x: number; y: number }) {
+  return gardenAt(content, Math.floor(c.x), Math.floor(c.y))
+}
 
 /** Total nectar on offer from flowering plants. */
-export function nectarAvailable(state: GameState, content: Content): number {
+export function nectarAvailable(state: GameState, content: Content, garden?: GardenDef): number {
   let total = 0
   for (const e of state.entities) {
-    if (e.kind === 'plant' && isFlowering(content, e)) total += content.plants[e.defId]!.nectar
+    if (e.kind === 'plant' && within(garden, e) && isFlowering(content, e, state))
+      total += content.plants[e.defId]!.nectar
   }
   return total
 }
 
-function flowers(state: GameState, content: Content): PlantEntity[] {
+function flowers(state: GameState, content: Content, garden?: GardenDef): PlantEntity[] {
   return state.entities.filter(
-    (e): e is PlantEntity => e.kind === 'plant' && isFlowering(content, e),
+    (e): e is PlantEntity =>
+      e.kind === 'plant' && within(garden, e) && isFlowering(content, e, state),
   )
 }
 
-/** Mature plants a perching species likes, including any it is especially drawn to. */
-export function perchPlants(state: GameState, content: Content, def: WildlifeDef): PlantEntity[] {
+/**
+ * Places a perching species likes: mature plants of its kinds (including any
+ * it is especially drawn to), and decorations or structures it rests on.
+ */
+export function perchSpots(
+  state: GameState,
+  content: Content,
+  def: WildlifeDef,
+  garden?: GardenDef,
+): Entity[] {
   if (def.attraction.kind !== 'perch') return []
-  const kinds = new Set([
+  const plants = new Set([
     ...def.attraction.plants,
     ...(def.attraction.bonus ? [def.attraction.bonus.plant] : []),
   ])
-  return state.entities.filter(
-    (e): e is PlantEntity =>
-      e.kind === 'plant' &&
-      kinds.has(e.defId) &&
-      e.stage >= (content.plants[e.defId]?.stages.length ?? 1) - 1 &&
-      isTileOpen(state, content, e.x, e.y),
-  )
+  const things = new Set(def.attraction.things ?? [])
+  return state.entities.filter((e) => {
+    if (!within(garden, e) || !isTileOpen(state, content, e.x, e.y)) return false
+    if (e.kind === 'plant')
+      return plants.has(e.defId) && e.stage >= (content.plants[e.defId]?.stages.length ?? 1) - 1
+    return things.has(e.defId)
+  })
 }
 
 /** Feeders of a kind that currently hold something. */
@@ -48,12 +73,14 @@ export function filledFeeders(
   state: GameState,
   content: Content,
   structureId: string,
+  garden?: GardenDef,
 ): StructureEntity[] {
   return state.entities.filter(
     (e): e is StructureEntity =>
       e.kind === 'structure' &&
       e.defId === structureId &&
       isFilled(e) &&
+      within(garden, e) &&
       isTileOpen(state, content, e.x, e.y),
   )
 }
@@ -72,19 +99,39 @@ function perches(
   })
 }
 
-/** Wall tiles of the open areas: where visitors come and go. */
-function boundaryTiles(state: GameState, content: Content): { x: number; y: number }[] {
+const wallCache = new WeakMap<
+  GameState,
+  { key: string; walls: Map<string, { x: number; y: number }[]> }
+>()
+
+/** Wall tiles of a garden (or of every open garden): where visitors come and go. */
+function boundaryTiles(
+  state: GameState,
+  content: Content,
+  garden?: GardenDef,
+): { x: number; y: number }[] {
+  const key = `${state.layoutVersion}:${state.unlocks.length}`
+  let cached = wallCache.get(state)
+  if (cached?.key !== key) {
+    cached = { key, walls: new Map() }
+    wallCache.set(state, cached)
+  }
+  const id = garden?.id ?? '*'
+  const hit = cached.walls.get(id)
+  if (hit) return hit
   const out: { x: number; y: number }[] = []
   forEachTile(state, (x, y, t) => {
-    if (t === 'boundary' && isTileOpen(state, content, x, y)) out.push({ x, y })
+    if (t === 'boundary' && within(garden, { x, y }) && isTileOpen(state, content, x, y))
+      out.push({ x, y })
   })
+  cached.walls.set(id, out)
   return out
 }
 
 function nearestBoundary(state: GameState, content: Content, from: { x: number; y: number }) {
   let best = { x: 0, y: 0 }
   let bestD = Infinity
-  for (const t of boundaryTiles(state, content)) {
+  for (const t of boundaryTiles(state, content, gardenOfCreature(content, from))) {
     const d = distance(t, from)
     if (d < bestD) {
       bestD = d
@@ -108,12 +155,17 @@ export function homeSpot(
 }
 
 /** Shelters this species could live in, with how well each suits it right now. */
-export function sheltersFor(state: GameState, content: Content, def: WildlifeDef) {
+export function sheltersFor(
+  state: GameState,
+  content: Content,
+  def: WildlifeDef,
+  garden?: GardenDef,
+) {
   if (def.attraction.kind !== 'shelter') return []
   const { structure, minTier, branches, minSuitability } = def.attraction
   return state.entities
     .filter((e): e is StructureEntity => {
-      if (e.kind !== 'structure' || e.defId !== structure) return false
+      if (e.kind !== 'structure' || e.defId !== structure || !within(garden, e)) return false
       if (!isTileOpen(state, content, e.x, e.y)) return false
       const level = content.structures[e.defId]?.levels[e.level]
       if (!level || level.tier < minTier) return false
@@ -157,53 +209,79 @@ function spawn(
   ctx.events.push({ type: 'wildlifeArrived', creatureId: creature.id, speciesId: def.id })
 }
 
-/** System: species arrive when the garden offers what they need. */
-/** Whether the creatures a species arrives alongside are in the sanctuary now. */
-export function companionsPresent(state: GameState, def: WildlifeDef): boolean {
+/** Whether the creatures a species arrives alongside are in the garden (or sanctuary) now. */
+export function companionsPresent(
+  state: GameState,
+  def: WildlifeDef,
+  content?: Content,
+  garden?: GardenDef,
+): boolean {
   const a = def.alongside
   if (!a) return true
-  return state.creatures.filter((c) => a.wildlife.includes(c.speciesId)).length >= a.count
+  const here = state.creatures.filter(
+    (c) => a.wildlife.includes(c.speciesId) && (!content || within(garden, c)),
+  )
+  return here.length >= a.count
 }
 
+/** System: in each open garden, species arrive when it offers what they need. */
 export function attractWildlife(
   state: GameState,
   content: Content,
   dtMs: number,
   ctx: StepContext,
 ): void {
-  const nectar = nectarAvailable(state, content)
+  for (const garden of openGardens(state, content)) attractTo(state, content, garden, dtMs, ctx)
+}
+
+function attractTo(
+  state: GameState,
+  content: Content,
+  garden: GardenDef,
+  dtMs: number,
+  ctx: StepContext,
+): void {
+  const nectar = nectarAvailable(state, content, garden)
+  const walls = () => boundaryTiles(state, content, garden)
   for (const def of Object.values(content.wildlife)) {
-    const present = state.creatures.filter((c) => c.speciesId === def.id).length
+    const present = state.creatures.filter(
+      (c) => c.speciesId === def.id && within(garden, c),
+    ).length
     if (present >= def.maxPresent) continue
-    if (!companionsPresent(state, def)) continue
+    if (!inSeason(state, def.seasons)) continue
+    if (!companionsPresent(state, def, content, garden)) continue
     const a = def.attraction
     if (a.kind === 'nectar') {
       if (nectar < a.minNectar) continue
+      const options = flowers(state, content, garden)
+      if (a.minSpecies && new Set(options.map((f) => f.defId)).size < a.minSpecies) continue
       // More flowers support more visitors at once, and draw them sooner.
       if (present >= Math.floor(nectar / a.minNectar)) continue
       if (!chance(state, a.perMinute * Math.min(2, nectar / a.minNectar), dtMs)) continue
-      const target = pick(state, flowers(state, content))
-      const from = pick(state, boundaryTiles(state, content))
+      const target = pick(state, options)
+      const from = pick(state, walls())
       if (target && from) spawn(state, def, ctx, from, target, null)
     } else if (a.kind === 'perch') {
-      const spots = perchPlants(state, content, def)
-      const main = spots.filter((p) => a.plants.includes(p.defId)).length
+      const spots = perchSpots(state, content, def, garden)
+      const main = spots.filter(
+        (p) => a.plants.includes(p.defId) || (a.things ?? []).includes(p.defId),
+      ).length
       if (main < a.minCount) continue
       const bonus =
         a.bonus && spots.some((p) => p.defId === a.bonus!.plant) ? a.bonus.multiplier : 1
       if (!chance(state, a.perMinute * Math.min(2, main / a.minCount) * bonus, dtMs)) continue
       const target = pick(state, spots)
-      const from = pick(state, boundaryTiles(state, content))
+      const from = pick(state, walls())
       if (target && from) spawn(state, def, ctx, from, target, null)
     } else if (a.kind === 'feeder') {
-      const feeders = filledFeeders(state, content, a.structure)
+      const feeders = filledFeeders(state, content, a.structure, garden)
       if (feeders.length === 0 || present >= feeders.length * 2) continue
       if (!chance(state, a.perMinute * feeders.length, dtMs)) continue
       const target = pick(state, feeders)
-      const from = pick(state, boundaryTiles(state, content))
+      const from = pick(state, walls())
       if (target && from) spawn(state, def, ctx, from, target, null)
     } else {
-      for (const { shelter, suitability } of sheltersFor(state, content, def)) {
+      for (const { shelter, suitability } of sheltersFor(state, content, def, garden)) {
         const level = content.structures[shelter.defId]?.levels[shelter.level]
         if (!level || residents(state, shelter.id).length >= level.capacity) continue
         const favour = level.favours?.[def.id] ?? 1
@@ -211,7 +289,7 @@ export function attractWildlife(
         const from =
           def.movement === 'ground'
             ? nearestBoundary(state, content, shelter)
-            : pick(state, boundaryTiles(state, content))
+            : pick(state, walls())
         if (!from) break
         spawn(state, def, ctx, from, shelter, shelter.id)
         // Birds settle beside the shelter, never on top of residents resting inside it.
@@ -237,7 +315,10 @@ function leave(state: GameState, content: Content, def: WildlifeDef, c: Creature
   const edge =
     def.movement === 'ground'
       ? nearestBoundary(state, content, c)
-      : (pick(state, boundaryTiles(state, content)) ?? { x: 0, y: 0 })
+      : (pick(state, boundaryTiles(state, content, gardenOfCreature(content, c))) ?? {
+          x: Math.floor(c.x),
+          y: Math.floor(c.y),
+        })
   setTarget(c, edge.x + 0.5, edge.y + 0.5, null, 'leaving')
 }
 
@@ -248,8 +329,9 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
     return
   }
   const jitter = () => randomRange(state, -0.25, 0.25)
+  const garden = gardenOfCreature(content, c)
   if (def.attraction.kind === 'nectar') {
-    const options = flowers(state, content)
+    const options = flowers(state, content, garden)
     if (options.length === 0) {
       leave(state, content, def, c)
       return
@@ -261,7 +343,7 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
     return
   }
   if (def.attraction.kind === 'perch') {
-    const target = pick(state, perchPlants(state, content, def))
+    const target = pick(state, perchSpots(state, content, def, garden))
     if (!target) {
       leave(state, content, def, c)
       return
@@ -270,7 +352,7 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
     return
   }
   if (def.attraction.kind === 'feeder') {
-    const feeders = filledFeeders(state, content, def.attraction.structure)
+    const feeders = filledFeeders(state, content, def.attraction.structure, garden)
     if (feeders.length === 0) {
       leave(state, content, def, c)
       return
@@ -361,7 +443,7 @@ function arrive(
     c.timerMs = randomRange(state, 5, 10) * 1000
     return
   }
-  if (target?.kind === 'plant' && def.attraction.kind === 'perch') {
+  if (target && def.attraction.kind === 'perch') {
     c.activity = 'perching'
     c.timerMs = randomRange(state, 8, 18) * 1000
     return

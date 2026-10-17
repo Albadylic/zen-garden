@@ -1,3 +1,4 @@
+import { openGardens } from '../core/gardens'
 import { currentChapter } from '../core/progression'
 import { useGame, useUi } from './hooks'
 import { SuggestionCard } from './SuggestionCard'
@@ -31,6 +32,28 @@ export function Hud() {
         {canUndo && idle && (
           <button type="button" className="pill" onClick={() => controller.undoLast()}>
             Undo
+          </button>
+        )}
+        {openGardens(controller.state, controller.content).length > 1 && (
+          <button
+            type="button"
+            className="pill pill--icon"
+            aria-label="Gardens"
+            onClick={() => controller.openPanel('gardens')}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z" />
+              <path d="M9 4v14M15 6v14" />
+            </svg>
           </button>
         )}
         <button

@@ -2,7 +2,30 @@
 // structures, recipes, milestones and the starting map. Loaded and validated
 // from JSON by src/content; the simulation only ever sees these types.
 
-export type Terrain = 'grass' | 'moss' | 'path' | 'water' | 'margin' | 'overgrown' | 'boundary'
+export type Terrain =
+  | 'grass'
+  | 'moss'
+  | 'path'
+  | 'water'
+  | 'deep-water'
+  | 'stream'
+  | 'margin'
+  | 'gravel'
+  | 'overgrown'
+  | 'boundary'
+
+export type Season = 'spring' | 'summer' | 'autumn' | 'winter'
+
+/**
+ * How placeholder art draws something new: a form (the kind of shape, such as
+ * "shrub" or "dragonfly") and colours. Final art replaces it by texture key.
+ */
+export interface Look {
+  form: string
+  colour: string
+  accent?: string
+  size?: number
+}
 
 export type ItemCategory = 'seed' | 'material' | 'food'
 
@@ -81,6 +104,11 @@ export interface PlantDef {
   }
   /** Can be harvested by hand once mature, then needs time to recover. */
   harvest?: { item: string; amount: number; cooldownSec: number; minStage: number }
+  /** Only grows within `distance` tiles of one of these (for example fungi beside dead wood). */
+  near?: { ids: string[]; distance: number }
+  /** Seasons in which it flowers (and offers nectar) once seasons have begun; every season if absent. */
+  flowerSeasons?: Season[]
+  look?: Look
   facts: Fact[]
   /** Clues shown in the journal before it is discovered, getting more specific over time. */
   hints?: Hint[]
@@ -125,8 +153,13 @@ export interface StructureDef {
   terrain: Terrain[]
   prefers: { shade: Range; moisture: Range; cover: Range }
   levels: StructureLevelDef[]
-  /** A feeder is filled with an item and attracts visitors while it lasts. */
-  feeder?: { item: string; durationSec: number }
+  /**
+   * A feeder is filled with an item and attracts visitors while it lasts.
+   * With `whileFilled`, the structure also only produces while it is filled
+   * (a compost bed turning leaf litter into leaf mould).
+   */
+  feeder?: { item: string; durationSec: number; whileFilled?: boolean }
+  look?: Look
   facts: Fact[]
   /** Clues shown in the journal before it is discovered, getting more specific over time. */
   hints?: Hint[]
@@ -141,6 +174,7 @@ export interface DecorationDef {
   flat: boolean
   /** Cover offered to ground-dwelling wildlife. */
   cover: number
+  look?: Look
   facts: Fact[]
 }
 
@@ -166,7 +200,13 @@ export interface WildlifeDef {
   speed: number
   /** What draws it to the garden. */
   attraction:
-    | { kind: 'nectar'; minNectar: number; perMinute: number }
+    | {
+        kind: 'nectar'
+        minNectar: number
+        /** Different flowering species needed in the sanctuary, for visitors that love variety. */
+        minSpecies?: number
+        perMinute: number
+      }
     | {
         kind: 'shelter'
         structure: string
@@ -178,9 +218,11 @@ export interface WildlifeDef {
         perMinute: number
       }
     | {
-        /** Rests in mature plants of these kinds, with an optional extra draw. */
+        /** Rests in mature plants (or on decorations and structures) of these kinds, with an optional extra draw. */
         kind: 'perch'
         plants: string[]
+        /** Decorations or structures it also rests on, such as stepping stones in a stream. */
+        things?: string[]
         minCount: number
         bonus?: { plant: string; multiplier: number }
         perMinute: number
@@ -192,10 +234,13 @@ export interface WildlifeDef {
    * plentiful. This decides arrivals only; no creature ever affects another.
    */
   alongside?: { wildlife: string[]; count: number }
+  /** Seasons in which it visits once seasons have begun; every season if absent. */
+  seasons?: Season[]
   maxPresent: number
   /** Range of seconds a visit lasts. */
   staySec: [number, number]
   colour: string
+  look?: Look
   facts: Fact[]
   /** Clues shown in the journal before it is discovered, getting more specific over time. */
   hints?: Hint[]
@@ -226,6 +271,14 @@ export type Condition =
   | { kind: 'matured'; plant: string; count: number }
   | { kind: 'approachChosen'; project: string }
   | { kind: 'stagesDone'; project: string; count: number }
+  /** Plants growing in a garden right beside tiles of these terrains (water, stream). */
+  | { kind: 'plantedBeside'; garden: string; terrain: Terrain[]; plants?: string[]; count: number }
+  /** Different species growing in a garden. */
+  | { kind: 'speciesIn'; garden: string; count: number }
+  /** Water tiles in a garden left open, with nothing planted or built on them. */
+  | { kind: 'openWater'; garden: string; count: number }
+  /** Seasons seen since the seasons began. */
+  | { kind: 'seasonsSeen'; count: number }
 
 export interface MilestoneDef {
   id: string
@@ -337,6 +390,8 @@ export interface WorldGardenDef {
 
 /** A gate between two neighbouring gardens, in world tiles. */
 export interface GateDef {
+  /** Unlock key that opens the gate, when it is not simply the second garden opening. */
+  unlock?: string
   /** Garden whose wall holds the gate. */
   from: string
   /** Garden the gate opens into; the gate is open once that garden is. */

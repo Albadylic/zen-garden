@@ -31,6 +31,7 @@ export type GameEvent =
   | { type: 'unlocked'; key: string }
   | { type: 'chapterComplete'; chapterId: string }
   | { type: 'gift'; chapterId: string; items: Record<string, number> }
+  | { type: 'seasonBegan'; season: string }
   | { type: 'approachChosen'; projectId: string; approachId: string }
   | { type: 'stageComplete'; projectId: string; stageId: string; title: string }
   | { type: 'approachComplete'; projectId: string; approachId: string; title: string }

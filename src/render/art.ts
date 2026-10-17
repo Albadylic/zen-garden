@@ -6,7 +6,9 @@
 // touches the ground at the centre of its tile.
 
 import { Graphics, type Renderer, type Texture } from 'pixi.js'
+import type { Content } from '../core/content'
 import { TILE_H, TILE_W } from './iso'
+import { drawCreatureLook, drawPlantLook, drawThingLook } from './looks'
 
 export interface ArtTexture {
   texture: Texture
@@ -37,7 +39,10 @@ const TERRAIN_COLOURS: Record<string, [number, number]> = {
   moss: [0x7f9a4f, 0x78934a],
   path: [0xb9b2a2, 0xb2ab9b],
   water: [0x7fa7b5, 0x7aa1af],
+  'deep-water': [0x5f8a9c, 0x5b8597],
+  stream: [0x8db6c2, 0x88b0bc],
   margin: [0x8f9a6a, 0x899466],
+  gravel: [0xd8d2c2, 0xd2ccbb],
   overgrown: [0x7d8c54, 0x76854f],
   boundary: [0x5b6b45, 0x56653f],
 }
@@ -58,7 +63,20 @@ function drawTerrain(g: Graphics, terrain: string, variant: number): void {
   }
   diamond(g).fill(base)
   const r = scatter(variant + terrain.length * 13, 12)
-  if (terrain === 'water') {
+  if (terrain === 'deep-water') {
+    g.ellipse(0, 0, 30, 12).fill({ color: 0x4f7788, alpha: 0.5 })
+    g.moveTo(-20, 6).quadraticCurveTo(-6, 0, 8, 6).stroke({ color: 0x8fb4c2, width: 2, alpha: 0.5 })
+  } else if (terrain === 'stream') {
+    for (const dy of [-8, 2, 12])
+      g.moveTo(-34, dy - 10)
+        .quadraticCurveTo(-4, dy - 2, 30, dy + 12)
+        .stroke({ color: 0xd2e6ec, width: 2, alpha: 0.7 })
+  } else if (terrain === 'gravel') {
+    for (let i = -2; i <= 2; i++)
+      g.moveTo(-40 + Math.abs(i) * 10, i * 6)
+        .lineTo(40 - Math.abs(i) * 10, i * 6)
+        .stroke({ color: 0xb9b2a2, width: 1.5, alpha: 0.8 })
+  } else if (terrain === 'water') {
     g.moveTo(-28, -4)
       .quadraticCurveTo(-14, -10, 0, -4)
       .stroke({ color: 0xa9c8d2, width: 2, alpha: 0.7 })
@@ -596,14 +614,11 @@ export class PlaceholderArt {
   private cache = new Map<string, ArtTexture>()
 
   private readonly renderer: Renderer
-  private readonly colours: { items: Record<string, string>; wildlife: Record<string, string> }
+  private readonly content: Content
 
-  constructor(
-    renderer: Renderer,
-    colours: { items: Record<string, string>; wildlife: Record<string, string> },
-  ) {
+  constructor(renderer: Renderer, content: Content) {
     this.renderer = renderer
-    this.colours = colours
+    this.content = content
   }
 
   get(key: string): ArtTexture {
@@ -622,21 +637,37 @@ export class PlaceholderArt {
       case 'terrain':
         drawTerrain(g, id, Number(variant))
         break
-      case 'plant':
-        drawPlant(g, id, Number(variant))
+      case 'plant': {
+        const def = this.content.plants[id]
+        const stage = Number(variant)
+        if (def?.look) {
+          const last = Math.max(1, def.stages.length - 1)
+          const accent = def.nectar > 0 ? stage >= def.flowerStage : stage >= last
+          drawPlantLook(g, id, def.look, Math.min(1, stage / last), accent)
+        } else drawPlant(g, id, stage)
         break
-      case 'structure':
-        drawStructure(g, id, variant)
+      }
+      case 'structure': {
+        const look = this.content.structures[id]?.look
+        if (look) drawThingLook(g, look, Number.parseInt(variant) || 0, variant)
+        else drawStructure(g, id, variant)
         break
-      case 'decoration':
-        drawDecoration(g, id, variant)
+      }
+      case 'decoration': {
+        const look = this.content.decorations[id]?.look
+        if (look) drawThingLook(g, look, 0, variant)
+        else drawDecoration(g, id, variant)
         break
+      }
       case 'drop':
-        drawDrop(g, parseColour(this.colours.items[id]))
+        drawDrop(g, parseColour(this.content.items[id]?.colour))
         break
-      case 'creature':
-        drawCreature(g, id, parseColour(this.colours.wildlife[id]), Number(variant))
+      case 'creature': {
+        const def = this.content.wildlife[id]
+        if (def?.look) drawCreatureLook(g, def.look, Number(variant))
+        else drawCreature(g, id, parseColour(def?.colour), Number(variant))
         break
+      }
       case 'tile': {
         if (id === 'select') diamond(g, 0.96).stroke({ color: 0xfaf7ee, width: 4 })
         else if (id === 'valid') diamond(g, 0.96).stroke({ color: 0x3f9a4a, width: 4 })

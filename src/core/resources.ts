@@ -1,6 +1,7 @@
 // Natural production, items lying in the garden, gathering and clearing.
 
 import type { Content, ProductionDef } from './content'
+import { isFilled } from './feeders'
 import { gardenAt, isTileOpen } from './gardens'
 import { nextId } from './game'
 import { entityById, setTerrain, terrainAt } from './grid'
@@ -35,6 +36,9 @@ export function produce(state: GameState, content: Content, dtMs: number, ctx: S
     const rules = rulesFor(content, e)
     if (rules.length === 0) continue
     const rate = e.kind === 'plant' ? growthRate(state, content, e) : 1
+    // A compost bed and the like only work while they hold something.
+    if (e.kind === 'structure' && content.structures[e.defId]?.feeder?.whileFilled && !isFilled(e))
+      return
     rules.forEach((rule, i) => {
       if (stageOf(e) < rule.minStage) return
       const period = rule.everySec * 1000

@@ -887,3 +887,44 @@ button:focus-visible {
   padding: 2px 6px;
   margin-left: -6px;
 }
+
+/* Gardens list */
+
+.garden-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.garden-list__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.garden-list__number {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--moss);
+  color: var(--paper);
+  font-weight: 700;
+}
+
+.garden-list__name {
+  flex: 1;
+  font-weight: 600;
+}

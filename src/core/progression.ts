@@ -2,6 +2,7 @@
 
 import { isInGarden } from './gardens'
 import type { ChapterDef, Condition, Content, MilestoneDef } from './content'
+import { entityAt, forEachTile, isWater, neighbours, terrainAt } from './grid'
 import { addItems } from './inventory'
 import type { StepContext } from './simulation'
 import type { GameEvent } from './events'
@@ -85,6 +86,39 @@ export function conditionProgress(
     }
     case 'stagesDone':
       return { current: state.projects[c.project]?.stagesDone.length ?? 0, target: c.count }
+    case 'plantedBeside': {
+      const beside = (x: number, y: number) =>
+        neighbours(state, x, y).some((n) => {
+          const t = terrainAt(state, n.x, n.y)
+          return t !== undefined && c.terrain.includes(t)
+        })
+      const n = state.entities.filter(
+        (e) =>
+          e.kind === 'plant' &&
+          !e.fixed &&
+          (!c.plants || c.plants.includes(e.defId)) &&
+          inGarden(c.garden, e.x, e.y) &&
+          beside(e.x, e.y),
+      ).length
+      return { current: n, target: c.count }
+    }
+    case 'speciesIn': {
+      const kinds = new Set(
+        state.entities
+          .filter((e) => e.kind === 'plant' && !e.fixed && inGarden(c.garden, e.x, e.y))
+          .map((e) => e.defId),
+      )
+      return { current: kinds.size, target: c.count }
+    }
+    case 'openWater': {
+      let n = 0
+      forEachTile(state, (x, y, t) => {
+        if (isWater(t) && inGarden(c.garden, x, y) && !entityAt(state, x, y)) n++
+      })
+      return { current: n, target: c.count }
+    }
+    case 'seasonsSeen':
+      return { current: s.seasonsSeen.length, target: c.count }
   }
 }
 

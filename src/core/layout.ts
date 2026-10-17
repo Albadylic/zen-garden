@@ -30,7 +30,10 @@ const TERRAIN_NAMES: Record<Terrain, string> = {
   moss: 'moss',
   path: 'the path',
   water: 'water',
+  'deep-water': 'deep water',
+  stream: 'the stream',
   margin: 'the pond margin',
+  gravel: 'gravel',
   overgrown: 'overgrowth',
   boundary: 'the garden wall',
 }
@@ -79,7 +82,30 @@ export function checkPlacement(
       reason: `${placeableName(content, p)} can't go on ${TERRAIN_NAMES[terrain]}`,
     }
   }
+  const near = p.kind === 'plant' ? content.plants[p.defId]?.near : undefined
+  if (near && !isNear(state, near, x, y)) {
+    const names = near.ids.map((id) => nameOf(content, id).toLowerCase())
+    return { ok: false, reason: `Only grows beside ${names.join(' or ')}` }
+  }
   return { ok: true }
+}
+
+/** Whether one of the named things stands within reach of a tile. */
+export function isNear(
+  state: GameState,
+  near: { ids: string[]; distance: number },
+  x: number,
+  y: number,
+): boolean {
+  return state.entities.some(
+    (e) => near.ids.includes(e.defId) && Math.hypot(e.x - x, e.y - y) <= near.distance,
+  )
+}
+
+function nameOf(content: Content, id: string): string {
+  return (
+    content.plants[id]?.name ?? content.decorations[id]?.name ?? content.structures[id]?.name ?? id
+  )
 }
 
 export function hasUnlock(state: GameState, key: string | undefined): boolean {

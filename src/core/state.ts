@@ -94,6 +94,8 @@ export interface Stats {
   gathered: Record<string, number>
   /** Shelters upgraded into each branch. */
   branched: Record<string, number>
+  /** Seasons seen since the seasons began. */
+  seasonsSeen: string[]
 }
 
 export interface JournalRecord {
@@ -168,5 +170,6 @@ export function emptyStats(): Stats {
     matured: {},
     gathered: {},
     branched: {},
+    seasonsSeen: [],
   }
 }

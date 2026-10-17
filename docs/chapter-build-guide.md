@@ -54,33 +54,33 @@ Every chapter brings a garden with its own character and **one or two new ideas*
 
 ### 3.1 Data-driven placeholder art
 
-- [ ] Plants, wildlife, structures and decorations can carry a `look` (a form such as `tuft`, `flower`, `shrub`, `tree`, `reed`, `floating`, `cushion`, `butterfly`, `bird`, `beetle`, `amphibian`, `box` …, plus colours). The renderer draws any species from its look, so the hand-drawn art for earlier species stays and new ones need only data.
+- [x] Plants, wildlife, structures and decorations can carry a `look` (a form such as `tuft`, `flower`, `shrub`, `tree`, `reed`, `floating`, `cushion`, `butterfly`, `bird`, `beetle`, `amphibian`, `box` …, plus colours). The renderer draws any species from its look, so the hand-drawn art for earlier species stays and new ones need only data.
 
 ### 3.2 World and gardens
 
-- [ ] Gate connections can name their own unlock key (for the return gate, which joins two gardens that are already open).
-- [ ] Wildlife arrives from the walls of the garden it is heading for, not from anywhere in the sanctuary.
-- [ ] Wall tiles per garden are cached, so twelve gardens do not slow the simulation.
-- [ ] A **Gardens** list (from the garden title in the HUD) to jump the camera to any open garden; the title shows the garden in view.
+- [x] Gate connections can name their own unlock key (for the return gate, which joins two gardens that are already open).
+- [x] Wildlife arrives from the walls of the garden it is heading for, not from anywhere in the sanctuary.
+- [x] Wall tiles per garden are cached, so twelve gardens do not slow the simulation.
+- [x] A **Gardens** list (from the garden title in the HUD) to jump the camera to any open garden; the title shows the garden in view.
 
 ### 3.3 New terrain
 
-- [ ] `deep-water` (deeper pond water; only floating and submerged plants), `gravel` (dry, warm ground for the stone garden) and `stream` (flowing water; stepping stones can cross it).
+- [x] `deep-water` (deeper pond water; only floating and submerged plants), `gravel` (dry, warm ground for the stone garden) and `stream` (flowing water; stepping stones can cross it).
 
 ### 3.4 Engine features used by later chapters
 
-- [ ] **Plants that need a neighbour:** `near` (for example fungi that only grow beside dead wood).
-- [ ] **Perches on things other than plants:** perch attraction can name decorations and structures (a wagtail on stepping stones).
-- [ ] **Variety-loving visitors:** nectar attraction with `minSpecies`, the number of different flowering species needed.
-- [ ] **Structures that work while filled:** a compost bed produces leaf mould while it holds leaf litter (`producesWhileFilled`).
-- [ ] **Seasons:** a gentle in-game year (one season per hour of play). Plants can flower or fruit in chosen seasons, wildlife can visit in chosen seasons, and the garden's colours shift. Absence never causes loss.
-- [ ] **Rare visitors:** a low arrival rate plus conditions, with journal clues; never on a timer and never missable for good.
-- [ ] **New conditions:** `plantedBeside` (plants next to water or stream), `speciesIn` (different species growing in a garden), `openWater` (water tiles left clear) and `seasonsSeen`.
+- [x] **Plants that need a neighbour:** `near` (for example fungi that only grow beside dead wood).
+- [x] **Perches on things other than plants:** perch attraction can name decorations and structures (a wagtail on stepping stones).
+- [x] **Variety-loving visitors:** nectar attraction with `minSpecies`, the number of different flowering species needed.
+- [x] **Structures that work while filled:** a compost bed produces leaf mould while it holds leaf litter (`producesWhileFilled`).
+- [x] **Seasons:** a gentle in-game year (one season per hour of play). Plants can flower or fruit in chosen seasons, wildlife can visit in chosen seasons, and the garden's colours shift. Absence never causes loss.
+- [x] **Rare visitors:** a low arrival rate plus conditions, with journal clues; never on a timer and never missable for good.
+- [x] **New conditions:** `plantedBeside` (plants next to water or stream), `speciesIn` (different species growing in a garden), `openWater` (water tiles left clear) and `seasonsSeen`.
 
 ### 3.5 Proof that every chapter can be finished
 
-- [ ] An **autoplayer** for tests: it reads the current milestone's conditions and acts like a patient player (plants the right species in the best spots, clears, gathers, builds, upgrades, fills feeders, chooses approaches and completes stages, and lets time pass).
-- [ ] A test plays the whole batch, Chapter 1 to 12, and checks each chapter finishes within a sensible time.
+- [x] An **autoplayer** for tests: it reads the current milestone's conditions and acts like a patient player (plants the right species in the best spots, clears, gathers, builds, upgrades, fills feeders, chooses approaches and completes stages, and lets time pass).
+- [x] A test plays the whole batch, Chapter 1 to 12, and checks each chapter finishes within a sensible time.
 
 ---
 
