@@ -1,7 +1,7 @@
 // Planting, growth through stages, flowering, moss spreading and watering.
 
 import type { Content, PlantDef } from './content'
-import { isTileOpen } from './gardens'
+import { gardenAt, isTileOpen } from './gardens'
 import { plantSuitability } from './environment'
 import { nextId } from './game'
 import { distance, entityAt, entityById, neighbours, setTerrain, terrainAt } from './grid'
@@ -127,15 +127,39 @@ export function plant(
   }
 }
 
+/** Watering reaches every plant within this many tiles of the one tapped (a 5 × 5 patch). */
+export const WATER_REACH = 2
+
+/** Whether a plant would benefit from water: still growing, and not watered already. */
+export function isThirsty(content: Content, e: PlantEntity): boolean {
+  const def = content.plants[e.defId]
+  return !!def && !e.fixed && !isFinalStage(def, e.stage) && e.wateredMs <= 0
+}
+
+/** The thirsty plants a watering at this tile reaches, in the same garden. */
+export function plantsToWater(state: GameState, content: Content, x: number, y: number) {
+  const garden = gardenAt(content, x, y)
+  return state.entities.filter(
+    (e): e is PlantEntity =>
+      e.kind === 'plant' &&
+      Math.abs(e.x - x) <= WATER_REACH &&
+      Math.abs(e.y - y) <= WATER_REACH &&
+      gardenAt(content, e.x, e.y) === garden &&
+      isThirsty(content, e),
+  )
+}
+
+/** Waters the chosen plant and every other thirsty plant around it. */
 export function water(state: GameState, content: Content, entityId: number): ActionResult {
   const entity = entityById(state, entityId)
   if (entity?.kind !== 'plant') return { ok: false, reason: 'Nothing to water' }
   const def = content.plants[entity.defId]
   if (!def || entity.fixed || isFinalStage(def, entity.stage))
     return { ok: false, reason: 'It is fully grown' }
-  if (entity.wateredMs > 0) return { ok: false, reason: 'Already watered' }
-  entity.wateredMs = WATER_DURATION_MS
-  return { ok: true, events: [] }
+  const plants = plantsToWater(state, content, entity.x, entity.y)
+  if (plants.length === 0) return { ok: false, reason: 'Already watered' }
+  for (const p of plants) p.wateredMs = WATER_DURATION_MS
+  return { ok: true, events: [{ type: 'watered', entityId, count: plants.length }] }
 }
 
 /** System: grows plants through their stages. */

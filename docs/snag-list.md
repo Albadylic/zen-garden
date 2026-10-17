@@ -9,8 +9,10 @@ Owner feedback from playtesting, to come back to once all twelve gardens of the 
 
 ## Interactions
 
-- [ ] **Watering is one plant at a time.** Make watering less tedious, for example watering a small area, or every plant in reach, with one action.
-- [ ] **Clearing is hard to discover.** It is not obvious that Restore lets the player clear overgrowth continuously. Make the clearing mode easier to find and to stay in.
+- [x] **Watering is one plant at a time.** Make watering less tedious, for example watering a small area, or every plant in reach, with one action.
+  - Done: watering a plant also waters every growing plant within two tiles of it (a 5 × 5 patch) in the same garden. The button says how many it will reach ("Water 4 plants"), and a short message confirms it. A plant that is already wet still lets the player water the dry ones around it.
+- [x] **Clearing is hard to discover.** It is not obvious that Restore lets the player clear overgrowth continuously. Make the clearing mode easier to find and to stay in.
+  - Done: clearing one tangle from its own panel now carries straight on into clearing mode, with the remaining tangles highlighted and the bar saying to keep tapping them; Done ends it. The Restore panel, the tile panel and the hint all say that one tangle can follow another.
 
 ## Interface
 

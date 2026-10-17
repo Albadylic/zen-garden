@@ -110,7 +110,7 @@ export function RestorePanel() {
         <strong>Clear overgrowth</strong>
         <span className="muted">
           {overgrown > 0
-            ? `${overgrown} overgrown ${overgrown === 1 ? 'patch' : 'patches'} left. Clearing turns up twigs, leaf litter and more.`
+            ? `${overgrown} overgrown ${overgrown === 1 ? 'patch' : 'patches'} left. Start clearing, then tap as many tangles as you like; each turns up twigs, leaf litter and more.`
             : 'All the reachable overgrowth has been cleared.'}
         </span>
         <button

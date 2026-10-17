@@ -118,7 +118,10 @@ export function suggestions(state: GameState, content: Content): Suggestion[] {
 
   const overgrown = openOvergrowth(state, content)
   if (overgrown > 0 && state.stats.cleared < 3)
-    add('clear', 'Overgrown corners hide twigs and leaf litter. Open Restore to clear them.')
+    add(
+      'clear',
+      'Overgrown corners hide twigs and leaf litter. In Restore, Start clearing lets you tap one tangle after another.',
+    )
 
   return out
 }

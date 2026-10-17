@@ -56,15 +56,15 @@ Each has a default I will build with so work is not blocked. Values live in data
 
 ### Phase 02 — Planting and growth
 
-| Status | Decision                                    | Placeholder default                                                                                       |
-| ------ | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| ☐      | Final starter plant list                    | GDD 6.2: garden moss, ferns, Japanese maple sapling, wildflower mix, ornamental grasses, pond-edge plants |
-| ☐      | Real-time growth durations per species      | Wildflowers ≈ minutes; grasses/ferns ≈ hours; maple ≈ days                                                |
-| ☐      | Growth stages per species                   | GDD 6.1 model; not every species uses all four                                                            |
-| ☐      | Suitability factors (what each tile tracks) | Shade, moisture, proximity to water, nearby cover                                                         |
-| ☐      | Effect of poor suitability                  | Slower growth / lower output; never death                                                                 |
-| ☐      | Moss spreading rules                        | Slow spread onto adjacent damp, shaded tiles                                                              |
-| ☐      | Optional tending (watering, pruning) effect | Small establishment boost; never required                                                                 |
+| Status | Decision                                    | Placeholder default                                                                                                                         |
+| ------ | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| ☐      | Final starter plant list                    | GDD 6.2: garden moss, ferns, Japanese maple sapling, wildflower mix, ornamental grasses, pond-edge plants                                   |
+| ☐      | Real-time growth durations per species      | Wildflowers ≈ minutes; grasses/ferns ≈ hours; maple ≈ days                                                                                  |
+| ☐      | Growth stages per species                   | GDD 6.1 model; not every species uses all four                                                                                              |
+| ☐      | Suitability factors (what each tile tracks) | Shade, moisture, proximity to water, nearby cover                                                                                           |
+| ☐      | Effect of poor suitability                  | Slower growth / lower output; never death                                                                                                   |
+| ☐      | Moss spreading rules                        | Slow spread onto adjacent damp, shaded tiles                                                                                                |
+| ☐      | Optional tending (watering, pruning) effect | Small establishment boost (growth ×1.5 for 10 min); never required. One watering reaches every growing plant within 2 tiles (a 5 × 5 patch) |
 
 ### Phase 03 — Resources and inventory
 

@@ -10,7 +10,7 @@ export function ClearBar() {
         <strong>Restore</strong>
         <div className="placement-bar__status">
           {left > 0
-            ? `Tap overgrown tiles to clear them. ${left} left to clear.`
+            ? `Keep tapping highlighted tangles to clear them, one after another. ${left} left to clear.`
             : 'All the overgrowth has been cleared.'}
         </div>
       </div>

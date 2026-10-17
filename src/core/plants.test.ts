@@ -83,6 +83,30 @@ describe('growth', () => {
     advance(state, content, 11 * MIN)
     expect(fern.wateredMs).toBe(0)
   })
+
+  it('waters every growing plant nearby with one action', () => {
+    const { content, state } = setup()
+    for (const [x, y] of [
+      [5, 10],
+      [6, 11],
+      [7, 12],
+      [5, 13],
+    ] as const)
+      expect(plant(state, content, 'wildflower-mix', x, y).ok).toBe(true)
+    const centre = planted(state, 5, 10)
+    const result = water(state, content, centre.id)
+    expect(result).toMatchObject({ ok: true, events: [{ type: 'watered', count: 3 }] })
+    expect(planted(state, 6, 11).wateredMs).toBeGreaterThan(0)
+    expect(planted(state, 7, 12).wateredMs).toBeGreaterThan(0)
+    // Three tiles away is out of reach.
+    expect(planted(state, 5, 13).wateredMs).toBe(0)
+    // Watering again from a plant that is already wet still reaches the dry one beside it.
+    expect(water(state, content, planted(state, 6, 11).id)).toMatchObject({
+      ok: true,
+      events: [{ type: 'watered', count: 1 }],
+    })
+    expect(planted(state, 5, 13).wateredMs).toBeGreaterThan(0)
+  })
 })
 
 describe('moss', () => {

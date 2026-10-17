@@ -9,7 +9,7 @@ import {
   type Suitability,
 } from '../core/environment'
 import type { GameEvent } from '../core/events'
-import { isTileOpen, visitGarden } from '../core/gardens'
+import { isTileOpen, openOvergrowth, visitGarden } from '../core/gardens'
 import { entityAt, entityById, forEachTile, terrainAt, tileKey } from '../core/grid'
 import {
   type ActionResult,
@@ -257,6 +257,9 @@ export class GameController {
           }
           break
         }
+        case 'watered':
+          if (e.count > 1) this.toast(`Watered ${e.count} plants`)
+          break
         case 'stageComplete':
           this.toast(`Restoration: ${e.title}`, 'milestone')
           break
@@ -378,7 +381,11 @@ export class GameController {
     const result = clearOvergrowth(this.state, this.content, x, y)
     // Tapping cleared ground while restoring is harmless, so stay quiet about it.
     if (!result.ok && this.ui.get().mode.type === 'clear') return
-    if (this.applyResult(result) && this.ui.get().selection?.kind === 'tile') this.select(null)
+    if (!this.applyResult(result) || this.ui.get().mode.type === 'clear') return
+    // Clearing one patch from its own panel carries on into clearing mode, so the
+    // next tangle is a single tap away. Done (or Escape) ends it.
+    if (openOvergrowth(this.state, this.content) > 0) this.startClearing()
+    else if (this.ui.get().selection?.kind === 'tile') this.select(null)
   }
 
   // --- Toasts ---------------------------------------------------------------

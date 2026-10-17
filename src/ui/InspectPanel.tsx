@@ -1,6 +1,6 @@
 import { plantSuitability } from '../core/environment'
 import { entityById, terrainAt } from '../core/grid'
-import { isFinalStage, timeToMaturity, timeToNextStage } from '../core/plants'
+import { isFinalStage, plantsToWater, timeToMaturity, timeToNextStage } from '../core/plants'
 import { knownFacts } from '../core/journal'
 import { describeActivity } from '../core/wildlife'
 import type { PlantEntity } from '../core/state'
@@ -93,7 +93,7 @@ export function InspectPanel() {
       <Sheet title={TERRAIN_LABELS[terrain] ?? terrain} onClose={close} testId="inspect-panel">
         <p className="muted">
           {overgrown
-            ? 'Tangled growth hides the ground. Clearing it often turns up twigs and leaf litter.'
+            ? 'Tangled growth hides the ground. Clearing it often turns up twigs and leaf litter, and you can carry on clearing the tangles around it.'
             : 'An open patch of the garden.'}
         </p>
         {overgrown && (
@@ -121,12 +121,10 @@ export function InspectPanel() {
           ? content.structures[entity.defId]
           : content.decorations[entity.defId]
     const plantDef = entity.kind === 'plant' ? content.plants[entity.defId] : undefined
-    const canWater =
-      entity.kind === 'plant' &&
-      plantDef &&
-      !entity.fixed &&
-      !isFinalStage(plantDef, entity.stage) &&
-      entity.wateredMs <= 0
+    const thirsty =
+      entity.kind === 'plant' && plantDef && !entity.fixed && !isFinalStage(plantDef, entity.stage)
+        ? plantsToWater(state, content, entity.x, entity.y).length
+        : 0
     return (
       <Sheet title={def?.name ?? entity.defId} onClose={close} testId="inspect-panel">
         {entity.kind === 'plant' ? (
@@ -143,9 +141,9 @@ export function InspectPanel() {
         {entity.kind === 'plant' && <HarvestAction plant={entity} />}
         {!entity.fixed && (
           <div className="actions">
-            {canWater && (
+            {thirsty > 0 && (
               <button type="button" className="button" onClick={() => controller.waterSelected()}>
-                Water
+                {thirsty > 1 ? `Water ${thirsty} plants` : 'Water'}
               </button>
             )}
             <button type="button" className="button" onClick={() => controller.moveSelected()}>

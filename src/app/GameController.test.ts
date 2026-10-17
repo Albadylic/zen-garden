@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
+import { entityAt } from '../core/grid'
 import { unreadCount } from '../core/journal'
+import { plant } from '../core/plants'
 import { setup } from '../test/fixtures'
 import { GameController } from './GameController'
 
@@ -74,5 +76,34 @@ describe('messages', () => {
     expect(unreadCount(c.state, c.content)).toBe(1)
     c.markJournalRead(['plant:old-pine'])
     expect(unreadCount(c.state, c.content)).toBe(0)
+  })
+})
+
+describe('clearing', () => {
+  it('carries on into clearing mode after clearing one tangle from its panel', () => {
+    const c = controller()
+    c.tap({ tile: { x: 6, y: 1 }, pointerType: 'touch' })
+    expect(c.ui.get().selection).toEqual({ kind: 'tile', x: 6, y: 1 })
+    c.clearTile(6, 1)
+    expect(c.ui.get().mode).toEqual({ type: 'clear' })
+    expect(c.ui.get().selection).toBeNull()
+    // The next tangle clears with a single tap.
+    c.tap({ tile: { x: 7, y: 3 }, pointerType: 'touch' })
+    expect(c.state.stats.cleared).toBe(2)
+  })
+})
+
+describe('watering', () => {
+  it('says how many plants one watering reached', () => {
+    const c = controller()
+    for (const [x, y] of [
+      [5, 10],
+      [6, 10],
+      [6, 11],
+    ] as const)
+      expect(plant(c.state, c.content, 'wildflower-mix', x, y).ok).toBe(true)
+    c.select({ kind: 'entity', id: entityAt(c.state, 5, 10)!.id })
+    c.waterSelected()
+    expect(c.ui.get().toasts.map((t) => t.text)).toEqual(['Watered 3 plants'])
   })
 })
