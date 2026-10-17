@@ -5,6 +5,7 @@ import { describeActivity } from '../core/wildlife'
 import type { PlantEntity } from '../core/state'
 import { describePreferences, formatDuration, RATING_LABELS } from './format'
 import { useGame, useUi } from './hooks'
+import { ShelterDetails } from './ShelterDetails'
 import { Sheet } from './Sheet'
 
 const TERRAIN_LABELS: Record<string, string> = {
@@ -118,7 +119,13 @@ export function InspectPanel() {
       entity.wateredMs <= 0
     return (
       <Sheet title={def?.name ?? entity.defId} onClose={close} testId="inspect-panel">
-        {entity.kind === 'plant' ? <PlantDetails plant={entity} /> : <p>{def?.description}</p>}
+        {entity.kind === 'plant' ? (
+          <PlantDetails plant={entity} />
+        ) : entity.kind === 'structure' ? (
+          <ShelterDetails shelter={entity} />
+        ) : (
+          <p>{def?.description}</p>
+        )}
         {!entity.fixed && (
           <div className="actions">
             {canWater && (

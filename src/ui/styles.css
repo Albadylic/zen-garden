@@ -9,9 +9,9 @@
   --earth: #8a6a45;
   --warning: #a8452f;
   --excellent: #3f8a4a;
-  --good: #6f9a3a;
-  --fair: #b08a2a;
-  --poor: #b0503a;
+  --good: #4f7a26;
+  --fair: #85661a;
+  --poor: #a3432e;
   --radius: 14px;
   --shadow: 0 6px 24px rgba(40, 34, 20, 0.18);
   --gap: 12px;
@@ -483,5 +483,19 @@ button:focus-visible {
 }
 
 .facts li + li {
+  margin-top: 4px;
+}
+
+.upgrade {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.upgrade .button {
   margin-top: 4px;
 }

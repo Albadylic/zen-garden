@@ -77,12 +77,12 @@ Each has a default I will build with so work is not blocked. Values live in data
 
 ### Phase 05 — Habitats
 
-| Status | Decision                                 | Placeholder default                                       |
-| ------ | ---------------------------------------- | --------------------------------------------------------- |
-| ☐      | First shelter design and footprint       | Log/twig natural shelter, 1 × 1                           |
-| ☐      | Upgrade stages and branches in the slice | Two stages (basic → improved); branching after the slice  |
-| ☐      | Habitat suitability scoring              | Shared suitability model: shade + cover + nearby plants   |
-| ☐      | Benefits of upgrades                     | Visual change + higher attraction + small resource output |
+| Status | Decision                                 | Placeholder in use                                                                                                     |
+| ------ | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| ☐      | First shelter design and footprint       | Natural shelter (twig, bark and leaf pile), 1 × 1, on grass or moss                                                    |
+| ☐      | Upgrade stages and branches in the slice | Two levels: Natural shelter → Sheltered log pile (twigs ×4, bark ×3, stones ×2, after its first resident). No branches |
+| ☐      | Habitat suitability scoring              | Shared suitability model: prefers shade 0.35+, moisture 0.35–0.85, nearby plant cover 0.25+                            |
+| ☐      | Benefits of upgrades                     | Capacity 2 → 4, attraction ×1 → ×1.8, produces leaf litter every 10 min, attracts wrens, new look                      |
 
 ### Phase 06 — Progression and tutorial
 

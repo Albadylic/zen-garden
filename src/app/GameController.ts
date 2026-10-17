@@ -23,6 +23,7 @@ import {
   undo,
   type UndoRecord,
 } from '../core/layout'
+import { upgradeStructure } from '../core/habitats'
 import { plant, water } from '../core/plants'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
 import { advance } from '../core/simulation'
@@ -313,6 +314,12 @@ export class GameController {
     const sel = this.ui.get().selection
     if (sel?.kind !== 'entity') return
     this.startPlacing({ kind: 'move', entityId: sel.id })
+  }
+
+  upgradeSelected(): void {
+    const sel = this.ui.get().selection
+    if (sel?.kind !== 'entity') return
+    this.applyResult(upgradeStructure(this.state, this.content, sel.id))
   }
 
   waterSelected(): void {

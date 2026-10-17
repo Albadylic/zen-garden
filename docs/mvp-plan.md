@@ -51,10 +51,10 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 6. Habitat
 
-- [ ] Buildable natural shelter using crafted materials
-- [ ] Placement-dependent suitability score
-- [ ] Wildlife visits linked to that score
-- [ ] One upgrade stage (basic → improved) with a visual change
+- [x] Buildable natural shelter using crafted materials
+- [x] Placement-dependent suitability score
+- [x] Wildlife visits linked to that score
+- [x] One upgrade stage (basic → improved) with a visual change
 
 ## 7. Progression and guidance
 
