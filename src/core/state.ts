@@ -13,6 +13,8 @@ export interface PlantEntity {
   produceMs: number[]
   /** Remaining milliseconds of the watering boost. */
   wateredMs: number
+  /** Milliseconds until it can be harvested again (absent or 0: ready). */
+  harvestMs?: number
   fixed: boolean
 }
 
@@ -25,6 +27,8 @@ export interface StructureEntity {
   level: number
   visits: number
   produceMs: number[]
+  /** Milliseconds a feeder stays filled. */
+  filledMs?: number
   fixed: boolean
 }
 
@@ -86,6 +90,8 @@ export interface Stats {
   upgraded: number
   /** Plants that reached their final stage, per species. */
   matured: Record<string, number>
+  /** Items gathered, harvested or found, per item. */
+  gathered: Record<string, number>
 }
 
 export interface JournalRecord {
@@ -137,5 +143,6 @@ export function emptyStats(): Stats {
     visits: {},
     upgraded: 0,
     matured: {},
+    gathered: {},
   }
 }

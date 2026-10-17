@@ -114,6 +114,7 @@ function keysFor(state: GameState, e: GameEvent): string[] {
       return [`structure:${e.structureId}`]
     case 'collected':
     case 'cleared':
+    case 'harvested':
       return Object.keys(e.items).map((id) => `item:${id}`)
     default:
       return []

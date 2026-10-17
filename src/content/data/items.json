@@ -6,7 +6,10 @@
     "description": "A mix of small meadow-flower seeds. Quick to sprout in open, sunny ground.",
     "colour": "#e2b04a",
     "facts": [
-      { "text": "Mature wildflowers drop fresh seed, so one patch can become many.", "after": 3 }
+      {
+        "text": "Mature wildflowers drop fresh seed, so one patch can become many.",
+        "after": 3
+      }
     ]
   },
   {
@@ -16,7 +19,10 @@
     "description": "Fine dust gathered from established moss. Settles best on damp, shaded ground.",
     "colour": "#7f9a4f",
     "facts": [
-      { "text": "Moss has no seeds or flowers; it spreads by spores and fragments.", "after": 2 }
+      {
+        "text": "Moss has no seeds or flowers; it spreads by spores and fragments.",
+        "after": 2
+      }
     ]
   },
   {
@@ -25,7 +31,12 @@
     "category": "seed",
     "description": "Spores shed from the undersides of mature fern fronds.",
     "colour": "#5f7f45",
-    "facts": [{ "text": "Fern spores need moisture to grow into new ferns.", "after": 2 }]
+    "facts": [
+      {
+        "text": "Fern spores need moisture to grow into new ferns.",
+        "after": 2
+      }
+    ]
   },
   {
     "id": "grass-seeds",
@@ -42,7 +53,10 @@
     "description": "Winged maple seeds that spin as they fall. Patience turns one into a tree.",
     "colour": "#b5653c",
     "facts": [
-      { "text": "The paired wings of a samara slow its fall so the wind can carry it.", "after": 1 }
+      {
+        "text": "The paired wings of a samara slow its fall so the wind can carry it.",
+        "after": 1
+      }
     ]
   },
   {
@@ -60,7 +74,10 @@
     "description": "Small fallen branches. The backbone of most natural shelters.",
     "colour": "#8a6a45",
     "facts": [
-      { "text": "Old trees and overgrown corners are the best places to find twigs.", "after": 5 }
+      {
+        "text": "Old trees and overgrown corners are the best places to find twigs.",
+        "after": 5
+      }
     ]
   },
   {
@@ -69,7 +86,12 @@
     "category": "material",
     "description": "Loose strips of bark shed by old trees. Good for roofing a shelter.",
     "colour": "#6b4c33",
-    "facts": [{ "text": "Many beetles shelter and feed under loose bark.", "after": 3 }]
+    "facts": [
+      {
+        "text": "Many beetles shelter and feed under loose bark.",
+        "after": 3
+      }
+    ]
   },
   {
     "id": "stones",
@@ -78,7 +100,10 @@
     "description": "Weathered garden stones, some still carrying patches of moss.",
     "colour": "#9a9a92",
     "facts": [
-      { "text": "Stone arrangements give small creatures cool, sheltered crevices.", "after": 3 }
+      {
+        "text": "Stone arrangements give small creatures cool, sheltered crevices.",
+        "after": 3
+      }
     ]
   },
   {
@@ -87,6 +112,89 @@
     "category": "material",
     "description": "Fallen leaves and needles. Keeps a shelter damp and snug.",
     "colour": "#a4743d",
-    "facts": [{ "text": "Leaf litter slowly breaks down into rich soil.", "after": 3 }]
+    "facts": [
+      {
+        "text": "Leaf litter slowly breaks down into rich soil.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "bamboo-shoots",
+    "name": "Bamboo shoots",
+    "category": "seed",
+    "description": "Young shoots lifted from the edge of a bamboo clump, ready to start a new one.",
+    "colour": "#9cbc66",
+    "facts": [
+      {
+        "text": "New bamboo culms reach their full height in a single season.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "bamboo-canes",
+    "name": "Bamboo canes",
+    "category": "material",
+    "description": "Light, strong, hollow canes cut from mature bamboo.",
+    "colour": "#c9b46a",
+    "facts": [
+      {
+        "text": "Hollow canes make ideal nesting tubes for solitary bees.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "grass-divisions",
+    "name": "Forest grass divisions",
+    "category": "seed",
+    "description": "Small clumps split from Japanese forest grass, each ready to root.",
+    "colour": "#a7b84a",
+    "facts": [
+      {
+        "text": "Forest grass spreads slowly by short underground stems.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "hosta-divisions",
+    "name": "Hosta divisions",
+    "category": "seed",
+    "description": "A crown of hosta, divided with its roots, waiting for a shady spot.",
+    "colour": "#6f9a7a",
+    "facts": [
+      {
+        "text": "Hostas are grown for their leaves, but their tall flower spikes feed bees.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "maple-leaves",
+    "name": "Maple leaves",
+    "category": "material",
+    "description": "Fine, deeply cut leaves from a mature Japanese maple, glowing red and orange.",
+    "colour": "#c8583a",
+    "facts": [
+      {
+        "text": "Fallen leaves make soft, insulating nest linings.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "maple-sap",
+    "name": "Maple sap",
+    "category": "food",
+    "description": "A little clear, faintly sweet sap that weeps from a mature maple.",
+    "colour": "#e3c27a",
+    "facts": [
+      {
+        "text": "Some butterflies, like the red admiral, feed on tree sap as well as nectar.",
+        "after": 1
+      }
+    ]
   }
 ]

@@ -26,7 +26,8 @@ import {
 } from '../core/layout'
 import { upgradeStructure } from '../core/habitats'
 import { entryFor, observe, recordJournal } from '../core/journal'
-import { plant, water } from '../core/plants'
+import { fillFeeder } from '../core/feeders'
+import { harvest, plant, water } from '../core/plants'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
 import { catchUp, hasNews, type Recap } from '../core/offline'
 import { advance } from '../core/simulation'
@@ -194,6 +195,9 @@ export class GameController {
       switch (e.type) {
         case 'collected':
           if (!e.auto) this.toast(`Gathered ${formatItems(this.content, e.items)}`)
+          break
+        case 'harvested':
+          this.toast(`Harvested ${formatItems(this.content, e.items)}`)
           break
         case 'cleared':
           this.toast(
@@ -423,6 +427,18 @@ export class GameController {
     const sel = this.ui.get().selection
     if (sel?.kind !== 'entity') return
     this.startPlacing({ kind: 'move', entityId: sel.id })
+  }
+
+  harvestSelected(): void {
+    const sel = this.ui.get().selection
+    if (sel?.kind !== 'entity') return
+    this.applyResult(harvest(this.state, this.content, sel.id))
+  }
+
+  fillSelected(): void {
+    const sel = this.ui.get().selection
+    if (sel?.kind !== 'entity') return
+    this.applyResult(fillFeeder(this.state, this.content, sel.id))
   }
 
   upgradeSelected(): void {

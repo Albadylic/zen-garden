@@ -5,19 +5,44 @@
     "description": "A loose pile of twigs, bark and leaves. Simple, but a welcome refuge for small creatures.",
     "terrain": ["grass", "moss"],
     "prefers": {
-      "shade": { "min": 0.35, "max": 1 },
-      "moisture": { "min": 0.35, "max": 0.85 },
-      "cover": { "min": 0.25, "max": 1 }
+      "shade": {
+        "min": 0.35,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.35,
+        "max": 0.85
+      },
+      "cover": {
+        "min": 0.25,
+        "max": 1
+      }
     },
     "levels": [
-      { "name": "Natural shelter", "attraction": 1, "capacity": 2, "produces": [] },
+      {
+        "name": "Natural shelter",
+        "attraction": 1,
+        "capacity": 2,
+        "produces": []
+      },
       {
         "name": "Sheltered log pile",
         "attraction": 1.8,
         "capacity": 4,
-        "upgradeCost": { "twigs": 4, "bark": 3, "stones": 2 },
+        "upgradeCost": {
+          "twigs": 4,
+          "bark": 3,
+          "stones": 2
+        },
         "upgradeAfterVisits": 1,
-        "produces": [{ "item": "leaf-litter", "everySec": 600, "amount": 1, "minStage": 0 }]
+        "produces": [
+          {
+            "item": "leaf-litter",
+            "everySec": 600,
+            "amount": 1,
+            "minStage": 0
+          }
+        ]
       }
     ],
     "facts": [
@@ -25,10 +50,51 @@
         "text": "Shelters in shade, with plant cover nearby, attract residents sooner.",
         "after": 1
       },
-      { "text": "Ground beetles hide here by day and hunt among the leaves at dusk.", "after": 3 },
+      {
+        "text": "Ground beetles hide here by day and hunt among the leaves at dusk.",
+        "after": 3
+      },
       {
         "text": "A larger, stone-weighted log pile can host more residents, and even nesting birds.",
         "after": 5
+      }
+    ]
+  },
+  {
+    "id": "sap-feeder",
+    "name": "Sap feeder",
+    "description": "A shallow bamboo dish on a post, filled with maple sap for sap-feeding butterflies.",
+    "terrain": ["grass", "moss", "path"],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0,
+        "max": 1
+      },
+      "cover": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "feeder": {
+      "item": "maple-sap",
+      "durationSec": 3600
+    },
+    "levels": [
+      {
+        "name": "Sap feeder",
+        "attraction": 1,
+        "capacity": 2,
+        "produces": []
+      }
+    ],
+    "facts": [
+      {
+        "text": "A filled feeder lasts about an hour before it needs more sap.",
+        "after": 1
       }
     ]
   }

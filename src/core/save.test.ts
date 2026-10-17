@@ -60,7 +60,7 @@ function version1Save() {
   const terrain = []
   for (let y = 0; y < 16; y++)
     for (let x = 0; x < width; x++) terrain.push(state.terrain[y * state.width + x]!)
-  terrain[0 * width + 10] = 'path'
+  terrain[10] = 'path'
   terrain[12 * width + 15] = 'boundary'
   const entities = state.entities
     .filter((e) => e.x < width)
@@ -99,7 +99,7 @@ describe('migration from version 1', () => {
     const { state } = deserialize(JSON.parse(JSON.stringify(old)), content)
     const gate = state.entities.find((e) => e.defId === 'grove-gate')!
     expect([gate.x, gate.y]).toEqual([15, 12])
-    expect(state.terrain[0 * state.width + 10]).toBe('boundary')
+    expect(state.terrain[10]).toBe('boundary')
     expect(state.terrain[12 * state.width + 15]).toBe('path')
   })
 

@@ -71,5 +71,42 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "bamboo-fence",
+    "name": "Bamboo fence",
+    "description": "A low fence of bound canes that frames a planting and gives small creatures cover.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": false,
+    "cover": 0.3,
+    "facts": [
+      {
+        "text": "Low bamboo fences like this traditionally edge paths and planting beds.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "bamboo-water-spout",
+    "name": "Bamboo water spout",
+    "description": "A bamboo pipe that trickles water into a stone basin, with a gentle, rhythmic sound.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": false,
+    "cover": 0.1,
+    "facts": [
+      {
+        "text": "Moving water brings birds down to drink and bathe.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "maple-leaf-lantern",
+    "name": "Maple-leaf lantern",
+    "description": "A small stone lantern dressed with red maple leaves, glowing softly at dusk.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": false,
+    "cover": 0.1,
+    "facts": []
   }
 ]

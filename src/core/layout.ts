@@ -120,6 +120,8 @@ export function buildRecipe(
       level: 0,
       visits: 0,
       produceMs: def.levels[0]!.produces.map(() => 0),
+      // A new feeder starts out filled: its recipe includes the filling.
+      ...(def.feeder ? { filledMs: def.feeder.durationSec * 1000 } : {}),
       fixed: false,
     })
     state.stats.built[def.id] = (state.stats.built[def.id] ?? 0) + 1

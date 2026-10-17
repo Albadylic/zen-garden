@@ -6,6 +6,8 @@ import { describeActivity } from '../core/wildlife'
 import type { PlantEntity } from '../core/state'
 import { describePreferences, formatDuration, RATING_LABELS } from './format'
 import { useGame, useUi } from './hooks'
+import { FeederDetails } from './FeederDetails'
+import { HarvestAction } from './HarvestAction'
 import { ShelterDetails } from './ShelterDetails'
 import { Sheet } from './Sheet'
 
@@ -123,10 +125,15 @@ export function InspectPanel() {
         {entity.kind === 'plant' ? (
           <PlantDetails plant={entity} />
         ) : entity.kind === 'structure' ? (
-          <ShelterDetails shelter={entity} />
+          content.structures[entity.defId]?.feeder ? (
+            <FeederDetails feeder={entity} />
+          ) : (
+            <ShelterDetails shelter={entity} />
+          )
         ) : (
           <p>{def?.description}</p>
         )}
+        {entity.kind === 'plant' && <HarvestAction plant={entity} />}
         {!entity.fixed && (
           <div className="actions">
             {canWater && (

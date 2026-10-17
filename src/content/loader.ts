@@ -160,11 +160,13 @@ export function loadContent(raw: RawContent): Content {
   for (const plant of Object.values(plants)) {
     if (plant.seedItem) needItem(plant.seedItem, `plants.json ${plant.id}.seedItem`)
     for (const p of plant.produces) needItem(p.item, `plants.json ${plant.id}.produces`)
+    if (plant.harvest) needItem(plant.harvest.item, `plants.json ${plant.id}.harvest`)
     if (plant.flowerStage >= plant.stages.length) {
       problems.push(`plants.json ${plant.id}: flowerStage is beyond its last stage`)
     }
   }
   for (const s of Object.values(structures)) {
+    if (s.feeder) needItem(s.feeder.item, `structures.json ${s.id}.feeder`)
     s.levels.forEach((level, i) => {
       for (const itemId of Object.keys(level.upgradeCost ?? {}))
         needItem(itemId, `structures.json ${s.id}.levels[${i}]`)
@@ -179,6 +181,15 @@ export function loadContent(raw: RawContent): Content {
     if (!target) problems.push(`recipes.json ${r.id}: unknown ${r.output.kind} "${r.output.id}"`)
   }
   for (const w of Object.values(wildlife)) {
+    const a = w.attraction
+    if (a.kind === 'perch') {
+      for (const pid of [...a.plants, ...(a.bonus ? [a.bonus.plant] : [])]) {
+        if (!plants[pid]) problems.push(`wildlife.json ${w.id}: unknown plant "${pid}"`)
+      }
+    }
+    if (a.kind === 'feeder' && !structures[a.structure]?.feeder) {
+      problems.push(`wildlife.json ${w.id}: "${a.structure}" is not a feeder structure`)
+    }
     if (w.attraction.kind === 'shelter' && !structures[w.attraction.structure]) {
       problems.push(`wildlife.json ${w.id}: unknown structure "${w.attraction.structure}"`)
     }

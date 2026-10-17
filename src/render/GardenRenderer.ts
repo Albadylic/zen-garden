@@ -322,7 +322,12 @@ export class GardenRenderer {
     const e = state.entities.find((en) => en.id === id)
     if (!e) return null
     if (e.kind === 'plant') return `plant:${e.defId}:${e.stage}`
-    if (e.kind === 'structure') return `structure:${e.defId}:${e.level}`
+    if (e.kind === 'structure') {
+      if (this.host.content.structures[e.defId]?.feeder) {
+        return `structure:${e.defId}:${(e.filledMs ?? 0) > 0 ? 'full' : 'empty'}`
+      }
+      return `structure:${e.defId}:${e.level}`
+    }
     if (e.defId === 'grove-gate')
       return `decoration:grove-gate:${view.gateOpen ? 'open' : 'closed'}`
     return `decoration:${e.defId}`

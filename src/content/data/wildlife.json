@@ -5,17 +5,27 @@
     "description": "A pale, fluttering butterfly that drifts from flower to flower.",
     "movement": "flying",
     "speed": 1.2,
-    "attraction": { "kind": "nectar", "minNectar": 1, "perMinute": 0.6 },
+    "attraction": {
+      "kind": "nectar",
+      "minNectar": 1,
+      "perMinute": 0.6
+    },
     "maxPresent": 3,
     "staySec": [60, 150],
     "colour": "#f4f1e6",
     "facts": [
-      { "text": "Feeds on nectar from open, sunny flowers.", "after": 1 },
+      {
+        "text": "Feeds on nectar from open, sunny flowers.",
+        "after": 1
+      },
       {
         "text": "Rests with its wings closed, showing their pale green-grey undersides.",
         "after": 3
       },
-      { "text": "More flowering patches mean more butterflies at once.", "after": 5 }
+      {
+        "text": "More flowering patches mean more butterflies at once.",
+        "after": 5
+      }
     ]
   },
   {
@@ -24,13 +34,23 @@
     "description": "A large, striking butterfly with tailed hindwings. An uncommon visitor.",
     "movement": "flying",
     "speed": 1.4,
-    "attraction": { "kind": "nectar", "minNectar": 4, "perMinute": 0.25 },
+    "attraction": {
+      "kind": "nectar",
+      "minNectar": 4,
+      "perMinute": 0.25
+    },
     "maxPresent": 1,
     "staySec": [45, 120],
     "colour": "#e8c84a",
     "facts": [
-      { "text": "Only visits gardens with plenty of flowers in bloom.", "after": 1 },
-      { "text": "Its tailed hindwings give the swallowtail its name.", "after": 2 }
+      {
+        "text": "Only visits gardens with plenty of flowers in bloom.",
+        "after": 1
+      },
+      {
+        "text": "Its tailed hindwings give the swallowtail its name.",
+        "after": 2
+      }
     ]
   },
   {
@@ -39,13 +59,23 @@
     "description": "A round, fuzzy bee that hums steadily between flowers.",
     "movement": "flying",
     "speed": 1.6,
-    "attraction": { "kind": "nectar", "minNectar": 2, "perMinute": 0.5 },
+    "attraction": {
+      "kind": "nectar",
+      "minNectar": 2,
+      "perMinute": 0.5
+    },
     "maxPresent": 3,
     "staySec": [40, 100],
     "colour": "#d9a520",
     "facts": [
-      { "text": "Arrives once a couple of flower patches are in bloom.", "after": 1 },
-      { "text": "Carries pollen between flowers as it feeds.", "after": 3 }
+      {
+        "text": "Arrives once a couple of flower patches are in bloom.",
+        "after": 1
+      },
+      {
+        "text": "Carries pollen between flowers as it feeds.",
+        "after": 3
+      }
     ]
   },
   {
@@ -69,7 +99,10 @@
         "text": "Moves into natural shelters that are shaded and surrounded by cover.",
         "after": 1
       },
-      { "text": "Spends most of its time hidden, venturing out to forage nearby.", "after": 3 }
+      {
+        "text": "Spends most of its time hidden, venturing out to forage nearby.",
+        "after": 3
+      }
     ]
   },
   {
@@ -89,8 +122,73 @@
     "staySec": [90, 240],
     "colour": "#8b6a4a",
     "facts": [
-      { "text": "Visits well-placed, improved shelters to search for insects.", "after": 1 },
-      { "text": "Wrens often build nests in log piles and dense cover.", "after": 3 }
+      {
+        "text": "Visits well-placed, improved shelters to search for insects.",
+        "after": 1
+      },
+      {
+        "text": "Wrens often build nests in log piles and dense cover.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "white-eye",
+    "name": "Japanese white-eye",
+    "description": "A small olive-green songbird with a bright white ring around each eye.",
+    "movement": "flying",
+    "speed": 2,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["bamboo"],
+      "minCount": 2,
+      "bonus": {
+        "plant": "japanese-maple",
+        "multiplier": 2
+      },
+      "perMinute": 0.35
+    },
+    "maxPresent": 2,
+    "staySec": [90, 240],
+    "colour": "#8fa64a",
+    "facts": [
+      {
+        "text": "Comes to gardens with established bamboo, where it rests and preens out of the wind.",
+        "after": 1
+      },
+      {
+        "text": "A mature maple nearby makes it a more frequent visitor.",
+        "after": 3
+      },
+      {
+        "text": "White-eyes often travel in pairs, chattering softly to each other.",
+        "after": 5
+      }
+    ]
+  },
+  {
+    "id": "red-admiral",
+    "name": "Red admiral",
+    "description": "A velvety black butterfly with bold red bands and white wing tips.",
+    "movement": "flying",
+    "speed": 1.4,
+    "attraction": {
+      "kind": "feeder",
+      "structure": "sap-feeder",
+      "perMinute": 0.5
+    },
+    "maxPresent": 2,
+    "staySec": [60, 180],
+    "colour": "#c0392b",
+    "facts": [
+      {
+        "text": "Feeds on tree sap and fallen fruit as well as nectar.",
+        "after": 1
+      },
+      {
+        "text": "Often basks with its wings spread flat in the sun.",
+        "after": 3
+      }
     ]
   }
 ]

@@ -59,8 +59,19 @@ export interface PlantDef {
   cover: number
   /** Shade cast on nearby tiles once mature. */
   shade?: { radius: number; strength: number; minStage: number }
-  /** Turns neighbouring grass into moss while mature. */
-  spread?: { chancePerHour: number; minStage: number }
+  /**
+   * Spreads while mature: "terrain" turns neighbouring grass into moss;
+   * "plant" starts a new young plant beside it, up to `maxNearby` of the
+   * same species within reach.
+   */
+  spread?: {
+    chancePerHour: number
+    minStage: number
+    mode: 'terrain' | 'plant'
+    maxNearby?: number
+  }
+  /** Can be harvested by hand once mature, then needs time to recover. */
+  harvest?: { item: string; amount: number; cooldownSec: number; minStage: number }
   facts: Fact[]
 }
 
@@ -84,6 +95,8 @@ export interface StructureDef {
   terrain: Terrain[]
   prefers: { shade: Range; moisture: Range; cover: Range }
   levels: StructureLevelDef[]
+  /** A feeder is filled with an item and attracts visitors while it lasts. */
+  feeder?: { item: string; durationSec: number }
   facts: Fact[]
 }
 
@@ -127,6 +140,15 @@ export interface WildlifeDef {
         minSuitability: number
         perMinute: number
       }
+    | {
+        /** Rests in mature plants of these kinds, with an optional extra draw. */
+        kind: 'perch'
+        plants: string[]
+        minCount: number
+        bonus?: { plant: string; multiplier: number }
+        perMinute: number
+      }
+    | { kind: 'feeder'; structure: string; perMinute: number }
   maxPresent: number
   /** Range of seconds a visit lasts. */
   staySec: [number, number]

@@ -208,6 +208,41 @@ function drawPlant(g: Graphics, id: string, stage: number): void {
       }
       return
     }
+    case 'forest-grass': {
+      // Arching blades that all lean the same way.
+      const blades = 6 + stage * 6
+      const height = 10 + stage * 10
+      for (let i = 0; i < blades; i++) {
+        const x = (r[i % 16]! - 0.5) * (14 + stage * 10)
+        const h = height * (0.7 + r[(i + 4) % 16]! * 0.3)
+        g.moveTo(x, 0)
+          .quadraticCurveTo(x + h * 0.2, -h, x + h * 0.9, -h * 0.55)
+          .stroke({ color: i % 2 ? 0xb5c44f : 0x9fb043, width: 2.5 })
+      }
+      return
+    }
+    case 'hosta': {
+      const size = [8, 14, 20][stage] ?? 20
+      const leaves = 4 + stage * 2
+      for (let i = 0; i < leaves; i++) {
+        const angle = (i / leaves) * Math.PI * 2
+        const x = Math.cos(angle) * size * 0.8
+        const y = Math.sin(angle) * size * 0.35 - size * 0.4
+        g.ellipse(x, y, size * 0.55, size * 0.3).fill(i % 2 ? 0x6f9a7a : 0x5f8a6c)
+        g.moveTo(x - size * 0.4, y)
+          .lineTo(x + size * 0.4, y)
+          .stroke({ color: 0x8fb89a, width: 1 })
+      }
+      if (stage >= 2) {
+        for (const x of [-6, 5]) {
+          g.moveTo(x, -size)
+            .lineTo(x + 2, -size - 26)
+            .stroke({ color: 0x5f8a6c, width: 2 })
+          for (let k = 0; k < 4; k++) g.ellipse(x + 2, -size - 12 - k * 5, 3, 2.2).fill(0xb7a3d8)
+        }
+      }
+      return
+    }
     case 'old-pine': {
       g.ellipse(0, 0, 36, 16).fill({ color: 0x2e3a24, alpha: 0.3 })
       g.poly([-8, 0, 8, 0, 4, -90, -4, -90]).fill(0x4e3a2a)
@@ -229,11 +264,21 @@ function drawPlant(g: Graphics, id: string, stage: number): void {
   }
 }
 
-function drawStructure(g: Graphics, id: string, level: number): void {
+function drawStructure(g: Graphics, id: string, variant: string): void {
+  if (id === 'sap-feeder') {
+    g.ellipse(0, 0, 14, 6).fill({ color: 0x30302a, alpha: 0.3 })
+    g.rect(-2.5, -40, 5, 40).fill(0xc9b46a)
+    g.rect(-3.5, -30, 7, 2).fill(0xa8944f)
+    g.ellipse(0, -42, 15, 6).fill(0xb8a35e)
+    g.ellipse(0, -43, 12, 4).fill(variant === 'full' ? 0xe3a84a : 0x8f7f4a)
+    if (variant === 'full') g.ellipse(-3, -44, 4, 1.2).fill({ color: 0xffffff, alpha: 0.5 })
+    return
+  }
   if (id !== 'natural-shelter') {
     g.rect(-16, -30, 32, 30).fill(0xff00ff)
     return
   }
+  const level = Number(variant)
   g.ellipse(0, 0, 34 + level * 8, 14 + level * 3).fill({ color: 0x3a3020, alpha: 0.3 })
   if (level >= 1) {
     for (const [x, y] of [
@@ -298,6 +343,40 @@ function drawDecoration(g: Graphics, id: string, variant: string): void {
       g.ellipse(0, -12, 16, 7).fill(0x6f8fa0)
       g.ellipse(-3, -13, 6, 2).fill({ color: 0xffffff, alpha: 0.4 })
       g.ellipse(-24, -2, 7, 5).fill(0x9a958a)
+      return
+    case 'bamboo-fence':
+      g.ellipse(0, 0, 30, 10).fill({ color: 0x30302a, alpha: 0.2 })
+      for (let i = -3; i <= 3; i++) {
+        const x = i * 8
+        g.rect(x - 2, -26 + Math.abs(i), 4, 26 - Math.abs(i) + i * 1.5).fill(
+          i % 2 ? 0xc9b46a : 0xb8a35e,
+        )
+      }
+      g.moveTo(-28, -16).lineTo(28, -4).stroke({ color: 0x6b4c33, width: 3 })
+      g.moveTo(-28, -8).lineTo(28, 4).stroke({ color: 0x6b4c33, width: 3 })
+      return
+    case 'bamboo-water-spout':
+      g.ellipse(0, 0, 28, 12).fill({ color: 0x30302a, alpha: 0.3 })
+      g.ellipse(8, -6, 18, 9).fill(0x8c877c)
+      g.ellipse(8, -8, 13, 5).fill(0x6f8fa0)
+      g.rect(-18, -40, 5, 40).fill(0xb8a35e)
+      g.moveTo(-16, -34).lineTo(8, -22).stroke({ color: 0xc9b46a, width: 5, cap: 'round' })
+      g.moveTo(8, -20).lineTo(8, -10).stroke({ color: 0xa9c8d2, width: 2, alpha: 0.8 })
+      return
+    case 'maple-leaf-lantern':
+      g.ellipse(0, 0, 16, 7).fill({ color: 0x30302a, alpha: 0.3 })
+      g.rect(-5, -30, 10, 30).fill(0x9a958a)
+      g.rect(-11, -44, 22, 14).fill(0x8c877c)
+      g.rect(-5, -41, 10, 8).fill(0xf0c070)
+      g.poly([-15, -44, 0, -56, 15, -44]).fill(0x9a958a)
+      for (const [x, y] of [
+        [-12, -46],
+        [10, -48],
+        [0, -54],
+        [-6, -20],
+      ] as const) {
+        g.ellipse(x, y, 5, 3).fill(0xc8583a)
+      }
       return
     case 'old-boulder':
       g.ellipse(0, 0, 40, 18).fill({ color: 0x30302a, alpha: 0.3 })
@@ -371,6 +450,25 @@ function drawCreature(g: Graphics, id: string, colour: number, frame: number): v
         .lineTo(12, -4 + frame * 2)
         .stroke({ color: colour, width: 1.5 })
       return
+    case 'white-eye':
+      g.ellipse(0, 0, 9, 7).fill(colour)
+      g.circle(7, -5, 5).fill(colour)
+      g.circle(8, -6, 2.6).fill(0xffffff)
+      g.circle(8.4, -6, 1.2).fill(0x111111)
+      g.poly([-8, -2, -15, -9 - frame * 2, -11, 0]).fill(0x6f8a3a)
+      g.poly([11, -6, 15, -5, 11, -4]).fill(0x3a3020)
+      g.ellipse(1, 3, 6, 3).fill(0xd8d0a0)
+      return
+    case 'red-admiral': {
+      const spread = frame === 0 ? 1 : 0.35
+      for (const side of [-1, 1]) {
+        g.ellipse(side * 8 * spread, -2, 8 * spread, 10).fill(0x2a2420)
+        g.ellipse(side * 8 * spread, -3, 5 * spread, 2).fill(colour)
+        g.circle(side * 11 * spread, -9, 1.5).fill(0xffffff)
+      }
+      g.rect(-1, -8, 2, 12).fill(0x2a2420)
+      return
+    }
     case 'wren':
       g.ellipse(0, 0, 10, 8).fill(colour)
       g.circle(8, -5, 5).fill(colour)
@@ -428,7 +526,7 @@ export class PlaceholderArt {
         drawPlant(g, id, Number(variant))
         break
       case 'structure':
-        drawStructure(g, id, Number(variant))
+        drawStructure(g, id, variant)
         break
       case 'decoration':
         drawDecoration(g, id, variant)

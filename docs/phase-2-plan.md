@@ -82,8 +82,8 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
   - the inspect panel shows "fully grown in about N hours"
   - the return recap mentions the maple's progress
   - a Chapter 1 suggestion encourages planting it early
-- [ ] When mature, the maple yields **maple leaves**, a seasonal-looking material.
-- [ ] It also yields **maple sap**, gathered from the tree rather than processed by people. Its use: a **sap feeder**, a small dish on a post that draws a sap-feeding butterfly (for example a red admiral). Some real butterflies feed on tree sap rather than nectar, so the sap gives the maple an ecological role, not just a crafting one.
+- [x] When mature, the maple yields **maple leaves**, a seasonal-looking material.
+- [x] It also yields **maple sap**, gathered from the tree rather than processed by people. Its use: a **sap feeder**, a small dish on a post that draws a sap-feeding butterfly (for example a red admiral). Some real butterflies feed on tree sap rather than nectar, so the sap gives the maple an ecological role, not just a crafting one.
 - [ ] Chapter 2 uses maple leaves in a reward:
   - an optional milestone, "A tree comes of age"
   - leaves as an ingredient in the nesting bundle branch and in a decorative maple-leaf lantern
@@ -111,17 +111,17 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 
 ### B3. New content (data)
 
-- [ ] **Plants:**
+- [x] **Plants:**
   - **Bamboo:** spreads slowly and can be harvested for canes.
   - **Japanese forest grass:** shade ground cover.
   - **Hosta:** shade, cover.
-- [ ] **Items:** bamboo canes, plus one or two others (for example dried stems).
+- [x] **Items:** bamboo shoots and canes, forest grass and hosta divisions, maple leaves and maple sap.
 - [ ] **Wildlife:**
-  - **Songbird:** nests in mature bamboo, and is drawn more strongly by a mature maple.
+  - **Songbird (done: Japanese white-eye):** rests in mature bamboo, and is drawn more strongly by a mature maple.
   - **Wood mouse:** lives in the log lodge branch.
   - **A new behaviour from an existing species:** beetles overwintering in a refuge.
-- [ ] **Structures and decorations:** bamboo fence or screen, bamboo water spout (ahead of Chapter 3), maple-leaf lantern, sap feeder (maple sap).
-- [ ] **Sap-feeding butterfly:** visits a filled sap feeder; its own journal entry and facts.
+- [x] **Structures and decorations:** bamboo fence or screen, bamboo water spout (ahead of Chapter 3), maple-leaf lantern, sap feeder (maple sap).
+- [x] **Sap-feeding butterfly:** visits a filled sap feeder; its own journal entry and facts.
 
 ### B4. Branching habitat upgrades
 

@@ -6,6 +6,9 @@ export type GameEvent =
   | { type: 'plantStage'; entityId: number; plantId: string; stage: number }
   | { type: 'flowering'; entityId: number; plantId: string }
   | { type: 'mossSpread'; x: number; y: number }
+  | { type: 'plantSpread'; entityId: number; plantId: string }
+  | { type: 'harvested'; entityId: number; items: Record<string, number> }
+  | { type: 'filled'; entityId: number; structureId: string }
   | { type: 'dropProduced'; dropId: number; itemId: string; amount: number }
   | { type: 'collected'; items: Record<string, number>; auto: boolean }
   | { type: 'cleared'; x: number; y: number; items: Record<string, number> }

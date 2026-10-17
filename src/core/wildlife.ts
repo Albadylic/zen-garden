@@ -4,6 +4,7 @@
 import type { Activity, Content, WildlifeDef } from './content'
 import { isTileOpen } from './areas'
 import { structureSuitability } from './environment'
+import { isFilled } from './feeders'
 import { nextId } from './game'
 import { distance, entityById, isOpenGround, terrainAt } from './grid'
 import { isFlowering } from './plants'
@@ -23,6 +24,37 @@ export function nectarAvailable(state: GameState, content: Content): number {
 function flowers(state: GameState, content: Content): PlantEntity[] {
   return state.entities.filter(
     (e): e is PlantEntity => e.kind === 'plant' && isFlowering(content, e),
+  )
+}
+
+/** Mature plants a perching species likes, including any it is especially drawn to. */
+export function perchPlants(state: GameState, content: Content, def: WildlifeDef): PlantEntity[] {
+  if (def.attraction.kind !== 'perch') return []
+  const kinds = new Set([
+    ...def.attraction.plants,
+    ...(def.attraction.bonus ? [def.attraction.bonus.plant] : []),
+  ])
+  return state.entities.filter(
+    (e): e is PlantEntity =>
+      e.kind === 'plant' &&
+      kinds.has(e.defId) &&
+      e.stage >= (content.plants[e.defId]?.stages.length ?? 1) - 1 &&
+      isTileOpen(state, content, e.x, e.y),
+  )
+}
+
+/** Feeders of a kind that currently hold something. */
+export function filledFeeders(
+  state: GameState,
+  content: Content,
+  structureId: string,
+): StructureEntity[] {
+  return state.entities.filter(
+    (e): e is StructureEntity =>
+      e.kind === 'structure' &&
+      e.defId === structureId &&
+      isFilled(e) &&
+      isTileOpen(state, content, e.x, e.y),
   )
 }
 
@@ -132,6 +164,23 @@ export function attractWildlife(
       const target = pick(state, flowers(state, content))
       const from = pick(state, boundaryTiles(state, content))
       if (target && from) spawn(state, def, ctx, from, target, null)
+    } else if (a.kind === 'perch') {
+      const spots = perchPlants(state, content, def)
+      const main = spots.filter((p) => a.plants.includes(p.defId)).length
+      if (main < a.minCount) continue
+      const bonus =
+        a.bonus && spots.some((p) => p.defId === a.bonus!.plant) ? a.bonus.multiplier : 1
+      if (!chance(state, a.perMinute * Math.min(2, main / a.minCount) * bonus, dtMs)) continue
+      const target = pick(state, spots)
+      const from = pick(state, boundaryTiles(state, content))
+      if (target && from) spawn(state, def, ctx, from, target, null)
+    } else if (a.kind === 'feeder') {
+      const feeders = filledFeeders(state, content, a.structure)
+      if (feeders.length === 0 || present >= feeders.length * 2) continue
+      if (!chance(state, a.perMinute * feeders.length, dtMs)) continue
+      const target = pick(state, feeders)
+      const from = pick(state, boundaryTiles(state, content))
+      if (target && from) spawn(state, def, ctx, from, target, null)
     } else {
       for (const { shelter, suitability } of sheltersFor(state, content, def)) {
         const level = content.structures[shelter.defId]?.levels[shelter.level]
@@ -181,6 +230,26 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
     const rest = random(state) < 0.25 ? pick(state, perches(state, content, c, 3)) : undefined
     const target = rest ?? pick(state, options)!
     setTarget(c, target.x + 0.5 + jitter(), target.y + 0.5 + jitter(), target.id, 'moving')
+    return
+  }
+  if (def.attraction.kind === 'perch') {
+    const target = pick(state, perchPlants(state, content, def))
+    if (!target) {
+      leave(state, content, def, c)
+      return
+    }
+    setTarget(c, target.x + 0.5 + jitter(), target.y + 0.5 + jitter(), target.id, 'moving')
+    return
+  }
+  if (def.attraction.kind === 'feeder') {
+    const feeders = filledFeeders(state, content, def.attraction.structure)
+    if (feeders.length === 0) {
+      leave(state, content, def, c)
+      return
+    }
+    const rest = random(state) < 0.3 ? pick(state, perches(state, content, c, 3)) : undefined
+    const target = rest ?? pick(state, feeders)!
+    setTarget(c, target.x + 0.5 + jitter() / 2, target.y + 0.5 + jitter() / 2, target.id, 'moving')
     return
   }
   const home = c.homeId !== null ? entityById(state, c.homeId) : undefined
@@ -244,6 +313,16 @@ function arrive(
       c.activity = 'perching'
       c.timerMs = randomRange(state, 6, 12) * 1000
     }
+    return
+  }
+  if (target?.kind === 'structure' && def.attraction.kind === 'feeder' && isFilled(target)) {
+    c.activity = 'feeding'
+    c.timerMs = randomRange(state, 5, 10) * 1000
+    return
+  }
+  if (target?.kind === 'plant' && def.attraction.kind === 'perch') {
+    c.activity = 'perching'
+    c.timerMs = randomRange(state, 8, 18) * 1000
     return
   }
   if (

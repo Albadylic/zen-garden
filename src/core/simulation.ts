@@ -3,7 +3,8 @@
 
 import type { Content } from './content'
 import type { GameEvent } from './events'
-import { growPlants, spreadMoss } from './plants'
+import { drainFeeders } from './feeders'
+import { growPlants, spreadPlants } from './plants'
 import { ageDrops, produce } from './resources'
 import { journalSystem } from './journal'
 import { progressSystem } from './progression'
@@ -26,9 +27,10 @@ export const OFFLINE_STEP_MS = 10_000
 /** Systems run once per step, in this order. */
 const systems: System[] = [
   growPlants,
-  spreadMoss,
+  spreadPlants,
   produce,
   ageDrops,
+  drainFeeders,
   attractWildlife,
   moveWildlife,
   progressSystem,

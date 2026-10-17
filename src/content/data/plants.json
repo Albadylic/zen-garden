@@ -100,7 +100,8 @@
     "cover": 0.1,
     "spread": {
       "chancePerHour": 1.5,
-      "minStage": 2
+      "minStage": 2,
+      "mode": "terrain"
     },
     "facts": [
       {
@@ -262,6 +263,18 @@
         "everySec": 3600,
         "amount": 1,
         "minStage": 3
+      },
+      {
+        "item": "maple-leaves",
+        "everySec": 900,
+        "amount": 1,
+        "minStage": 3
+      },
+      {
+        "item": "maple-sap",
+        "everySec": 1800,
+        "amount": 1,
+        "minStage": 3
       }
     ],
     "nectar": 0.3,
@@ -280,6 +293,10 @@
       {
         "text": "Its small spring flowers are visited by bees.",
         "after": 4
+      },
+      {
+        "text": "A mature maple sheds its finely cut leaves and weeps a little sweet sap.",
+        "after": 5
       }
     ]
   },
@@ -417,7 +434,14 @@
         "max": 0.85
       }
     },
-    "produces": [],
+    "produces": [
+      {
+        "item": "bamboo-shoots",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
     "nectar": 0,
     "flowerStage": 0,
     "cover": 0.7,
@@ -433,6 +457,121 @@
       },
       {
         "text": "A dense clump gives birds and small animals shelter from wind and rain.",
+        "after": 3
+      }
+    ],
+    "seedItem": "bamboo-shoots",
+    "harvest": {
+      "item": "bamboo-canes",
+      "amount": 2,
+      "cooldownSec": 600,
+      "minStage": 2
+    },
+    "spread": {
+      "chancePerHour": 0.3,
+      "minStage": 2,
+      "mode": "plant",
+      "maxNearby": 3
+    }
+  },
+  {
+    "id": "forest-grass",
+    "name": "Japanese forest grass",
+    "description": "Soft, arching blades that flow like water across a shady floor.",
+    "seedItem": "grass-divisions",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Division",
+        "durationSec": 180
+      },
+      {
+        "name": "Spreading",
+        "durationSec": 900
+      },
+      {
+        "name": "Flowing clump"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.3,
+        "max": 0.8
+      },
+      "moisture": {
+        "min": 0.35,
+        "max": 0.8
+      }
+    },
+    "produces": [
+      {
+        "item": "grass-divisions",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.5,
+    "facts": [
+      {
+        "text": "Its blades all lean one way, as if combed by the wind.",
+        "after": 1
+      },
+      {
+        "text": "Grows happily in the dappled shade under bamboo.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "hosta",
+    "name": "Hosta",
+    "description": "Broad, ribbed leaves that fill shady corners, with lilac flower spikes in summer.",
+    "seedItem": "hosta-divisions",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Crown",
+        "durationSec": 240
+      },
+      {
+        "name": "Unfurling",
+        "durationSec": 900
+      },
+      {
+        "name": "Flowering clump"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.5,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.4,
+        "max": 0.9
+      }
+    },
+    "produces": [
+      {
+        "item": "hosta-divisions",
+        "everySec": 1500,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.6,
+    "flowerStage": 2,
+    "cover": 0.6,
+    "facts": [
+      {
+        "text": "Bumblebees visit its tall flower spikes.",
+        "after": 1
+      },
+      {
+        "text": "Deep shade suits it best; strong sun scorches the leaves.",
         "after": 3
       }
     ]

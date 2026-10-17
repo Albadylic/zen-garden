@@ -2,26 +2,100 @@
   {
     "id": "natural-shelter",
     "name": "Natural shelter",
-    "inputs": { "twigs": 6, "bark": 2, "leaf-litter": 2 },
-    "output": { "kind": "structure", "id": "natural-shelter" },
+    "inputs": {
+      "twigs": 6,
+      "bark": 2,
+      "leaf-litter": 2
+    },
+    "output": {
+      "kind": "structure",
+      "id": "natural-shelter"
+    },
     "unlock": "recipe:natural-shelter"
   },
   {
     "id": "stepping-stone",
     "name": "Stepping stone",
-    "inputs": { "stones": 1 },
-    "output": { "kind": "decoration", "id": "stepping-stone" }
+    "inputs": {
+      "stones": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "stepping-stone"
+    }
   },
   {
     "id": "stone-path",
     "name": "Stone path",
-    "inputs": { "stones": 2 },
-    "output": { "kind": "decoration", "id": "stone-path" }
+    "inputs": {
+      "stones": 2
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "stone-path"
+    }
   },
   {
     "id": "stone-arrangement",
     "name": "Stone arrangement",
-    "inputs": { "stones": 3 },
-    "output": { "kind": "decoration", "id": "stone-arrangement" }
+    "inputs": {
+      "stones": 3
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "stone-arrangement"
+    }
+  },
+  {
+    "id": "bamboo-fence",
+    "name": "Bamboo fence",
+    "inputs": {
+      "bamboo-canes": 3,
+      "twigs": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "bamboo-fence"
+    },
+    "unlock": "recipe:bamboo-fence"
+  },
+  {
+    "id": "bamboo-water-spout",
+    "name": "Bamboo water spout",
+    "inputs": {
+      "bamboo-canes": 4,
+      "stones": 2
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "bamboo-water-spout"
+    },
+    "unlock": "recipe:bamboo-water-spout"
+  },
+  {
+    "id": "maple-leaf-lantern",
+    "name": "Maple-leaf lantern",
+    "inputs": {
+      "stones": 3,
+      "maple-leaves": 4
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "maple-leaf-lantern"
+    },
+    "unlock": "recipe:maple-leaf-lantern"
+  },
+  {
+    "id": "sap-feeder",
+    "name": "Sap feeder",
+    "inputs": {
+      "bamboo-canes": 2,
+      "maple-sap": 1
+    },
+    "output": {
+      "kind": "structure",
+      "id": "sap-feeder"
+    },
+    "unlock": "recipe:sap-feeder"
   }
 ]

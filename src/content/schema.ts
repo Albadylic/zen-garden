@@ -73,7 +73,22 @@ export const plantSchema = z
     flowerStage: count,
     cover: unit,
     shade: z.object({ radius: z.number().positive(), strength: unit, minStage: count }).optional(),
-    spread: z.object({ chancePerHour: z.number().positive(), minStage: count }).optional(),
+    spread: z
+      .object({
+        chancePerHour: z.number().positive(),
+        minStage: count,
+        mode: z.enum(['terrain', 'plant']),
+        maxNearby: z.number().int().positive().optional(),
+      })
+      .optional(),
+    harvest: z
+      .object({
+        item: id,
+        amount: z.number().int().positive(),
+        cooldownSec: z.number().positive(),
+        minStage: count,
+      })
+      .optional(),
     facts: z.array(factSchema),
   })
   .refine(
@@ -87,6 +102,7 @@ export const structureSchema = z.object({
   description: z.string().min(1),
   terrain: z.array(terrainSchema).min(1),
   prefers: z.object({ shade: rangeSchema, moisture: rangeSchema, cover: rangeSchema }),
+  feeder: z.object({ item: id, durationSec: z.number().positive() }).optional(),
   levels: z
     .array(
       z.object({
@@ -139,6 +155,14 @@ export const wildlifeSchema = z.object({
       minSuitability: unit,
       perMinute: z.number().positive(),
     }),
+    z.object({
+      kind: z.literal('perch'),
+      plants: z.array(id).min(1),
+      minCount: z.number().int().positive(),
+      bonus: z.object({ plant: id, multiplier: z.number().positive() }).optional(),
+      perMinute: z.number().positive(),
+    }),
+    z.object({ kind: z.literal('feeder'), structure: id, perMinute: z.number().positive() }),
   ]),
   maxPresent: z.number().int().positive(),
   staySec: z.tuple([z.number().positive(), z.number().positive()]),

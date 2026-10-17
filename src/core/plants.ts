@@ -4,8 +4,8 @@ import type { Content, PlantDef } from './content'
 import { isTileOpen } from './areas'
 import { plantSuitability } from './environment'
 import { nextId } from './game'
-import { entityAt, entityById, neighbours, terrainAt, setTerrain } from './grid'
-import { hasItems, removeItems } from './inventory'
+import { distance, entityAt, entityById, neighbours, setTerrain, terrainAt } from './grid'
+import { addItems, hasItems, removeItems } from './inventory'
 import { type ActionResult, checkPlacement } from './layout'
 import { chance, pick } from './rng'
 import type { StepContext } from './simulation'
@@ -120,7 +120,9 @@ export function growPlants(
   ctx: StepContext,
 ): void {
   for (const e of state.entities) {
-    if (e.kind !== 'plant' || e.fixed) continue
+    if (e.kind !== 'plant') continue
+    if (e.harvestMs) e.harvestMs = Math.max(0, e.harvestMs - dtMs)
+    if (e.fixed) continue
     const def = content.plants[e.defId]
     if (!def || isFinalStage(def, e.stage)) {
       e.wateredMs = 0
@@ -145,17 +147,21 @@ export function growPlants(
   }
 }
 
-/** Moss only spreads onto grass where moss itself would do at least fairly well. */
+/** Plants only spread where their own kind would do at least fairly well. */
 const SPREAD_MIN_SUITABILITY = 0.5
 
-/** System: mature moss slowly turns neighbouring damp, shaded grass into moss. */
-export function spreadMoss(
+/**
+ * System: mature spreading plants slowly extend. Moss turns neighbouring
+ * grass into moss; bamboo sends up a new young clump beside itself, until
+ * enough of its kind are close by.
+ */
+export function spreadPlants(
   state: GameState,
   content: Content,
   dtMs: number,
   ctx: StepContext,
 ): void {
-  // Collect first: spreading changes terrain, which other plants read.
+  // Collect first: spreading changes the garden, which other plants read.
   const spreaders = state.entities.filter((e): e is PlantEntity => {
     if (e.kind !== 'plant') return false
     const spread = content.plants[e.defId]?.spread
@@ -164,14 +170,73 @@ export function spreadMoss(
   for (const e of spreaders) {
     const spread = content.plants[e.defId]!.spread!
     if (!chance(state, spread.chancePerHour / 60, dtMs)) continue
+    if (spread.mode === 'plant' && spread.maxNearby !== undefined) {
+      const nearby = state.entities.filter(
+        (o) => o.kind === 'plant' && o.defId === e.defId && distance(o, e) <= 1.5,
+      )
+      if (nearby.length > spread.maxNearby) continue
+    }
     const candidates = neighbours(state, e.x, e.y).filter((n) => {
-      if (terrainAt(state, n.x, n.y) !== 'grass' || entityAt(state, n.x, n.y)) return false
-      if (!isTileOpen(state, content, n.x, n.y)) return false
+      if (!isTileOpen(state, content, n.x, n.y) || entityAt(state, n.x, n.y)) return false
+      if (spread.mode === 'terrain' && terrainAt(state, n.x, n.y) !== 'grass') return false
+      if (
+        spread.mode === 'plant' &&
+        !checkPlacement(state, content, { kind: 'plant', defId: e.defId }, n.x, n.y).ok
+      ) {
+        return false
+      }
       return plantSuitability(state, content, e.defId, n.x, n.y).score >= SPREAD_MIN_SUITABILITY
     })
     const target = pick(state, candidates)
     if (!target) continue
-    setTerrain(state, target.x, target.y, 'moss')
-    ctx.events.push({ type: 'mossSpread', x: target.x, y: target.y })
+    if (spread.mode === 'terrain') {
+      setTerrain(state, target.x, target.y, 'moss')
+      ctx.events.push({ type: 'mossSpread', x: target.x, y: target.y })
+      continue
+    }
+    const def = content.plants[e.defId]!
+    const id = nextId(state)
+    state.entities.push({
+      id,
+      kind: 'plant',
+      defId: e.defId,
+      x: target.x,
+      y: target.y,
+      stage: 0,
+      progressMs: 0,
+      produceMs: def.produces.map(() => 0),
+      wateredMs: 0,
+      fixed: false,
+    })
+    state.layoutVersion++
+    ctx.events.push({ type: 'plantSpread', entityId: id, plantId: e.defId })
   }
+}
+
+/** Whether a plant can be harvested now, and if not, why. */
+export function harvestStatus(
+  content: Content,
+  plant: PlantEntity,
+): { kind: 'none' } | { kind: 'growing' } | { kind: 'recovering'; ms: number } | { kind: 'ready' } {
+  const h = content.plants[plant.defId]?.harvest
+  if (!h) return { kind: 'none' }
+  if (plant.stage < h.minStage) return { kind: 'growing' }
+  if (plant.harvestMs && plant.harvestMs > 0) return { kind: 'recovering', ms: plant.harvestMs }
+  return { kind: 'ready' }
+}
+
+/** Harvests a mature plant by hand (for example, cutting bamboo canes). The plant is unharmed. */
+export function harvest(state: GameState, content: Content, entityId: number): ActionResult {
+  const plant = entityById(state, entityId)
+  if (plant?.kind !== 'plant') return { ok: false, reason: 'Nothing to harvest' }
+  const status = harvestStatus(content, plant)
+  if (status.kind === 'none') return { ok: false, reason: 'Nothing to harvest' }
+  if (status.kind === 'growing') return { ok: false, reason: 'Not ready to harvest yet' }
+  if (status.kind === 'recovering') return { ok: false, reason: 'It needs time to recover' }
+  const h = content.plants[plant.defId]!.harvest!
+  const items = { [h.item]: h.amount }
+  addItems(state, items)
+  state.stats.gathered[h.item] = (state.stats.gathered[h.item] ?? 0) + h.amount
+  plant.harvestMs = h.cooldownSec * 1000
+  return { ok: true, events: [{ type: 'harvested', entityId, items }] }
 }

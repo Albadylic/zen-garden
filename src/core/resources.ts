@@ -72,6 +72,8 @@ function gather(state: GameState, drops: Drop[]): Record<string, number> {
   const items: Record<string, number> = {}
   for (const d of drops) items[d.itemId] = (items[d.itemId] ?? 0) + d.amount
   addItems(state, items)
+  for (const [id, n] of Object.entries(items))
+    state.stats.gathered[id] = (state.stats.gathered[id] ?? 0) + n
   const ids = new Set(drops.map((d) => d.id))
   state.drops = state.drops.filter((d) => !ids.has(d.id))
   state.stats.collected += drops.reduce((n, d) => n + d.amount, 0)
@@ -125,6 +127,8 @@ export function clearOvergrowth(
     if (n > 0) items[find.item] = (items[find.item] ?? 0) + n
   }
   addItems(state, items)
+  for (const [id, n] of Object.entries(items))
+    state.stats.gathered[id] = (state.stats.gathered[id] ?? 0) + n
   state.stats.cleared++
   const area = areaAt(content, x, y)
   if (area) state.stats.clearedIn[area.id] = (state.stats.clearedIn[area.id] ?? 0) + 1
