@@ -6,6 +6,7 @@ import { useController, useUi } from './hooks'
 import { Hud } from './Hud'
 import { InspectPanel } from './InspectPanel'
 import { PlacementBar } from './PlacementBar'
+import { PlantsPanel } from './PlantsPanel'
 import { Toasts } from './Toasts'
 
 interface Props {
@@ -39,6 +40,7 @@ export function App({ mountGarden }: Props) {
             <PlacementBar />
           ) : (
             <>
+              {panel === 'plants' && <PlantsPanel />}
               {panel === 'build' && <BuildPanel />}
               {!panel && selection && <InspectPanel />}
               <BottomBar />

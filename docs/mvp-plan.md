@@ -25,12 +25,13 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 3. Plants and growth
 
-- [ ] About 6 starter species defined in data (GDD 6.2 proposed list)
-- [ ] Planting from seeds in the inventory
-- [ ] Species-specific real-time growth stages with visual change per stage
-- [ ] Suitability affects growth speed and output; plants never die
-- [ ] Flowering, slow moss spread, and resource production at maturity
-- [ ] Plant inspection panel: species, stage, suitability, actions
+- [x] About 6 starter species defined in data (GDD 6.2 proposed list)
+- [x] Planting from seeds in the inventory
+- [x] Species-specific real-time growth stages with visual change per stage
+- [x] Suitability affects growth speed and output; plants never die
+- [x] Flowering and slow moss spread
+- [ ] Resource production at maturity
+- [x] Plant inspection panel: species, stage, suitability, actions
 
 ## 4. Resources and inventory
 

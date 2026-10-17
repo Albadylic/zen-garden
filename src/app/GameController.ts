@@ -23,17 +23,21 @@ import {
   undo,
   type UndoRecord,
 } from '../core/layout'
+import { plant, water } from '../core/plants'
 import { advance } from '../core/simulation'
 import type { GameState } from '../core/state'
 import type { Point } from '../render/iso'
 import type { RenderHost, RenderView, Selection, TapTarget } from '../render/GardenRenderer'
 import { createStore, type Store } from './store'
 
-export type PlaceSource = { kind: 'recipe'; recipeId: string } | { kind: 'move'; entityId: number }
+export type PlaceSource =
+  | { kind: 'seed'; plantId: string }
+  | { kind: 'recipe'; recipeId: string }
+  | { kind: 'move'; entityId: number }
 
 export type Mode = { type: 'idle' } | { type: 'place'; source: PlaceSource; tile: Point | null }
 
-export type Panel = null | 'build' | 'settings'
+export type Panel = null | 'plants' | 'build' | 'settings'
 
 export interface Toast {
   id: number
@@ -166,6 +170,7 @@ export class GameController {
   }
 
   private placeableFor(source: PlaceSource): Placeable | null {
+    if (source.kind === 'seed') return { kind: 'plant', defId: source.plantId }
     if (source.kind === 'recipe') {
       const recipe = this.content.recipes[source.recipeId]
       return recipe ? { kind: recipe.output.kind, defId: recipe.output.id } : null
@@ -175,6 +180,10 @@ export class GameController {
   }
 
   private costFor(source: PlaceSource): Record<string, number> {
+    if (source.kind === 'seed') {
+      const seed = this.content.plants[source.plantId]?.seedItem
+      return seed ? { [seed]: 1 } : {}
+    }
     if (source.kind === 'recipe') return this.content.recipes[source.recipeId]?.inputs ?? {}
     return {}
   }
@@ -229,12 +238,13 @@ export class GameController {
     const { x, y } = mode.tile
     const source = mode.source
     let result: ActionResult
-    if (source.kind === 'recipe')
+    if (source.kind === 'seed') result = plant(this.state, this.content, source.plantId, x, y)
+    else if (source.kind === 'recipe')
       result = buildRecipe(this.state, this.content, source.recipeId, x, y)
     else result = moveEntity(this.state, this.content, source.entityId, x, y)
     if (!this.applyResult(result)) return
     // Keep placing the same thing while it is still affordable; moving is one-off.
-    if (source.kind === 'recipe' && this.canAfford(this.costFor(source))) {
+    if (source.kind !== 'move' && this.canAfford(this.costFor(source))) {
       this.ui.set({ mode: { type: 'place', source, tile: null } })
     } else {
       const placed = entityAt(this.state, x, y)
@@ -259,6 +269,12 @@ export class GameController {
     const sel = this.ui.get().selection
     if (sel?.kind !== 'entity') return
     this.startPlacing({ kind: 'move', entityId: sel.id })
+  }
+
+  waterSelected(): void {
+    const sel = this.ui.get().selection
+    if (sel?.kind !== 'entity') return
+    this.applyResult(water(this.state, this.content, sel.id))
   }
 
   removeSelected(): void {

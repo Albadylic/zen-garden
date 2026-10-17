@@ -1,7 +1,10 @@
 import type { Panel } from '../app/GameController'
 import { useController, useUi } from './hooks'
 
-const TABS: { panel: Exclude<Panel, null>; label: string }[] = [{ panel: 'build', label: 'Build' }]
+const TABS: { panel: Exclude<Panel, null>; label: string }[] = [
+  { panel: 'plants', label: 'Plants' },
+  { panel: 'build', label: 'Build' },
+]
 
 export function BottomBar() {
   const controller = useController()
