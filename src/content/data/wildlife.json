@@ -715,5 +715,161 @@
         "after": "decomposers-at-work"
       }
     ]
+  },
+  {
+    "id": "hoverfly",
+    "name": "Hoverfly",
+    "description": "A wasp-striped fly that hangs in the air above flowers.",
+    "movement": "flying",
+    "speed": 2,
+    "attraction": {
+      "kind": "nectar",
+      "minNectar": 2,
+      "minSpecies": 2,
+      "perMinute": 0.6
+    },
+    "maxPresent": 4,
+    "staySec": [60, 180],
+    "colour": "#d8a83a",
+    "look": {
+      "form": "fly",
+      "colour": "#d8a83a",
+      "accent": "#3a3020",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Visits meadows with more than one kind of flower.",
+        "after": 1
+      },
+      {
+        "text": "Its stripes copy a wasp’s, but it cannot sting.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A meadow with several kinds of flower draws more kinds of visitor.",
+        "after": "sowing-the-meadow"
+      }
+    ]
+  },
+  {
+    "id": "mining-bee",
+    "name": "Mining bee",
+    "description": "A small furry bee that digs its nest in bare earth.",
+    "movement": "flying",
+    "speed": 1.6,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "bee-bank",
+      "minTier": 0,
+      "minSuitability": 0.45,
+      "perMinute": 0.5
+    },
+    "alongside": {
+      "wildlife": ["hoverfly", "bumblebee", "small-white"],
+      "count": 1
+    },
+    "maxPresent": 4,
+    "staySec": [120, 360],
+    "colour": "#b07a4a",
+    "look": {
+      "form": "bee",
+      "colour": "#b07a4a",
+      "accent": "#5a3a20",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Nests in a bee bank in a meadow already busy with pollinators.",
+        "after": 1
+      },
+      {
+        "text": "Each female digs her own small burrow.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Some bees dig their nests in bare, sunny earth.",
+        "after": "gathering-grass"
+      }
+    ]
+  },
+  {
+    "id": "grasshopper",
+    "name": "Meadow grasshopper",
+    "description": "A green grasshopper that chirps from the long grass.",
+    "movement": "ground",
+    "speed": 1.4,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["meadow-grass"],
+      "minCount": 3,
+      "perMinute": 0.5
+    },
+    "maxPresent": 3,
+    "staySec": [120, 400],
+    "colour": "#7a9a3a",
+    "look": {
+      "form": "insect",
+      "colour": "#7a9a3a",
+      "accent": "#4a6a2a",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Comes where several clumps of tall grass grow.",
+        "after": 1
+      },
+      {
+        "text": "It sings by rubbing its legs against its wings.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Long grass in the sun suits a singing insect.",
+        "after": "sowing-the-meadow"
+      }
+    ]
+  },
+  {
+    "id": "hawk-moth",
+    "name": "Hummingbird hawk-moth",
+    "description": "A day-flying moth that hovers like a tiny hummingbird.",
+    "movement": "flying",
+    "speed": 3,
+    "attraction": {
+      "kind": "nectar",
+      "minNectar": 4,
+      "minSpecies": 4,
+      "perMinute": 0.3
+    },
+    "maxPresent": 1,
+    "staySec": [60, 150],
+    "colour": "#8a7a5a",
+    "look": {
+      "form": "moth",
+      "colour": "#8a7a5a",
+      "accent": "#d88a3a"
+    },
+    "facts": [
+      {
+        "text": "Comes only to meadows with many kinds of flower in bloom.",
+        "after": 1
+      },
+      {
+        "text": "It hovers while it feeds, its wings a blur.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A meadow rich in different flowers might bring a rare hovering moth.",
+        "after": "many-kinds"
+      }
+    ]
   }
 ]

@@ -676,5 +676,153 @@
         "unlocks": []
       }
     ]
+  },
+  {
+    "id": "wildflower-meadow",
+    "title": "Wildflower Meadow",
+    "requires": "chapter:fernwood-hollow",
+    "completionUnlock": "chapter:wildflower-meadow",
+    "gift": {
+      "clover-seeds": 3,
+      "daisy-seeds": 3,
+      "aster-seeds": 2,
+      "bellflower-seeds": 2,
+      "meadow-grass-seeds": 3
+    },
+    "completion": {
+      "title": "A meadow in bloom",
+      "body": [
+        "Daisies, clover, asters and bellflowers sway in the long grass, and the air hums with many kinds of visitor.",
+        "To the south, past a gate by the meadow’s edge, you can hear running water."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-meadow",
+        "title": "Into the meadow",
+        "description": "You looked around the open meadow.",
+        "hint": "Go through the hollow’s east gate and take a look around the meadow.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "wildflower-meadow"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-plan-for-the-meadow",
+        "title": "A plan for the meadow",
+        "description": "You chose how to begin sowing the meadow.",
+        "hint": "Open Restore and choose how to begin sowing the meadow.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "sow-the-meadow"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "sowing-the-meadow",
+        "title": "Sowing the meadow",
+        "description": "Meadow flowers are growing in the sun.",
+        "hint": "Sow three meadow flowers: clover, daisies, asters or bellflowers.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "wildflower-meadow",
+            "plants": ["white-clover", "oxeye-daisy", "aster", "bellflower"],
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "many-kinds",
+        "title": "Many kinds",
+        "description": "Four different species are growing in the meadow.",
+        "hint": "Variety matters here: grow four different species in the meadow.",
+        "conditions": [
+          {
+            "kind": "speciesIn",
+            "garden": "wildflower-meadow",
+            "count": 4
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "hoverflies-hover",
+        "title": "Hoverflies",
+        "description": "Hoverflies came to the meadow’s mix of flowers.",
+        "hint": "Hoverflies come where at least two kinds of flower are in bloom.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "hoverfly",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering-grass",
+        "title": "Gathering grass",
+        "description": "You gathered grass stems. You can now build a bee bank.",
+        "hint": "Grow tall meadow grass and gather five of its stems.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "grass-stems",
+            "count": 5
+          }
+        ],
+        "unlocks": ["recipe:bee-bank"]
+      },
+      {
+        "id": "a-bank-for-bees",
+        "title": "A bank for bees",
+        "description": "You built a bee bank in the sun.",
+        "hint": "Build a bee bank on sunny, dry ground.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "wildflower-meadow",
+            "ids": ["bee-bank"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-meadow-visitor",
+        "title": "A meadow visitor",
+        "description": "A meadow specialist found its way here.",
+        "hint": "Mining bees nest in a bee bank, grasshoppers sing from long grass, and a hawk-moth loves variety.",
+        "conditions": [
+          {
+            "kind": "seenAny",
+            "wildlife": ["mining-bee", "grasshopper", "hawk-moth"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-meadow-sown",
+        "title": "The meadow sown",
+        "description": "You completed one approach to sowing the meadow.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "sow-the-meadow",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ]
   }
 ]

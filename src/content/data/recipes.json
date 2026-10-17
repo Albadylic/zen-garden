@@ -187,5 +187,19 @@
       "id": "log-stack"
     },
     "unlock": "recipe:leaf-litter-bed"
+  },
+  {
+    "id": "bee-bank",
+    "name": "Bee bank",
+    "inputs": {
+      "grass-stems": 2,
+      "stones": 2,
+      "clay": 1
+    },
+    "output": {
+      "kind": "structure",
+      "id": "bee-bank"
+    },
+    "unlock": "recipe:bee-bank"
   }
 ]

@@ -515,5 +515,132 @@
         ]
       }
     ]
+  },
+  {
+    "id": "sow-the-meadow",
+    "title": "Sow the meadow",
+    "description": "The meadow has gone to coarse weeds. Choose where to begin; every approach can be finished in time.",
+    "garden": "wildflower-meadow",
+    "requires": "chapter:fernwood-hollow",
+    "approaches": [
+      {
+        "id": "pollinator-meadow",
+        "title": "A pollinator meadow",
+        "description": "Sow many kinds of flower for many kinds of visitor.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "sow-variety",
+            "title": "Sow variety",
+            "description": "Grow five different species in the meadow.",
+            "conditions": [
+              {
+                "kind": "speciesIn",
+                "garden": "wildflower-meadow",
+                "count": 5
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "in-bloom",
+            "title": "In bloom",
+            "description": "Have six meadow flowers in bloom.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "wildflower-meadow",
+                "plants": ["white-clover", "oxeye-daisy", "aster", "bellflower"],
+                "minStage": 2,
+                "count": 6
+              }
+            ],
+            "cost": {
+              "seed-heads": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "tall-grass",
+        "title": "A tall-grass corner",
+        "description": "Leave a corner of long grass for insects.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "grow-grass",
+            "title": "Grow long grass",
+            "description": "Grow four meadow grasses to full height.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "wildflower-meadow",
+                "plants": ["meadow-grass"],
+                "minStage": 2,
+                "count": 4
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "cut-stems",
+            "title": "Gather stems",
+            "description": "Gather ten grass stems.",
+            "conditions": [
+              {
+                "kind": "gathered",
+                "item": "grass-stems",
+                "count": 10
+              }
+            ],
+            "cost": {
+              "seed-heads": 1
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "seed-collection",
+        "title": "Seed collection",
+        "description": "Collect the meadow’s seed and give its bees a home.",
+        "unlocks": ["recipe:bee-bank"],
+        "stages": [
+          {
+            "id": "collect-seed",
+            "title": "Collect seed",
+            "description": "Gather six seed heads.",
+            "conditions": [
+              {
+                "kind": "gathered",
+                "item": "seed-heads",
+                "count": 6
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "bees-at-home",
+            "title": "Bees at home",
+            "description": "Build a bee bank, and wait for bees to use it twice.",
+            "conditions": [
+              {
+                "kind": "visitedIn",
+                "garden": "wildflower-meadow",
+                "count": 2
+              }
+            ],
+            "cost": {
+              "grass-stems": 2
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
   }
 ]

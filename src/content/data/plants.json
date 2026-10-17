@@ -1376,5 +1376,308 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "white-clover",
+    "name": "White clover",
+    "description": "Low trefoil leaves and round white flower heads.",
+    "seedItem": "clover-seeds",
+    "terrain": ["grass"],
+    "stages": [
+      {
+        "name": "Seedling",
+        "durationSec": 180
+      },
+      {
+        "name": "Leafy",
+        "durationSec": 600
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.35
+      },
+      "moisture": {
+        "min": 0.15,
+        "max": 0.6
+      }
+    },
+    "produces": [
+      {
+        "item": "clover-seeds",
+        "everySec": 900,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "seed-heads",
+        "everySec": 600,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1,
+    "flowerStage": 2,
+    "cover": 0.25,
+    "look": {
+      "form": "flower",
+      "colour": "#6f9a4a",
+      "accent": "#f4efe4",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Bees and hoverflies visit its little flower heads.",
+        "after": 1
+      },
+      {
+        "text": "It feeds the soil through its roots.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "oxeye-daisy",
+    "name": "Oxeye daisy",
+    "description": "Tall white daisies with sunny yellow centres.",
+    "seedItem": "daisy-seeds",
+    "terrain": ["grass"],
+    "stages": [
+      {
+        "name": "Seedling",
+        "durationSec": 240
+      },
+      {
+        "name": "Leafy",
+        "durationSec": 720
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.35
+      },
+      "moisture": {
+        "min": 0.15,
+        "max": 0.6
+      }
+    },
+    "produces": [
+      {
+        "item": "daisy-seeds",
+        "everySec": 900,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "seed-heads",
+        "everySec": 600,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1,
+    "flowerStage": 2,
+    "cover": 0.25,
+    "look": {
+      "form": "flower",
+      "colour": "#6f8f4a",
+      "accent": "#fbf6e8",
+      "size": 1
+    },
+    "facts": [
+      {
+        "text": "Its open flowers suit short-tongued visitors like hoverflies.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "aster",
+    "name": "Aster",
+    "description": "Starry lilac flowers that bloom late into the year.",
+    "seedItem": "aster-seeds",
+    "terrain": ["grass"],
+    "stages": [
+      {
+        "name": "Seedling",
+        "durationSec": 300
+      },
+      {
+        "name": "Leafy",
+        "durationSec": 900
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.35
+      },
+      "moisture": {
+        "min": 0.15,
+        "max": 0.6
+      }
+    },
+    "produces": [
+      {
+        "item": "aster-seeds",
+        "everySec": 900,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "seed-heads",
+        "everySec": 600,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1.2,
+    "flowerStage": 2,
+    "cover": 0.25,
+    "look": {
+      "form": "flower",
+      "colour": "#5f8a4a",
+      "accent": "#a58fd8",
+      "size": 1
+    },
+    "facts": [
+      {
+        "text": "Late flowers keep pollinators fed when little else blooms.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "bellflower",
+    "name": "Bellflower",
+    "description": "Nodding violet bells on slender stems.",
+    "seedItem": "bellflower-seeds",
+    "terrain": ["grass"],
+    "stages": [
+      {
+        "name": "Seedling",
+        "durationSec": 300
+      },
+      {
+        "name": "Leafy",
+        "durationSec": 900
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.35
+      },
+      "moisture": {
+        "min": 0.15,
+        "max": 0.6
+      }
+    },
+    "produces": [
+      {
+        "item": "bellflower-seeds",
+        "everySec": 900,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "seed-heads",
+        "everySec": 600,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1,
+    "flowerStage": 2,
+    "cover": 0.25,
+    "look": {
+      "form": "flower",
+      "colour": "#5f8a4a",
+      "accent": "#7a6ad0",
+      "size": 1
+    },
+    "facts": [
+      {
+        "text": "Small bees sleep inside its bells on cool nights.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "meadow-grass",
+    "name": "Meadow grass",
+    "description": "Tall, swaying meadow grasses that turn golden.",
+    "seedItem": "meadow-grass-seeds",
+    "terrain": ["grass"],
+    "stages": [
+      {
+        "name": "Seedling",
+        "durationSec": 240
+      },
+      {
+        "name": "Tufts",
+        "durationSec": 720
+      },
+      {
+        "name": "Tall grass"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.45
+      },
+      "moisture": {
+        "min": 0.15,
+        "max": 0.65
+      }
+    },
+    "produces": [
+      {
+        "item": "grass-stems",
+        "everySec": 360,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "meadow-grass-seeds",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.6,
+    "look": {
+      "form": "tuft",
+      "colour": "#a8b062",
+      "accent": "#d8c27a",
+      "size": 1.2
+    },
+    "facts": [
+      {
+        "text": "Grasshoppers sing from tall grass on warm days.",
+        "after": 1
+      },
+      {
+        "text": "Leaving some grass long gives insects a place to shelter.",
+        "after": 3
+      }
+    ]
   }
 ]

@@ -361,7 +361,38 @@
       "slot": {
         "col": 2,
         "row": -3
-      }
+      },
+      "origin": {
+        "x": 30,
+        "y": -43
+      },
+      "unlock": "chapter:fernwood-hollow",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        },
+        {
+          "item": "grass-stems",
+          "min": 1,
+          "max": 2,
+          "chance": 0.6
+        },
+        {
+          "item": "seed-heads",
+          "min": 1,
+          "max": 1,
+          "chance": 0.4
+        },
+        {
+          "item": "stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        }
+      ]
     },
     {
       "id": "whispering-stream",
@@ -477,7 +508,17 @@
     },
     {
       "gardens": ["fernwood-hollow", "wildflower-meadow"],
-      "kind": "main"
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 15,
+          "y": 5
+        },
+        "passage": {
+          "x": 0,
+          "y": 5
+        }
+      }
     },
     {
       "gardens": ["wildflower-meadow", "whispering-stream"],

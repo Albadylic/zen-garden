@@ -429,5 +429,56 @@
         "after": "into-the-hollow"
       }
     ]
+  },
+  {
+    "id": "bee-bank",
+    "name": "Bee bank",
+    "description": "A sunny bank of bare, crumbly earth where solitary bees dig their nests.",
+    "terrain": ["grass"],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.35
+      },
+      "moisture": {
+        "min": 0,
+        "max": 0.5
+      },
+      "cover": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "look": {
+      "form": "bank",
+      "colour": "#c8a878",
+      "accent": "#6b5038",
+      "size": 1.6
+    },
+    "levels": [
+      {
+        "name": "Bee bank",
+        "tier": 0,
+        "attraction": 1,
+        "capacity": 4,
+        "produces": []
+      }
+    ],
+    "facts": [
+      {
+        "text": "Most bees nest underground, not in hives.",
+        "after": 1
+      },
+      {
+        "text": "It needs full sun and bare earth.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Bare earth in the sun could become a home for bees.",
+        "after": "into-the-meadow"
+      }
+    ]
   }
 ]

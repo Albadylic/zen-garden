@@ -123,12 +123,12 @@ A damp hollow around a fallen log. **New idea: decay as habitat, and compost.**
 
 An open, sunlit meadow. **New idea: flower variety draws a variety of pollinators.**
 
-- [ ] Map with broad open ground, a few tall grasses, scattered overgrowth.
-- [ ] Plants: clover, oxeye daisy, aster, bellflower.
-- [ ] Wildlife: solitary bee and hoverfly (need several different flowers), hummingbird hawk-moth (many kinds in bloom), grasshopper (tall grass).
-- [ ] Materials: seed heads, grass stems.
-- [ ] Decoration: a bee bank; seed heads make meadow seed mix.
-- [ ] Milestones and the "Sow the meadow" project (pollinator meadow · tall-grass corner · seed collection).
+- [x] Map with broad open ground, a few tall grasses, scattered overgrowth.
+- [x] Plants: clover, oxeye daisy, aster, bellflower.
+- [x] Wildlife: hoverfly (two kinds of flower), mining bee (bee bank, alongside pollinators), hummingbird hawk-moth (four kinds in bloom), meadow grasshopper (tall grass).
+- [x] Materials: seed heads, grass stems.
+- [x] Structure: a bee bank, home to mining bees. Seed heads and grass stems go into the bank and the meadow project. The autoplayer finishes the chapter in about half an hour.
+- [x] Milestones and the "Sow the meadow" project (pollinator meadow · tall-grass corner · seed collection).
 
 ### Chapter 7 — Whispering Stream
 

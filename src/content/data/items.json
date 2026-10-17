@@ -469,5 +469,108 @@
         "after": "gathering-deadwood"
       }
     ]
+  },
+  {
+    "id": "clover-seeds",
+    "name": "Clover seeds",
+    "category": "seed",
+    "description": "Tiny kidney-shaped seeds of white clover.",
+    "colour": "#e8e0c8",
+    "facts": [
+      {
+        "text": "Clover enriches poor soil as it grows.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "daisy-seeds",
+    "name": "Oxeye daisy seeds",
+    "category": "seed",
+    "description": "Fine dark seeds from a dried daisy head.",
+    "colour": "#6a5a40",
+    "facts": [
+      {
+        "text": "One daisy head holds hundreds of seeds.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "aster-seeds",
+    "name": "Aster seeds",
+    "category": "seed",
+    "description": "Light, tufted seeds of a late-flowering aster.",
+    "colour": "#a898c8",
+    "facts": [
+      {
+        "text": "Aster seeds drift away on little parachutes.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "bellflower-seeds",
+    "name": "Bellflower seeds",
+    "category": "seed",
+    "description": "Dust-fine seeds shaken from a bellflower pod.",
+    "colour": "#8a7ab8",
+    "facts": [
+      {
+        "text": "Bellflower seeds need light to sprout.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "meadow-grass-seeds",
+    "name": "Meadow grass seeds",
+    "category": "seed",
+    "description": "A mix of tall meadow grass seed.",
+    "colour": "#c8b878",
+    "facts": [
+      {
+        "text": "Tall grasses give meadow insects shelter.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "seed-heads",
+    "name": "Seed heads",
+    "category": "material",
+    "description": "Dry flower heads full of ripe seed.",
+    "colour": "#a08a5a",
+    "facts": [
+      {
+        "text": "Left standing, seed heads feed birds through the winter.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Meadow flowers shed seed heads once they have flowered.",
+        "after": "into-the-meadow"
+      }
+    ]
+  },
+  {
+    "id": "grass-stems",
+    "name": "Grass stems",
+    "category": "material",
+    "description": "Long, dry meadow grass stems.",
+    "colour": "#d8c88a",
+    "facts": [
+      {
+        "text": "Dry grass stems are used to thatch and to weave.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Tall meadow grass sheds dry stems.",
+        "after": "into-the-meadow"
+      }
+    ]
   }
 ]
