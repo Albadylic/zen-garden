@@ -15,6 +15,17 @@ export default defineConfig({
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
     { name: 'mobile', use: { ...devices['Pixel 7'] } },
+    // Safari on iPhone, ahead of the Capacitor port. WebKit is installed in CI;
+    // set PW_WEBKIT=1 to run it locally where it is available.
+    ...(process.env.CI || process.env.PW_WEBKIT
+      ? [
+          {
+            name: 'iphone',
+            use: { ...devices['iPhone 13'] },
+            testMatch: ['smoke.spec.ts', 'layout.spec.ts', 'persistence.spec.ts'],
+          },
+        ]
+      : []),
   ],
   webServer: {
     command: `npm run build && npm run preview -- --port ${PORT} --strictPort`,

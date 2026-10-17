@@ -36,6 +36,7 @@ import type { GameState } from '../core/state'
 import type { Point } from '../render/iso'
 import type { RenderHost, RenderView, Selection, TapTarget } from '../render/GardenRenderer'
 import { createStore, type Store } from './store'
+import { loadReduceMotion, saveReduceMotion } from './preferences'
 import { formatItems } from './text'
 
 export type PlaceSource =
@@ -116,6 +117,20 @@ export class GameController {
       recap: null,
       welcome: false,
     })
+    // Any UI change (mode, selection, panels) may change what the garden shows.
+    this.ui.subscribe(() => this.renderVersion++)
+    this.reduceMotion = loadReduceMotion()
+  }
+
+  /** Turns off decorative motion; remembered on this device. */
+  reduceMotion: boolean
+  private renderVersion = 0
+
+  setReduceMotion(value: boolean): void {
+    this.reduceMotion = value
+    saveReduceMotion(value)
+    this.renderVersion++
+    this.notify()
   }
 
   // --- Subscriptions for React --------------------------------------------
@@ -129,6 +144,7 @@ export class GameController {
 
   private notify(): void {
     this.version++
+    this.renderVersion++
     this.sinceRefresh = 0
     for (const listener of this.listeners) listener()
   }
@@ -590,6 +606,7 @@ export class GameController {
       preview,
       overlay,
       selection,
+      reduceMotion: this.reduceMotion,
       gateOpen: this.content.map.areas.some(
         (a) => a.unlock && this.state.unlocks.includes(a.unlock),
       ),
@@ -622,6 +639,7 @@ export class GameController {
       content: this.content,
       getState: () => this.state,
       getView: () => this.view(),
+      getVersion: () => this.renderVersion,
       onFrame: (dt) => this.frame(dt),
       onTap: (target) => this.tap(target),
       onHover: (tile) => this.hover(tile),

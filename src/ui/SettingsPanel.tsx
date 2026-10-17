@@ -11,6 +11,7 @@ export function SettingsPanel() {
   const session = useSession()
   const fileRef = useRef<HTMLInputElement>(null)
   const [confirmReset, setConfirmReset] = useState(false)
+  const [reduceMotion, setReduceMotion] = useState(controller.reduceMotion)
   const [persisted, setPersisted] = useState<boolean | null>(null)
 
   useEffect(() => {
@@ -88,6 +89,20 @@ export function SettingsPanel() {
             </button>
           )}
         </div>
+      </section>
+      <section className="settings-group">
+        <h3 className="inventory-group__title">Comfort</h3>
+        <label className="toggle toggle--active">
+          <input
+            type="checkbox"
+            checked={reduceMotion}
+            onChange={(e) => {
+              controller.setReduceMotion(e.target.checked)
+              setReduceMotion(e.target.checked)
+            }}
+          />
+          Reduce motion (no bobbing or fluttering)
+        </label>
       </section>
       <section className="settings-group">
         <h3 className="inventory-group__title">Sound</h3>

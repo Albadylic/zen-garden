@@ -40,6 +40,8 @@ export interface RenderView {
   overlay: (Overlay | null)[] | null
   selection: Selection | null
   gateOpen: boolean
+  /** Turns off decorative motion such as bobbing and wing flaps. */
+  reduceMotion: boolean
 }
 
 /** What lies under a tap: the tile (if inside the garden) and any creature or drop nearest the finger. */
@@ -55,6 +57,8 @@ export interface RenderHost {
   content: Content
   getState(): GameState
   getView(): RenderView
+  /** Changes whenever the game state or UI changes in a way that needs redrawing. */
+  getVersion(): number
   /** Called every frame with real elapsed milliseconds. */
   onFrame(dtMs: number): void
   onTap(target: TapTarget): void
@@ -64,6 +68,8 @@ export interface RenderHost {
 const BACKGROUND = 0x3f4a33
 /** Height flying creatures hover above the ground, in world pixels. */
 const FLIGHT_HEIGHT = 34
+/** Frame time for ambient animation when nothing else has changed (30 fps). */
+const AMBIENT_FRAME_MS = 1000 / 30 - 1
 const CREATURE_HIT_PX = 30
 /** Creatures are drawn larger than life so they read clearly at garden scale. */
 const CREATURE_SCALE = 1.5
@@ -97,6 +103,9 @@ export class GardenRenderer {
   private dropSprites = new Map<number, Sprite>()
   private creatureSprites = new Map<number, CreatureSprite>()
   private openKey = ''
+  private dirty = true
+  private drawnVersion = -1
+  private sinceDraw = 0
   private hover: Point | null = null
   private hoverSprite = new Sprite()
   private selectSprite = new Sprite()
@@ -159,15 +168,21 @@ export class GardenRenderer {
       onTap: (p, pointerType) => this.host.onTap(this.hitTest(p, pointerType)),
       onHover: (p) => {
         this.hover = p ? this.tileAt(p) : null
+        this.dirty = true
         this.host.onHover(this.hover)
       },
-      onCameraChange: () => {},
+      onCameraChange: () => {
+        this.dirty = true
+      },
     })
-    app.renderer.on('resize', (w: number, h: number) => this.camera.resize(w, h))
-    app.ticker.add((ticker) => {
-      this.host.onFrame(ticker.deltaMS)
-      this.render(ticker.deltaMS)
+    app.renderer.on('resize', (w: number, h: number) => {
+      this.camera.resize(w, h)
+      this.dirty = true
     })
+    // Draw only when something has changed, to spare phone batteries; the
+    // simulation itself still runs every frame.
+    app.ticker.remove(app.render, app)
+    app.ticker.add((ticker) => this.tick(ticker.deltaMS))
   }
 
   destroy(): void {
@@ -199,6 +214,7 @@ export class GardenRenderer {
     this.camera.x = c.x
     this.camera.y = c.y
     this.camera.panBy(0, 0)
+    this.dirty = true
   }
 
   resetCamera(): void {
@@ -251,6 +267,23 @@ export class GardenRenderer {
     sprite.label = key
   }
 
+  private tick(dtMs: number): void {
+    this.host.onFrame(dtMs)
+    this.sinceDraw += dtMs
+    const version = this.host.getVersion()
+    if (version !== this.drawnVersion) this.dirty = true
+    const state = this.host.getState()
+    // Creatures moving and items bobbing need gentle animation, which 30 fps covers.
+    const animating =
+      state.creatures.length > 0 || (state.drops.length > 0 && !this.host.getView().reduceMotion)
+    if (!this.dirty && !(animating && this.sinceDraw >= AMBIENT_FRAME_MS)) return
+    this.drawnVersion = version
+    this.dirty = false
+    this.render(this.sinceDraw)
+    this.sinceDraw = 0
+    this.app?.render()
+  }
+
   private render(dtMs: number): void {
     if (!this.app) return
     this.time += dtMs
@@ -260,8 +293,8 @@ export class GardenRenderer {
     this.syncTerrain(state)
     this.syncOverlay(view)
     this.syncEntities(state, view)
-    this.syncDrops(state)
-    this.syncCreatures(state, dtMs)
+    this.syncDrops(state, view)
+    this.syncCreatures(state, view, dtMs)
     this.syncMarkers(view)
     this.world.scale.set(this.camera.zoom)
     this.world.position.set(
@@ -362,7 +395,7 @@ export class GardenRenderer {
     }
   }
 
-  private syncDrops(state: GameState): void {
+  private syncDrops(state: GameState, view: RenderView): void {
     const seen = new Set<number>()
     // Spread drops evenly around their tile so each can be tapped.
     const totals = new Map<string, number>()
@@ -384,7 +417,7 @@ export class GardenRenderer {
       const gx = d.x + 0.5 + Math.cos(angle) * 0.4
       const gy = d.y + 0.5 + Math.sin(angle) * 0.4
       const w = gridToWorld(gx, gy)
-      const bob = Math.sin(this.time / 500 + d.id) * 2
+      const bob = view.reduceMotion ? 0 : Math.sin(this.time / 500 + d.id) * 2
       sprite.position.set(w.x, w.y + bob)
       sprite.zIndex = depth(gx, gy) * 10 + 2
     }
@@ -396,7 +429,7 @@ export class GardenRenderer {
     }
   }
 
-  private syncCreatures(state: GameState, dtMs: number): void {
+  private syncCreatures(state: GameState, view: RenderView, dtMs: number): void {
     const seen = new Set<number>()
     const follow = Math.min(1, dtMs / 120)
     for (const c of state.creatures) {
@@ -415,16 +448,19 @@ export class GardenRenderer {
       const resting =
         c.activity === 'feeding' || c.activity === 'resting' || c.activity === 'perching'
       const flapRate = c.speciesId === 'bumblebee' ? 60 : 160
-      const frame = resting
-        ? Math.floor(this.time / 900 + entry.phase * 3) % 4 === 0
-          ? 1
-          : 0
-        : Math.floor(this.time / flapRate + entry.phase * 2) % 2
+      const frame = view.reduceMotion
+        ? 0
+        : resting
+          ? Math.floor(this.time / 900 + entry.phase * 3) % 4 === 0
+            ? 1
+            : 0
+          : Math.floor(this.time / flapRate + entry.phase * 2) % 2
       this.applyArt(entry.sprite, `creature:${c.speciesId}:${frame}`)
       const w = gridToWorld(entry.x, entry.y)
       const height =
         flying && !resting
-          ? FLIGHT_HEIGHT + Math.sin(this.time / 300 + entry.phase * 6) * 6
+          ? FLIGHT_HEIGHT +
+            (view.reduceMotion ? 0 : Math.sin(this.time / 300 + entry.phase * 6) * 6)
           : flying
             ? 14
             : 0

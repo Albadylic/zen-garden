@@ -145,14 +145,14 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 
 ### B7. Carry-overs
 
-- [ ] Only redraw when something changes, to save phone battery.
-- [ ] A reduce-motion setting (GDD 20).
-- [ ] Safari (WebKit) in the browser tests, ahead of the iPhone port.
+- [x] Only redraw when something changes, to save phone battery.
+- [x] A reduce-motion setting (GDD 20).
+- [x] Safari (WebKit) in the browser tests, ahead of the iPhone port (smoke, layout and persistence specs on an iPhone 13 profile, run in CI).
 
 ### Quality
 
-- [ ] Unit tests for every new system, and browser tests for choosing a restoration approach and completing a branch upgrade.
-- [ ] `docs/open-items.md` updated with every new placeholder and decision.
+- [x] Unit tests for every new system, and browser tests for choosing a restoration approach and completing a branch upgrade.
+- [x] `docs/open-items.md` updated with every new placeholder and decision.
 
 ## Out of scope for this phase
 

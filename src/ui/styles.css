@@ -846,3 +846,8 @@ button:focus-visible {
   font-style: italic;
   color: var(--ink);
 }
+
+.toggle--active {
+  color: var(--ink);
+  cursor: pointer;
+}
