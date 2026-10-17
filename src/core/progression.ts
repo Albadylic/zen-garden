@@ -1,6 +1,6 @@
 // Chapter milestones: conditions, completion, unlocks, and progress for the UI.
 
-import type { Condition, Content, MilestoneDef } from './content'
+import type { ChapterDef, Condition, Content, MilestoneDef } from './content'
 import type { StepContext } from './simulation'
 import type { GameEvent } from './events'
 import type { GameState } from './state'
@@ -34,6 +34,8 @@ export function conditionProgress(
       return { current: Object.keys(s.matured).length, target: c.count }
     case 'milestone':
       return { current: state.milestones[c.id] !== undefined ? 1 : 0, target: 1 }
+    case 'visitedArea':
+      return { current: state.areasVisited.includes(c.area) ? 1 : 0, target: 1 }
   }
 }
 
@@ -42,13 +44,38 @@ export function conditionMet(state: GameState, c: Condition): boolean {
   return current >= target
 }
 
-/** The first milestone not yet completed, or undefined once the chapter is done. */
-export function currentMilestone(state: GameState, content: Content): MilestoneDef | undefined {
-  return content.chapter.milestones.find((m) => state.milestones[m.id] === undefined)
+export function isChapterComplete(state: GameState, chapter: ChapterDef): boolean {
+  return state.unlocks.includes(chapter.completionUnlock)
 }
 
-export function chapterComplete(state: GameState, content: Content): boolean {
-  return state.unlocks.includes(content.chapter.completionUnlock)
+export function isChapterStarted(state: GameState, chapter: ChapterDef): boolean {
+  return chapter.requires === undefined || state.unlocks.includes(chapter.requires)
+}
+
+/** The chapter being played: the first started one not yet complete, else the last completed. */
+export function currentChapter(state: GameState, content: Content): ChapterDef {
+  const active = content.chapters.find(
+    (ch) => isChapterStarted(state, ch) && !isChapterComplete(state, ch),
+  )
+  if (active) return active
+  const done = content.chapters.filter((ch) => isChapterComplete(state, ch))
+  return done.at(-1) ?? content.chapters[0]!
+}
+
+/** The next milestone to work towards, or undefined when every started chapter is done. */
+export function currentMilestone(state: GameState, content: Content): MilestoneDef | undefined {
+  const chapter = currentChapter(state, content)
+  if (isChapterComplete(state, chapter)) return undefined
+  return chapter.milestones.find((m) => state.milestones[m.id] === undefined)
+}
+
+/** Whether the current chapter (or the given one) is complete. */
+export function chapterComplete(
+  state: GameState,
+  content: Content,
+  chapter = currentChapter(state, content),
+): boolean {
+  return isChapterComplete(state, chapter)
 }
 
 function unlock(state: GameState, key: string, events: GameEvent[]): void {
@@ -63,16 +90,19 @@ function unlock(state: GameState, key: string, events: GameEvent[]): void {
  */
 export function checkMilestones(state: GameState, content: Content): GameEvent[] {
   const events: GameEvent[] = []
-  for (const m of content.chapter.milestones) {
-    if (state.milestones[m.id] !== undefined) continue
-    if (!m.conditions.every((c) => conditionMet(state, c))) break
-    state.milestones[m.id] = state.elapsedMs
-    events.push({ type: 'milestone', milestoneId: m.id, title: m.title })
-    for (const key of m.unlocks) unlock(state, key, events)
-  }
-  if (!currentMilestone(state, content) && !chapterComplete(state, content)) {
-    unlock(state, content.chapter.completionUnlock, events)
-    events.push({ type: 'chapterComplete', chapterId: content.chapter.id })
+  for (const chapter of content.chapters) {
+    if (!isChapterStarted(state, chapter) || isChapterComplete(state, chapter)) continue
+    for (const m of chapter.milestones) {
+      if (state.milestones[m.id] !== undefined) continue
+      if (!m.conditions.every((c) => conditionMet(state, c))) break
+      state.milestones[m.id] = state.elapsedMs
+      events.push({ type: 'milestone', milestoneId: m.id, title: m.title })
+      for (const key of m.unlocks) unlock(state, key, events)
+    }
+    if (chapter.milestones.every((m) => state.milestones[m.id] !== undefined)) {
+      unlock(state, chapter.completionUnlock, events)
+      events.push({ type: 'chapterComplete', chapterId: chapter.id })
+    }
   }
   return events
 }

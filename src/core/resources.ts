@@ -1,6 +1,7 @@
 // Natural production, items lying in the garden, gathering and clearing.
 
 import type { Content, ProductionDef } from './content'
+import { areaAt, isTileOpen } from './areas'
 import { nextId } from './game'
 import { entityById, setTerrain, terrainAt } from './grid'
 import { addItems } from './inventory'
@@ -113,16 +114,20 @@ export function clearOvergrowth(
   x: number,
   y: number,
 ): ActionResult {
-  if (terrainAt(state, x, y) !== 'overgrown') return { ok: false, reason: 'Nothing to clear here' }
+  if (terrainAt(state, x, y) !== 'overgrown' || !isTileOpen(state, content, x, y)) {
+    return { ok: false, reason: 'Nothing to clear here' }
+  }
   setTerrain(state, x, y, 'grass')
   const items: Record<string, number> = {}
-  for (const find of content.map.clearing) {
+  for (const find of areaAt(content, x, y)?.clearing ?? content.map.clearing) {
     if (random(state) >= find.chance) continue
     const n = randomInt(state, find.min, find.max)
     if (n > 0) items[find.item] = (items[find.item] ?? 0) + n
   }
   addItems(state, items)
   state.stats.cleared++
+  const area = areaAt(content, x, y)
+  if (area) state.stats.clearedIn[area.id] = (state.stats.clearedIn[area.id] ?? 0) + 1
   state.stats.collected += Object.values(items).reduce((a, b) => a + b, 0)
   return { ok: true, events: [{ type: 'cleared', x, y, items }] }
 }

@@ -1,36 +1,89 @@
 {
-  "id": "forgotten-garden",
-  "name": "The Forgotten Garden",
+  "id": "sanctuary",
+  "name": "The Sanctuary",
   "legend": {
-    ".": { "terrain": "grass" },
-    "m": { "terrain": "moss" },
-    "#": { "terrain": "path" },
-    "~": { "terrain": "water" },
-    ",": { "terrain": "margin" },
-    "%": { "terrain": "overgrown" },
-    "X": { "terrain": "boundary" },
-    "P": { "terrain": "moss", "fixed": { "kind": "plant", "id": "old-pine", "stage": 0 } },
-    "L": { "terrain": "moss", "fixed": { "kind": "decoration", "id": "stone-lantern" } },
-    "B": { "terrain": "grass", "fixed": { "kind": "decoration", "id": "old-boulder" } },
-    "G": { "terrain": "path", "fixed": { "kind": "decoration", "id": "grove-gate" } }
+    ".": {
+      "terrain": "grass"
+    },
+    "m": {
+      "terrain": "moss"
+    },
+    "#": {
+      "terrain": "path"
+    },
+    "~": {
+      "terrain": "water"
+    },
+    ",": {
+      "terrain": "margin"
+    },
+    "%": {
+      "terrain": "overgrown"
+    },
+    "X": {
+      "terrain": "boundary"
+    },
+    "P": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "plant",
+        "id": "old-pine",
+        "stage": 0
+      }
+    },
+    "L": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "decoration",
+        "id": "stone-lantern"
+      }
+    },
+    "B": {
+      "terrain": "grass",
+      "fixed": {
+        "kind": "decoration",
+        "id": "old-boulder"
+      }
+    },
+    "G": {
+      "terrain": "path",
+      "fixed": {
+        "kind": "decoration",
+        "id": "grove-gate"
+      }
+    },
+    "T": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "plant",
+        "id": "bamboo"
+      }
+    },
+    "W": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "decoration",
+        "id": "stone-basin"
+      }
+    }
   },
   "rows": [
-    "XXXXXXXXXXGXXXXX",
-    "Xmmm..%...#..%%X",
-    "XmPmm.....#...%X",
-    "XmmLm..%.#.....X",
-    "XPmm.....#,,,..X",
-    "Xmm...%..#,~~,.X",
-    "X.......#,~~~,.X",
-    "X%......#,~~~,%X",
-    "X%%..B.#.,,~,,.X",
-    "X......#..,,,..X",
-    "X..%...#......%X",
-    "X..%%...#......X",
-    "X.......#...%..X",
-    "X%.......#..%%.X",
-    "X%%......#.....X",
-    "XXXXXXXXXXXXXXXX"
+    "XXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "Xmmm..%...#..%%Xm%%TmmT%%X",
+    "XmPmm.....#...%Xmm%mm%%mmX",
+    "XmmLm..%.#.....X%mmm..%TmX",
+    "XPmm.....#,,,..X%%m....%mX",
+    "Xmm...%..#,~~,.XmT%..#..%X",
+    "X.......#,~~~,.Xm%...#.mmX",
+    "X%......#,~~~,%X%%..W#.%TX",
+    "X%%..B.#.,,~,,.Xmm%..#..%X",
+    "X......#..,,,..Xm%T..#.mmX",
+    "X..%...#......%X%%m..#%%mX",
+    "X..%%...#......Xmm%..##..X",
+    "X.......#...%..G......%%mX",
+    "X%.......#..%%.X%m%TmmT%%X",
+    "X%%......#.....Xmm%%m%%mmX",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXX"
   ],
   "startingInventory": {
     "wildflower-seeds": 4,
@@ -45,9 +98,72 @@
     "stones": 4
   },
   "clearing": [
-    { "item": "twigs", "min": 1, "max": 2, "chance": 1 },
-    { "item": "leaf-litter", "min": 1, "max": 1, "chance": 0.5 },
-    { "item": "stones", "min": 1, "max": 1, "chance": 0.3 },
-    { "item": "bark", "min": 1, "max": 1, "chance": 0.15 }
+    {
+      "item": "twigs",
+      "min": 1,
+      "max": 2,
+      "chance": 1
+    },
+    {
+      "item": "leaf-litter",
+      "min": 1,
+      "max": 1,
+      "chance": 0.5
+    },
+    {
+      "item": "stones",
+      "min": 1,
+      "max": 1,
+      "chance": 0.3
+    },
+    {
+      "item": "bark",
+      "min": 1,
+      "max": 1,
+      "chance": 0.15
+    }
+  ],
+  "areas": [
+    {
+      "id": "forgotten-garden",
+      "name": "The Forgotten Garden",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "id": "bamboo-grove",
+      "name": "The Bamboo Grove",
+      "bounds": {
+        "x": 16,
+        "y": 0,
+        "w": 10,
+        "h": 16
+      },
+      "unlock": "area:bamboo-grove",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "item": "leaf-litter",
+          "min": 1,
+          "max": 1,
+          "chance": 0.4
+        },
+        {
+          "item": "stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.25
+        }
+      ]
+    }
   ]
 }

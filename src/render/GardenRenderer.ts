@@ -7,7 +7,17 @@ import type { GameState } from '../core/state'
 import { type Overlay, PlaceholderArt } from './art'
 import { Camera } from './camera'
 import { PointerInput } from './input'
-import { depth, gridToWorld, mapBounds, type Point, tileCentre, worldToTile } from './iso'
+import { openAreas, isTileOpen } from '../core/areas'
+import {
+  depth,
+  gridToWorld,
+  mapBounds,
+  type Point,
+  rectBounds,
+  tileCentre,
+  unionBounds,
+  worldToTile,
+} from './iso'
 
 export type Selection =
   | { kind: 'entity'; id: number }
@@ -86,7 +96,7 @@ export class GardenRenderer {
   private entitySprites = new Map<number, Sprite>()
   private dropSprites = new Map<number, Sprite>()
   private creatureSprites = new Map<number, CreatureSprite>()
-  private sceneryAdded = false
+  private openKey = ''
   private hover: Point | null = null
   private hoverSprite = new Sprite()
   private selectSprite = new Sprite()
@@ -203,7 +213,10 @@ export class GardenRenderer {
   private hitTest(screen: Point, pointerType: string): TapTarget {
     const state = this.host.getState()
     const t = this.tileAt(screen)
-    const tile = t.x >= 0 && t.y >= 0 && t.x < state.width && t.y < state.height ? t : null
+    const tile =
+      t.x >= 0 && t.y >= 0 && t.x < state.width && t.y < state.height && this.tileOpen(t.x, t.y)
+        ? t
+        : null
     const target: TapTarget = { tile, pointerType }
     // Whichever creature or drop is nearest the finger wins. Creatures get a
     // head start, since a butterfly feeding on top of fallen seeds is the more
@@ -243,13 +256,13 @@ export class GardenRenderer {
     this.time += dtMs
     const state = this.host.getState()
     const view = this.host.getView()
+    this.syncAreas(state)
     this.syncTerrain(state)
     this.syncOverlay(view)
     this.syncEntities(state, view)
     this.syncDrops(state)
     this.syncCreatures(state, dtMs)
     this.syncMarkers(view)
-    this.syncScenery(view)
     this.world.scale.set(this.camera.zoom)
     this.world.position.set(
       this.camera.viewWidth / 2 - this.camera.x * this.camera.zoom,
@@ -273,6 +286,7 @@ export class GardenRenderer {
           this.terrainSprites[i] = sprite
         }
         this.applyArt(sprite, key)
+        sprite.visible = this.tileOpen(x, y)
         // Walls stand up, so they sort with objects; everything else is ground.
         sprite.removeFromParent()
         if (terrain === 'boundary') {
@@ -331,7 +345,7 @@ export class GardenRenderer {
       const c = tileCentre(e.x, e.y)
       sprite.position.set(c.x, c.y)
       sprite.zIndex = depth(e.x + 0.5, e.y + 0.5) * 10 + 1
-      sprite.visible = view.preview?.movingId !== e.id
+      sprite.visible = view.preview?.movingId !== e.id && this.tileOpen(e.x, e.y)
       sprite.alpha = 1
     }
     for (const [id, sprite] of this.entitySprites) {
@@ -479,25 +493,30 @@ export class GardenRenderer {
     }
   }
 
-  /** Bamboo beyond the wall, revealed when the grove opens. */
-  private syncScenery(view: RenderView): void {
-    if (!view.gateOpen || this.sceneryAdded) return
-    this.sceneryAdded = true
-    const gate = this.host.getState().entities.find((e) => e.defId === 'grove-gate')
-    if (!gate) return
-    for (const [dx, dy] of [
-      [-1, -1.6],
-      [0.4, -2.2],
-      [1.5, -1.4],
-      [-2.2, -2.4],
-      [2.6, -2.6],
-    ] as const) {
-      const sprite = new Sprite()
-      this.applyArt(sprite, 'scenery:bamboo')
-      const w = gridToWorld(gate.x + 0.5 + dx, gate.y + 0.5 + dy)
-      sprite.position.set(w.x, w.y)
-      sprite.zIndex = depth(gate.x + dx, gate.y + dy) * 10
-      this.objects.addChild(sprite)
+  /** Fits the camera to the open areas, and redraws terrain when an area opens. */
+  private syncAreas(state: GameState): void {
+    const open = openAreas(state, this.host.content)
+    const key = open.map((a) => a.id).join(',')
+    if (key === this.openKey) return
+    const first = this.openKey === ''
+    this.openKey = key
+    this.terrainKeys = []
+    this.camera.setBounds(
+      unionBounds(open.map((a) => rectBounds(a.bounds.x, a.bounds.y, a.bounds.w, a.bounds.h))),
+    )
+    if (first) {
+      this.camera.reset()
+      return
     }
+    // A newly opened area: turn the camera towards it.
+    const area = open.at(-1)!
+    this.centreOn(
+      Math.floor(area.bounds.x + area.bounds.w / 2),
+      Math.floor(area.bounds.y + area.bounds.h / 2),
+    )
+  }
+
+  private tileOpen(x: number, y: number): boolean {
+    return isTileOpen(this.host.getState(), this.host.content, x, y)
   }
 }

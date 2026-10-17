@@ -165,11 +165,14 @@ const conditionSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('visited'), structure: id, count: z.number().int().positive() }),
   z.object({ kind: z.literal('speciesMature'), count: z.number().int().positive() }),
   z.object({ kind: z.literal('milestone'), id }),
+  z.object({ kind: z.literal('visitedArea'), area: id }),
 ]) satisfies z.ZodType<Condition>
 
 export const chapterSchema = z.object({
   id,
   title: z.string().min(1),
+  requires: z.string().min(1).optional(),
+  completion: z.object({ title: z.string().min(1), body: z.array(z.string().min(1)).min(1) }),
   milestones: z.array(
     z.object({
       id,
@@ -189,6 +192,10 @@ const fixedSchema = z.object({
   stage: count.optional(),
 })
 
+const clearingSchema = z
+  .object({ item: id, min: count, max: count, chance: unit })
+  .refine((c) => c.min <= c.max, 'min must not exceed max')
+
 /** The map as authored: rows of single-character tiles plus a legend. */
 export const mapFileSchema = z.object({
   id,
@@ -199,11 +206,23 @@ export const mapFileSchema = z.object({
   ),
   rows: z.array(z.string()).min(1),
   startingInventory: itemCounts,
-  clearing: z.array(
-    z
-      .object({ item: id, min: count, max: count, chance: unit })
-      .refine((c) => c.min <= c.max, 'min must not exceed max'),
-  ),
+  clearing: z.array(clearingSchema),
+  areas: z
+    .array(
+      z.object({
+        id,
+        name: z.string().min(1),
+        bounds: z.object({
+          x: count,
+          y: count,
+          w: z.number().int().positive(),
+          h: z.number().int().positive(),
+        }),
+        unlock: z.string().min(1).optional(),
+        clearing: z.array(clearingSchema).optional(),
+      }),
+    )
+    .min(1),
 })
 
 export type MapFile = z.infer<typeof mapFileSchema>

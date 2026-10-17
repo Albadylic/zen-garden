@@ -78,6 +78,8 @@ export interface Stats {
   flowered: number
   collected: number
   cleared: number
+  /** Overgrown tiles cleared, per area. */
+  clearedIn: Record<string, number>
   seen: Record<string, number>
   built: Record<string, number>
   visits: Record<string, number>
@@ -114,11 +116,13 @@ export interface GameState {
   /** Completed milestone ids mapped to the simulated time they completed. */
   milestones: Record<string, number>
   unlocks: string[]
+  /** Areas the player has looked around since they opened. */
+  areasVisited: string[]
   /** Bumped whenever terrain or anything affecting the environment changes. */
   layoutVersion: number
 }
 
-export const STATE_VERSION = 1
+export const STATE_VERSION = 2
 
 export function emptyStats(): Stats {
   return {
@@ -127,6 +131,7 @@ export function emptyStats(): Stats {
     flowered: 0,
     collected: 0,
     cleared: 0,
+    clearedIn: {},
     seen: {},
     built: {},
     visits: {},

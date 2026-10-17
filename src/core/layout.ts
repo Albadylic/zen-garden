@@ -5,6 +5,7 @@ import type { Content, Terrain } from './content'
 import type { GameEvent } from './events'
 import { nextId } from './game'
 import { entityAt, entityById, inBounds, terrainAt } from './grid'
+import { isTileOpen } from './areas'
 import { addItems, hasItems, removeItems } from './inventory'
 import type { Entity, GameState } from './state'
 import { clone } from './util'
@@ -65,6 +66,8 @@ export function checkPlacement(
 ): Check {
   if (!inBounds(state, x, y)) return { ok: false, reason: 'Outside the garden' }
   const terrain = terrainAt(state, x, y)!
+  if (!isTileOpen(state, content, x, y))
+    return { ok: false, reason: 'That part of the garden is not open yet' }
   if (terrain === 'boundary') return { ok: false, reason: "That's the garden wall" }
   if (terrain === 'overgrown') return { ok: false, reason: 'Clear the overgrowth first' }
   const occupant = entityAt(state, x, y)

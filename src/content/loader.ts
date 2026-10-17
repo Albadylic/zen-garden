@@ -21,7 +21,7 @@ export interface RawContent {
   decorations: unknown
   recipes: unknown
   wildlife: unknown
-  chapter: unknown
+  chapters: unknown
   map: unknown
 }
 
@@ -114,6 +114,7 @@ function buildMap(raw: unknown, problems: string[]): MapDef | undefined {
     fixed,
     startingInventory: file.startingInventory,
     clearing: file.clearing,
+    areas: file.areas,
   }
 }
 
@@ -149,7 +150,7 @@ export function loadContent(raw: RawContent): Content {
     'wildlife.json',
     problems,
   )
-  const chapter = parse(chapterSchema, raw.chapter, 'chapter.json', problems)
+  const chapters = parse(z.array(chapterSchema).min(1), raw.chapters, 'chapters.json', problems)
   const map = buildMap(raw.map, problems)
 
   // Cross-references between files.
@@ -182,20 +183,26 @@ export function loadContent(raw: RawContent): Content {
       problems.push(`wildlife.json ${w.id}: unknown structure "${w.attraction.structure}"`)
     }
   }
-  if (chapter) {
-    const milestoneIds = new Set(chapter.milestones.map((m) => m.id))
-    for (const m of chapter.milestones) {
-      for (const c of m.conditions) {
-        if (c.kind === 'planted' && c.plant && !plants[c.plant])
-          problems.push(`chapter.json ${m.id}: unknown plant "${c.plant}"`)
-        if (c.kind === 'seen' && c.wildlife && !wildlife[c.wildlife]) {
-          problems.push(`chapter.json ${m.id}: unknown wildlife "${c.wildlife}"`)
+  if (chapters) {
+    const milestoneIds = new Set(chapters.flatMap((ch) => ch.milestones.map((m) => m.id)))
+    const areaIds = new Set(map?.areas.map((a) => a.id) ?? [])
+    for (const ch of chapters) {
+      for (const m of ch.milestones) {
+        const where = `chapters.json ${ch.id}/${m.id}`
+        for (const c of m.conditions) {
+          if (c.kind === 'planted' && c.plant && !plants[c.plant])
+            problems.push(`${where}: unknown plant "${c.plant}"`)
+          if (c.kind === 'seen' && c.wildlife && !wildlife[c.wildlife]) {
+            problems.push(`${where}: unknown wildlife "${c.wildlife}"`)
+          }
+          if ((c.kind === 'built' || c.kind === 'visited') && !structures[c.structure]) {
+            problems.push(`${where}: unknown structure "${c.structure}"`)
+          }
+          if (c.kind === 'milestone' && !milestoneIds.has(c.id))
+            problems.push(`${where}: unknown milestone "${c.id}"`)
+          if (c.kind === 'visitedArea' && !areaIds.has(c.area))
+            problems.push(`${where}: unknown area "${c.area}"`)
         }
-        if ((c.kind === 'built' || c.kind === 'visited') && !structures[c.structure]) {
-          problems.push(`chapter.json ${m.id}: unknown structure "${c.structure}"`)
-        }
-        if (c.kind === 'milestone' && !milestoneIds.has(c.id))
-          problems.push(`chapter.json ${m.id}: unknown milestone "${c.id}"`)
       }
     }
   }
@@ -207,8 +214,27 @@ export function loadContent(raw: RawContent): Content {
     for (const itemId of Object.keys(map.startingInventory))
       needItem(itemId, 'map.json startingInventory')
     for (const c of map.clearing) needItem(c.item, 'map.json clearing')
+    for (const area of map.areas) {
+      for (const c of area.clearing ?? []) needItem(c.item, `map.json area ${area.id} clearing`)
+      const b = area.bounds
+      if (b.x + b.w > map.width || b.y + b.h > map.height)
+        problems.push(`map.json: area ${area.id} extends beyond the map`)
+    }
+    for (let y = 0; y < map.height; y++) {
+      for (let x = 0; x < map.width; x++) {
+        const inAreas = map.areas.filter(
+          (a) =>
+            x >= a.bounds.x &&
+            y >= a.bounds.y &&
+            x < a.bounds.x + a.bounds.w &&
+            y < a.bounds.y + a.bounds.h,
+        )
+        if (inAreas.length !== 1)
+          problems.push(`map.json: tile ${x},${y} is in ${inAreas.length} areas, expected 1`)
+      }
+    }
   }
 
-  if (problems.length > 0 || !chapter || !map) throw new ContentError(problems)
-  return { items, plants, structures, decorations, recipes, wildlife, chapter, map }
+  if (problems.length > 0 || !chapters || !map) throw new ContentError(problems)
+  return { items, plants, structures, decorations, recipes, wildlife, chapters, map }
 }

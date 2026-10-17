@@ -1,6 +1,7 @@
 // Up to three optional, context-aware suggestions. They describe things the
 // player might enjoy doing next; none of them are required.
 
+import { openOvergrowth } from './areas'
 import type { Content } from './content'
 import { structureSuitability } from './environment'
 import { upgradeStatus } from './habitats'
@@ -55,7 +56,7 @@ export function suggestions(state: GameState, content: Content): Suggestion[] {
     )
   }
 
-  const overgrown = state.terrain.filter((t) => t === 'overgrown').length
+  const overgrown = openOvergrowth(state, content)
   if (overgrown > 0 && state.stats.cleared < 3)
     add('clear', 'Overgrown corners hide twigs and leaf litter. Use Restore to clear them.')
 

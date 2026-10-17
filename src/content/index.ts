@@ -1,5 +1,5 @@
 import type { Content } from '../core/content'
-import chapter from './data/chapter.json'
+import chapters from './data/chapters.json'
 import decorations from './data/decorations.json'
 import items from './data/items.json'
 import map from './data/map.json'
@@ -16,7 +16,7 @@ export const rawContent = {
   decorations,
   recipes,
   wildlife,
-  chapter,
+  chapters,
   map,
 }
 

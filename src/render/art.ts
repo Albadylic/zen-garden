@@ -191,6 +191,23 @@ function drawPlant(g: Graphics, id: string, stage: number): void {
       }
       return
     }
+    case 'bamboo': {
+      // Clumps of jointed culms; taller and more numerous as the clump grows.
+      g.ellipse(0, 0, 20 + stage * 6, 8 + stage * 3).fill({ color: 0x2e3a24, alpha: 0.25 })
+      const culms = [3, 7, 12][stage] ?? 12
+      const height = [26, 80, 140][stage] ?? 140
+      for (let i = 0; i < culms; i++) {
+        const x = (r[i % 16]! - 0.5) * (20 + stage * 22)
+        const h = height * (0.65 + r[(i + 5) % 16]! * 0.35)
+        g.rect(x - 2.5, -h, 5, h).fill(i % 2 ? 0x8fae5a : 0x7d9c4c)
+        for (let k = 1; k < 5; k++) g.rect(x - 3.5, -h * (k / 5), 7, 2).fill(0x6f8a45)
+        if (stage > 0) {
+          g.ellipse(x + 9, -h + 6, 11, 3.5).fill(0x9cbc66)
+          g.ellipse(x - 8, -h * 0.7, 10, 3).fill(0x8fae5a)
+        }
+      }
+      return
+    }
     case 'old-pine': {
       g.ellipse(0, 0, 36, 16).fill({ color: 0x2e3a24, alpha: 0.3 })
       g.poly([-8, 0, 8, 0, 4, -90, -4, -90]).fill(0x4e3a2a)
@@ -274,6 +291,13 @@ function drawDecoration(g: Graphics, id: string, variant: string): void {
       g.rect(-6, -63, 12, 8).fill(0xe8d9a0)
       g.poly([-20, -66, 0, -82, 20, -66]).fill(0x9a958a)
       g.circle(-6, -30, 4).fill(0x7f9a4f)
+      return
+    case 'stone-basin':
+      g.ellipse(0, 0, 26, 12).fill({ color: 0x30302a, alpha: 0.3 })
+      g.ellipse(0, -8, 22, 12).fill(0x8c877c)
+      g.ellipse(0, -12, 16, 7).fill(0x6f8fa0)
+      g.ellipse(-3, -13, 6, 2).fill({ color: 0xffffff, alpha: 0.4 })
+      g.ellipse(-24, -2, 7, 5).fill(0x9a958a)
       return
     case 'old-boulder':
       g.ellipse(0, 0, 40, 18).fill({ color: 0x30302a, alpha: 0.3 })

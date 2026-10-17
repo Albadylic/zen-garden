@@ -5,9 +5,10 @@ describe('content', () => {
   it('loads the built-in content without problems', () => {
     const content = getContent()
     expect(Object.keys(content.plants).length).toBeGreaterThanOrEqual(6)
-    expect(content.map.width).toBe(16)
+    expect(content.map.width).toBe(26)
     expect(content.map.height).toBe(16)
-    expect(content.map.terrain).toHaveLength(256)
+    expect(content.map.terrain).toHaveLength(26 * 16)
+    expect(content.map.areas.map((a) => a.id)).toEqual(['forgotten-garden', 'bamboo-grove'])
   })
 
   it('places fixed objects from the map legend', () => {
@@ -18,9 +19,9 @@ describe('content', () => {
 
   it('gives tiles beside the wall a little shade', () => {
     const { map } = getContent()
-    expect(map.baseShade[1 * 16 + 1]).toBeGreaterThan(0)
+    expect(map.baseShade[1 * 26 + 1]).toBeGreaterThan(0)
     expect(map.baseShade[0]).toBe(0)
-    expect(map.baseShade[8 * 16 + 8]).toBe(0)
+    expect(map.baseShade[8 * 26 + 8]).toBe(0)
   })
 
   it('reports schema problems with the file and path', () => {
@@ -33,6 +34,12 @@ describe('content', () => {
     }
   })
 
+  it('requires every tile to belong to exactly one area', () => {
+    const map = structuredClone(rawContent.map)
+    map.areas[1]!.bounds.x = 15
+    expect(() => loadContent({ ...rawContent, map })).toThrow(/is in 2 areas/)
+  })
+
   it('reports references to unknown items', () => {
     const plants = structuredClone(rawContent.plants)
     plants[0]!.seedItem = 'no-such-seed'
@@ -42,6 +49,6 @@ describe('content', () => {
   it('rejects rows of the wrong width', () => {
     const map = structuredClone(rawContent.map)
     map.rows[3] = map.rows[3]!.slice(1)
-    expect(() => loadContent({ ...rawContent, map })).toThrow(/row 3 has 15 tiles/)
+    expect(() => loadContent({ ...rawContent, map })).toThrow(/row 3 has 25 tiles/)
   })
 })

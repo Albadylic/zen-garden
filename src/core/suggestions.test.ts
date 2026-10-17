@@ -20,7 +20,7 @@ describe('suggestions', () => {
 
   it('points out a badly placed shelter and a ready upgrade', () => {
     const { content, state } = setup()
-    state.milestones = Object.fromEntries(content.chapter.milestones.map((m) => [m.id, 0]))
+    state.milestones = Object.fromEntries(content.chapters[0]!.milestones.map((m) => [m.id, 0]))
     addShelter(state, content, 5, 11)
     expect(suggestions(state, content).map((s) => s.id)).toContain('shelter-spot')
     const good = addShelter(state, content, 2, 4)
@@ -43,7 +43,7 @@ describe('suggestions', () => {
         ageMs: 0,
       })
     }
-    state.milestones = Object.fromEntries(content.chapter.milestones.map((m) => [m.id, 0]))
+    state.milestones = Object.fromEntries(content.chapters[0]!.milestones.map((m) => [m.id, 0]))
     expect(suggestions(state, content).map((s) => s.id)).toContain('gather')
   })
 })

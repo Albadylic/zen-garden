@@ -1,4 +1,4 @@
-import { chapterComplete, conditionProgress } from '../core/progression'
+import { chapterComplete, conditionProgress, currentChapter } from '../core/progression'
 import { suggestions } from '../core/suggestions'
 import { useGame } from './hooks'
 import { Sheet } from './Sheet'
@@ -6,7 +6,7 @@ import { Sheet } from './Sheet'
 export function GoalsPanel() {
   const controller = useGame()
   const { content, state } = controller
-  const { chapter } = content
+  const chapter = currentChapter(state, content)
   const done = chapter.milestones.filter((m) => state.milestones[m.id] !== undefined).length
   const current = chapter.milestones.find((m) => state.milestones[m.id] === undefined)
   const ideas = suggestions(state, content).filter((s) => !s.id.startsWith('milestone:'))
@@ -14,7 +14,7 @@ export function GoalsPanel() {
     <Sheet title={chapter.title} onClose={() => controller.closePanel()} testId="goals-panel">
       <p className="muted">
         {chapterComplete(state, content)
-          ? 'Chapter complete. The bamboo grove gate stands open.'
+          ? 'Chapter complete.'
           : `Restoration: ${done} of ${chapter.milestones.length} milestones`}
       </p>
       <ol className="milestones">

@@ -145,6 +145,7 @@ export type Condition =
   | { kind: 'visited'; structure: string; count: number }
   | { kind: 'speciesMature'; count: number }
   | { kind: 'milestone'; id: string }
+  | { kind: 'visitedArea'; area: string }
 
 export interface MilestoneDef {
   id: string
@@ -159,9 +160,13 @@ export interface MilestoneDef {
 export interface ChapterDef {
   id: string
   title: string
+  /** Unlock key that starts this chapter; absent for the first chapter. */
+  requires?: string
   milestones: MilestoneDef[]
   /** Unlock key granted when the chapter is complete. */
   completionUnlock: string
+  /** Shown when the chapter is completed. */
+  completion: { title: string; body: string[] }
 }
 
 export interface FixedObject {
@@ -182,6 +187,24 @@ export interface ClearingYield {
   chance: number
 }
 
+export interface Rect {
+  x: number
+  y: number
+  w: number
+  h: number
+}
+
+/** A part of the map, hidden and closed until its unlock key is granted. */
+export interface AreaDef {
+  id: string
+  name: string
+  bounds: Rect
+  /** Unlock key that opens the area; absent for the starting area. */
+  unlock?: string
+  /** Clearing yields for overgrowth in this area; defaults to the map's. */
+  clearing?: ClearingYield[]
+}
+
 export interface MapDef {
   id: string
   name: string
@@ -193,6 +216,7 @@ export interface MapDef {
   fixed: FixedObject[]
   startingInventory: Record<string, number>
   clearing: ClearingYield[]
+  areas: AreaDef[]
 }
 
 export interface Content {
@@ -202,6 +226,6 @@ export interface Content {
   decorations: Record<string, DecorationDef>
   recipes: Record<string, RecipeDef>
   wildlife: Record<string, WildlifeDef>
-  chapter: ChapterDef
+  chapters: ChapterDef[]
   map: MapDef
 }

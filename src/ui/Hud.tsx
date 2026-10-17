@@ -1,3 +1,4 @@
+import { currentChapter } from '../core/progression'
 import { useGame, useUi } from './hooks'
 import { SuggestionCard } from './SuggestionCard'
 
@@ -14,9 +15,9 @@ export function Hud() {
             type="button"
             className="hud-title__button"
             onClick={() => controller.openPanel('goals')}
-            aria-label={`${controller.content.map.name}: chapter goals`}
+            aria-label={`${currentChapter(controller.state, controller.content).title}: chapter goals`}
           >
-            {controller.content.map.name}
+            {currentChapter(controller.state, controller.content).title}
           </button>
         </h1>
         {idle && !panel && !selection && <SuggestionCard />}

@@ -1,0 +1,125 @@
+[
+  {
+    "id": "forgotten-garden",
+    "title": "The Forgotten Garden",
+    "completionUnlock": "area:bamboo-grove",
+    "milestones": [
+      {
+        "id": "first-planting",
+        "title": "A first planting",
+        "description": "You sowed the first wildflowers in the forgotten garden.",
+        "hint": "Open Plants and sow wildflower seeds in a sunny, open spot.",
+        "conditions": [
+          {
+            "kind": "planted",
+            "plant": "wildflower-mix",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "signs-of-growth",
+        "title": "Signs of growth",
+        "description": "Something you planted has begun to grow.",
+        "hint": "Your seeds are settling in. Growth continues while you explore.",
+        "conditions": [
+          {
+            "kind": "grown",
+            "stage": 1,
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "clearing-the-way",
+        "title": "Clearing the way",
+        "description": "You cleared some of the overgrowth.",
+        "hint": "Use Restore to clear overgrown tiles. You'll find twigs and leaf litter underneath.",
+        "conditions": [
+          {
+            "kind": "cleared",
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering",
+        "title": "Gathering",
+        "description": "You gathered natural materials from around the garden. You can now craft a natural shelter.",
+        "hint": "Tap materials lying in the garden to gather them, or use Gather all.",
+        "conditions": [
+          {
+            "kind": "collected",
+            "count": 8
+          }
+        ],
+        "unlocks": ["recipe:natural-shelter"]
+      },
+      {
+        "id": "first-visitor",
+        "title": "A first visitor",
+        "description": "A butterfly found its way to your flowers.",
+        "hint": "Butterflies visit flowering plants. Give your wildflowers time to bloom.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "small-white",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-place-to-shelter",
+        "title": "A place to shelter",
+        "description": "You built the garden's first natural shelter.",
+        "hint": "Build a natural shelter from twigs, bark and leaf litter, ideally in a shaded corner.",
+        "conditions": [
+          {
+            "kind": "built",
+            "structure": "natural-shelter",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "first-residents",
+        "title": "First residents",
+        "description": "Wildlife has moved into your shelter. You can now improve it.",
+        "hint": "Shelters in shade, with plant cover nearby, attract residents sooner.",
+        "conditions": [
+          {
+            "kind": "visited",
+            "structure": "natural-shelter",
+            "count": 1
+          }
+        ],
+        "unlocks": ["upgrade:natural-shelter"]
+      },
+      {
+        "id": "a-garden-restored",
+        "title": "A garden restored",
+        "description": "Three kinds of plant have grown to maturity. The forgotten garden is alive again.",
+        "hint": "Grow three different kinds of plant to maturity.",
+        "conditions": [
+          {
+            "kind": "speciesMature",
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      }
+    ],
+    "completion": {
+      "title": "The forgotten garden is alive again",
+      "body": [
+        "Flowers draw butterflies along the old paths, and small creatures shelter beneath the pines.",
+        "With a creak, the old gate in the east wall swings open. Beyond it, bamboo rustles in the wind: the Bamboo Grove is waiting."
+      ]
+    }
+  }
+]

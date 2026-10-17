@@ -1,6 +1,7 @@
 // Planting, growth through stages, flowering, moss spreading and watering.
 
 import type { Content, PlantDef } from './content'
+import { isTileOpen } from './areas'
 import { plantSuitability } from './environment'
 import { nextId } from './game'
 import { entityAt, entityById, neighbours, terrainAt, setTerrain } from './grid'
@@ -165,6 +166,7 @@ export function spreadMoss(
     if (!chance(state, spread.chancePerHour / 60, dtMs)) continue
     const candidates = neighbours(state, e.x, e.y).filter((n) => {
       if (terrainAt(state, n.x, n.y) !== 'grass' || entityAt(state, n.x, n.y)) return false
+      if (!isTileOpen(state, content, n.x, n.y)) return false
       return plantSuitability(state, content, e.defId, n.x, n.y).score >= SPREAD_MIN_SUITABILITY
     })
     const target = pick(state, candidates)

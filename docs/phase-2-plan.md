@@ -95,9 +95,9 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 
 ### B1. A larger garden with a hidden grove
 
-- [ ] One continuous map: the Chapter 1 garden plus the grove beyond the gate, hidden (not drawn and not selectable) until the gate opens.
-- [ ] Camera, placement and wildlife extend into the grove once it is revealed.
-- [ ] First real save migration (version 1 → 2), so existing Chapter 1 gardens upgrade without loss. Covered by a migration test.
+- [x] One continuous map: the Chapter 1 garden plus the grove beyond the gate, hidden (not drawn and not selectable) until the gate opens.
+- [x] Camera, placement and wildlife extend into the grove once it is revealed.
+- [x] First real save migration (version 1 → 2), so existing Chapter 1 gardens upgrade without loss. Covered by a migration test.
 
 ### B2. Restoration projects
 

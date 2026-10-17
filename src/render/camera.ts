@@ -18,10 +18,17 @@ export class Camera {
   minZoom = MIN_ZOOM
   maxZoom = MAX_ZOOM
 
-  private readonly bounds: Bounds
+  private bounds: Bounds
 
   constructor(bounds: Bounds) {
     this.bounds = bounds
+  }
+
+  /** Changes the area the camera may show, for example when part of the garden opens. */
+  setBounds(bounds: Bounds): void {
+    this.bounds = bounds
+    this.minZoom = Math.min(MIN_ZOOM, this.fitZoom())
+    this.clampPosition()
   }
 
   /** Zoom at which the whole garden fits on screen. */

@@ -44,7 +44,7 @@ export async function bootstrap(): Promise<Game> {
   let saved: SaveData | null = null
   try {
     const raw = await store.load()
-    if (raw) saved = deserialize(raw)
+    if (raw) saved = deserialize(raw, content)
   } catch (e) {
     // A damaged save should never block play; start fresh and keep the old data aside.
     if (!(e instanceof SaveError)) throw e
@@ -88,7 +88,7 @@ export async function bootstrap(): Promise<Game> {
     mountGarden,
     exportSave: () => serialize(controller.state, Date.now()),
     importSave: async (raw) => {
-      const data = deserialize(raw)
+      const data = deserialize(raw, content)
       controller.replaceState(data.state)
       await saver.saveNow()
     },

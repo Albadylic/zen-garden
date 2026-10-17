@@ -68,6 +68,6 @@ describe('Chapter 1 playthrough', () => {
     expect(chapterComplete(state, content)).toBe(true)
     expect(minutes).toBeLessThan(60)
     expect(events.some((e) => e.type === 'shelterVisited')).toBe(true)
-    expect(Object.keys(state.milestones)).toHaveLength(content.chapter.milestones.length)
+    expect(Object.keys(state.milestones)).toHaveLength(content.chapters[0]!.milestones.length)
   })
 })

@@ -43,10 +43,30 @@ export interface Bounds {
 }
 
 export function mapBounds(width: number, height: number): Bounds {
+  return rectBounds(0, 0, width, height)
+}
+
+/** World bounds of a rectangle of tiles, which appears as a diamond on screen. */
+export function rectBounds(x: number, y: number, w: number, h: number): Bounds {
+  const corners = [
+    gridToWorld(x, y),
+    gridToWorld(x + w, y),
+    gridToWorld(x, y + h),
+    gridToWorld(x + w, y + h),
+  ]
   return {
-    minX: (-height * TILE_W) / 2,
-    maxX: (width * TILE_W) / 2,
-    minY: 0,
-    maxY: ((width + height) * TILE_H) / 2,
+    minX: Math.min(...corners.map((c) => c.x)),
+    maxX: Math.max(...corners.map((c) => c.x)),
+    minY: Math.min(...corners.map((c) => c.y)),
+    maxY: Math.max(...corners.map((c) => c.y)),
+  }
+}
+
+export function unionBounds(list: Bounds[]): Bounds {
+  return {
+    minX: Math.min(...list.map((b) => b.minX)),
+    maxX: Math.max(...list.map((b) => b.maxX)),
+    minY: Math.min(...list.map((b) => b.minY)),
+    maxY: Math.max(...list.map((b) => b.maxY)),
   }
 }

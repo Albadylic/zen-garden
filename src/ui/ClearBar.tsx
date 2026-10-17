@@ -1,8 +1,9 @@
+import { openOvergrowth } from '../core/areas'
 import { useGame } from './hooks'
 
 export function ClearBar() {
   const controller = useGame()
-  const left = controller.state.terrain.filter((t) => t === 'overgrown').length
+  const left = openOvergrowth(controller.state, controller.content)
   return (
     <div className="placement-bar" data-testid="clear-bar">
       <div className="placement-bar__text">

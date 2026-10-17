@@ -2,6 +2,7 @@
 // autonomous behaviour (moving, feeding, resting, perching) until it leaves.
 
 import type { Activity, Content, WildlifeDef } from './content'
+import { isTileOpen } from './areas'
 import { structureSuitability } from './environment'
 import { nextId } from './game'
 import { distance, entityById, isOpenGround, terrainAt } from './grid'
@@ -39,20 +40,22 @@ function perches(
   })
 }
 
-function boundaryTiles(state: GameState): { x: number; y: number }[] {
+/** Wall tiles of the open areas: where visitors come and go. */
+function boundaryTiles(state: GameState, content: Content): { x: number; y: number }[] {
   const out: { x: number; y: number }[] = []
   for (let y = 0; y < state.height; y++) {
     for (let x = 0; x < state.width; x++) {
-      if (terrainAt(state, x, y) === 'boundary') out.push({ x, y })
+      if (terrainAt(state, x, y) === 'boundary' && isTileOpen(state, content, x, y))
+        out.push({ x, y })
     }
   }
   return out
 }
 
-function nearestBoundary(state: GameState, from: { x: number; y: number }) {
+function nearestBoundary(state: GameState, content: Content, from: { x: number; y: number }) {
   let best = { x: 0, y: 0 }
   let bestD = Infinity
-  for (const t of boundaryTiles(state)) {
+  for (const t of boundaryTiles(state, content)) {
     const d = distance(t, from)
     if (d < bestD) {
       bestD = d
@@ -127,7 +130,7 @@ export function attractWildlife(
       if (present >= Math.floor(nectar / a.minNectar)) continue
       if (!chance(state, a.perMinute * Math.min(2, nectar / a.minNectar), dtMs)) continue
       const target = pick(state, flowers(state, content))
-      const from = pick(state, boundaryTiles(state))
+      const from = pick(state, boundaryTiles(state, content))
       if (target && from) spawn(state, def, ctx, from, target, null)
     } else {
       for (const { shelter, suitability } of sheltersFor(state, content, def)) {
@@ -136,8 +139,8 @@ export function attractWildlife(
         if (!chance(state, a.perMinute * suitability * level.attraction, dtMs)) continue
         const from =
           def.movement === 'ground'
-            ? nearestBoundary(state, shelter)
-            : pick(state, boundaryTiles(state))
+            ? nearestBoundary(state, content, shelter)
+            : pick(state, boundaryTiles(state, content))
         if (from) spawn(state, def, ctx, from, shelter, shelter.id)
         break
       }
@@ -152,26 +155,26 @@ function setTarget(c: Creature, x: number, y: number, id: number | null, activit
   c.activity = activity
 }
 
-function leave(state: GameState, def: WildlifeDef, c: Creature): void {
+function leave(state: GameState, content: Content, def: WildlifeDef, c: Creature): void {
   c.hidden = false
   const edge =
     def.movement === 'ground'
-      ? nearestBoundary(state, c)
-      : (pick(state, boundaryTiles(state)) ?? { x: 0, y: 0 })
+      ? nearestBoundary(state, content, c)
+      : (pick(state, boundaryTiles(state, content)) ?? { x: 0, y: 0 })
   setTarget(c, edge.x + 0.5, edge.y + 0.5, null, 'leaving')
 }
 
 /** Chooses what a creature does after finishing an activity. */
 function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: Creature): void {
   if (c.stayMs <= 0) {
-    leave(state, def, c)
+    leave(state, content, def, c)
     return
   }
   const jitter = () => randomRange(state, -0.25, 0.25)
   if (def.attraction.kind === 'nectar') {
     const options = flowers(state, content)
     if (options.length === 0) {
-      leave(state, def, c)
+      leave(state, content, def, c)
       return
     }
     // Now and then, rest on a nearby plant or stone instead of feeding.
@@ -182,7 +185,7 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
   }
   const home = c.homeId !== null ? entityById(state, c.homeId) : undefined
   if (!home) {
-    leave(state, def, c)
+    leave(state, content, def, c)
     return
   }
   const atHome = distance({ x: c.x, y: c.y }, { x: home.x + 0.5, y: home.y + 0.5 }) < 0.3
@@ -195,7 +198,7 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
     for (let tries = 0; tries < 6; tries++) {
       const x = home.x + Math.round(randomRange(state, -2, 2))
       const y = home.y + Math.round(randomRange(state, -2, 2))
-      if (isOpenGround(terrainAt(state, x, y))) {
+      if (isOpenGround(terrainAt(state, x, y)) && isTileOpen(state, content, x, y)) {
         setTarget(c, x + 0.5 + jitter(), y + 0.5 + jitter(), null, 'moving')
         return
       }

@@ -9,6 +9,7 @@ import {
   type Suitability,
 } from '../core/environment'
 import type { GameEvent } from '../core/events'
+import { isTileOpen, visitArea } from '../core/areas'
 import { entityAt, entityById, terrainAt } from '../core/grid'
 import {
   type ActionResult,
@@ -59,7 +60,7 @@ export interface UiState {
   toasts: Toast[]
   canUndo: boolean
   /** Shown once when the chapter is completed. */
-  chapterCelebration: boolean
+  chapterCelebration: string | null
   /** Whether the suggestion card is expanded. */
   suggestionsOpen: boolean
   /** Summary shown after returning from time away. */
@@ -107,7 +108,7 @@ export class GameController {
       panel: null,
       toasts: [],
       canUndo: false,
-      chapterCelebration: false,
+      chapterCelebration: null,
       suggestionsOpen: true,
       recap: null,
       welcome: false,
@@ -167,7 +168,7 @@ export class GameController {
       panel: null,
       toasts: [],
       canUndo: false,
-      chapterCelebration: false,
+      chapterCelebration: null,
       recap: null,
     })
     this.notify()
@@ -213,7 +214,7 @@ export class GameController {
           }
           break
         case 'chapterComplete':
-          this.ui.set({ chapterCelebration: true, panel: null, mode: { type: 'idle' } })
+          this.ui.set({ chapterCelebration: e.chapterId, panel: null, mode: { type: 'idle' } })
           break
         case 'discovery':
           // Starting items and old features are known already; announce what is new.
@@ -229,7 +230,7 @@ export class GameController {
   }
 
   dismissCelebration(): void {
-    this.ui.set({ chapterCelebration: false })
+    this.ui.set({ chapterCelebration: null })
   }
 
   toggleSuggestions(): void {
@@ -283,6 +284,11 @@ export class GameController {
 
   select(selection: Selection | null): void {
     this.ui.set({ selection })
+    // Looking around a newly opened area counts towards exploring it.
+    if (selection?.kind === 'tile' || selection?.kind === 'entity') {
+      const at = selection.kind === 'tile' ? selection : entityById(this.state, selection.id)
+      if (at && visitArea(this.state, this.content, at.x, at.y)) this.notify()
+    }
     // Looking closely at something is how it first enters the journal.
     const key = this.journalKeyFor(selection)
     if (key) {
@@ -538,13 +544,20 @@ export class GameController {
       }
       if (placeable) overlay = this.overlayFor(placeable, movingId)
     } else if (mode.type === 'clear') {
-      overlay = this.state.terrain.map((t) => (t === 'overgrown' ? 'good' : null))
+      overlay = this.state.terrain.map((t, i) =>
+        t === 'overgrown' &&
+        isTileOpen(this.state, this.content, i % this.state.width, Math.floor(i / this.state.width))
+          ? 'good'
+          : null,
+      )
     }
     return {
       preview,
       overlay,
       selection,
-      gateOpen: this.state.unlocks.includes(this.content.chapter.completionUnlock),
+      gateOpen: this.content.map.areas.some(
+        (a) => a.unlock && this.state.unlocks.includes(a.unlock),
+      ),
     }
   }
 
@@ -556,7 +569,7 @@ export class GameController {
     for (let y = 0; y < this.state.height; y++) {
       for (let x = 0; x < this.state.width; x++) {
         const terrain = terrainAt(this.state, x, y)
-        if (terrain === 'boundary') {
+        if (terrain === 'boundary' || !isTileOpen(this.state, this.content, x, y)) {
           overlay.push(null)
           continue
         }

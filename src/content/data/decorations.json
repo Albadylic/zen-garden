@@ -57,5 +57,19 @@
     "flat": false,
     "cover": 0,
     "facts": []
+  },
+  {
+    "id": "stone-basin",
+    "name": "Stone basin",
+    "description": "A low stone water basin, the kind visitors once knelt at to rinse their hands. It still catches the rain.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": false,
+    "cover": 0.2,
+    "facts": [
+      {
+        "text": "Low basins like this are called tsukubai, from a word meaning to crouch.",
+        "after": 1
+      }
+    ]
   }
 ]
