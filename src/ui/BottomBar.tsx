@@ -9,6 +9,7 @@ const TABS: Tab[] = [
   { kind: 'panel', panel: 'build', label: 'Build' },
   { kind: 'restore', label: 'Restore' },
   { kind: 'panel', panel: 'inventory', label: 'Inventory' },
+  { kind: 'panel', panel: 'journal', label: 'Journal' },
 ]
 
 export function BottomBar() {

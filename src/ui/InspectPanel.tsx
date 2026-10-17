@@ -1,6 +1,7 @@
 import { plantSuitability } from '../core/environment'
 import { entityById, terrainAt } from '../core/grid'
 import { isFinalStage, timeToNextStage } from '../core/plants'
+import { knownFacts } from '../core/journal'
 import { describeActivity } from '../core/wildlife'
 import type { PlantEntity } from '../core/state'
 import { describePreferences, formatDuration, RATING_LABELS } from './format'
@@ -149,8 +150,7 @@ export function InspectPanel() {
     const creature = state.creatures.find((c) => c.id === selection.id)
     const def = creature ? content.wildlife[creature.speciesId] : undefined
     if (!creature || !def) return null
-    const encounters = state.stats.seen[def.id] ?? 0
-    const facts = def.facts.filter((f) => f.after <= encounters)
+    const facts = knownFacts(state, content, `wildlife:${def.id}`)
     return (
       <Sheet title={def.name} onClose={close} testId="inspect-panel">
         <p>{def.description}</p>

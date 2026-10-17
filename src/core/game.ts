@@ -36,7 +36,13 @@ export function createGame(content: Content, seed: number): GameState {
     creatures: [],
     inventory: { ...map.startingInventory },
     stats: emptyStats(),
-    journal: {},
+    // The player starts out knowing the items they carry.
+    journal: Object.fromEntries(
+      Object.keys(map.startingInventory).map((id) => [
+        `item:${id}`,
+        { discoveredAtMs: 0, encounters: 1 },
+      ]),
+    ),
     milestones: {},
     unlocks: [],
     layoutVersion: 0,

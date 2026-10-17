@@ -682,3 +682,77 @@ button:focus-visible {
   width: 100%;
   margin-top: 10px;
 }
+
+/* Journal */
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  margin: 2px 0 6px;
+}
+
+.tab {
+  flex: 1 0 auto;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.tab.is-active {
+  background: var(--moss);
+  border-color: var(--moss-dark);
+  color: #fff;
+}
+
+.journal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.journal-entry {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.journal-entry.is-unknown {
+  background: transparent;
+  border-style: dashed;
+  color: var(--ink-soft);
+}
+
+.journal-entry__name {
+  font-weight: 600;
+}
+
+.journal-entry__detail {
+  font-size: 0.9rem;
+}
+
+.journal-entry .facts {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+}
+
+.journal-entry__more {
+  font-size: 0.8rem;
+  color: var(--earth);
+}
+
+@media (max-width: 420px) {
+  .bottom-bar__tab {
+    font-size: 0.8rem;
+  }
+}

@@ -65,9 +65,9 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 8. Journal (minimal)
 
-- [ ] Plants, wildlife, habitats and materials sections
-- [ ] Entries recorded on discovery
-- [ ] Known vs unknown facts revealed through repeat encounters
+- [x] Plants, wildlife, habitats and materials sections
+- [x] Entries recorded on discovery
+- [x] Known vs unknown facts revealed through repeat encounters
 
 ## 9. Saving and returning
 

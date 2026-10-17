@@ -5,6 +5,7 @@ import type { Content } from './content'
 import type { GameEvent } from './events'
 import { growPlants, spreadMoss } from './plants'
 import { ageDrops, produce } from './resources'
+import { journalSystem } from './journal'
 import { progressSystem } from './progression'
 import { attractWildlife, moveWildlife } from './wildlife'
 import type { GameState } from './state'
@@ -31,6 +32,7 @@ const systems: System[] = [
   attractWildlife,
   moveWildlife,
   progressSystem,
+  journalSystem,
 ]
 
 export interface AdvanceOptions {

@@ -24,6 +24,7 @@ import {
   type UndoRecord,
 } from '../core/layout'
 import { upgradeStructure } from '../core/habitats'
+import { entryFor, observe, recordJournal } from '../core/journal'
 import { plant, water } from '../core/plants'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
 import { advance } from '../core/simulation'
@@ -41,7 +42,7 @@ export type PlaceSource =
 export type Mode =
   { type: 'idle' } | { type: 'place'; source: PlaceSource; tile: Point | null } | { type: 'clear' }
 
-export type Panel = null | 'plants' | 'build' | 'inventory' | 'goals' | 'settings'
+export type Panel = null | 'plants' | 'build' | 'inventory' | 'journal' | 'goals' | 'settings'
 
 export interface Toast {
   id: number
@@ -171,12 +172,15 @@ export class GameController {
         case 'chapterComplete':
           this.ui.set({ chapterCelebration: true, panel: null, mode: { type: 'idle' } })
           break
-        case 'wildlifeArrived':
-          if (this.state.stats.seen[e.speciesId] === 1) {
-            const name = this.content.wildlife[e.speciesId]?.name ?? 'A new visitor'
-            this.toast(`${name}: a first visit to the garden`, 'milestone')
-          }
+        case 'discovery':
+          // Starting items and old features are known already; announce what is new.
+          this.toast(`New in your journal: ${e.name}`, 'milestone')
           break
+        case 'factRevealed': {
+          const name = entryFor(this.content, e.key)?.name
+          if (name) this.toast(`Journal: you learned more about the ${name.toLowerCase()}`)
+          break
+        }
       }
     }
   }
@@ -236,6 +240,28 @@ export class GameController {
 
   select(selection: Selection | null): void {
     this.ui.set({ selection })
+    // Looking closely at something is how it first enters the journal.
+    const key = this.journalKeyFor(selection)
+    if (key) {
+      const events = observe(this.state, this.content, key)
+      if (events.length > 0) {
+        this.handleEvents(events)
+        this.notify()
+      }
+    }
+  }
+
+  private journalKeyFor(selection: Selection | null): string | null {
+    if (selection?.kind === 'creature') {
+      const c = this.state.creatures.find((cr) => cr.id === selection.id)
+      return c ? `wildlife:${c.speciesId}` : null
+    }
+    if (selection?.kind === 'entity') {
+      const e = entityById(this.state, selection.id)
+      if (e?.kind === 'plant') return `plant:${e.defId}`
+      if (e?.kind === 'structure') return `structure:${e.defId}`
+    }
+    return null
   }
 
   // --- Placement ------------------------------------------------------------
@@ -388,7 +414,12 @@ export class GameController {
       this.undoStack.push(result.undo)
       if (this.undoStack.length > UNDO_LIMIT) this.undoStack.shift()
     }
-    if (result.events.length > 0) this.handleEvents(result.events)
+    if (result.events.length > 0) {
+      this.handleEvents([
+        ...result.events,
+        ...recordJournal(this.state, this.content, result.events),
+      ])
+    }
     this.ui.set({ canUndo: this.undoStack.length > 0 })
     this.notify()
     return true

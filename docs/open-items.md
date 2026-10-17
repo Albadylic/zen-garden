@@ -96,11 +96,12 @@ Each has a default I will build with so work is not blocked. Values live in data
 
 ### Phase 07 — Journal
 
-| Status | Decision                                 | Placeholder default                                                    |
-| ------ | ---------------------------------------- | ---------------------------------------------------------------------- |
-| ☐      | Journal entry text for each species/item | Short placeholder text written by me, flagged for review               |
-| ☐      | How facts are revealed                   | Name + illustration on first sighting; more facts on repeat encounters |
-| ☐      | Journal visual style                     | Simple notebook-styled panel until final art                           |
+| Status | Decision                                 | Placeholder in use                                                                                                                                     |
+| ------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ☐      | Journal entry text for each species/item | Short descriptions and 1–3 facts per entry, written as placeholders and flagged for review (see section 5)                                             |
+| ☐      | How facts are revealed                   | Entries are discovered on first encounter (planting, sighting, building, gathering, or inspecting). Each fact unlocks after a set number of encounters |
+| ☐      | What counts as an encounter              | Plants: planting and each new growth stage. Wildlife: each arrival. Shelters: building, upgrading and each new resident. Items: each gathering         |
+| ☐      | Journal visual style                     | Simple notebook-styled panel with Plants / Wildlife / Habitats / Materials tabs until final art                                                        |
 
 ### Phases 08–12 — Later systems
 
