@@ -87,13 +87,13 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 11. Quality and delivery
 
-- [ ] Vitest coverage of growth, production, suitability, attraction, crafting, milestones, offline caps and save migrations
-- [ ] Playwright flow: first session from planting through the shelter milestone
-- [ ] Playwright flow: save, reload and continue
-- [ ] Playwright flow: simulated return visit after time away
-- [ ] Playwright: desktop and mobile layouts
-- [ ] Placeholder art drawn in code behind a sprite manifest, ready for real art
-- [ ] Every push to `main` deployed to GitHub Pages for play-testing and balancing on a phone
+- [x] Vitest coverage of growth, production, suitability, attraction, crafting, milestones, offline caps and save migrations
+- [x] Playwright flow: first session from planting through the shelter milestone
+- [x] Playwright flow: save, reload and continue
+- [x] Playwright flow: simulated return visit after time away
+- [x] Playwright: desktop and mobile layouts
+- [x] Placeholder art drawn in code behind a sprite manifest, ready for real art
+- [ ] Every push to `main` deployed to GitHub Pages for play-testing and balancing on a phone (workflow ready; waiting on GitHub Pages being enabled, see open-items)
 
 ## Out of scope for the MVP
 

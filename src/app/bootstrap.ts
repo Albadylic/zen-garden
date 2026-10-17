@@ -10,7 +10,7 @@ import { MemorySaveStore, type SaveStore } from '../persistence/SaveStore'
 import { GardenRenderer } from '../render/GardenRenderer'
 import { AutoSaver } from './autosave'
 import { GameController } from './GameController'
-import { installTestHooks } from './testHooks'
+import { debugSeed, installTestHooks } from './testHooks'
 
 export interface Game {
   controller: GameController
@@ -27,7 +27,7 @@ export interface Game {
 }
 
 function newSeed(): number {
-  return Math.floor(Math.random() * 2 ** 31)
+  return debugSeed() ?? Math.floor(Math.random() * 2 ** 31)
 }
 
 async function openStore(): Promise<{ store: SaveStore; persistent: boolean }> {

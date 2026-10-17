@@ -58,6 +58,8 @@ const CREATURE_HIT_PX = 30
 /** Creatures are drawn larger than life so they read clearly at garden scale. */
 const CREATURE_SCALE = 1.5
 const DROP_HIT_PX = 24
+/** How much closer a drop must be than a creature to be picked instead. */
+const CREATURE_PRIORITY_PX = 14
 
 interface CreatureSprite {
   sprite: Sprite
@@ -166,16 +168,27 @@ export class GardenRenderer {
   }
 
   /** Screen position (CSS pixels) of a tile centre; used by tests and onboarding. */
-  tileToScreen(x: number, y: number): Point {
+  tileToScreen(x: number, y: number): Point | null {
+    if (!this.app) return null
     const c = tileCentre(x, y)
     return this.camera.worldToScreen(c.x, c.y)
   }
 
   /** Screen position of a creature, or null if it is hidden or gone. */
   creatureToScreen(id: number): Point | null {
+    if (!this.app) return null
     const entry = this.creatureSprites.get(id)
     if (!entry?.sprite.visible) return null
     return this.camera.worldToScreen(entry.sprite.x, entry.sprite.y)
+  }
+
+  /** Centres the camera on a tile. */
+  centreOn(x: number, y: number): void {
+    if (!this.app) return
+    const c = tileCentre(x, y)
+    this.camera.x = c.x
+    this.camera.y = c.y
+    this.camera.panBy(0, 0)
   }
 
   resetCamera(): void {
@@ -192,22 +205,25 @@ export class GardenRenderer {
     const t = this.tileAt(screen)
     const tile = t.x >= 0 && t.y >= 0 && t.x < state.width && t.y < state.height ? t : null
     const target: TapTarget = { tile, pointerType }
-    let best = CREATURE_HIT_PX
+    // Whichever creature or drop is nearest the finger wins. Creatures get a
+    // head start, since a butterfly feeding on top of fallen seeds is the more
+    // deliberate target (and seeds are gathered automatically anyway).
+    let best = Infinity
     for (const [id, c] of this.creatureSprites) {
       if (!c.sprite.visible) continue
       const s = this.camera.worldToScreen(c.sprite.x, c.sprite.y)
       const d = Math.hypot(s.x - screen.x, s.y - screen.y)
-      if (d < best) {
+      if (d < CREATURE_HIT_PX && d - CREATURE_PRIORITY_PX < best) {
         target.creatureId = id
-        best = d
+        best = d - CREATURE_PRIORITY_PX
       }
     }
-    best = DROP_HIT_PX
     for (const [id, sprite] of this.dropSprites) {
       const s = this.camera.worldToScreen(sprite.x, sprite.y - 12)
       const d = Math.hypot(s.x - screen.x, s.y - screen.y)
-      if (d < best) {
+      if (d < DROP_HIT_PX && d < best) {
         target.dropId = id
+        delete target.creatureId
         best = d
       }
     }
