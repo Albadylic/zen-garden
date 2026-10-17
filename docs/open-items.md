@@ -122,6 +122,8 @@ All art starts as shapes drawn in code (`pixi.js` Graphics) or simple generated 
 
 **Target format for final art:** PNG spritesheets with JSON atlases, @1x and @2x (possibly @3x for iPhone), consistent bottom-centre anchor on each sprite's tile footprint, soft watercolour style per GDD 2.2–2.3.
 
+**Level 1 MVP asset pack received (2026-10-17):** 56 PNG sprites and 15 SVG icons in [`public/assets/`](../public/assets/README.md), covering terrain tiles, plants by growth stage, maple, bamboo, pond, butterfly and bee frames, resources, natural shelter stages, placement overlays, effects and core UI icons. They are not wired into the renderer yet (that happens with the sprite manifest), and they are @1x individual PNGs rather than the target atlas format, so the rows below stay open.
+
 | Status | Asset group           | Placeholder                              | Final asset needed                                                                   |
 | ------ | --------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------ |
 | ☐      | Terrain tiles         | Flat-coloured isometric diamonds         | Grass, moss, stone path, water, pond edge, overgrown; seamless edge/transition tiles |
@@ -165,11 +167,11 @@ Audio is silent until phase 12 unless assets arrive earlier. Audio hooks are wir
 
 ## 6. Licensing and legal
 
-| Status | Item                                                                          | Notes                                                          |
-| ------ | ----------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| ☐      | Licences for all art, audio and fonts allow commercial App Store distribution | Record source and licence per asset                            |
-| ☐      | Privacy policy                                                                | Required for the App Store even with local-only saves          |
-| ☐      | Project licence                                                               | Repository currently has none (all rights reserved by default) |
+| Status | Item                                                                          | Notes                                                                                            |
+| ------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| ☐      | Licences for all art, audio and fonts allow commercial App Store distribution | Record source and licence per asset. Level 1 MVP asset pack: author and licence not yet recorded |
+| ☐      | Privacy policy                                                                | Required for the App Store even with local-only saves                                            |
+| ☐      | Project licence                                                               | Repository currently has none (all rights reserved by default)                                   |
 
 ---
 
