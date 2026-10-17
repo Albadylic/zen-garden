@@ -76,6 +76,32 @@ describe('shelter wildlife', () => {
     expect(state.stats.visits['natural-shelter']).toBe(shelter.visits)
   })
 
+  it('beetles tuck in for long rests in an insect hotel', () => {
+    const { content, state } = setup(2)
+    addPlant(state, content, 'fern', 3, 3)
+    addPlant(state, content, 'fern', 2, 5)
+    const hotel = content.structures['natural-shelter']!.levels.findIndex(
+      (l) => l.branch === 'insect-hotel',
+    )
+    const shelter = addShelter(state, content, 3, 4, hotel)
+    let beetle
+    for (let t = 0; t < 60 * MIN && !beetle; t += 1000) {
+      const events = advance(state, content, 1000)
+      const visit = events.find(
+        (e) => e.type === 'shelterVisited' && e.speciesId === 'ground-beetle',
+      )
+      if (visit) beetle = state.creatures.find((c) => c.speciesId === 'ground-beetle' && c.hidden)
+    }
+    expect(beetle).toBeDefined()
+    expect(beetle!.homeId).toBe(shelter.id)
+    // Longer than an ordinary visit (at most 15 min) or rest (at most 1 min) could be.
+    expect(beetle!.stayMs).toBeGreaterThan(15 * MIN)
+    expect(beetle!.timerMs).toBeGreaterThan(1 * MIN)
+    expect(describeActivity(state, content, beetle!)).toBe(
+      'Tucked in for a long rest in its shelter',
+    )
+  })
+
   it('ignores a shelter in an exposed, sunny spot', () => {
     const { content, state } = setup(2)
     addShelter(state, content, 5, 11)

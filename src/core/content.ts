@@ -102,6 +102,11 @@ export interface StructureLevelDef {
   art?: string
   /** Species this level especially suits, with how much more it draws them. */
   favours?: Record<string, number>
+  /**
+   * Residents that tuck in here for long rests (as beetles do to see out the
+   * winter), multiplying how long they rest and stay.
+   */
+  settles?: Record<string, number>
   /** Multiplies wildlife arrival rates for species that use this structure. */
   attraction: number
   /** Number of resident creatures it can hold at once. */

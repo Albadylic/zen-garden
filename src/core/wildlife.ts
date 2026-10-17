@@ -296,9 +296,7 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
         return
       }
     }
-    c.activity = 'resting'
-    c.hidden = true
-    c.timerMs = randomRange(state, 20, 60) * 1000
+    restInside(state, content, c)
     return
   }
   const perch = pick(state, perches(state, content, home, 3))
@@ -307,6 +305,20 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
     c.activity = 'perching'
     c.timerMs = randomRange(state, 6, 12) * 1000
   }
+}
+
+/** How much longer a resident rests in its shelter (1 unless the shelter suits a long rest). */
+function settleFactor(state: GameState, content: Content, c: Creature): number {
+  const home = c.homeId !== null ? entityById(state, c.homeId) : undefined
+  if (home?.kind !== 'structure') return 1
+  return content.structures[home.defId]?.levels[home.level]?.settles?.[c.speciesId] ?? 1
+}
+
+/** Ground creatures rest out of sight in their shelter between forays. */
+function restInside(state: GameState, content: Content, c: Creature): void {
+  c.activity = 'resting'
+  c.hidden = true
+  c.timerMs = randomRange(state, 20, 60) * 1000 * settleFactor(state, content, c)
 }
 
 /** What a creature starts doing when it reaches its target. */
@@ -320,6 +332,8 @@ function arrive(
   const target = c.targetId !== null ? entityById(state, c.targetId) : undefined
   if (c.homeId !== null && c.targetId === c.homeId && target?.kind === 'structure') {
     if (c.activity === 'arriving') {
+      // A resident that settles in here stays for longer.
+      c.stayMs *= settleFactor(state, content, c)
       target.visits++
       state.stats.visits[target.defId] = (state.stats.visits[target.defId] ?? 0) + 1
       ctx.events.push({
@@ -330,9 +344,7 @@ function arrive(
       })
     }
     if (def.movement === 'ground') {
-      c.activity = 'resting'
-      c.hidden = true
-      c.timerMs = randomRange(state, 20, 60) * 1000
+      restInside(state, content, c)
     } else {
       c.activity = 'perching'
       c.timerMs = randomRange(state, 6, 12) * 1000
@@ -431,7 +443,11 @@ export function describeActivity(state: GameState, content: Content, c: Creature
         : target?.kind === 'decoration'
           ? content.decorations[target.defId]?.name
           : undefined
-  if (c.hidden) return 'Resting out of sight in its shelter'
+  if (c.hidden) {
+    return settleFactor(state, content, c) > 1
+      ? 'Tucked in for a long rest in its shelter'
+      : 'Resting out of sight in its shelter'
+  }
   if (c.activity === 'feeding' && targetName) return `Feeding at the ${targetName.toLowerCase()}`
   if ((c.activity === 'resting' || c.activity === 'perching') && targetName) {
     return `${ACTIVITY_TEXT[c.activity]} on the ${targetName.toLowerCase()}`

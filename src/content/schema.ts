@@ -119,6 +119,7 @@ export const structureSchema = z.object({
         unlock: z.string().min(1).optional(),
         art: id.optional(),
         favours: z.record(id, z.number().positive()).optional(),
+        settles: z.record(id, z.number().min(1)).optional(),
         attraction: z.number().positive(),
         capacity: z.number().int().positive(),
         upgradeCost: itemCounts.optional(),

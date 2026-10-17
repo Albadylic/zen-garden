@@ -69,7 +69,10 @@
           "mason-bee": 2,
           "ground-beetle": 1.5
         },
-        "produces": []
+        "produces": [],
+        "settles": {
+          "ground-beetle": 4
+        }
       },
       {
         "name": "Log lodge",

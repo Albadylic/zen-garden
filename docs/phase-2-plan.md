@@ -116,10 +116,10 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
   - **Japanese forest grass:** shade ground cover.
   - **Hosta:** shade, cover.
 - [x] **Items:** bamboo shoots and canes, forest grass and hosta divisions, maple leaves and maple sap.
-- [ ] **Wildlife:**
+- [x] **Wildlife:**
   - **Songbird (done: Japanese white-eye):** rests in mature bamboo, and is drawn more strongly by a mature maple.
   - **Wood mouse:** lives in the log lodge branch.
-  - **A new behaviour from an existing species:** beetles overwintering in a refuge.
+  - **A new behaviour from an existing species:** ground beetles tuck in for long rests in an insect hotel (resting and staying four times as long), as beetles do to see out the winter. The game has no seasons yet, so this is a long rest rather than true overwintering; structure levels name the species that settle in (`settles`).
 - [x] **Structures and decorations:** bamboo fence or screen, bamboo water spout (ahead of Chapter 3), maple-leaf lantern, sap feeder (maple sap).
 - [x] **Sap-feeding butterfly:** visits a filled sap feeder; its own journal entry and facts.
 
