@@ -58,6 +58,7 @@ export async function bootstrap(): Promise<Game> {
     const away = Date.now() - saved.savedAt
     if (away >= RECAP_THRESHOLD_MS) controller.returnAfter(away)
   } else {
+    controller.showWelcome()
     void saver.saveNow()
   }
   void requestPersistentStorage()
@@ -66,7 +67,14 @@ export async function bootstrap(): Promise<Game> {
   const mountGarden = (element: HTMLElement) => {
     const r = new GardenRenderer(controller.renderHost())
     renderer = r
-    void r.mount(element)
+    r.mount(element).catch((e: unknown) => {
+      console.error('Could not start the garden renderer:', e)
+      const message = document.createElement('p')
+      message.className = 'garden-error'
+      message.textContent =
+        'The garden could not be drawn. This browser may not support WebGL, or it may be turned off.'
+      element.appendChild(message)
+    })
     return () => {
       r.destroy()
       if (renderer === r) renderer = null
@@ -86,6 +94,7 @@ export async function bootstrap(): Promise<Game> {
     },
     resetGarden: async () => {
       controller.replaceState(createGame(content, newSeed()))
+      controller.showWelcome()
       await saver.saveNow()
     },
   }

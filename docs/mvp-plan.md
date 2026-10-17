@@ -80,10 +80,10 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 10. Interface shell
 
-- [ ] Main HUD: area title, build categories (Plants / Habitats / Restore), Inventory, Journal, Suggestions
-- [ ] Build menu, inspection panels, toasts for small discoveries
-- [ ] Settings: reset garden, export/import save; audio toggles as placeholders
-- [ ] Mobile-first layout: one-handed reach, large tap targets, safe areas
+- [x] Main HUD: area title, build categories (Plants / Habitats / Restore), Inventory, Journal, Suggestions
+- [x] Build menu, inspection panels, toasts for small discoveries
+- [x] Settings: reset garden, export/import save; audio toggles as placeholders
+- [x] Mobile-first layout: one-handed reach, large tap targets, safe areas
 
 ## 11. Quality and delivery
 

@@ -22,6 +22,7 @@ export function ChapterComplete() {
         <button
           type="button"
           className="button button--primary"
+          autoFocus
           onClick={() => controller.dismissCelebration()}
         >
           Keep tending the garden

@@ -792,3 +792,33 @@ button:focus-visible {
 .recap-list li + li {
   margin-top: 4px;
 }
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  color: var(--ink-soft);
+}
+
+.toggle input {
+  width: 20px;
+  height: 20px;
+}
+
+.garden-error {
+  position: absolute;
+  inset: 40% 16px auto;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  text-align: center;
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: #e8e2d0;
+  font-family: system-ui, sans-serif;
+}

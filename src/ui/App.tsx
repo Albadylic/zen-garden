@@ -15,6 +15,7 @@ import { PlantsPanel } from './PlantsPanel'
 import { ReturnRecap } from './ReturnRecap'
 import { SettingsPanel } from './SettingsPanel'
 import { Toasts } from './Toasts'
+import { Welcome } from './Welcome'
 
 interface Props {
   mountGarden: (element: HTMLElement) => () => void
@@ -63,6 +64,7 @@ export function App({ mountGarden }: Props) {
       </div>
       <ChapterComplete />
       <ReturnRecap />
+      <Welcome />
     </div>
   )
 }

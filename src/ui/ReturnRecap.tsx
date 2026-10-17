@@ -67,6 +67,7 @@ export function ReturnRecap() {
           <button
             type="button"
             className="button button--primary"
+            autoFocus
             onClick={() => controller.dismissRecap(true)}
           >
             Gather and continue
@@ -75,6 +76,7 @@ export function ReturnRecap() {
         <button
           type="button"
           className={recap.itemsWaiting > 0 ? 'button' : 'button button--primary'}
+          autoFocus={recap.itemsWaiting === 0}
           onClick={() => controller.dismissRecap(false)}
         >
           {recap.itemsWaiting > 0 ? 'Just look around' : 'Continue'}

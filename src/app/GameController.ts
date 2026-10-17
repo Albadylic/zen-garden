@@ -64,6 +64,8 @@ export interface UiState {
   suggestionsOpen: boolean
   /** Summary shown after returning from time away. */
   recap: Recap | null
+  /** First-visit introduction to the garden. */
+  welcome: boolean
 }
 
 export interface PlacementInfo {
@@ -108,6 +110,7 @@ export class GameController {
       chapterCelebration: false,
       suggestionsOpen: true,
       recap: null,
+      welcome: false,
     })
   }
 
@@ -138,6 +141,14 @@ export class GameController {
     this.ui.set({ recap: hasNews(recap) ? recap : null, mode: { type: 'idle' } })
     this.notify()
     return recap
+  }
+
+  showWelcome(): void {
+    this.ui.set({ welcome: true })
+  }
+
+  dismissWelcome(): void {
+    this.ui.set({ welcome: false })
   }
 
   dismissRecap(gather: boolean): void {

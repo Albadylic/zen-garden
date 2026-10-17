@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { SaveError } from '../core/save'
 import { downloadJson, isStoragePersistent, readJsonFile } from '../persistence/browser'
+import { debugEnabled } from '../app/testHooks'
+import { DebugTools } from './DebugTools'
 import { useController, useSession } from './hooks'
 import { Sheet } from './Sheet'
 
@@ -87,6 +89,17 @@ export function SettingsPanel() {
           )}
         </div>
       </section>
+      <section className="settings-group">
+        <h3 className="inventory-group__title">Sound</h3>
+        <p className="muted">Ambient sound and music are coming in a later update.</p>
+        <label className="toggle">
+          <input type="checkbox" disabled /> Music
+        </label>
+        <label className="toggle">
+          <input type="checkbox" disabled /> Garden ambience
+        </label>
+      </section>
+      {debugEnabled() && <DebugTools />}
     </Sheet>
   )
 }
