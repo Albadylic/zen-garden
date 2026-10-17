@@ -5,6 +5,7 @@
 When unsure about what to build, how something should behave, or what comes next, read the design docs before deciding:
 
 - `docs/game-design-document.md` — the game's vision, systems and design principles. Sections 3 (design principles), 17.3 (no-punishment policy) and 24 (confirmed vs proposed) are the quickest checks for whether an idea fits.
+- `docs/open-items.md` — owner actions, open design decisions and every placeholder in use. When you add a placeholder or a decision gets made, update this file in the same commit.
 - `docs/build-order.md` — the order to build the game in. Work phase by phase, keep the game playable after each phase, and finish the vertical slice before widening content.
 
 The design doc separates **confirmed** decisions from **proposals** (section 24). Treat species lists, quantities, chapter details and recipes as proposals: fine to implement as starting content, but keep them in data so they are easy to change, and check with the user before treating a proposal as final.
