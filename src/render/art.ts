@@ -420,6 +420,7 @@ export class PlaceholderArt {
         else if (id === 'valid') diamond(g, 0.96).stroke({ color: 0x3f9a4a, width: 4 })
         else if (id === 'invalid') diamond(g, 0.96).stroke({ color: 0xc0503a, width: 4 })
         else if (id === 'hover') diamond(g, 0.96).stroke({ color: 0xfaf7ee, width: 2, alpha: 0.6 })
+        else if (id === 'creature') g.ellipse(0, 0, 18, 9).stroke({ color: 0xfaf7ee, width: 3 })
         break
       }
       case 'overlay': {

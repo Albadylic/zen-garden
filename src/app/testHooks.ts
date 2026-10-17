@@ -8,6 +8,8 @@ export interface TestHooks {
   controller: GameController
   /** Screen position (CSS pixels, relative to the canvas) of a tile's centre. */
   tileToScreen(x: number, y: number): { x: number; y: number } | null
+  /** Screen position of a creature, or null if hidden. */
+  creatureToScreen(id: number): { x: number; y: number } | null
   /** Advances simulated time immediately, as if the garden were on screen. */
   advance(ms: number): void
   /** Advances simulated time as if the player had been away. */
@@ -33,6 +35,7 @@ export function installTestHooks(
   window.__zen = {
     controller,
     tileToScreen: (x, y) => renderer()?.tileToScreen(x, y) ?? null,
+    creatureToScreen: (id) => renderer()?.creatureToScreen(id) ?? null,
     advance: (ms) => {
       // Advance in one-second slices so every system sees ordinary steps.
       for (let left = ms; left > 0; left -= 1000) controller.frame(Math.min(1000, left))

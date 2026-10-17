@@ -1,0 +1,114 @@
+import { describe, expect, it } from 'vitest'
+import { setup } from '../test/fixtures'
+import { addPlant, addShelter } from '../test/helpers'
+import type { GameEvent } from './events'
+import { removeEntity } from './layout'
+import { advance } from './simulation'
+import { describeActivity, nectarAvailable, residents } from './wildlife'
+
+const MIN = 60_000
+
+function run(
+  state: ReturnType<typeof setup>['state'],
+  content: ReturnType<typeof setup>['content'],
+  ms: number,
+) {
+  const events: GameEvent[] = []
+  for (let t = 0; t < ms; t += 1000) events.push(...advance(state, content, 1000))
+  return events
+}
+
+describe('pollinators', () => {
+  it('do not visit a garden with no flowers', () => {
+    const { content, state } = setup()
+    run(state, content, 20 * MIN)
+    expect(state.creatures.filter((c) => c.speciesId !== 'ground-beetle')).toHaveLength(0)
+  })
+
+  it('arrive once flowers bloom, feed, and eventually leave', () => {
+    const { content, state } = setup(3)
+    addPlant(state, content, 'wildflower-mix', 5, 11)
+    expect(nectarAvailable(state, content)).toBe(1)
+    const events = run(state, content, 15 * MIN)
+    expect(events.some((e) => e.type === 'wildlifeArrived' && e.speciesId === 'small-white')).toBe(
+      true,
+    )
+    expect(events.some((e) => e.type === 'wildlifeLeft')).toBe(true)
+    expect(state.stats.seen['small-white']).toBeGreaterThan(0)
+  })
+
+  it('come in greater numbers, and rarer species appear, with more flowers', () => {
+    const { content, state } = setup(4)
+    for (let i = 0; i < 5; i++) addPlant(state, content, 'wildflower-mix', 3 + i, 11)
+    const events = run(state, content, 30 * MIN)
+    const species = new Set(
+      events.flatMap((e) => (e.type === 'wildlifeArrived' ? [e.speciesId] : [])),
+    )
+    expect(species.has('bumblebee')).toBe(true)
+    expect(species.has('swallowtail')).toBe(true)
+    expect(state.creatures.filter((c) => c.speciesId === 'small-white').length).toBeLessThanOrEqual(
+      3,
+    )
+  })
+
+  it('find something else to do when their flower is removed', () => {
+    const { content, state } = setup(3)
+    const a = addPlant(state, content, 'wildflower-mix', 5, 11)
+    run(state, content, 10 * MIN)
+    const visitor = state.creatures.find((c) => c.targetId === a.id)
+    removeEntity(state, content, a.id)
+    if (visitor)
+      expect(state.creatures.find((c) => c.id === visitor.id)?.targetId ?? null).not.toBe(a.id)
+    run(state, content, 5 * MIN)
+    expect(state.creatures.filter((c) => c.speciesId === 'small-white')).toHaveLength(0)
+  })
+})
+
+describe('shelter wildlife', () => {
+  it('moves into a well-placed shelter and counts a visit', () => {
+    const { content, state } = setup(2)
+    addPlant(state, content, 'fern', 3, 3)
+    addPlant(state, content, 'fern', 2, 5)
+    const shelter = addShelter(state, content, 3, 4)
+    const events = run(state, content, 20 * MIN)
+    expect(events.some((e) => e.type === 'shelterVisited' && e.entityId === shelter.id)).toBe(true)
+    expect(shelter.visits).toBeGreaterThan(0)
+    expect(state.stats.visits['natural-shelter']).toBe(shelter.visits)
+  })
+
+  it('ignores a shelter in an exposed, sunny spot', () => {
+    const { content, state } = setup(2)
+    addShelter(state, content, 5, 11)
+    const events = run(state, content, 30 * MIN)
+    expect(events.some((e) => e.type === 'shelterVisited')).toBe(false)
+  })
+
+  it('never holds more residents than its capacity', () => {
+    const { content, state } = setup(6)
+    addPlant(state, content, 'fern', 3, 3)
+    addPlant(state, content, 'fern', 2, 5)
+    const shelter = addShelter(state, content, 3, 4)
+    for (let i = 0; i < 30; i++) {
+      run(state, content, MIN)
+      expect(residents(state, shelter.id).length).toBeLessThanOrEqual(2)
+    }
+  })
+
+  it('only attracts wrens to an improved shelter', () => {
+    const { content, state } = setup(8)
+    addPlant(state, content, 'fern', 3, 3)
+    addPlant(state, content, 'fern', 2, 5)
+    addShelter(state, content, 3, 4, 0)
+    const before = run(state, content, 30 * MIN)
+    expect(before.some((e) => e.type === 'wildlifeArrived' && e.speciesId === 'wren')).toBe(false)
+  })
+})
+
+describe('describeActivity', () => {
+  it('describes what a creature is doing', () => {
+    const { content, state } = setup(3)
+    addPlant(state, content, 'wildflower-mix', 5, 11)
+    run(state, content, 10 * MIN)
+    for (const c of state.creatures) expect(describeActivity(state, content, c)).toMatch(/\w/)
+  })
+})

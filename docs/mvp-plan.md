@@ -43,11 +43,11 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 5. Wildlife
 
-- [ ] Butterflies (and bees) defined in data, with attraction conditions
-- [ ] Arrival events when mature flowers are nearby
-- [ ] Autonomous behaviour: wander, feed at flowers, rest, leave
-- [ ] Simple sprite motion and a cap on how many creatures appear at once
-- [ ] Creature inspection: name, current behaviour, known facts
+- [x] Butterflies (and bees) defined in data, with attraction conditions
+- [x] Arrival events when mature flowers are nearby
+- [x] Autonomous behaviour: wander, feed at flowers, rest, leave
+- [x] Simple sprite motion and a cap on how many creatures appear at once
+- [x] Creature inspection: name, current behaviour, known facts
 
 ## 6. Habitat
 

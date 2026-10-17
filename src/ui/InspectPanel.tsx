@@ -1,6 +1,7 @@
 import { plantSuitability } from '../core/environment'
 import { entityById, terrainAt } from '../core/grid'
 import { isFinalStage, timeToNextStage } from '../core/plants'
+import { describeActivity } from '../core/wildlife'
 import type { PlantEntity } from '../core/state'
 import { describePreferences, formatDuration, RATING_LABELS } from './format'
 import { useGame, useUi } from './hooks'
@@ -132,6 +133,30 @@ export function InspectPanel() {
               Remove
             </button>
           </div>
+        )}
+      </Sheet>
+    )
+  }
+
+  if (selection.kind === 'creature') {
+    const creature = state.creatures.find((c) => c.id === selection.id)
+    const def = creature ? content.wildlife[creature.speciesId] : undefined
+    if (!creature || !def) return null
+    const encounters = state.stats.seen[def.id] ?? 0
+    const facts = def.facts.filter((f) => f.after <= encounters)
+    return (
+      <Sheet title={def.name} onClose={close} testId="inspect-panel">
+        <p>{def.description}</p>
+        <p className="activity">{describeActivity(state, content, creature)}</p>
+        {facts.length > 0 && (
+          <ul className="facts">
+            {facts.map((f) => (
+              <li key={f.text}>{f.text}</li>
+            ))}
+          </ul>
+        )}
+        {facts.length < def.facts.length && (
+          <p className="muted">Keep watching to learn more about it.</p>
         )}
       </Sheet>
     )

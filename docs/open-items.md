@@ -66,13 +66,14 @@ Each has a default I will build with so work is not blocked. Values live in data
 
 ### Phase 04 — Wildlife
 
-| Status | Decision                              | Placeholder default                                             |
-| ------ | ------------------------------------- | --------------------------------------------------------------- |
-| ☐      | Starter wildlife list                 | Butterflies and wild bees first; small birds and pond fish next |
-| ☐      | Attraction conditions per species     | Butterflies: mature flowering plants within a few tiles         |
-| ☐      | How many creatures on screen at once  | Small cap (≈ 5–10) for calm visuals and performance             |
-| ☐      | Animation detail                      | Simple loops: idle, move, feed, rest                            |
-| ☐      | Can the player tap/inspect creatures? | Yes: name, current behaviour, known journal facts               |
+| Status | Decision                              | Placeholder in use                                                                                                                                                                         |
+| ------ | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ☐      | Starter wildlife list                 | Small white butterfly, swallowtail butterfly, bumblebee (nectar visitors); ground beetle and wren (shelter visitors). Pond fish deferred with pond ecology                                 |
+| ☐      | Attraction conditions per species     | Small white: any flowering patch. Bumblebee: 2+ patches. Swallowtail: 4+ patches (uncommon). Ground beetle: a shelter rated fair or better. Wren: an improved shelter rated good or better |
+| ☐      | How many creatures on screen at once  | Per species: 1–4; small whites limited to one per flowering patch (max 3). About 12 at most                                                                                                |
+| ☐      | Visit length                          | Butterflies and bees 40–150 s; beetles 5–15 min; wren 1.5–4 min                                                                                                                            |
+| ☐      | Animation detail                      | Placeholder: wing flaps, hovering flight, settling to feed or perch; beetles hide inside their shelter                                                                                     |
+| ☐      | Can the player tap/inspect creatures? | Yes: name, description, current behaviour, and facts revealed by number of sightings                                                                                                       |
 
 ### Phase 05 — Habitats
 

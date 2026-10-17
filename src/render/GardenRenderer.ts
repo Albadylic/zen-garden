@@ -55,6 +55,8 @@ const BACKGROUND = 0x3f4a33
 /** Height flying creatures hover above the ground, in world pixels. */
 const FLIGHT_HEIGHT = 34
 const CREATURE_HIT_PX = 30
+/** Creatures are drawn larger than life so they read clearly at garden scale. */
+const CREATURE_SCALE = 1.5
 const DROP_HIT_PX = 24
 
 interface CreatureSprite {
@@ -88,6 +90,7 @@ export class GardenRenderer {
   private selectSprite = new Sprite()
   private previewSprite = new Sprite()
   private previewOutline = new Sprite()
+  private creatureRing = new Sprite()
   private time = 0
 
   private readonly host: RenderHost
@@ -125,7 +128,12 @@ export class GardenRenderer {
     this.camera.resize(app.screen.width, app.screen.height)
     this.camera.reset()
 
-    this.markers.addChild(this.hoverSprite, this.selectSprite, this.previewOutline)
+    this.markers.addChild(
+      this.hoverSprite,
+      this.selectSprite,
+      this.previewOutline,
+      this.creatureRing,
+    )
     this.world.addChild(
       this.ground,
       this.overlayLayer,
@@ -161,6 +169,13 @@ export class GardenRenderer {
   tileToScreen(x: number, y: number): Point {
     const c = tileCentre(x, y)
     return this.camera.worldToScreen(c.x, c.y)
+  }
+
+  /** Screen position of a creature, or null if it is hidden or gone. */
+  creatureToScreen(id: number): Point | null {
+    const entry = this.creatureSprites.get(id)
+    if (!entry?.sprite.visible) return null
+    return this.camera.worldToScreen(entry.sprite.x, entry.sprite.y)
   }
 
   resetCamera(): void {
@@ -380,7 +395,7 @@ export class GardenRenderer {
       entry.sprite.position.set(w.x, w.y - height)
       entry.sprite.zIndex = depth(entry.x, entry.y) * 10 + (flying ? 5 : 3)
       entry.sprite.visible = !c.hidden
-      entry.sprite.scale.x = c.targetX < c.x ? -1 : 1
+      entry.sprite.scale.set((c.targetX < c.x ? -1 : 1) * CREATURE_SCALE, CREATURE_SCALE)
     }
     for (const [id, entry] of this.creatureSprites) {
       if (!seen.has(id)) {
@@ -415,6 +430,17 @@ export class GardenRenderer {
     if (sel?.kind === 'entity') {
       const e = state.entities.find((en) => en.id === sel.id)
       if (e) placeTile(this.selectSprite, 'tile:select', e.x, e.y)
+    }
+    // A ring on the ground under the selected creature, following it.
+    this.creatureRing.visible = false
+    if (sel?.kind === 'creature') {
+      const entry = this.creatureSprites.get(sel.id)
+      if (entry?.sprite.visible) {
+        this.applyArt(this.creatureRing, 'tile:creature')
+        const w = gridToWorld(entry.x, entry.y)
+        this.creatureRing.position.set(w.x, w.y)
+        this.creatureRing.visible = true
+      }
     }
     const preview = view.preview
     this.previewOutline.visible = false

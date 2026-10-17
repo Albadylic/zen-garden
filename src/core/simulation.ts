@@ -5,6 +5,7 @@ import type { Content } from './content'
 import type { GameEvent } from './events'
 import { growPlants, spreadMoss } from './plants'
 import { ageDrops, produce } from './resources'
+import { attractWildlife, moveWildlife } from './wildlife'
 import type { GameState } from './state'
 
 export interface StepContext {
@@ -21,7 +22,7 @@ export const ONLINE_STEP_MS = 250
 export const OFFLINE_STEP_MS = 10_000
 
 /** Systems run once per step, in this order. */
-const systems: System[] = [growPlants, spreadMoss, produce, ageDrops]
+const systems: System[] = [growPlants, spreadMoss, produce, ageDrops, attractWildlife, moveWildlife]
 
 export interface AdvanceOptions {
   offline?: boolean

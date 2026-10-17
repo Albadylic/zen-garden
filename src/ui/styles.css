@@ -470,3 +470,18 @@ button:focus-visible {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
+
+.activity {
+  font-weight: 600;
+  color: var(--moss-dark);
+}
+
+.facts {
+  margin: 8px 0;
+  padding-left: 18px;
+  line-height: 1.4;
+}
+
+.facts li + li {
+  margin-top: 4px;
+}
