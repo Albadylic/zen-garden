@@ -32,6 +32,27 @@ export function Hud() {
             Undo
           </button>
         )}
+        <button
+          type="button"
+          className="pill pill--icon"
+          aria-label="Settings"
+          onClick={() => controller.openPanel('settings')}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            aria-hidden="true"
+          >
+            <path d="M4 7h16M4 17h16" />
+            <circle cx="9" cy="7" r="2.5" fill="var(--paper)" />
+            <circle cx="15" cy="17" r="2.5" fill="var(--paper)" />
+          </svg>
+        </button>
       </div>
     </header>
   )

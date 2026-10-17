@@ -49,7 +49,7 @@ describe('milestones', () => {
     const { content, state } = setup()
     Object.assign(state.stats, {
       planted: { 'wildflower-mix': 1 },
-      grown: [0, 1],
+      grown: { 1: 1 },
       cleared: 3,
       collected: 8,
       seen: { 'small-white': 1 },

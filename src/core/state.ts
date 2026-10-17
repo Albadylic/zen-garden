@@ -73,8 +73,8 @@ export interface Creature {
 
 export interface Stats {
   planted: Record<string, number>
-  /** Highest stage reached count: grown[stage] = number of plants that reached it. */
-  grown: number[]
+  /** Number of plants that have reached each growth stage, keyed by stage index. */
+  grown: Record<number, number>
   flowered: number
   collected: number
   cleared: number
@@ -123,7 +123,7 @@ export const STATE_VERSION = 1
 export function emptyStats(): Stats {
   return {
     planted: {},
-    grown: [],
+    grown: {},
     flowered: 0,
     collected: 0,
     cleared: 0,

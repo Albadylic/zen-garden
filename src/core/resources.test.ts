@@ -24,6 +24,14 @@ describe('production', () => {
     expect(twigs).toHaveLength(DROP_CAP)
   })
 
+  it('does not drop a new item the moment a full source is gathered', () => {
+    const { content, state } = setup()
+    advance(state, content, 6 * 60 * MIN, { offline: true })
+    collectAll(state)
+    advance(state, content, 10_000, { offline: true })
+    expect(state.drops).toHaveLength(0)
+  })
+
   it('only produces from plants once they reach the producing stage', () => {
     const { content, state } = setup()
     plant(state, content, 'wildflower-mix', 5, 11)

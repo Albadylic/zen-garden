@@ -36,3 +36,13 @@ export function describePreferences(def: PlantDef): string {
   )
   return `Likes ${light} and ${moisture}`
 }
+
+/** "2 h 15 min", "45 min", "3 days" */
+export function formatAway(ms: number): string {
+  const min = Math.round(ms / 60_000)
+  if (min < 60) return `${Math.max(1, min)} min`
+  const h = Math.floor(min / 60)
+  if (h >= 48) return `${Math.round(h / 24)} days`
+  const rest = min % 60
+  return rest > 0 && h < 10 ? `${h} h ${rest} min` : `${h} h`
+}

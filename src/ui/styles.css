@@ -130,6 +130,7 @@ button {
   min-height: 44px;
   padding: 0 16px;
   box-shadow: var(--shadow);
+  white-space: nowrap;
 }
 
 .icon-button {
@@ -755,4 +756,39 @@ button:focus-visible {
   .bottom-bar__tab {
     font-size: 0.8rem;
   }
+
+  .hud-title {
+    font-size: 0.95rem;
+  }
+
+  .hud-title__button {
+    padding: 8px 12px;
+  }
+}
+
+.pill--icon {
+  width: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+.button--danger {
+  background: var(--warning);
+  border-color: var(--warning);
+  color: #fff;
+  font-weight: 600;
+}
+
+.settings-group + .settings-group {
+  margin-top: 14px;
+}
+
+.recap-list {
+  margin: 8px 0 12px;
+  padding-left: 18px;
+}
+
+.recap-list li + li {
+  margin-top: 4px;
 }

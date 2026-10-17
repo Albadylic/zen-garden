@@ -71,12 +71,12 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 9. Saving and returning
 
-- [ ] Versioned save format with migrations
-- [ ] `SaveStore` interface with an IndexedDB adapter
-- [ ] Autosave on change and when the page is hidden or backgrounded
-- [ ] Offline catch-up: simulate time away, capped at 8 hours
-- [ ] Return recap: growth, resources, visitors, journal additions, opportunities
-- [ ] Persistent storage request, plus save export/import as a safety net
+- [x] Versioned save format with migrations
+- [x] `SaveStore` interface with an IndexedDB adapter
+- [x] Autosave on change and when the page is hidden or backgrounded
+- [x] Offline catch-up: simulate time away, capped at 8 hours
+- [x] Return recap: growth, resources, visitors, journal additions, opportunities
+- [x] Persistent storage request, plus save export/import as a safety net
 
 ## 10. Interface shell
 

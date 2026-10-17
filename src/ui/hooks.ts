@@ -1,7 +1,17 @@
 import { createContext, useContext, useSyncExternalStore } from 'react'
+import type { Game } from '../app/bootstrap'
 import type { GameController, UiState } from '../app/GameController'
 
 export const ControllerContext = createContext<GameController | null>(null)
+
+/** Session-level actions: saving, importing, exporting and starting over. */
+export const GameContext = createContext<Game | null>(null)
+
+export function useSession(): Game {
+  const game = useContext(GameContext)
+  if (!game) throw new Error('useSession must be used inside GameContext')
+  return game
+}
 
 export function useController(): GameController {
   const controller = useContext(ControllerContext)

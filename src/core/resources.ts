@@ -42,8 +42,8 @@ export function produce(state: GameState, content: Content, dtMs: number, ctx: S
       }
       const lying = state.drops.filter((d) => d.sourceId === e.id && d.itemId === rule.item).length
       if (lying >= DROP_CAP) {
-        // Wait, full, until something is gathered.
-        e.produceMs[i] = period
+        // Rest until something is gathered, then start the next one from scratch.
+        e.produceMs[i] = 0
         return
       }
       e.produceMs[i] = elapsed - period

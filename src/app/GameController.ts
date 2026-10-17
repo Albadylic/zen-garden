@@ -27,6 +27,7 @@ import { upgradeStructure } from '../core/habitats'
 import { entryFor, observe, recordJournal } from '../core/journal'
 import { plant, water } from '../core/plants'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
+import { catchUp, hasNews, type Recap } from '../core/offline'
 import { advance } from '../core/simulation'
 import type { GameState } from '../core/state'
 import type { Point } from '../render/iso'
@@ -61,6 +62,8 @@ export interface UiState {
   chapterCelebration: boolean
   /** Whether the suggestion card is expanded. */
   suggestionsOpen: boolean
+  /** Summary shown after returning from time away. */
+  recap: Recap | null
 }
 
 export interface PlacementInfo {
@@ -104,6 +107,7 @@ export class GameController {
       canUndo: false,
       chapterCelebration: false,
       suggestionsOpen: true,
+      recap: null,
     })
   }
 
@@ -124,12 +128,38 @@ export class GameController {
 
   // --- Simulation loop ------------------------------------------------------
 
-  /** Simulates time the player was away, in coarse offline steps. */
-  passTime(ms: number): GameEvent[] {
-    const events = advance(this.state, this.content, ms, { offline: true })
-    this.handleEvents(events)
+  /**
+   * Catches up on time the player was away (capped), then shows a recap if
+   * anything worth mentioning happened. The recap replaces individual toasts.
+   */
+  returnAfter(awayMs: number): Recap {
+    const { events, recap } = catchUp(this.state, this.content, awayMs)
+    this.handleEvents(events, { quiet: true })
+    this.ui.set({ recap: hasNews(recap) ? recap : null, mode: { type: 'idle' } })
     this.notify()
-    return events
+    return recap
+  }
+
+  dismissRecap(gather: boolean): void {
+    if (gather && this.state.drops.length > 0) this.collectAll()
+    this.ui.set({ recap: null })
+  }
+
+  /** Replaces the whole garden, for loading, importing or starting over. */
+  replaceState(state: GameState): void {
+    this.state = state
+    this.undoStack = []
+    this.overlayCache = null
+    this.ui.set({
+      mode: { type: 'idle' },
+      selection: null,
+      panel: null,
+      toasts: [],
+      canUndo: false,
+      chapterCelebration: false,
+      recap: null,
+    })
+    this.notify()
   }
 
   /** Advances the game by real elapsed time. Called every animation frame. */
@@ -145,8 +175,10 @@ export class GameController {
   }
 
   /** Turns simulation and action events into player-facing feedback. */
-  private handleEvents(events: GameEvent[]): void {
+  private handleEvents(events: GameEvent[], { quiet = false } = {}): void {
     for (const e of events) {
+      // While catching up, only lasting moments are surfaced; the recap covers the rest.
+      if (quiet && e.type !== 'chapterComplete') continue
       switch (e.type) {
         case 'collected':
           if (!e.auto) this.toast(`Gathered ${formatItems(this.content, e.items)}`)

@@ -105,19 +105,19 @@ Each has a default I will build with so work is not blocked. Values live in data
 
 ### Phases 08–12 — Later systems
 
-| Status | Decision                                       | Placeholder default                                    |
-| ------ | ---------------------------------------------- | ------------------------------------------------------ |
-| ☐      | Pond zones and upgrade stages                  | GDD 8.1 / 8.2                                          |
-| ☐      | Population model (growth, capacity limits)     | Logistic growth toward a habitat capacity; no collapse |
-| ☐      | Food-web relationships                         | GDD 7.5 examples                                       |
-| ☐      | Bamboo grove layout and restoration approaches | GDD 12.2 three approaches                              |
-| ☐      | **Offline progress cap**                       | 8 hours of simulated time                              |
-| ☐      | Return recap contents                          | GDD 13.3 categories, only shown when something changed |
-| ☐      | Rare species list and discovery odds           | Deferred                                               |
-| ☐      | Seasons: real calendar or in-game cycle        | Deferred                                               |
-| ☐      | Weather frequency                              | Deferred; purely visual                                |
-| ☐      | Grand Sanctuary requirements                   | Deferred                                               |
-| ☐      | Final game title                               | "Zen Garden City-Builder" (working title)              |
+| Status | Decision                                       | Placeholder default                                                                                                                                                                  |
+| ------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ☐      | Pond zones and upgrade stages                  | GDD 8.1 / 8.2                                                                                                                                                                        |
+| ☐      | Population model (growth, capacity limits)     | Logistic growth toward a habitat capacity; no collapse                                                                                                                               |
+| ☐      | Food-web relationships                         | GDD 7.5 examples                                                                                                                                                                     |
+| ☐      | Bamboo grove layout and restoration approaches | GDD 12.2 three approaches                                                                                                                                                            |
+| ☐      | **Offline progress cap**                       | 8 hours of simulated time (in use). The recap says when the cap was reached                                                                                                          |
+| ☐      | Return recap contents                          | Growth, blooms, moss spread, visitors and new species, shelter residents, items waiting, journal additions, milestones. Shown after 1 minute or more away, only if something changed |
+| ☐      | Rare species list and discovery odds           | Deferred                                                                                                                                                                             |
+| ☐      | Seasons: real calendar or in-game cycle        | Deferred                                                                                                                                                                             |
+| ☐      | Weather frequency                              | Deferred; purely visual                                                                                                                                                              |
+| ☐      | Grand Sanctuary requirements                   | Deferred                                                                                                                                                                             |
+| ☐      | Final game title                               | "Zen Garden City-Builder" (working title)                                                                                                                                            |
 
 ---
 
@@ -180,11 +180,11 @@ Audio is silent until phase 12 unless assets arrive earlier. Audio hooks are wir
 
 ## 7. Technical placeholders to revisit
 
-| Status | Item                                              | Starting approach                                             | Revisit when                                       |
-| ------ | ------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------- |
-| ☐      | Save storage                                      | IndexedDB behind a `SaveStore` interface                      | iPhone port: switch to native storage              |
-| ☐      | Safari 7-day storage eviction                     | Request `navigator.storage.persist()`; add save export/import | Before public playtesting                          |
-| ☐      | Playwright browsers                               | Chromium only (desktop + Pixel 7 viewport)                    | Before iPhone port: add WebKit                     |
-| ☐      | Hosting                                           | GitHub Pages                                                  | If Pages limits become a problem: Netlify / Render |
-| ☐      | Offline install                                   | None                                                          | After the vertical slice: consider a PWA           |
-| ☐      | Performance budget (sprite count, texture memory) | Untuned                                                       | Once real art and many entities exist              |
+| Status | Item                                              | Starting approach                                                                                                                        | Revisit when                                        |
+| ------ | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| ☐      | Save storage                                      | IndexedDB behind a `SaveStore` interface                                                                                                 | iPhone port: switch to native storage               |
+| ☐      | Safari 7-day storage eviction                     | In place: `navigator.storage.persist()` requested at start, save export/import in Settings, and a warning when storage is not persistent | Before public playtesting: decide if this is enough |
+| ☐      | Playwright browsers                               | Chromium only (desktop + Pixel 7 viewport)                                                                                               | Before iPhone port: add WebKit                      |
+| ☐      | Hosting                                           | GitHub Pages                                                                                                                             | If Pages limits become a problem: Netlify / Render  |
+| ☐      | Offline install                                   | None                                                                                                                                     | After the vertical slice: consider a PWA            |
+| ☐      | Performance budget (sprite count, texture memory) | Untuned                                                                                                                                  | Once real art and many entities exist               |

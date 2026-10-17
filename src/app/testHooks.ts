@@ -2,6 +2,7 @@
 // the URL. Lets Playwright tap real tiles and fast-forward time.
 
 import type { GardenRenderer } from '../render/GardenRenderer'
+import type { Game } from './bootstrap'
 import type { GameController } from './GameController'
 
 export interface TestHooks {
@@ -12,8 +13,10 @@ export interface TestHooks {
   creatureToScreen(id: number): { x: number; y: number } | null
   /** Advances simulated time immediately, as if the garden were on screen. */
   advance(ms: number): void
-  /** Advances simulated time as if the player had been away. */
+  /** Simulates returning after time away, including the recap. */
   away(ms: number): void
+  /** Saves immediately. */
+  save(): Promise<void>
 }
 
 declare global {
@@ -27,11 +30,9 @@ export function debugEnabled(): boolean {
   return params.has('debug') || params.has('test')
 }
 
-export function installTestHooks(
-  controller: GameController,
-  renderer: () => GardenRenderer | null,
-): void {
+export function installTestHooks(game: Game, renderer: () => GardenRenderer | null): void {
   if (!debugEnabled()) return
+  const { controller } = game
   window.__zen = {
     controller,
     tileToScreen: (x, y) => renderer()?.tileToScreen(x, y) ?? null,
@@ -41,7 +42,8 @@ export function installTestHooks(
       for (let left = ms; left > 0; left -= 1000) controller.frame(Math.min(1000, left))
     },
     away: (ms) => {
-      controller.passTime(ms)
+      controller.returnAfter(ms)
     },
+    save: () => game.saver.saveNow(),
   }
 }
