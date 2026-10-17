@@ -1,4 +1,5 @@
 # Forgotten Garden
+
 ## First Content Batch: The Twelve Connected Gardens
 
 **Document type:** Game design and content outline  
@@ -12,7 +13,7 @@
 
 ## 1. Game Vision
 
-*Forgotten Garden* is a peaceful, Japanese-inspired botanical garden restoration game presented in a soft watercolor storybook style. The player gradually transforms neglected grounds into a connected sanctuary where plants grow, habitats develop, wildlife arrives, and each district becomes part of a larger living ecosystem.
+_Forgotten Garden_ is a peaceful, Japanese-inspired botanical garden restoration game presented in a soft watercolor storybook style. The player gradually transforms neglected grounds into a connected sanctuary where plants grow, habitats develop, wildlife arrives, and each district becomes part of a larger living ecosystem.
 
 There are no human residents in the garden world. Wildlife provides its movement, personality, and sense of life. The player’s role is to restore and shape the landscape, observe nature, gather useful materials, and create conditions in which plants and animals can thrive.
 
@@ -38,26 +39,26 @@ The sanctuary is arranged as **four rows of three gardens**. Each number identif
 
 Top row:
 
-| Garden 4 | Garden 5 | Garden 6 |
-|---|---|---|
+| Garden 4           | Garden 5        | Garden 6          |
+| ------------------ | --------------- | ----------------- |
 | Quiet Stone Garden | Fernwood Hollow | Wildflower Meadow |
 
 Second row:
 
-| Garden 3 | Garden 8 | Garden 7 |
-|---|---|---|
+| Garden 3      | Garden 8      | Garden 7          |
+| ------------- | ------------- | ----------------- |
 | Living Waters | Blossom Court | Whispering Stream |
 
 Third row:
 
-| Garden 2 | Garden 9 | Garden 10 |
-|---|---|---|
+| Garden 2     | Garden 9       | Garden 10  |
+| ------------ | -------------- | ---------- |
 | Bamboo Grove | Ancient Canopy | Reed Marsh |
 
 Bottom row:
 
-| Garden 1 | Garden 12 | Garden 11 |
-|---|---|---|
+| Garden 1         | Garden 12    | Garden 11           |
+| ---------------- | ------------ | ------------------- |
 | Forgotten Garden | Noble Garden | Four Seasons Garden |
 
 For clarity, the numbered grid in standard row order is:
@@ -90,20 +91,20 @@ The map also places **Garden 12 directly beside Garden 1**. This connection is a
 
 ### 2.3 Main gate connections
 
-| Connection | Gate concept | Restoration transition |
-|---|---|---|
-| 1 ↔ 2 | Overgrown timber gate | Forgotten courtyard into the bamboo-lined grounds |
-| 2 ↔ 3 | Bamboo-and-stone entrance | Shaded grove into the pond district |
-| 3 ↔ 4 | Low stone gate | Pondside paths into the dry stone garden |
-| 4 ↔ 5 | Moss-covered woodland gate | Stone garden into the damp hollow |
-| 5 ↔ 6 | Rustic garden opening | Fernwood into the open meadow |
-| 6 ↔ 7 | Streamside gate | Meadow into the stream corridor |
-| 7 ↔ 8 | Small arched bridge or gate | Stream garden into Blossom Court |
-| 8 ↔ 9 | Timber woodland gate | Flowering court into mature woodland |
-| 9 ↔ 10 | Wetland path gate | Ancient Canopy into Reed Marsh |
-| 10 ↔ 11 | Boardwalk gate | Reed Marsh into Four Seasons Garden |
-| 11 ↔ 12 | Ornamental gateway | Seasonal garden into Noble Garden |
-| 12 ↔ 1 | Special return gate | Noble Garden back to the original garden |
+| Connection | Gate concept                | Restoration transition                            |
+| ---------- | --------------------------- | ------------------------------------------------- |
+| 1 ↔ 2      | Overgrown timber gate       | Forgotten courtyard into the bamboo-lined grounds |
+| 2 ↔ 3      | Bamboo-and-stone entrance   | Shaded grove into the pond district               |
+| 3 ↔ 4      | Low stone gate              | Pondside paths into the dry stone garden          |
+| 4 ↔ 5      | Moss-covered woodland gate  | Stone garden into the damp hollow                 |
+| 5 ↔ 6      | Rustic garden opening       | Fernwood into the open meadow                     |
+| 6 ↔ 7      | Streamside gate             | Meadow into the stream corridor                   |
+| 7 ↔ 8      | Small arched bridge or gate | Stream garden into Blossom Court                  |
+| 8 ↔ 9      | Timber woodland gate        | Flowering court into mature woodland              |
+| 9 ↔ 10     | Wetland path gate           | Ancient Canopy into Reed Marsh                    |
+| 10 ↔ 11    | Boardwalk gate              | Reed Marsh into Four Seasons Garden               |
+| 11 ↔ 12    | Ornamental gateway          | Seasonal garden into Noble Garden                 |
+| 12 ↔ 1     | Special return gate         | Noble Garden back to the original garden          |
 
 ### 2.4 Optional connections
 
@@ -114,6 +115,7 @@ Once a gate is opened, it stays open. Players can revisit restored gardens freel
 ### 2.5 Shared world continuity
 
 The gardens should feel like parts of one larger estate, not twelve disconnected levels. Repeat and evolve:
+
 - Stone lanterns, timber gates, stepping stones, fences, bridges, and signposts.
 - Shared path materials and recurring stonework.
 - Plants that naturally occur across district boundaries.
@@ -151,9 +153,11 @@ Avoid requiring players to place every object in a single prescribed arrangement
 **Signature feature:** An old Japanese maple beside a small, neglected pond and mossy stones
 
 ### Initial state
+
 The first garden is partly reclaimed by nature. Worn paths, tangled vegetation, moss-covered stones, and a small pond suggest that the garden was once cared for. It should feel inviting rather than ruined.
 
 ### Plants
+
 - Moss and ground cover
 - Ferns
 - Wildflowers
@@ -162,17 +166,20 @@ The first garden is partly reclaimed by nature. Worn paths, tangled vegetation, 
 - Pond-edge plants
 
 ### Wildlife
+
 - Butterflies
 - Bees
 - Small beetles and other ground insects
 
 ### Materials
+
 - Seeds
 - Twigs
 - Stones
 - Leaf litter
 
 ### Core gameplay introduced
+
 - Isometric grid and object placement
 - Planting and plant growth stages
 - Gathering naturally produced resources
@@ -182,15 +189,19 @@ The first garden is partly reclaimed by nature. Worn paths, tangled vegetation, 
 - Garden journal and restoration milestones
 
 ### Restoration project
+
 Clear and reconnect a small section of the path, establish a flower patch, and improve the pond edge. The garden becomes a safe, thriving starting habitat.
 
 ### Unlock condition
+
 Demonstrate the basic restoration loop: plant suitable vegetation, allow it to develop, gather a small selection of materials, and establish an initial shelter.
 
 ### Gate to Garden 02
+
 Restore the overgrown timber gate and a shaded path leading into Bamboo Grove.
 
 ### Player takeaway
+
 The garden responds to care. Small changes can bring life back without requiring a perfect design.
 
 ---
@@ -202,6 +213,7 @@ The garden responds to care. Small changes can bring life back without requiring
 **Signature feature:** A bamboo corridor with dappled light and a mossy clearing
 
 ### Plants
+
 - Bamboo
 - Dwarf bamboo or low bamboo-like ground cover
 - Shade ferns
@@ -209,18 +221,21 @@ The garden responds to care. Small changes can bring life back without requiring
 - Climbing vines
 
 ### Wildlife
+
 - Woodland birds
 - Spiders
 - Beetles
 - Other small invertebrates appropriate to the habitat
 
 ### Materials
+
 - Bamboo canes
 - Twigs
 - Fibrous plant material
 - Seeds and leaf litter
 
 ### Core gameplay
+
 - Light and shade preferences
 - Taller plants and layered vegetation
 - Crafted birdhouses and insect shelters
@@ -228,15 +243,19 @@ The garden responds to care. Small changes can bring life back without requiring
 - Reading habitat suitability feedback
 
 ### Restoration project
+
 Re-establish a healthy grove with open clearings, shaded understory plants, and a bird-friendly section.
 
 ### Unlock condition
+
 Create a stable mix of shaded planting and suitable shelter, demonstrating that different species need different conditions.
 
 ### Gate to Garden 03
+
 Open the bamboo-and-stone entrance to the first dedicated aquatic district.
 
 ### Player takeaway
+
 A successful garden is not uniformly planted. Shade, open space, and structure all matter.
 
 ---
@@ -248,6 +267,7 @@ A successful garden is not uniformly planted. Shade, open space, and structure a
 **Signature feature:** A larger pond with shallow margins, deeper water, and a small rocky inlet
 
 ### Plants
+
 - Water lilies
 - Reeds and rushes
 - Pondweed and other submerged plants
@@ -255,6 +275,7 @@ A successful garden is not uniformly planted. Shade, open space, and structure a
 - Suitable floating plants
 
 ### Wildlife
+
 - Dragonflies
 - Pond insects
 - Frogs
@@ -262,12 +283,14 @@ A successful garden is not uniformly planted. Shade, open space, and structure a
 - Small fish where appropriate to the pond design
 
 ### Materials
+
 - Reeds
 - Smooth stones
 - Clay
 - Aquatic cuttings and seeds
 
 ### Core gameplay
+
 - Water-edge placement
 - Shallow and deep zones
 - Aquatic plants and their habitat requirements
@@ -275,15 +298,19 @@ A successful garden is not uniformly planted. Shade, open space, and structure a
 - Amphibian shelter and aquatic habitat milestones
 
 ### Restoration project
+
 Create a balanced pond with vegetation at multiple depths and accessible shallow margins.
 
 ### Unlock condition
+
 Establish aquatic planting and habitat variety that supports several kinds of pond life.
 
 ### Gate to Garden 04
+
 Restore a low stone gate from the pond path into Quiet Stone Garden.
 
 ### Player takeaway
+
 Water is not just decoration. Its edges, depth, and vegetation create different habitats.
 
 ---
@@ -295,6 +322,7 @@ Water is not just decoration. Its edges, depth, and vegetation create different 
 **Signature feature:** A stone arrangement surrounded by moss, gravel, and carefully placed ground cover
 
 ### Plants
+
 - Moss
 - Lichens
 - Creeping ground cover
@@ -302,33 +330,40 @@ Water is not just decoration. Its edges, depth, and vegetation create different 
 - Drought-tolerant grasses
 
 ### Wildlife
+
 - Ants
 - Beetles
 - Spiders
 - Other small creatures that use crevices and dry ground
 
 ### Materials
+
 - Stones
 - Gravel
 - Clay
 - Moss fragments and cuttings
 
 ### Core gameplay
+
 - Stone and gravel placement
 - Crevices and small-scale habitat design
 - Dry and damp microclimates
 - Visual composition as a player-led creative activity
 
 ### Restoration project
+
 Rebuild a balanced stone garden with varied stone sizes, ground cover, and small sheltered spaces.
 
 ### Unlock condition
+
 Create several suitable microhabitats while maintaining a coherent garden composition.
 
 ### Gate to Garden 05
+
 Open a moss-covered woodland gate leading into Fernwood Hollow.
 
 ### Player takeaway
+
 Even a quiet, sparse garden can support life when it offers the right small-scale conditions.
 
 ---
@@ -340,6 +375,7 @@ Even a quiet, sparse garden can support life when it offers the right small-scal
 **Signature feature:** A fallen log beside a fern-filled hollow
 
 ### Plants and fungi
+
 - Large and small ferns
 - Woodland ground cover
 - Moss
@@ -347,6 +383,7 @@ Even a quiet, sparse garden can support life when it offers the right small-scal
 - Shade-loving wildflowers
 
 ### Wildlife
+
 - Woodlice
 - Millipedes
 - Beetles
@@ -354,6 +391,7 @@ Even a quiet, sparse garden can support life when it offers the right small-scal
 - Amphibians where appropriate to local moisture conditions
 
 ### Materials
+
 - Bark
 - Fallen twigs
 - Leaf litter
@@ -361,21 +399,26 @@ Even a quiet, sparse garden can support life when it offers the right small-scal
 - Fungal materials as suitable for the game world
 
 ### Core gameplay
+
 - Fallen logs and leaf litter as habitat features
 - Decomposition and gradual nutrient cycling
 - Moisture preferences
 - Natural shelters with branching upgrade paths
 
 ### Restoration project
+
 Rebuild a healthy woodland floor, preserve useful fallen wood, and connect the hollow to surrounding shade habitat.
 
 ### Unlock condition
+
 Establish a stable woodland-floor habitat with shelter, moisture, and decomposer activity.
 
 ### Gate to Garden 06
+
 Clear a rustic opening into Wildflower Meadow.
 
 ### Player takeaway
+
 Some of the most valuable garden features are not tidy or ornamental. Decaying wood and leaf litter support the wider ecosystem.
 
 ---
@@ -387,6 +430,7 @@ Some of the most valuable garden features are not tidy or ornamental. Decaying w
 **Signature feature:** A broad meadow with a few taller grasses and scattered flowering patches
 
 ### Plants
+
 - Clover
 - Daisies
 - Asters
@@ -395,6 +439,7 @@ Some of the most valuable garden features are not tidy or ornamental. Decaying w
 - Other regionally suitable wildflowers
 
 ### Wildlife
+
 - Butterflies
 - Solitary bees
 - Hoverflies
@@ -402,27 +447,33 @@ Some of the most valuable garden features are not tidy or ornamental. Decaying w
 - Grasshoppers and other meadow insects
 
 ### Materials
+
 - Flower seeds
 - Seed heads
 - Nectar-related discoveries
 - Grass stems and twigs
 
 ### Core gameplay
+
 - Bloom cycles and plant variety
 - Pollinator preferences
 - Seed spreading and propagation
 - Meadow habitat management without demanding mowing schedules or chores
 
 ### Restoration project
+
 Turn an overgrown patch into a varied meadow with a sequence of blooms and patches of taller grass.
 
 ### Unlock condition
+
 Support a diverse pollinator community through a mixture of flower types and suitable habitat.
 
 ### Gate to Garden 07
+
 Restore a streamside gate and path toward Whispering Stream.
 
 ### Player takeaway
+
 Diversity and continuity of flowering plants help wildlife thrive. There is no need for every patch to bloom at once.
 
 ---
@@ -434,6 +485,7 @@ Diversity and continuity of flowering plants help wildlife thrive. There is no n
 **Signature feature:** A narrow stream with stepping stones, a small cascade, and shaded banks
 
 ### Plants
+
 - Irises
 - Sedges
 - Rushes
@@ -441,33 +493,40 @@ Diversity and continuity of flowering plants help wildlife thrive. There is no n
 - Streamside grasses
 
 ### Wildlife
+
 - Water striders
 - Mayflies and other stream insects
 - Amphibians
 - Birds that visit the water
 
 ### Materials
+
 - Reeds
 - Smooth stones
 - Twigs
 - Water plants and cuttings
 
 ### Core gameplay
+
 - Stream channels and water movement
 - Small cascades and stepping stones
 - Stream-bank stability and planting
 - Connections between aquatic and terrestrial habitats
 
 ### Restoration project
+
 Reconnect the stream corridor, establish planted banks, and create varied places for wildlife to rest and feed.
 
 ### Unlock condition
+
 Create a continuous, healthy stream habitat with both aquatic and bank vegetation.
 
 ### Gate to Garden 08
+
 Restore a small arched bridge or ornamental gate into Blossom Court.
 
 ### Player takeaway
+
 Habitats can connect. A stream is both a destination and a corridor through the sanctuary.
 
 ---
@@ -479,6 +538,7 @@ Habitats can connect. A stream is both a destination and a corridor through the 
 **Signature feature:** A flowering tree beside a quiet court and curved path
 
 ### Plants
+
 - Cherry trees
 - Camellias
 - Azaleas
@@ -487,33 +547,40 @@ Habitats can connect. A stream is both a destination and a corridor through the 
 - Seasonal bulbs and other flowering plants
 
 ### Wildlife
+
 - Bees
 - Moths
 - Specialist pollinators as appropriate
 - Birds attracted to fruit, seeds, or shelter
 
 ### Materials
+
 - Flower cuttings
 - Seeds
 - Twigs
 - Fruit or seed resources when produced by suitable plants
 
 ### Core gameplay
+
 - Flowering and fruiting cycles
 - Shrub borders and layered ornamental planting
 - Nectar and seed resources
 - Combining beauty goals with real habitat value
 
 ### Restoration project
+
 Restore the court's flowering trees and shrubs, then create a varied border that supports wildlife beyond peak blossom.
 
 ### Unlock condition
+
 Establish a layered flowering garden with multiple sources of shelter and seasonal interest.
 
 ### Gate to Garden 09
+
 Open a timber woodland gate into Ancient Canopy.
 
 ### Player takeaway
+
 Ornamental beauty and ecological value can reinforce each other.
 
 ---
@@ -525,6 +592,7 @@ Ornamental beauty and ecological value can reinforce each other.
 **Signature feature:** A mature tree with a broad canopy and visible cavities or old branches
 
 ### Plants
+
 - Mature trees
 - Woodland shrubs
 - Climbing vines
@@ -532,12 +600,14 @@ Ornamental beauty and ecological value can reinforce each other.
 - Tree-associated mosses and fungi
 
 ### Wildlife
+
 - Cavity-nesting birds
 - Tree-dwelling insects
 - Small mammals where suitable
 - Bats as rare journal discoveries if included in the game's wildlife roster
 
 ### Materials
+
 - Bark
 - Twigs
 - Seeds and nuts
@@ -545,21 +615,26 @@ Ornamental beauty and ecological value can reinforce each other.
 - Leaf litter
 
 ### Core gameplay
+
 - Canopy and understory layers
 - Tree cavities and nesting habitats
 - Wildlife territories and capacity
 - Long-term habitat upgrades with distinct visual forms
 
 ### Restoration project
+
 Protect the mature tree, establish a healthy understory, and add appropriate nesting and shelter features.
 
 ### Unlock condition
+
 Support several habitat layers and demonstrate that large established features can anchor an ecosystem.
 
 ### Gate to Garden 10
+
 Restore a wetland path gate at the woodland edge leading to Reed Marsh.
 
 ### Player takeaway
+
 Mature trees are living infrastructure: they provide shelter, food, shade, and connections between species.
 
 ---
@@ -571,6 +646,7 @@ Mature trees are living infrastructure: they provide shelter, food, shade, and c
 **Signature feature:** A shallow marsh with reed beds, pools, and a raised boardwalk
 
 ### Plants
+
 - Reeds
 - Cattails where appropriate
 - Sedges
@@ -579,6 +655,7 @@ Mature trees are living infrastructure: they provide shelter, food, shade, and c
 - Floating aquatic plants
 
 ### Wildlife
+
 - Frogs
 - Aquatic insects
 - Snails
@@ -586,27 +663,33 @@ Mature trees are living infrastructure: they provide shelter, food, shade, and c
 - Wetland birds
 
 ### Materials
+
 - Reeds
 - Clay
 - Water plants
 - Twigs and soft plant fibers
 
 ### Core gameplay
+
 - Shallow pools and muddy margins
 - Emergent plant zones
 - Wetland habitat capacity
 - Interdependence between aquatic plants, insects, amphibians, and birds
 
 ### Restoration project
+
 Restore the marsh's shallow pools, planted margins, and reed beds while keeping open-water pockets.
 
 ### Unlock condition
+
 Create a balanced wetland with multiple water-edge habitats and a healthy wildlife community.
 
 ### Gate to Garden 11
+
 Restore a boardwalk gate into Four Seasons Garden.
 
 ### Player takeaway
+
 Wetlands thrive through variety. Dense vegetation, open water, and shallow edges each serve a purpose.
 
 ---
@@ -618,6 +701,7 @@ Wetlands thrive through variety. Dense vegetation, open water, and shallow edges
 **Signature feature:** A path framed by deciduous trees, evergreens, grasses, and a small seasonal pond or basin
 
 ### Plants
+
 - Deciduous trees
 - Evergreens
 - Autumn-color plants
@@ -626,12 +710,14 @@ Wetlands thrive through variety. Dense vegetation, open water, and shallow edges
 - Seasonal flowers
 
 ### Wildlife
+
 - Seasonal butterflies and moths
 - Overwintering insects
 - Seed-eating birds
 - Small mammals where appropriate
 
 ### Materials
+
 - Seeds
 - Nuts
 - Fruit
@@ -639,21 +725,26 @@ Wetlands thrive through variety. Dense vegetation, open water, and shallow edges
 - Leaf litter
 
 ### Core gameplay
+
 - Seasonal visual changes
 - Flower, fruit, and seed timing
 - Winter shelter and year-round habitat planning
 - Seasonal wildlife observations
 
 ### Restoration project
+
 Create a garden that remains interesting and supportive of wildlife throughout the year, with a mix of evergreen structure, seasonal color, food, and shelter.
 
 ### Unlock condition
+
 Establish a year-round habitat plan with several seasonal resources and reliable shelter.
 
 ### Gate to Garden 12
+
 Restore an ornamental gateway leading into the Noble Garden.
 
 ### Player takeaway
+
 A thriving sanctuary changes through the year. Seasonal change adds atmosphere and variety, not pressure.
 
 ---
@@ -665,9 +756,11 @@ A thriving sanctuary changes through the year. Seasonal change adds atmosphere a
 **Signature feature:** An elegant ornamental pond, stone bridge, pavilion, and a rare golden dragonfly
 
 ### Initial state
+
 The Noble Garden is a remarkable but neglected ornamental space. Its design is more refined than earlier districts, but it still needs ecological restoration. The garden should feel special without implying that the whole game is complete.
 
 ### Plants
+
 - Mature Japanese maples
 - Sculpted pines
 - Rare flowering plants
@@ -676,12 +769,14 @@ The Noble Garden is a remarkable but neglected ornamental space. Its design is m
 - Moss and ground cover around stonework
 
 ### Wildlife
+
 - A golden dragonfly as a special rare discovery
 - Dragonflies and other pond insects
 - Butterflies and bees supported by the flowering plants
 - Other wildlife that can use the pond, trees, and sheltered edges
 
 ### Materials and features
+
 - Ornamental stones
 - Fine timber
 - Reeds and aquatic cuttings
@@ -689,6 +784,7 @@ The Noble Garden is a remarkable but neglected ornamental space. Its design is m
 - Pavilion, bridge, lantern, and refined garden ornaments
 
 ### Core gameplay
+
 - Bringing together skills learned in previous districts
 - Balancing refined composition with ecological function
 - Rare wildlife discovery based on suitable habitat
@@ -696,18 +792,23 @@ The Noble Garden is a remarkable but neglected ornamental space. Its design is m
 - Opening the special return gate to Garden 01
 
 ### Restoration project
+
 Restore the pond, bridge, pavilion surroundings, flowering borders, and tree structure. The garden should look exceptional while still supporting a functioning ecosystem.
 
 ### Golden dragonfly discovery
+
 The golden dragonfly should appear when the pond and surrounding habitat reach suitable conditions. Its arrival is a rare, celebratory observation—not a timed event. Missing a visit must not permanently lock the player out of the discovery. The journal can record clues about the habitat conditions that encourage it.
 
 ### Unlock condition
+
 Complete the Noble Garden restoration project and establish a suitable pond habitat. This marks completion of the first content batch's principal restoration journey.
 
 ### Special connection to Garden 01
+
 Once restored, open the special gate between the Noble Garden and the Forgotten Garden. This creates a direct shortcut between the first garden and the special destination.
 
 ### Player takeaway
+
 The Noble Garden celebrates the player's accumulated understanding and creativity. It is a milestone, not a final ending. New batches of gardens can extend the sanctuary beyond it.
 
 ---
@@ -717,6 +818,7 @@ The Noble Garden celebrates the player's accumulated understanding and creativit
 Progression should be guided by restoration milestones rather than a rigid checklist of exact placements.
 
 ### Recommended milestone types
+
 - Establish a healthy plant community.
 - Support a new kind of wildlife.
 - Restore a key path, gate, pond, or stream.
@@ -726,6 +828,7 @@ Progression should be guided by restoration milestones rather than a rigid check
 - Complete a district's signature restoration project.
 
 ### Unlock principles
+
 - The next main gate should become available when the player has demonstrated the core ecological idea of the current district.
 - Players should have more than one valid way to satisfy most habitat goals.
 - Avoid requiring rare drops for basic progression.
@@ -739,13 +842,17 @@ Progression should be guided by restoration milestones rather than a rigid check
 ## 6. Ecology and Wildlife Systems
 
 ### 6.1 Plant and habitat relationships
+
 Plants should have readable preferences such as sun, shade, moisture, ground type, and proximity to water. These preferences should inform the simulation and be communicated gently through inspection and journal hints.
 
 ### 6.2 Wildlife arrival
+
 Wildlife responds to habitat quality, food availability, shelter, water, and disturbance-free space. Common species should arrive fairly reliably when their needs are met. Rare species should be influenced by habitat quality and chance, with clues that help players understand what to improve.
 
 ### 6.3 Food webs
+
 Introduce ecological relationships gradually:
+
 - Flowers provide nectar and attract pollinators.
 - Fruits and seeds support foragers.
 - Insects support insect-eating wildlife.
@@ -756,9 +863,11 @@ Introduce ecological relationships gradually:
 Do not turn these systems into constant feeding chores. Most wildlife should forage naturally when a habitat supports it.
 
 ### 6.4 Population and carrying capacity
+
 Habitats should support a reasonable number of animals based on available food, shelter, and space. Wildlife can establish territories and reproduce when conditions allow, but population growth should remain bounded and readable.
 
 ### 6.5 Absence and offline progress
+
 - Plants do not die because the player is away.
 - Growth and resource generation continue within sensible bounds.
 - Wildlife can move and behave according to lightweight simulation rules.
@@ -771,18 +880,18 @@ Habitats should support a reasonable number of animals based on available food, 
 
 Resources should retain their identity and have clear purposes. They should not all collapse into a single generic currency.
 
-| Resource family | Example uses |
-|---|---|
-| Seeds and seed heads | Planting, propagation, meadow restoration |
-| Cuttings and spores | Starting selected plants and fungi |
-| Berries, fruit, and nuts | Plant propagation, wildlife-related discoveries, selected projects |
-| Twigs and fallen branches | Basic shelters, habitat structures, repairs |
-| Wood and bark | Crafted shelters, signs, small structures |
-| Reeds and plant fibers | Wetland projects, woven shelters, decorative features |
-| Stones and gravel | Paths, borders, crevices, stone garden compositions |
-| Clay | Selected pond-edge, craft, and restoration projects |
-| Moss and leaf litter | Ground cover, woodland habitat, moisture-supporting features |
-| Feathers and other wildlife traces | Journal discoveries or carefully selected decorative recipes |
+| Resource family                    | Example uses                                                       |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| Seeds and seed heads               | Planting, propagation, meadow restoration                          |
+| Cuttings and spores                | Starting selected plants and fungi                                 |
+| Berries, fruit, and nuts           | Plant propagation, wildlife-related discoveries, selected projects |
+| Twigs and fallen branches          | Basic shelters, habitat structures, repairs                        |
+| Wood and bark                      | Crafted shelters, signs, small structures                          |
+| Reeds and plant fibers             | Wetland projects, woven shelters, decorative features              |
+| Stones and gravel                  | Paths, borders, crevices, stone garden compositions                |
+| Clay                               | Selected pond-edge, craft, and restoration projects                |
+| Moss and leaf litter               | Ground cover, woodland habitat, moisture-supporting features       |
+| Feathers and other wildlife traces | Journal discoveries or carefully selected decorative recipes       |
 
 Resources should be visible in the garden where practical, with batch collection and convenient collection interactions to avoid repetitive tapping. Not every resource needs to be collectible from every district.
 
@@ -793,6 +902,7 @@ Resources should be visible in the garden where practical, with batch collection
 Habitats should develop through meaningful visual upgrades. Each upgrade should change appearance, function, or the species it can support.
 
 ### Natural habitats
+
 - Fallen logs and hollow wood
 - Rock piles and crevices
 - Leaf-litter beds
@@ -801,6 +911,7 @@ Habitats should develop through meaningful visual upgrades. Each upgrade should 
 - Dense shrubs and tree cavities
 
 ### Crafted habitats
+
 - Birdhouses
 - Insect hotels
 - Frog shelters
@@ -808,6 +919,7 @@ Habitats should develop through meaningful visual upgrades. Each upgrade should 
 - Small wildlife shelters
 
 ### Upgrade design principles
+
 - Offer branching upgrades where appropriate.
 - Make branches specialize in different ecological benefits rather than simply increasing a number.
 - Allow alternative branches to be unlocked later so early choices do not permanently exclude content.
@@ -819,7 +931,9 @@ Habitats should develop through meaningful visual upgrades. Each upgrade should 
 ## 9. Journal, Guidance, and Return Visits
 
 ### Naturalist journal
+
 The journal records:
+
 - Plants and their growth stages
 - Wildlife observations
 - Habitat discoveries
@@ -831,10 +945,13 @@ The journal records:
 The journal should feel like an illustrated field notebook, not a dense database. Entries can be short, warm, and optional to read.
 
 ### Contextual guidance
+
 Use small, timely hints based on what the player is doing. For example, if a pond lacks shallow margins, the game can suggest adding gently sloping edges or suitable pond plants. Keep hints optional and avoid overwhelming players with simultaneous tasks.
 
 ### Return recap
+
 When the player returns, summarize:
+
 - Notable plant growth
 - Resources accumulated
 - New wildlife observations
@@ -849,6 +966,7 @@ The recap should celebrate ongoing life without implying that the player missed 
 ## 10. Visual and Audio Direction
 
 ### Visual style
+
 - Soft watercolor storybook illustration
 - Hand-painted edges and subtle paper grain
 - Muted natural colors: sage, moss, warm stone, pond blue, maple rust, and paper cream
@@ -859,9 +977,11 @@ The recap should celebrate ongoing life without implying that the player missed 
 - Distinct district identities within a consistent visual world
 
 ### Japanese-inspired design language
+
 Use a curated, respectful visual vocabulary: timber gates, stone lanterns, stepping stones, bamboo, bridges, pavilions, ponds, maples, pines, and composed planting. The aim is a coherent Japanese-inspired garden fantasy, not a strict historical reconstruction.
 
 ### Audio
+
 - Gentle wind through leaves and bamboo
 - Soft water movement and occasional stream or pond sounds
 - Insect and bird calls that vary by habitat
@@ -869,6 +989,7 @@ Use a curated, respectful visual vocabulary: timber gates, stone lanterns, stepp
 - Subtle milestone cues rather than loud reward sounds
 
 ### Avoid
+
 - Aggressive timers or punishment for absence
 - Flashy reward effects
 - A sterile city-builder look
@@ -896,6 +1017,7 @@ Use a curated, respectful visual vocabulary: timber gates, stone lanterns, stepp
 The game should be structured so new garden batches can be added without redesigning the simulation.
 
 ### Suggested architecture
+
 - **UI:** React and TypeScript
 - **Rendering:** PixiJS
 - **Build tooling:** Vite
@@ -908,6 +1030,7 @@ The game should be structured so new garden batches can be added without redesig
 Keep simulation and content data independent of the renderer, interface, and platform. This will make it easier to add districts, rebalance species, test progression, and later package the web prototype as an iPhone app.
 
 ### Garden data should define
+
 - Garden ID, name, description, and visual theme
 - Initial terrain and signature features
 - Available plants, wildlife, and resources
@@ -918,6 +1041,7 @@ Keep simulation and content data independent of the renderer, interface, and pla
 - Optional decoration and composition goals
 
 ### Expansion compatibility
+
 - Use stable IDs that do not depend on a garden's position in the map.
 - Keep gate connections as explicit data.
 - Avoid hard-coded assumptions that the world contains exactly twelve gardens.
@@ -944,7 +1068,9 @@ A practical build sequence is:
 12. **Polish and content expansion:** District art, ambience, animation, Noble Garden, and future-batch support.
 
 ### Recommended vertical slice
+
 Before building all twelve gardens in full, create a playable slice with:
+
 - Garden 01
 - Several plants with real growth stages
 - Collectible natural resources
@@ -980,6 +1106,7 @@ The first batch is ready when:
 **The first twelve gardens are the initial content batch only.** The sanctuary is intended to grow over time, with additional batches planned in sets of twelve gardens.
 
 Each future batch can introduce:
+
 - New district themes and landscape forms
 - New plant families and growth patterns
 - New wildlife and ecological relationships
