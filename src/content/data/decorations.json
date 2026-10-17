@@ -1,0 +1,61 @@
+[
+  {
+    "id": "stepping-stone",
+    "name": "Stepping stone",
+    "description": "A flat stone set into the ground, inviting a slower path through the garden.",
+    "terrain": ["grass", "moss", "margin"],
+    "flat": true,
+    "cover": 0,
+    "facts": []
+  },
+  {
+    "id": "stone-path",
+    "name": "Stone path",
+    "description": "Fitted paving stones that join one part of the garden to another.",
+    "terrain": ["grass", "moss"],
+    "flat": true,
+    "cover": 0,
+    "facts": []
+  },
+  {
+    "id": "stone-arrangement",
+    "name": "Stone arrangement",
+    "description": "A small, asymmetrical grouping of stones. Its gaps make cool hiding places.",
+    "terrain": ["grass", "moss", "margin"],
+    "flat": false,
+    "cover": 0.3,
+    "facts": [
+      {
+        "text": "Odd-numbered, uneven groupings are traditional in Japanese stone arrangement.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "stone-lantern",
+    "name": "Stone lantern",
+    "description": "A weathered stone lantern, half-hidden by moss. It has watched over the garden for a long time.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": false,
+    "cover": 0.1,
+    "facts": []
+  },
+  {
+    "id": "old-boulder",
+    "name": "Old boulder",
+    "description": "A large, lichen-spotted boulder, settled deep into the ground.",
+    "terrain": ["grass", "moss"],
+    "flat": false,
+    "cover": 0.4,
+    "facts": []
+  },
+  {
+    "id": "grove-gate",
+    "name": "Old garden gate",
+    "description": "A wooden gate in the garden wall. Beyond it, bamboo rustles in the wind.",
+    "terrain": ["path"],
+    "flat": false,
+    "cover": 0,
+    "facts": []
+  }
+]

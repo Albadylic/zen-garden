@@ -1,0 +1,96 @@
+[
+  {
+    "id": "small-white",
+    "name": "Small white butterfly",
+    "description": "A pale, fluttering butterfly that drifts from flower to flower.",
+    "movement": "flying",
+    "speed": 1.2,
+    "attraction": { "kind": "nectar", "minNectar": 1, "perMinute": 0.6 },
+    "maxPresent": 3,
+    "staySec": [60, 150],
+    "colour": "#f4f1e6",
+    "facts": [
+      { "text": "Feeds on nectar from open, sunny flowers.", "after": 1 },
+      {
+        "text": "Rests with its wings closed, showing their pale green-grey undersides.",
+        "after": 3
+      },
+      { "text": "More flowering patches mean more butterflies at once.", "after": 5 }
+    ]
+  },
+  {
+    "id": "swallowtail",
+    "name": "Swallowtail butterfly",
+    "description": "A large, striking butterfly with tailed hindwings. An uncommon visitor.",
+    "movement": "flying",
+    "speed": 1.4,
+    "attraction": { "kind": "nectar", "minNectar": 4, "perMinute": 0.25 },
+    "maxPresent": 1,
+    "staySec": [45, 120],
+    "colour": "#e8c84a",
+    "facts": [
+      { "text": "Only visits gardens with plenty of flowers in bloom.", "after": 1 },
+      { "text": "Its tailed hindwings give the swallowtail its name.", "after": 2 }
+    ]
+  },
+  {
+    "id": "bumblebee",
+    "name": "Bumblebee",
+    "description": "A round, fuzzy bee that hums steadily between flowers.",
+    "movement": "flying",
+    "speed": 1.6,
+    "attraction": { "kind": "nectar", "minNectar": 2, "perMinute": 0.5 },
+    "maxPresent": 3,
+    "staySec": [40, 100],
+    "colour": "#d9a520",
+    "facts": [
+      { "text": "Arrives once a couple of flower patches are in bloom.", "after": 1 },
+      { "text": "Carries pollen between flowers as it feeds.", "after": 3 }
+    ]
+  },
+  {
+    "id": "ground-beetle",
+    "name": "Ground beetle",
+    "description": "A glossy, dark beetle that keeps to damp, sheltered places.",
+    "movement": "ground",
+    "speed": 0.4,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "natural-shelter",
+      "minLevel": 0,
+      "minSuitability": 0.35,
+      "perMinute": 0.5
+    },
+    "maxPresent": 4,
+    "staySec": [300, 900],
+    "colour": "#3d3a4a",
+    "facts": [
+      {
+        "text": "Moves into natural shelters that are shaded and surrounded by cover.",
+        "after": 1
+      },
+      { "text": "Spends most of its time hidden, venturing out to forage nearby.", "after": 3 }
+    ]
+  },
+  {
+    "id": "wren",
+    "name": "Wren",
+    "description": "A tiny brown bird with a cocked tail and a surprisingly loud song.",
+    "movement": "flying",
+    "speed": 2,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "natural-shelter",
+      "minLevel": 1,
+      "minSuitability": 0.5,
+      "perMinute": 0.3
+    },
+    "maxPresent": 1,
+    "staySec": [90, 240],
+    "colour": "#8b6a4a",
+    "facts": [
+      { "text": "Visits well-placed, improved shelters to search for insects.", "after": 1 },
+      { "text": "Wrens often build nests in log piles and dense cover.", "after": 3 }
+    ]
+  }
+]

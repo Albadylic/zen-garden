@@ -1,0 +1,92 @@
+[
+  {
+    "id": "wildflower-seeds",
+    "name": "Wildflower seeds",
+    "category": "seed",
+    "description": "A mix of small meadow-flower seeds. Quick to sprout in open, sunny ground.",
+    "colour": "#e2b04a",
+    "facts": [
+      { "text": "Mature wildflowers drop fresh seed, so one patch can become many.", "after": 3 }
+    ]
+  },
+  {
+    "id": "moss-spores",
+    "name": "Moss spores",
+    "category": "seed",
+    "description": "Fine dust gathered from established moss. Settles best on damp, shaded ground.",
+    "colour": "#7f9a4f",
+    "facts": [
+      { "text": "Moss has no seeds or flowers; it spreads by spores and fragments.", "after": 2 }
+    ]
+  },
+  {
+    "id": "fern-spores",
+    "name": "Fern spores",
+    "category": "seed",
+    "description": "Spores shed from the undersides of mature fern fronds.",
+    "colour": "#5f7f45",
+    "facts": [{ "text": "Fern spores need moisture to grow into new ferns.", "after": 2 }]
+  },
+  {
+    "id": "grass-seeds",
+    "name": "Grass seeds",
+    "category": "seed",
+    "description": "Seed heads from ornamental grasses. Hardy and unfussy.",
+    "colour": "#c9b87a",
+    "facts": []
+  },
+  {
+    "id": "maple-seeds",
+    "name": "Maple samaras",
+    "category": "seed",
+    "description": "Winged maple seeds that spin as they fall. Patience turns one into a tree.",
+    "colour": "#b5653c",
+    "facts": [
+      { "text": "The paired wings of a samara slow its fall so the wind can carry it.", "after": 1 }
+    ]
+  },
+  {
+    "id": "rush-cuttings",
+    "name": "Rush cuttings",
+    "category": "seed",
+    "description": "Young shoots of soft rush, ready to settle into wet ground at the pond's edge.",
+    "colour": "#6d8a5a",
+    "facts": []
+  },
+  {
+    "id": "twigs",
+    "name": "Twigs",
+    "category": "material",
+    "description": "Small fallen branches. The backbone of most natural shelters.",
+    "colour": "#8a6a45",
+    "facts": [
+      { "text": "Old trees and overgrown corners are the best places to find twigs.", "after": 5 }
+    ]
+  },
+  {
+    "id": "bark",
+    "name": "Bark",
+    "category": "material",
+    "description": "Loose strips of bark shed by old trees. Good for roofing a shelter.",
+    "colour": "#6b4c33",
+    "facts": [{ "text": "Many beetles shelter and feed under loose bark.", "after": 3 }]
+  },
+  {
+    "id": "stones",
+    "name": "Stones",
+    "category": "material",
+    "description": "Weathered garden stones, some still carrying patches of moss.",
+    "colour": "#9a9a92",
+    "facts": [
+      { "text": "Stone arrangements give small creatures cool, sheltered crevices.", "after": 3 }
+    ]
+  },
+  {
+    "id": "leaf-litter",
+    "name": "Leaf litter",
+    "category": "material",
+    "description": "Fallen leaves and needles. Keeps a shelter damp and snug.",
+    "colour": "#a4743d",
+    "facts": [{ "text": "Leaf litter slowly breaks down into rich soil.", "after": 3 }]
+  }
+]

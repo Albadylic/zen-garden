@@ -1,0 +1,165 @@
+[
+  {
+    "id": "wildflower-mix",
+    "name": "Wildflowers",
+    "description": "A loose patch of meadow flowers. Quick to bloom, and the first thing pollinators look for.",
+    "seedItem": "wildflower-seeds",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      { "name": "Seeded", "durationSec": 45 },
+      { "name": "Sprouting", "durationSec": 120 },
+      { "name": "Budding", "durationSec": 180 },
+      { "name": "Flowering" }
+    ],
+    "prefers": { "shade": { "min": 0, "max": 0.35 }, "moisture": { "min": 0.2, "max": 0.6 } },
+    "produces": [{ "item": "wildflower-seeds", "everySec": 150, "amount": 1, "minStage": 3 }],
+    "nectar": 1,
+    "flowerStage": 3,
+    "cover": 0.2,
+    "facts": [
+      { "text": "Flowering patches offer nectar to butterflies and bees.", "after": 1 },
+      {
+        "text": "Grows fastest in open, sunny ground that is neither parched nor waterlogged.",
+        "after": 2
+      },
+      { "text": "Several flowering patches together draw rarer visitors.", "after": 4 }
+    ]
+  },
+  {
+    "id": "garden-moss",
+    "name": "Garden moss",
+    "description": "A soft green carpet that creeps across damp, shaded ground and softens old stone.",
+    "seedItem": "moss-spores",
+    "terrain": ["grass", "moss", "path"],
+    "stages": [
+      { "name": "Spores", "durationSec": 120 },
+      { "name": "Patch", "durationSec": 600 },
+      { "name": "Carpet" }
+    ],
+    "prefers": { "shade": { "min": 0.4, "max": 1 }, "moisture": { "min": 0.45, "max": 1 } },
+    "produces": [{ "item": "moss-spores", "everySec": 900, "amount": 1, "minStage": 2 }],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.1,
+    "spread": { "chancePerHour": 1.5, "minStage": 2 },
+    "facts": [
+      { "text": "A mature carpet slowly spreads onto neighbouring shaded grass.", "after": 1 },
+      { "text": "Moss holds moisture, keeping the ground around it damp.", "after": 3 }
+    ]
+  },
+  {
+    "id": "fern",
+    "name": "Fern",
+    "description": "Arching fronds that fill sheltered corners with cool, layered green.",
+    "seedItem": "fern-spores",
+    "terrain": ["grass", "moss", "margin"],
+    "stages": [
+      { "name": "Fiddlehead", "durationSec": 240 },
+      { "name": "Young fern", "durationSec": 1200 },
+      { "name": "Mature fern" }
+    ],
+    "prefers": { "shade": { "min": 0.45, "max": 1 }, "moisture": { "min": 0.45, "max": 0.9 } },
+    "produces": [{ "item": "fern-spores", "everySec": 1200, "amount": 1, "minStage": 2 }],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.6,
+    "facts": [
+      { "text": "New fronds unfurl from tightly coiled fiddleheads.", "after": 1 },
+      { "text": "Dense fronds give ground creatures somewhere to hide.", "after": 3 }
+    ]
+  },
+  {
+    "id": "ornamental-grass",
+    "name": "Ornamental grass",
+    "description": "Fine, arching blades that sway in the breeze and give the garden vertical texture.",
+    "seedItem": "grass-seeds",
+    "terrain": ["grass", "margin"],
+    "stages": [
+      { "name": "Seedling", "durationSec": 120 },
+      { "name": "Tuft", "durationSec": 600 },
+      { "name": "Clump" }
+    ],
+    "prefers": { "shade": { "min": 0, "max": 0.5 }, "moisture": { "min": 0.2, "max": 0.65 } },
+    "produces": [{ "item": "grass-seeds", "everySec": 900, "amount": 1, "minStage": 2 }],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.5,
+    "facts": [
+      { "text": "A mature clump offers cover to creatures moving through the garden.", "after": 2 }
+    ]
+  },
+  {
+    "id": "japanese-maple",
+    "name": "Japanese maple",
+    "description": "A slow-growing ornamental tree. In time it shades the ground and drops twigs and leaves.",
+    "seedItem": "maple-seeds",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      { "name": "Seedling", "durationSec": 600 },
+      { "name": "Sapling", "durationSec": 3600 },
+      { "name": "Young tree", "durationSec": 14400 },
+      { "name": "Mature tree" }
+    ],
+    "prefers": { "shade": { "min": 0.1, "max": 0.6 }, "moisture": { "min": 0.3, "max": 0.75 } },
+    "produces": [
+      { "item": "twigs", "everySec": 600, "amount": 1, "minStage": 2 },
+      { "item": "leaf-litter", "everySec": 900, "amount": 1, "minStage": 2 },
+      { "item": "maple-seeds", "everySec": 3600, "amount": 1, "minStage": 3 }
+    ],
+    "nectar": 0.3,
+    "flowerStage": 3,
+    "cover": 0.5,
+    "shade": { "radius": 2, "strength": 0.45, "minStage": 2 },
+    "facts": [
+      { "text": "A young maple begins to cast shade on the tiles around it.", "after": 2 },
+      { "text": "Its small spring flowers are visited by bees.", "after": 4 }
+    ]
+  },
+  {
+    "id": "soft-rush",
+    "name": "Soft rush",
+    "description": "Upright green stems that thrive in wet ground at the water's edge.",
+    "seedItem": "rush-cuttings",
+    "terrain": ["margin"],
+    "stages": [
+      { "name": "Cutting", "durationSec": 120 },
+      { "name": "Shoots", "durationSec": 600 },
+      { "name": "Stand" }
+    ],
+    "prefers": { "shade": { "min": 0, "max": 0.6 }, "moisture": { "min": 0.65, "max": 1 } },
+    "produces": [{ "item": "rush-cuttings", "everySec": 900, "amount": 1, "minStage": 2 }],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.6,
+    "facts": [
+      {
+        "text": "Rushes soften the pond's edge and give cover to small water creatures.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "old-pine",
+    "name": "Old black pine",
+    "description": "An ancient pine, older than anyone's memory of the garden. It still sheds twigs, bark and needles.",
+    "terrain": ["grass", "moss"],
+    "stages": [{ "name": "Ancient tree" }],
+    "prefers": { "shade": { "min": 0, "max": 1 }, "moisture": { "min": 0, "max": 1 } },
+    "produces": [
+      { "item": "twigs", "everySec": 120, "amount": 1, "minStage": 0 },
+      { "item": "leaf-litter", "everySec": 240, "amount": 1, "minStage": 0 },
+      { "item": "bark", "everySec": 300, "amount": 1, "minStage": 0 }
+    ],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.4,
+    "shade": { "radius": 2.5, "strength": 0.6, "minStage": 0 },
+    "facts": [
+      { "text": "Its wide canopy keeps the corner beneath it cool and damp.", "after": 1 },
+      {
+        "text": "Black pines are a classic feature of Japanese gardens, often shaped over generations.",
+        "after": 3
+      }
+    ]
+  }
+]

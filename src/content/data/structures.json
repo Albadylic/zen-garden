@@ -1,0 +1,35 @@
+[
+  {
+    "id": "natural-shelter",
+    "name": "Natural shelter",
+    "description": "A loose pile of twigs, bark and leaves. Simple, but a welcome refuge for small creatures.",
+    "terrain": ["grass", "moss"],
+    "prefers": {
+      "shade": { "min": 0.35, "max": 1 },
+      "moisture": { "min": 0.35, "max": 0.85 },
+      "cover": { "min": 0.25, "max": 1 }
+    },
+    "levels": [
+      { "name": "Natural shelter", "attraction": 1, "capacity": 2, "produces": [] },
+      {
+        "name": "Sheltered log pile",
+        "attraction": 1.8,
+        "capacity": 4,
+        "upgradeCost": { "twigs": 4, "bark": 3, "stones": 2 },
+        "upgradeAfterVisits": 1,
+        "produces": [{ "item": "leaf-litter", "everySec": 600, "amount": 1, "minStage": 0 }]
+      }
+    ],
+    "facts": [
+      {
+        "text": "Shelters in shade, with plant cover nearby, attract residents sooner.",
+        "after": 1
+      },
+      { "text": "Ground beetles hide here by day and hunt among the leaves at dusk.", "after": 3 },
+      {
+        "text": "A larger, stone-weighted log pile can host more residents, and even nesting birds.",
+        "after": 5
+      }
+    ]
+  }
+]

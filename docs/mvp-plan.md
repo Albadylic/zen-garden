@@ -17,11 +17,11 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 2. Simulation core
 
-- [ ] Game state model and deterministic tick driven by real elapsed time
-- [ ] Seeded random number generator
+- [x] Game state model and deterministic tick driven by real elapsed time
+- [x] Seeded random number generator
 - [ ] Event log ("plant matured", "butterfly arrived", …) feeding the UI, recap and milestones
-- [ ] Per-tile suitability model (shade, moisture, water proximity, cover), shared by plants, wildlife and habitats
-- [ ] Content loader with schema validation for JSON data
+- [x] Per-tile suitability model (shade, moisture, water proximity, cover), shared by plants, wildlife and habitats
+- [x] Content loader with schema validation for JSON data
 
 ## 3. Plants and growth
 

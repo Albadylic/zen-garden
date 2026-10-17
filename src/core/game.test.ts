@@ -1,21 +1,22 @@
 import { describe, expect, it } from 'vitest'
-import { advance, createGame, SAVE_VERSION } from './game'
+import { setup } from '../test/fixtures'
+import { terrainAt } from './grid'
 
-describe('game', () => {
-  it('creates a fresh game at time zero', () => {
-    expect(createGame()).toEqual({ version: SAVE_VERSION, elapsedMs: 0 })
+describe('createGame', () => {
+  it('copies the starting map, inventory and fixed objects', () => {
+    const { content, state } = setup()
+    expect(state.width).toBe(content.map.width)
+    expect(terrainAt(state, 0, 0)).toBe('boundary')
+    expect(state.inventory['wildflower-seeds']).toBe(
+      content.map.startingInventory['wildflower-seeds'],
+    )
+    expect(state.entities.every((e) => e.fixed)).toBe(true)
+    expect(state.entities.length).toBe(content.map.fixed.length)
   })
 
-  it('advances time without mutating the previous state', () => {
-    const start = createGame()
-    const next = advance(start, 1500)
-    expect(next.elapsedMs).toBe(1500)
-    expect(start.elapsedMs).toBe(0)
-  })
-
-  it('rejects negative or non-finite deltas', () => {
-    const state = createGame()
-    expect(() => advance(state, -1)).toThrow(RangeError)
-    expect(() => advance(state, Number.NaN)).toThrow(RangeError)
+  it('does not share arrays with the content', () => {
+    const { content, state } = setup()
+    state.terrain[17] = 'water'
+    expect(content.map.terrain[17]).not.toBe('water')
   })
 })

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "natural-shelter",
+    "name": "Natural shelter",
+    "inputs": { "twigs": 6, "bark": 2, "leaf-litter": 2 },
+    "output": { "kind": "structure", "id": "natural-shelter" },
+    "unlock": "recipe:natural-shelter"
+  },
+  {
+    "id": "stepping-stone",
+    "name": "Stepping stone",
+    "inputs": { "stones": 1 },
+    "output": { "kind": "decoration", "id": "stepping-stone" }
+  },
+  {
+    "id": "stone-path",
+    "name": "Stone path",
+    "inputs": { "stones": 2 },
+    "output": { "kind": "decoration", "id": "stone-path" }
+  },
+  {
+    "id": "stone-arrangement",
+    "name": "Stone arrangement",
+    "inputs": { "stones": 3 },
+    "output": { "kind": "decoration", "id": "stone-arrangement" }
+  }
+]
