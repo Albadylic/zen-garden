@@ -18,6 +18,7 @@ interface ZenHooks {
       drops: unknown[]
       unlocks: string[]
       elapsedMs: number
+      journal: Record<string, { discoveredAtMs: number; encounters: number; read?: number }>
     }
     canAfford(cost: Record<string, number>): boolean
     ui: { get(): { selection: unknown; toasts: { text: string }[] } }

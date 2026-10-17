@@ -1,19 +1,19 @@
 import type { Panel } from '../app/GameController'
-import { unreadCount } from '../core/journal'
+import { Icon } from './Icon'
+import type { IconName } from './icons'
 import { useGame, useUi } from './hooks'
 
-const TABS: { panel: Exclude<Panel, null>; label: string }[] = [
-  { panel: 'plants', label: 'Plants' },
-  { panel: 'build', label: 'Build' },
-  { panel: 'restore', label: 'Restore' },
-  { panel: 'inventory', label: 'Inventory' },
-  { panel: 'journal', label: 'Journal' },
+const TABS: { panel: Exclude<Panel, null>; label: string; icon: IconName }[] = [
+  { panel: 'plants', label: 'Plants', icon: 'plant_cutting' },
+  { panel: 'build', label: 'Build', icon: 'build' },
+  { panel: 'restore', label: 'Restore', icon: 'restore' },
+  { panel: 'inventory', label: 'Inventory', icon: 'inventory' },
 ]
 
+/** The garden tools, as icons. Each keeps its name for screen readers and as a tooltip. */
 export function BottomBar() {
   const controller = useGame()
   const { panel } = useUi()
-  const unread = unreadCount(controller.state, controller.content)
   return (
     <nav className="bottom-bar" aria-label="Garden tools">
       {TABS.map((tab) => (
@@ -22,17 +22,11 @@ export function BottomBar() {
           key={tab.panel}
           className={`bottom-bar__tab${panel === tab.panel ? ' is-active' : ''}`}
           aria-pressed={panel === tab.panel}
-          title={
-            tab.panel === 'journal' && unread > 0 ? `${unread} new in your journal` : undefined
-          }
+          aria-label={tab.label}
+          title={tab.label}
           onClick={() => controller.openPanel(tab.panel)}
         >
-          {tab.label}
-          {tab.panel === 'journal' && unread > 0 && (
-            <span className="badge" data-testid="journal-badge" aria-hidden="true">
-              {unread}
-            </span>
-          )}
+          <Icon name={tab.icon} size={32} />
         </button>
       ))}
     </nav>

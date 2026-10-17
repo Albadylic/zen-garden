@@ -25,7 +25,6 @@ test('every panel fits on screen with the tool bar still reachable', async ({ pa
     ['Plants', 'plants-panel'],
     ['Build', 'build-panel'],
     ['Inventory', 'inventory-panel'],
-    ['Journal', 'journal-panel'],
   ] as const) {
     await openTab(page, tab)
     await expect(page.getByTestId(panel)).toBeVisible()
@@ -38,6 +37,41 @@ test('every panel fits on screen with the tool bar still reachable', async ({ pa
   await page.getByRole('button', { name: /chapter goals/ }).click()
   await expectWithinViewport(page, 'goals-panel')
   await expect(bar).toBeInViewport()
+})
+
+test('the journal opens as a book beside the garden and turns its pages', async ({ page }) => {
+  await openGarden(page)
+  // Three plants already discovered and read, so there are pages to turn.
+  await page.evaluate(() => {
+    const { state } = window.__zen!.controller
+    for (const id of ['wildflower-mix', 'garden-moss', 'fern'])
+      state.journal[`plant:${id}`] = { discoveredAtMs: 0, encounters: 1, read: 0 }
+  })
+  await page.getByRole('button', { name: 'Journal', exact: true }).click()
+  await expect(page.getByTestId('journal-panel')).toBeVisible()
+  // Let the book finish sliding in before measuring it.
+  await page
+    .getByTestId('journal-panel')
+    .evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)))
+  await expectWithinViewport(page, 'journal-panel')
+  await expectNoHorizontalScroll(page)
+  const number = page.getByTestId('journal-page-number')
+  await page.getByRole('tab', { name: /Plants/ }).click()
+  await expect(number).toHaveText('Contents')
+  await page.getByRole('button', { name: 'Next page' }).click()
+  await expect(number).toHaveText(/^1 of \d+$/)
+  // A swipe to the left turns to the next page, and one to the right turns back.
+  const box = (await page.getByTestId('journal-page').boundingBox())!
+  const y = box.y + box.height / 2
+  await page.mouse.move(box.x + box.width * 0.8, y)
+  await page.mouse.down()
+  await page.mouse.move(box.x + box.width * 0.2, y, { steps: 4 })
+  await page.mouse.up()
+  await expect(number).toHaveText(/^2 of \d+$/)
+  await page.keyboard.press('ArrowLeft')
+  await expect(number).toHaveText(/^1 of \d+$/)
+  await page.getByRole('button', { name: 'Close Journal' }).click()
+  await expect(page.getByTestId('journal-panel')).toHaveCount(0)
 })
 
 test('touch targets in the tool bar are large enough to tap', async ({ page }) => {

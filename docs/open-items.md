@@ -222,11 +222,11 @@ Audio is silent until phase 12 unless assets arrive earlier. Audio hooks are wir
 
 ## 6. Licensing and legal
 
-| Status | Item                                                                          | Notes                                                          |
-| ------ | ----------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| ☐      | Licences for all art, audio and fonts allow commercial App Store distribution | Record source and licence per asset                            |
-| ☐      | Privacy policy                                                                | Required for the App Store even with local-only saves          |
-| ☐      | Project licence                                                               | Repository currently has none (all rights reserved by default) |
+| Status | Item                                                                          | Notes                                                                                                                                                                           |
+| ------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ☐      | Licences for all art, audio and fonts allow commercial App Store distribution | Record source and licence per asset. The 12 interface icons on `ui/icons-and-journal` come from the Gemini-generated Level 1 pack (PR #1); its commercial terms are unconfirmed |
+| ☐      | Privacy policy                                                                | Required for the App Store even with local-only saves                                                                                                                           |
+| ☐      | Project licence                                                               | Repository currently has none (all rights reserved by default)                                                                                                                  |
 
 ---
 

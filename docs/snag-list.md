@@ -16,8 +16,10 @@ Owner feedback from playtesting, to come back to once all twelve gardens of the 
 
 ## Interface
 
-- [ ] **Icons in the bottom bar** instead of text labels. Review the art assets on the pull request, decide which can be used, and list what is missing. Do the UI overhaul **on a branch**, so it can be compared with the current interface.
-- [ ] **The journal as its own side panel.** Tapping a book icon opens a sidebar where the player flicks through the journal's pages.
+- [x] **Icons in the bottom bar** instead of text labels. Review the art assets on the pull request, decide which can be used, and list what is missing. Do the UI overhaul **on a branch**, so it can be compared with the current interface.
+  - Done on the branch `ui/icons-and-journal`, for comparison: see [`ui-overhaul.md`](ui-overhaul.md) for the asset review, what is used and what is missing.
+- [x] **The journal as its own side panel.** Tapping a book icon opens a sidebar where the player flicks through the journal's pages.
+  - Done on the branch `ui/icons-and-journal`: a book icon in the HUD opens the journal as a sidebar, with bookmarks, a contents page per section and one page per discovered entry, turned with arrows, a swipe or the arrow keys.
 - [x] **Hide what cannot be used yet.** Do not list plants (and other things) the player cannot get yet; it is frustrating.
   - Done: the Plants panel lists a species only once the player holds or has found its seed (or has planted it), and keeps it listed after the last seed is sown. The Build panel lists only recipes the player has discovered. Both end with a line saying more will appear. Inventory and Make already showed only what the player has or can make.
 

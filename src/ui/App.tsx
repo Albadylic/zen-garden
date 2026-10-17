@@ -10,7 +10,7 @@ import { useController, useUi } from './hooks'
 import { Hud } from './Hud'
 import { InspectPanel } from './InspectPanel'
 import { InventoryPanel } from './InventoryPanel'
-import { JournalPanel } from './JournalPanel'
+import { JournalBook } from './JournalBook'
 import { PlacementBar } from './PlacementBar'
 import { PlantsPanel } from './PlantsPanel'
 import { RestorePanel } from './RestorePanel'
@@ -58,7 +58,6 @@ export function App({ mountGarden }: Props) {
               {panel === 'inventory' && <InventoryPanel />}
               {panel === 'goals' && <GoalsPanel />}
               {panel === 'gardens' && <GardensPanel />}
-              {panel === 'journal' && <JournalPanel />}
               {panel === 'settings' && <SettingsPanel />}
               {!panel && selection && <InspectPanel />}
               <BottomBar />
@@ -66,6 +65,7 @@ export function App({ mountGarden }: Props) {
           )}
         </div>
       </div>
+      {panel === 'journal' && <JournalBook />}
       <ChapterComplete />
       <ReturnRecap />
       <Welcome />

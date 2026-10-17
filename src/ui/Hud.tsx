@@ -1,7 +1,9 @@
 import { openGardens } from '../core/gardens'
+import { unreadCount } from '../core/journal'
 import { currentChapter } from '../core/progression'
 import { currentSeason } from '../core/seasons'
 import { useGame, useUi } from './hooks'
+import { Icon } from './Icon'
 import { SuggestionCard } from './SuggestionCard'
 
 export function Hud() {
@@ -10,6 +12,7 @@ export function Hud() {
   const lying = controller.state.drops.length
   const season = currentSeason(controller.state)
   const idle = mode.type === 'idle'
+  const unread = unreadCount(controller.state, controller.content)
   return (
     <header className="hud-top">
       <div className="hud-top__left">
@@ -41,6 +44,21 @@ export function Hud() {
             Undo
           </button>
         )}
+        <button
+          type="button"
+          className={`pill pill--icon${panel === 'journal' ? ' is-active' : ''}`}
+          aria-label="Journal"
+          aria-pressed={panel === 'journal'}
+          title={unread > 0 ? `${unread} new in your journal` : 'Journal'}
+          onClick={() => controller.openPanel('journal')}
+        >
+          <Icon name="journal" size={26} />
+          {unread > 0 && (
+            <span className="badge" data-testid="journal-badge" aria-hidden="true">
+              {unread}
+            </span>
+          )}
+        </button>
         {openGardens(controller.state, controller.content).length > 1 && (
           <button
             type="button"

@@ -1,6 +1,8 @@
 import type { ItemCategory } from '../core/content'
 import { formatItems } from './format'
 import { useGame } from './hooks'
+import { Icon } from './Icon'
+import { ITEM_ICONS } from './icons'
 import { Sheet } from './Sheet'
 
 const CATEGORIES: { id: ItemCategory; label: string }[] = [
@@ -28,7 +30,11 @@ export function InventoryPanel() {
             <ul className="inventory-list">
               {items.map((item) => (
                 <li key={item.id} className="inventory-item" data-testid={`item-${item.id}`}>
-                  <span className="inventory-item__swatch" style={{ background: item.colour }} />
+                  {ITEM_ICONS[item.id] ? (
+                    <Icon name={ITEM_ICONS[item.id]!} size={28} />
+                  ) : (
+                    <span className="inventory-item__swatch" style={{ background: item.colour }} />
+                  )}
                   <span className="inventory-item__text">
                     <span className="inventory-item__name">{item.name}</span>
                     <span className="inventory-item__detail">{item.description}</span>
