@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
 import { BottomBar } from './BottomBar'
 import { BuildPanel } from './BuildPanel'
+import { ClearBar } from './ClearBar'
 import { GardenView } from './GardenView'
 import { useController, useUi } from './hooks'
 import { Hud } from './Hud'
 import { InspectPanel } from './InspectPanel'
+import { InventoryPanel } from './InventoryPanel'
 import { PlacementBar } from './PlacementBar'
 import { PlantsPanel } from './PlantsPanel'
 import { Toasts } from './Toasts'
@@ -38,10 +40,13 @@ export function App({ mountGarden }: Props) {
         <div className="hud-bottom">
           {placing ? (
             <PlacementBar />
+          ) : mode.type === 'clear' ? (
+            <ClearBar />
           ) : (
             <>
               {panel === 'plants' && <PlantsPanel />}
               {panel === 'build' && <BuildPanel />}
+              {panel === 'inventory' && <InventoryPanel />}
               {!panel && selection && <InspectPanel />}
               <BottomBar />
             </>

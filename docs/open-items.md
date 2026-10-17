@@ -53,14 +53,16 @@ Each has a default I will build with so work is not blocked. Values live in data
 
 ### Phase 03 — Resources and inventory
 
-| Status | Decision                     | Placeholder default                                                                     |
-| ------ | ---------------------------- | --------------------------------------------------------------------------------------- |
-| ☐      | Starter item list            | GDD 9.2: wildflower seeds, twigs, loose stones, leaf litter, bark, berries              |
-| ☐      | Opening inventory quantities | 5 wildflower seeds, 6 twigs, 4 stones, 3 leaf litter, 2 bark                            |
-| ☐      | Production rates and sources | Mature wildflowers → seeds; maple → twigs, leaf litter; grasses → stems                 |
-| ☐      | Stack / storage limits       | None in the slice                                                                       |
-| ☐      | Collection model             | Auto-collect into inventory, with visible items in the garden and one-tap batch collect |
-| ☐      | First recipes                | Twigs + bark → basic natural shelter                                                    |
+| Status | Decision                     | Placeholder in use                                                                                                                                                                     |
+| ------ | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ☐      | Starter item list            | 10 items: wildflower seeds, moss spores, fern spores, grass seeds, maple samaras, rush cuttings, twigs, bark, stones, leaf litter. Berries left out until a fruiting plant exists      |
+| ☐      | Opening inventory quantities | 4 wildflower seeds, 2 each of moss spores, fern spores, grass seeds and rush cuttings, 1 maple samara, 2 twigs, 1 bark, 1 leaf litter, 4 stones                                        |
+| ☐      | Production rates and sources | Old pines: twigs every 2 min, leaf litter every 4 min, bark every 5 min. Wildflowers → seeds; moss, ferns, grasses, rushes → their own propagules; maple → twigs, leaf litter, samaras |
+| ☐      | Items lying per source       | At most 2 of each item per source before it pauses                                                                                                                                     |
+| ☐      | Clearing overgrowth yield    | Twigs 1–2 always; leaf litter 50%; stones 30%; bark 15%                                                                                                                                |
+| ☐      | Stack / storage limits       | None in the slice                                                                                                                                                                      |
+| ☐      | Collection model             | Items appear in the garden; tap one or Gather all; anything left 45 s while playing is gathered automatically. Items from time away wait to be gathered                                |
+| ☐      | First recipes                | Natural shelter: twigs ×6 + bark ×2 + leaf litter ×2. Stone decorations: stones ×1–3                                                                                                   |
 
 ### Phase 04 — Wildlife
 

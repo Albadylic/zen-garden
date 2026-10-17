@@ -30,15 +30,15 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 - [x] Species-specific real-time growth stages with visual change per stage
 - [x] Suitability affects growth speed and output; plants never die
 - [x] Flowering and slow moss spread
-- [ ] Resource production at maturity
+- [x] Resource production at maturity
 - [x] Plant inspection panel: species, stage, suitability, actions
 
 ## 4. Resources and inventory
 
-- [ ] About 6 item types defined in data, plus the opening inventory
-- [ ] Production from plants, with visible items in the garden
-- [ ] Auto-collect and one-tap batch collect
-- [ ] Inventory panel
+- [x] About 6 item types defined in data, plus the opening inventory
+- [x] Production from plants, with visible items in the garden
+- [x] Auto-collect and one-tap batch collect
+- [x] Inventory panel
 - [ ] Crafting: twigs + bark → basic natural shelter
 
 ## 5. Wildlife

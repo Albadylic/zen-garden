@@ -76,9 +76,25 @@ export function InspectPanel() {
 
   if (selection.kind === 'tile') {
     const terrain = terrainAt(state, selection.x, selection.y) ?? 'grass'
+    const overgrown = terrain === 'overgrown'
     return (
       <Sheet title={TERRAIN_LABELS[terrain] ?? terrain} onClose={close} testId="inspect-panel">
-        <p className="muted">An open patch of the garden.</p>
+        <p className="muted">
+          {overgrown
+            ? 'Tangled growth hides the ground. Clearing it often turns up twigs and leaf litter.'
+            : 'An open patch of the garden.'}
+        </p>
+        {overgrown && (
+          <div className="actions">
+            <button
+              type="button"
+              className="button button--primary"
+              onClick={() => controller.clearTile(selection.x, selection.y)}
+            >
+              Clear
+            </button>
+          </div>
+        )}
       </Sheet>
     )
   }

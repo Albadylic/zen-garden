@@ -7,7 +7,7 @@ export type GameEvent =
   | { type: 'flowering'; entityId: number; plantId: string }
   | { type: 'mossSpread'; x: number; y: number }
   | { type: 'dropProduced'; dropId: number; itemId: string; amount: number }
-  | { type: 'collected'; items: Record<string, number> }
+  | { type: 'collected'; items: Record<string, number>; auto: boolean }
   | { type: 'cleared'; x: number; y: number; items: Record<string, number> }
   | { type: 'built'; entityId: number; structureId: string }
   | { type: 'placed'; entityId: number; decorationId: string }

@@ -1,15 +1,6 @@
-import type { Content, PlantDef, Range } from '../core/content'
+import type { PlantDef, Range } from '../core/content'
 
-export function itemName(content: Content, id: string): string {
-  return content.items[id]?.name ?? id
-}
-
-/** "Twigs ×6, Bark ×2" */
-export function formatItems(content: Content, items: Record<string, number>): string {
-  return Object.entries(items)
-    .map(([id, n]) => `${itemName(content, id)} ×${n}`)
-    .join(', ')
-}
+export { formatItems, itemName } from '../app/text'
 
 export const RATING_LABELS = {
   poor: 'Poor',

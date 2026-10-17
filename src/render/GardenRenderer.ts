@@ -313,7 +313,9 @@ export class GardenRenderer {
 
   private syncDrops(state: GameState): void {
     const seen = new Set<number>()
-    // Spread several drops on one tile so each can be tapped.
+    // Spread drops evenly around their tile so each can be tapped.
+    const totals = new Map<string, number>()
+    for (const d of state.drops) totals.set(`${d.x},${d.y}`, (totals.get(`${d.x},${d.y}`) ?? 0) + 1)
     const perTile = new Map<string, number>()
     for (const d of state.drops) {
       seen.add(d.id)
@@ -327,9 +329,9 @@ export class GardenRenderer {
       const tileKey = `${d.x},${d.y}`
       const n = perTile.get(tileKey) ?? 0
       perTile.set(tileKey, n + 1)
-      const angle = n * 2.1 + 0.6
-      const gx = d.x + 0.5 + Math.cos(angle) * 0.32
-      const gy = d.y + 0.5 + Math.sin(angle) * 0.32
+      const angle = (n / Math.max(3, totals.get(tileKey) ?? 1)) * Math.PI * 2 + Math.PI / 4
+      const gx = d.x + 0.5 + Math.cos(angle) * 0.4
+      const gy = d.y + 0.5 + Math.sin(angle) * 0.4
       const w = gridToWorld(gx, gy)
       const bob = Math.sin(this.time / 500 + d.id) * 2
       sprite.position.set(w.x, w.y + bob)

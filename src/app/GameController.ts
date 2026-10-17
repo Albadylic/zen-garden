@@ -24,20 +24,23 @@ import {
   type UndoRecord,
 } from '../core/layout'
 import { plant, water } from '../core/plants'
+import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
 import { advance } from '../core/simulation'
 import type { GameState } from '../core/state'
 import type { Point } from '../render/iso'
 import type { RenderHost, RenderView, Selection, TapTarget } from '../render/GardenRenderer'
 import { createStore, type Store } from './store'
+import { formatItems } from './text'
 
 export type PlaceSource =
   | { kind: 'seed'; plantId: string }
   | { kind: 'recipe'; recipeId: string }
   | { kind: 'move'; entityId: number }
 
-export type Mode = { type: 'idle' } | { type: 'place'; source: PlaceSource; tile: Point | null }
+export type Mode =
+  { type: 'idle' } | { type: 'place'; source: PlaceSource; tile: Point | null } | { type: 'clear' }
 
-export type Panel = null | 'plants' | 'build' | 'settings'
+export type Panel = null | 'plants' | 'build' | 'inventory' | 'settings'
 
 export interface Toast {
   id: number
@@ -113,6 +116,14 @@ export class GameController {
 
   // --- Simulation loop ------------------------------------------------------
 
+  /** Simulates time the player was away, in coarse offline steps. */
+  passTime(ms: number): GameEvent[] {
+    const events = advance(this.state, this.content, ms, { offline: true })
+    this.handleEvents(events)
+    this.notify()
+    return events
+  }
+
   /** Advances the game by real elapsed time. Called every animation frame. */
   frame(realDtMs: number): void {
     // Long gaps (a backgrounded tab) are handled by catch-up, not by one huge frame.
@@ -125,7 +136,40 @@ export class GameController {
     if (events.length > 0 || this.sinceRefresh >= UI_REFRESH_MS) this.notify()
   }
 
-  protected handleEvents(_events: GameEvent[]): void {}
+  /** Turns simulation and action events into player-facing feedback. */
+  private handleEvents(events: GameEvent[]): void {
+    for (const e of events) {
+      switch (e.type) {
+        case 'collected':
+          if (!e.auto) this.toast(`Gathered ${formatItems(this.content, e.items)}`)
+          break
+        case 'cleared':
+          this.toast(
+            Object.keys(e.items).length > 0
+              ? `Cleared overgrowth and found ${formatItems(this.content, e.items)}`
+              : 'Cleared overgrowth',
+          )
+          break
+      }
+    }
+  }
+
+  // --- Gathering and restoring ---------------------------------------------
+
+  collectAll(): void {
+    this.applyResult(collectAll(this.state))
+  }
+
+  startClearing(): void {
+    this.ui.set({ mode: { type: 'clear' }, panel: null, selection: null })
+  }
+
+  clearTile(x: number, y: number): void {
+    const result = clearOvergrowth(this.state, this.content, x, y)
+    // Tapping cleared ground while restoring is harmless, so stay quiet about it.
+    if (!result.ok && this.ui.get().mode.type === 'clear') return
+    if (this.applyResult(result) && this.ui.get().selection?.kind === 'tile') this.select(null)
+  }
 
   // --- Toasts ---------------------------------------------------------------
 
@@ -322,10 +366,18 @@ export class GameController {
       if (same || target.pointerType === 'mouse') this.confirmPlacement()
       return
     }
+    if (mode.type === 'clear') {
+      if (target.tile) this.clearTile(target.tile.x, target.tile.y)
+      return
+    }
     this.tapIdle(target)
   }
 
-  protected tapIdle(target: TapTarget): void {
+  private tapIdle(target: TapTarget): void {
+    if (target.dropId !== undefined) {
+      this.applyResult(collectDrop(this.state, target.dropId))
+      return
+    }
     if (target.creatureId !== undefined) {
       this.select({ kind: 'creature', id: target.creatureId })
       return
@@ -370,6 +422,8 @@ export class GameController {
         }
       }
       if (placeable) overlay = this.overlayFor(placeable, movingId)
+    } else if (mode.type === 'clear') {
+      overlay = this.state.terrain.map((t) => (t === 'overgrown' ? 'good' : null))
     }
     return {
       preview,
