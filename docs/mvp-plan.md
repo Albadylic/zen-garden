@@ -2,7 +2,9 @@
 
 The MVP is the vertical slice from [`build-order.md`](build-order.md): one complete garden, Chapter 1 "The Forgotten Garden", playable from first planting through to the bamboo-grove unlock, with a return visit that shows progress.
 
-Tick items as they land. Placeholders and open decisions used along the way are tracked in [`open-items.md`](open-items.md).
+**Status: complete.** This checklist is kept as a record of the MVP. Later changes to Chapter 1 (the snag list) and the Bamboo Grove, which is now playable, are in [`phase-2-plan.md`](phase-2-plan.md).
+
+Placeholders and open decisions used along the way are tracked in [`open-items.md`](open-items.md).
 
 ## 1. Garden foundation
 

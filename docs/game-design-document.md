@@ -30,6 +30,16 @@ This document consolidates the design decisions established through Stages 1–1
 
 The aim is to provide a coherent, detailed concept that can be reviewed and refined without treating every illustrative idea as final.
 
+### How this document relates to the first content batch
+
+[`forgotten_garden_first_batch.md`](forgotten_garden_first_batch.md) turns this concept into a concrete first batch of twelve connected gardens on a 3 × 4 world map. Where the two differ, the first-batch document is the more recent plan:
+
+- Chapters are gardens. Chapter 1 is the Forgotten Garden and Chapter 2 the Bamboo Grove, as here; Chapter 3 is **Living Waters** (called "The Living Wetland" below) and Chapter 4 the Quiet Stone Garden. Gardens 5–12 follow the first-batch document.
+- The **Noble Garden** (Garden 12) is the first batch's landmark destination: a milestone, not an ending. It plays the role of the Grand Sanctuary milestone described below, while further batches of twelve can extend the sanctuary.
+- No predation is ever shown (see 7.5).
+
+Built so far: Chapters 1 and 2. Progress is tracked in [`build-order.md`](build-order.md).
+
 ## 2. World, setting, and artistic direction
 
 ### 2.1 The setting

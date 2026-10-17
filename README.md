@@ -1,15 +1,24 @@
 # Zen Garden
 
 An isometric garden-restoration game for the web, built with TypeScript, React,
-PixiJS and Vite. It will later be packaged for iPhone with Capacitor.
+PixiJS and Vite. It will later be packaged for iPhone with Capacitor. ("Zen
+Garden" is a working title; the first-batch design calls the game _Forgotten
+Garden_.)
+
+The player restores a neglected Japanese-inspired sanctuary one garden at a
+time: planting, gathering natural materials, building habitats and watching
+wildlife arrive. Two gardens are playable: Chapter 1, The Forgotten Garden, and
+Chapter 2, The Bamboo Grove. They are the first two of a planned first batch of
+twelve.
 
 ## Design docs
 
 - [Game design document](docs/game-design-document.md): vision, systems and design principles
-- [Build order](docs/build-order.md): the phased plan the project follows
-- [Phase 2 plan](docs/phase-2-plan.md): Chapter 1 snag list, then the Bamboo Grove
-- [MVP plan](docs/mvp-plan.md): checklist for the first playable level
-- [Open items](docs/open-items.md): owner actions, pending decisions and placeholders
+- [First content batch](docs/forgotten_garden_first_batch.md): the twelve connected gardens, their world map and what each one introduces
+- [Build order](docs/build-order.md): the phased plan the project follows, with progress so far
+- [Phase 2 plan](docs/phase-2-plan.md): Chapter 1 snag list, then the Bamboo Grove (complete)
+- [MVP plan](docs/mvp-plan.md): checklist for the first playable level (complete)
+- [Open items](docs/open-items.md): owner actions, decisions and every placeholder in use
 
 ## Getting started
 
@@ -20,17 +29,20 @@ npm install
 npm run dev
 ```
 
+Add `?debug` to the URL for playtesting tools in Settings (faster time, a
+simulated hour away), or `?seed=N` for a repeatable new garden.
+
 ## Scripts
 
-| Script             | What it does                                     |
-| ------------------ | ------------------------------------------------ |
-| `npm run dev`      | Start the Vite dev server                        |
-| `npm run build`    | Typecheck and build to `dist/`                   |
-| `npm run preview`  | Serve the production build locally               |
-| `npm run check`    | Lint, format check, typecheck and unit tests     |
-| `npm test`         | Run Vitest unit tests                            |
-| `npm run test:e2e` | Run Playwright tests (desktop + mobile viewport) |
-| `npm run format`   | Format all files with Prettier                   |
+| Script             | What it does                                                       |
+| ------------------ | ------------------------------------------------------------------ |
+| `npm run dev`      | Start the Vite dev server                                          |
+| `npm run build`    | Typecheck and build to `dist/`                                     |
+| `npm run preview`  | Serve the production build locally                                 |
+| `npm run check`    | Lint, format check, typecheck and unit tests                       |
+| `npm test`         | Run Vitest unit tests                                              |
+| `npm run test:e2e` | Run Playwright tests (desktop and mobile; iPhone Safari too in CI) |
+| `npm run format`   | Format all files with Prettier                                     |
 
 ## Architecture
 
@@ -38,16 +50,41 @@ Game state and simulation are independent of React, PixiJS and platform APIs.
 
 ```
 src/
-  core/         Simulation: state, time, plants, wildlife, resources, progression (pure TS)
-  content/      JSON content definitions (planned)
+  core/         Simulation (pure TS): state, clock, plants, wildlife, habitats,
+                resources, gardens, progression, journal, saves and migrations
+  content/      Content loader and zod schemas
+    data/       JSON content: plants, wildlife, items, structures, recipes,
+                chapters, restoration projects, and the world
+      gardens/  One map file per built garden
   render/       PixiJS garden rendering
+  app/          Game controller, bootstrap, autosave and preferences
   ui/           React interface
-  persistence/  Save storage behind an interface; IndexedDB first, Capacitor later (planned)
+  persistence/  Save storage behind an interface; IndexedDB first, Capacitor later
 ```
 
 `src/core` is guarded twice: it is type-checked without DOM types
 (`tsconfig.core.json`), and the linter rejects imports of React, PixiJS,
 Capacitor or other layers from it.
+
+### Gardens and the world
+
+`content/data/world.json` describes the sanctuary: all twelve gardens of the
+first batch, each with its number, name and slot on the world map, and the
+connections between them (the main route and the return gate from the Noble
+Garden to the Forgotten Garden). Gardens that have been built also have a world
+origin and a map file in `content/data/gardens/`. Gates are data too: a tile in
+one garden's wall and the opening beside it in the next.
+
+Positions in the game are world tiles. The Forgotten Garden sits at the origin,
+and gardens to its north have negative coordinates. Saved games keep each
+garden's terrain separately, so a garden added to the content later appears in
+existing saves without a migration.
+
+### Saves
+
+Saves are versioned (`src/core/save.ts`), with migrations in
+`src/core/migrations.ts` that bring older saves up to date one version at a
+time.
 
 ## Deployment
 

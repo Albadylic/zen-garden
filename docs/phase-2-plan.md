@@ -1,9 +1,12 @@
 # Phase 2 Plan — Chapter 1 Snags, then The Bamboo Grove
 
-Phase 2 has two parts, built in this order:
+**Status: complete.** Every item below has landed. The next phase is pond ecology (Chapter 3, Living Waters).
+
+Phase 2 had three parts, built in this order:
 
 - **Part A: the Chapter 1 snag list.** Fixes and improvements from the first playtest, so the vertical slice is enjoyable before the game widens.
-- **Part B: Chapter 2, The Bamboo Grove.** The first expansion. It covers the remainder of build-order phases 05, 07 and 09 (branching upgrades, contextual hints, restorable areas).
+- **Part B: Chapter 2, The Bamboo Grove.** The first expansion. It covers the remainder of build-order phases 05, 07 and 09 (branching upgrades, contextual hints, restorable gardens).
+- **Part C: the first-batch world.** Bringing the build in line with the twelve-garden world map in [`forgotten_garden_first_batch.md`](forgotten_garden_first_batch.md), added by the owner after Part B.
 
 Pond and food-web ecology (build-order phase 08, Chapter 3) follows after this phase. Building Chapter 2 first departs from [`build-order.md`](build-order.md); the owner approved this to follow the chapter order in the design document.
 
@@ -13,7 +16,8 @@ Tick items as they land. Placeholders and decisions go in [`open-items.md`](open
 
 - **No predation is ever shown.** Animals never kill, eat or remove one another, and no creature disappears because of another. Food relationships only decide which species are _attracted_, for example "frogs arrive where insects are plentiful". Every departure is an ordinary, peaceful visit ending.
 - **The bamboo grove is hidden until it opens.** It is not shown faded or greyed out beforehand.
-- **Chapter 2 content is approved as proposed:** bamboo, Japanese forest grass and hosta; a songbird and a wood mouse; three upgrade branches (insect hotel, log lodge, nesting bundle).
+- **Chapter 2 content is approved as proposed:** bamboo, Japanese forest grass and hosta; a songbird and a wood mouse; three upgrade branches (insect hotel, log lodge, nesting bundle). After the first-batch doc arrived, the owner chose to keep this content; ideas from that doc (dwarf bamboo, climbing vines, spiders, plant fibre) can join this or later gardens.
+- **The planted maple is the Forgotten Garden's signature feature.** It stays a sapling the player plants. The old pines and azaleas stay.
 
 ---
 
@@ -95,7 +99,7 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 
 ### B1. A larger garden with a hidden grove
 
-- [x] One continuous map: the Chapter 1 garden plus the grove beyond the gate, hidden (not drawn and not selectable) until the gate opens.
+- [x] The grove beyond the gate, hidden (not drawn and not selectable) until the gate opens. First built as one continuous map with the grove to the east; Part C gave each garden its own map and moved the grove north.
 - [x] Camera, placement and wildlife extend into the grove once it is revealed.
 - [x] First real save migration (version 1 → 2), so existing Chapter 1 gardens upgrade without loss. Covered by a migration test.
 
@@ -154,9 +158,22 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 - [x] Unit tests for every new system, and browser tests for choosing a restoration approach and completing a branch upgrade.
 - [x] `docs/open-items.md` updated with every new placeholder and decision.
 
+---
+
+## Part C — The first-batch world
+
+The owner added [`forgotten_garden_first_batch.md`](forgotten_garden_first_batch.md), which lays the sanctuary out as twelve gardens in a 3 × 4 grid. Its Garden 2 (the Bamboo Grove) lies north of Garden 1, and Garden 12 (the Noble Garden) lies east of it.
+
+- [x] Separate garden maps: each garden has its own map file, and `world.json` places the built ones in the world, lists all twelve gardens with their slots, and records the connections (the main route 1 → 12 and the 12 ↔ 1 return gate).
+- [x] Gates as data: a tile in one garden's wall and the opening beside it in the next. The loader checks that gardens do not overlap, that connected gardens are neighbours, and that gates meet their openings.
+- [x] The grove moves north of the Forgotten Garden, turned a quarter, through a gate back in the north wall. The Forgotten Garden keeps its coordinates.
+- [x] Save version 4: the old single map is split into gardens and the grove, with everything in it, moves to its new place. Gardens added to the content later join existing saves without a migration.
+- [x] Arrivals that depend on other animals: species can arrive `alongside` others. The wren now comes only to a garden already busy with insects. No hunting or eating is described anywhere, in the game or in the docs.
+
 ## Out of scope for this phase
 
 - Pond depth, aquatic plants and food webs (Chapter 3)
+- A world-map overview screen, and gardens 3–12
 - Population growth
 - Rare encounters
 - Weather and seasons
