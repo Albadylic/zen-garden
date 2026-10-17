@@ -141,6 +141,13 @@
         "kind": "plant",
         "id": "ancient-oak"
       }
+    },
+    "M": {
+      "terrain": "grass",
+      "fixed": {
+        "kind": "plant",
+        "id": "old-maple"
+      }
     }
   },
   "startingInventory": {
@@ -592,7 +599,38 @@
       "slot": {
         "col": 2,
         "row": 0
-      }
+      },
+      "origin": {
+        "x": 30,
+        "y": 0
+      },
+      "unlock": "chapter:reed-marsh",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "item": "leaf-litter",
+          "min": 1,
+          "max": 2,
+          "chance": 0.6
+        },
+        {
+          "item": "seed-heads",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        },
+        {
+          "item": "evergreen-sprigs",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        }
+      ]
     },
     {
       "id": "noble-garden",
@@ -601,7 +639,38 @@
       "slot": {
         "col": 1,
         "row": 0
-      }
+      },
+      "origin": {
+        "x": 16,
+        "y": 0
+      },
+      "unlock": "chapter:four-seasons-garden",
+      "clearing": [
+        {
+          "item": "fine-timber",
+          "min": 1,
+          "max": 1,
+          "chance": 0.5
+        },
+        {
+          "item": "ornamental-stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.5
+        },
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 1,
+          "chance": 0.8
+        },
+        {
+          "item": "stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        }
+      ]
     }
   ],
   "connections": [
@@ -733,15 +802,46 @@
     },
     {
       "gardens": ["reed-marsh", "four-seasons-garden"],
-      "kind": "main"
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 8,
+          "y": 10
+        },
+        "passage": {
+          "x": 8,
+          "y": 0
+        }
+      }
     },
     {
       "gardens": ["four-seasons-garden", "noble-garden"],
-      "kind": "main"
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 0,
+          "y": 8
+        },
+        "passage": {
+          "x": 13,
+          "y": 8
+        }
+      }
     },
     {
-      "gardens": ["noble-garden", "forgotten-garden"],
-      "kind": "return"
+      "gardens": ["forgotten-garden", "noble-garden"],
+      "kind": "return",
+      "gate": {
+        "at": {
+          "x": 15,
+          "y": 12
+        },
+        "passage": {
+          "x": 0,
+          "y": 12
+        },
+        "unlock": "chapter:noble-garden"
+      }
     }
   ]
 }

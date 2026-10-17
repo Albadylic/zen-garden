@@ -244,7 +244,7 @@ class Autoplayer {
     } else if (a.kind === 'perch') {
       const plants = this.plantsIn(garden).filter((p) => a.plants.includes(p.defId))
       if (a.plants.length && plants.length < a.minCount + 1) this.plantSome(garden, a.plants, 1)
-      if (a.things?.length && this.thingsIn(garden, a.things).length < a.minCount)
+      if (a.things?.length && this.thingsIn(garden, a.things, true).length < a.minCount)
         this.build(garden, a.things, a.minCount)
     } else if (a.kind === 'feeder') {
       const feeders = this.thingsIn(garden, [a.structure]) as StructureEntity[]
@@ -315,8 +315,11 @@ class Autoplayer {
     return this.plantsIn(garden).filter((p) => !kinds || kinds.includes(p.defId)).length
   }
 
-  private thingsIn(garden: GardenDef, ids: string[]): Entity[] {
-    return this.state.entities.filter((e) => ids.includes(e.defId) && isInGarden(garden, e.x, e.y))
+  /** Things standing in a garden; fixed features of the map count only when asked. */
+  private thingsIn(garden: GardenDef, ids: string[], withFixed = false): Entity[] {
+    return this.state.entities.filter(
+      (e) => (withFixed || !e.fixed) && ids.includes(e.defId) && isInGarden(garden, e.x, e.y),
+    )
   }
 
   /** Species the player could plant: those with a seed item. */

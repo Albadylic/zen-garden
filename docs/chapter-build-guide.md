@@ -178,27 +178,31 @@ A shallow marsh with reed beds and a boardwalk. **New idea: open water pockets a
 
 A path framed by deciduous trees, evergreens and grasses. **New idea: the seasons.**
 
-- [ ] Seasons switch on here (the cycle runs everywhere once this garden opens).
-- [ ] Plants: Japanese apricot (flowers late winter), beautyberry (autumn fruit), winter grass, snowdrop.
-- [ ] Wildlife: brimstone butterfly (spring), seven-spot ladybird (overwinters in an insect hotel), Eurasian bullfinch (winter seeds).
-- [ ] Materials: winter seeds, nuts.
-- [ ] Milestones include seeing the garden in several seasons, and the "A garden for every season" project.
+- [x] Seasons switch on here (the cycle runs everywhere once this garden opens).
+- [x] Plants: Japanese apricot (flowers in winter and spring), beautyberry (flowers in summer, fruits in autumn and winter), mondo grass (evergreen), snowdrop (flowers in winter); old maples drop red leaves in autumn. The garden takes the autoplayer about an hour and a half, much of it waiting for the seasons to turn.
+- [x] Wildlife: brimstone butterfly (spring), seven-spot ladybird (a shelter, in autumn and winter), Eurasian bullfinch (beautyberry and ume, in autumn and winter).
+- [x] Materials: beautyberries and evergreen sprigs. The garden gently changes colour with the seasons, and the return recap says when a new season has come.
+- [x] Milestones include seeing the garden in several seasons, and the "A garden for every season" project.
 
 ### Chapter 12 — Noble Garden
 
 A refined ornamental pond, a stone bridge and a pavilion. **New ideas: composition and a rare discovery.**
 
-- [ ] Map with an ornamental pond, a bridge site and a pavilion terrace.
-- [ ] Plants: lotus, weeping cherry, Japanese maple (mature specimens), moss.
-- [ ] Wildlife: golden dragonfly (rare; comes to a well-planted pond with other dragonflies present), koi-free still water insects, swallowtail and bees.
-- [ ] Materials: fine timber, ornamental stones.
-- [ ] Decorations: stone bridge (over water), pavilion, lanterns.
-- [ ] Milestones and the "Restore the Noble Garden" project. Completing it opens the **return gate** to the Forgotten Garden.
+- [x] Map with an ornamental pond, a bridge site and a pavilion terrace.
+- [x] Plants: lotus and weeping cherry, with old maples already standing. The autoplayer finishes the chapter in about half an hour.
+- [x] Wildlife: golden dragonfly, a rare optional discovery (flowering lotus with darters or demoiselles about; never required, never on a timer). The garden’s flowers draw the sanctuary’s butterflies and bees.
+- [x] Materials: fine timber and ornamental stones, from clearing, or made from fallen branches and bark, and from river stones.
+- [x] Decorations: stone bridge (over water), pavilion, stone lanterns.
+- [x] Milestones and the "Restore the Noble Garden" project. Completing it opens the **return gate** to the Forgotten Garden.
 
 ---
 
 ## 5. Done when
 
-- All twelve gardens are playable in order, each with its own map, content, milestones and project.
-- The autoplayer test completes Chapters 1–12 in sequence.
-- `npm run check` and `npm run test:e2e` pass; docs and open items are up to date.
+**Status: done.** All twelve gardens are built and playable in order.
+
+- [x] All twelve gardens are playable in order, each with its own map, content, milestones and project.
+- [x] The autoplayer test completes Chapters 1–12 in sequence (about nine hours of play in all; Chapter 11 waits on the seasons).
+- [x] `npm run check` and `npm run test:e2e` pass; docs and open items are up to date.
+
+Next: the owner's snag list in [`snag-list.md`](snag-list.md).

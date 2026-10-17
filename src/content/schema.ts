@@ -64,6 +64,10 @@ const productionSchema = z.object({
   everySec: z.number().positive(),
   amount: z.number().int().positive(),
   minStage: count,
+  seasons: z
+    .array(z.enum(['spring', 'summer', 'autumn', 'winter']))
+    .min(1)
+    .optional(),
 }) satisfies z.ZodType<ProductionDef>
 
 export const itemSchema = z.object({

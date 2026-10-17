@@ -32,6 +32,7 @@ import { harvest, plant, water } from '../core/plants'
 import { chooseApproach, completeStage } from '../core/projects'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
 import { catchUp, hasNews, type Recap } from '../core/offline'
+import { currentSeason } from '../core/seasons'
 import { advance } from '../core/simulation'
 import type { GameState } from '../core/state'
 import type { Point } from '../render/iso'
@@ -702,6 +703,7 @@ export class GameController {
       selection,
       reduceMotion: this.reduceMotion,
       focus: this.focus,
+      season: currentSeason(this.state),
       flyouts: this.flyouts.map(({ born, ...f }) => ({
         ...f,
         t: Math.min(1, (this.realTime - born) / FLYOUT_MS),

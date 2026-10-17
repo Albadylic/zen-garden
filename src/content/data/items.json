@@ -868,5 +868,153 @@
         "after": "into-the-marsh"
       }
     ]
+  },
+  {
+    "id": "apricot-sapling",
+    "name": "Japanese apricot sapling",
+    "category": "seed",
+    "description": "A young ume tree, its buds already fat.",
+    "colour": "#8a5a4a",
+    "facts": [
+      {
+        "text": "Ume blossom opens in late winter, before any other tree.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "beautyberry-cuttings",
+    "name": "Beautyberry cuttings",
+    "category": "seed",
+    "description": "Arching cuttings of Japanese beautyberry.",
+    "colour": "#8a5ab0",
+    "facts": [
+      {
+        "text": "Its violet berries cluster along the stems in autumn.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "mondo-divisions",
+    "name": "Mondo grass divisions",
+    "category": "seed",
+    "description": "A clump of dark evergreen mondo grass.",
+    "colour": "#2f4a2c",
+    "facts": [
+      {
+        "text": "Mondo grass stays green all winter.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "snowdrop-bulbs",
+    "name": "Snowdrop bulbs",
+    "category": "seed",
+    "description": "Small white bulbs that flower in the depths of winter.",
+    "colour": "#e8e4d8",
+    "facts": [
+      {
+        "text": "Snowdrops push up through frozen ground.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "beautyberries",
+    "name": "Beautyberries",
+    "category": "food",
+    "description": "Glossy violet berries, beloved of winter birds.",
+    "colour": "#9a5ac8",
+    "facts": [
+      {
+        "text": "Birds strip the stems bare by midwinter.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Beautyberry fruits in autumn.",
+        "after": "into-the-seasons"
+      }
+    ]
+  },
+  {
+    "id": "evergreen-sprigs",
+    "name": "Evergreen sprigs",
+    "category": "material",
+    "description": "Dark sprigs of mondo grass and other evergreens.",
+    "colour": "#3a5a32",
+    "facts": [
+      {
+        "text": "Evergreens give a garden its shape in winter.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "lotus-rhizomes",
+    "name": "Lotus rhizomes",
+    "category": "seed",
+    "description": "A long, jointed lotus root, ready for the pond mud.",
+    "colour": "#c8a890",
+    "facts": [
+      {
+        "text": "Lotus seeds can wait in the mud for centuries before sprouting.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "weeping-cherry-sapling",
+    "name": "Weeping cherry sapling",
+    "category": "seed",
+    "description": "A young weeping cherry, its slim branches already falling.",
+    "colour": "#8a5a4a",
+    "facts": [
+      {
+        "text": "Weeping cherries are among the most treasured trees in old gardens.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "fine-timber",
+    "name": "Fine timber",
+    "category": "material",
+    "description": "Seasoned, straight-grained timber from the garden’s old buildings.",
+    "colour": "#b48a5a",
+    "facts": [
+      {
+        "text": "Old garden pavilions were built without nails.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "The Noble Garden’s overgrowth hides old timber.",
+        "after": "into-the-noble-garden"
+      }
+    ]
+  },
+  {
+    "id": "ornamental-stones",
+    "name": "Ornamental stones",
+    "category": "material",
+    "description": "Shaped and dressed stones from the garden’s old paths and bridge.",
+    "colour": "#b8b4aa",
+    "facts": [
+      {
+        "text": "Stones were chosen for their shape and set with great care.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Dressed stones lie buried under the Noble Garden’s overgrowth.",
+        "after": "into-the-noble-garden"
+      }
+    ]
   }
 ]

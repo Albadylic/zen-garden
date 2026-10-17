@@ -1,5 +1,6 @@
 import { openGardens } from '../core/gardens'
 import { currentChapter } from '../core/progression'
+import { currentSeason } from '../core/seasons'
 import { useGame, useUi } from './hooks'
 import { SuggestionCard } from './SuggestionCard'
 
@@ -7,6 +8,7 @@ export function Hud() {
   const controller = useGame()
   const { canUndo, mode, panel, selection } = useUi()
   const lying = controller.state.drops.length
+  const season = currentSeason(controller.state)
   const idle = mode.type === 'idle'
   return (
     <header className="hud-top">
@@ -21,6 +23,11 @@ export function Hud() {
             {currentChapter(controller.state, controller.content).title}
           </button>
         </h1>
+        {season && (
+          <p className="hud-season" data-testid="season">
+            {season[0]!.toUpperCase() + season.slice(1)}
+          </p>
+        )}
         {idle && !panel && !selection && <SuggestionCard />}
       </div>
       <div className="hud-top__actions">

@@ -44,7 +44,17 @@ test('first session: plant, clear, gather, attract a butterfly and house the fir
   // Let the flowers bloom; materials from the old pines are gathered along the way.
   await play(page, 8 * MIN)
   await expect.poll(() => milestone(page, 'clearing-the-way')).toBe(true)
-  await expect.poll(() => milestone(page, 'first-visitor')).toBe(true)
+  // Butterflies come in their own time; let the garden play on until one does.
+  await expect
+    .poll(
+      async () => {
+        if (await milestone(page, 'first-visitor')) return true
+        await play(page, MIN)
+        return false
+      },
+      { timeout: 30_000 },
+    )
+    .toBe(true)
 
   // Tap a butterfly while it feeds (so it stays put) to inspect it.
   await expect

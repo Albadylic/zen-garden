@@ -278,5 +278,70 @@
       "id": "boardwalk"
     },
     "unlock": "recipe:boardwalk"
+  },
+  {
+    "id": "stone-bridge",
+    "name": "Stone bridge",
+    "inputs": {
+      "ornamental-stones": 3,
+      "stones": 2
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "stone-bridge"
+    },
+    "unlock": "recipe:noble-garden"
+  },
+  {
+    "id": "pavilion",
+    "name": "Pavilion",
+    "inputs": {
+      "fine-timber": 4,
+      "ornamental-stones": 2
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "pavilion"
+    },
+    "unlock": "recipe:noble-garden"
+  },
+  {
+    "id": "stone-lantern",
+    "name": "Stone lantern",
+    "inputs": {
+      "ornamental-stones": 2
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "stone-lantern"
+    },
+    "unlock": "recipe:noble-garden"
+  },
+  {
+    "id": "fine-timber",
+    "name": "Fine timber",
+    "inputs": {
+      "fallen-branches": 2,
+      "bark": 1
+    },
+    "output": {
+      "kind": "item",
+      "id": "fine-timber",
+      "amount": 1
+    },
+    "unlock": "recipe:noble-materials"
+  },
+  {
+    "id": "ornamental-stones",
+    "name": "Ornamental stones",
+    "inputs": {
+      "river-stones": 2
+    },
+    "output": {
+      "kind": "item",
+      "id": "ornamental-stones",
+      "amount": 1
+    },
+    "unlock": "recipe:noble-materials"
   }
 ]

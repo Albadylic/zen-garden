@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { setup } from '../test/fixtures'
-import { gardenAt, isTileOpen, visitGarden } from './gardens'
+import { gardenAt, isGateOpen, isTileOpen, visitGarden } from './gardens'
 import { checkPlacement } from './layout'
 import { clearOvergrowth } from './resources'
 
@@ -27,6 +27,17 @@ describe('gardens', () => {
     expect(checkPlacement(state, content, stone, 2, -6)).toEqual({ ok: true })
     expect(clearOvergrowth(state, content, 2, -3).ok).toBe(true)
     expect(state.stats.clearedIn['bamboo-grove']).toBe(1)
+  })
+
+  it('opens the return gate only once the Noble Garden is restored', () => {
+    const { content, state } = setup()
+    const gate = content.world.gates.find(
+      (g) => g.to === 'noble-garden' && g.from === 'forgotten-garden',
+    )!
+    state.unlocks.push('chapter:four-seasons-garden')
+    expect(isGateOpen(state, content, gate)).toBe(false)
+    state.unlocks.push('chapter:noble-garden')
+    expect(isGateOpen(state, content, gate)).toBe(true)
   })
 
   it('records a first look around an open garden once', () => {

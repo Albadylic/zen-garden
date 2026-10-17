@@ -2584,5 +2584,418 @@
         "after": 3
       }
     ]
+  },
+  {
+    "id": "old-maple",
+    "name": "Old Japanese maple",
+    "description": "A broad old maple whose leaves turn scarlet in autumn.",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Old tree"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "maple-leaves",
+        "everySec": 300,
+        "amount": 1,
+        "minStage": 0,
+        "seasons": ["autumn"]
+      },
+      {
+        "item": "leaf-litter",
+        "everySec": 400,
+        "amount": 1,
+        "minStage": 0
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.5,
+    "shade": {
+      "radius": 2,
+      "strength": 0.45,
+      "minStage": 0
+    },
+    "look": {
+      "form": "tree",
+      "colour": "#a8502e",
+      "accent": "#e0803a"
+    },
+    "facts": [
+      {
+        "text": "It drops its leaves in autumn, a carpet of red underfoot.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "japanese-apricot",
+    "name": "Japanese apricot",
+    "description": "Ume: a small tree that blossoms pink and white in late winter.",
+    "seedItem": "apricot-sapling",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Sapling",
+        "durationSec": 600
+      },
+      {
+        "name": "Young tree",
+        "durationSec": 1500
+      },
+      {
+        "name": "Ume tree"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.45
+      },
+      "moisture": {
+        "min": 0.3,
+        "max": 0.7
+      }
+    },
+    "produces": [
+      {
+        "item": "apricot-sapling",
+        "everySec": 3600,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1.2,
+    "flowerStage": 2,
+    "cover": 0.5,
+    "flowerSeasons": ["winter", "spring"],
+    "look": {
+      "form": "tree",
+      "colour": "#6f7a4a",
+      "accent": "#f8d4e0",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "It flowers in late winter and early spring, feeding the first insects.",
+        "after": 1
+      },
+      {
+        "text": "Bush warblers and ume blossom go together in Japanese poems.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "beautyberry",
+    "name": "Japanese beautyberry",
+    "description": "An arching shrub that bears clusters of violet berries in autumn.",
+    "seedItem": "beautyberry-cuttings",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Cutting",
+        "durationSec": 300
+      },
+      {
+        "name": "Young shrub",
+        "durationSec": 1200
+      },
+      {
+        "name": "Fruiting shrub"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.6
+      },
+      "moisture": {
+        "min": 0.3,
+        "max": 0.75
+      }
+    },
+    "produces": [
+      {
+        "item": "beautyberries",
+        "everySec": 300,
+        "amount": 1,
+        "minStage": 2,
+        "seasons": ["autumn", "winter"]
+      },
+      {
+        "item": "beautyberry-cuttings",
+        "everySec": 2400,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.5,
+    "flowerStage": 2,
+    "cover": 0.6,
+    "flowerSeasons": ["summer"],
+    "look": {
+      "form": "shrub",
+      "colour": "#5a7a3a",
+      "accent": "#9a5ac8"
+    },
+    "facts": [
+      {
+        "text": "It flowers in summer and fruits in autumn.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "mondo-grass",
+    "name": "Mondo grass",
+    "description": "Low tufts of dark green that stay fresh all year.",
+    "seedItem": "mondo-divisions",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Division",
+        "durationSec": 240
+      },
+      {
+        "name": "Tufts",
+        "durationSec": 720
+      },
+      {
+        "name": "Evergreen carpet"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.8
+      },
+      "moisture": {
+        "min": 0.25,
+        "max": 0.8
+      }
+    },
+    "produces": [
+      {
+        "item": "evergreen-sprigs",
+        "everySec": 480,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "mondo-divisions",
+        "everySec": 1500,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.4,
+    "look": {
+      "form": "tuft",
+      "colour": "#2f4a2c",
+      "accent": "#4f6a44",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Evergreen ground cover gives small creatures shelter in winter.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "snowdrop",
+    "name": "Snowdrop",
+    "description": "Nodding white flowers in the coldest months.",
+    "seedItem": "snowdrop-bulbs",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Bulb",
+        "durationSec": 240
+      },
+      {
+        "name": "Shoots",
+        "durationSec": 600
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.1,
+        "max": 0.8
+      },
+      "moisture": {
+        "min": 0.35,
+        "max": 0.85
+      }
+    },
+    "produces": [
+      {
+        "item": "snowdrop-bulbs",
+        "everySec": 1500,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.8,
+    "flowerStage": 2,
+    "cover": 0.1,
+    "flowerSeasons": ["winter"],
+    "look": {
+      "form": "flower",
+      "colour": "#5f8a5a",
+      "accent": "#fbfbf6",
+      "size": 0.7
+    },
+    "facts": [
+      {
+        "text": "It flowers in winter, when a warm day brings out the first bees.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "lotus",
+    "name": "Lotus",
+    "description": "Great round leaves held above the water, and pink flowers that rise from the mud.",
+    "seedItem": "lotus-rhizomes",
+    "terrain": ["water", "deep-water"],
+    "stages": [
+      {
+        "name": "Rhizome",
+        "durationSec": 420
+      },
+      {
+        "name": "Rising leaves",
+        "durationSec": 1200
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.35
+      },
+      "moisture": {
+        "min": 0.8,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "lotus-rhizomes",
+        "everySec": 1800,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1,
+    "flowerStage": 2,
+    "cover": 0.5,
+    "look": {
+      "form": "floating",
+      "colour": "#5f8f5a",
+      "accent": "#f0a0b8",
+      "size": 1.4
+    },
+    "facts": [
+      {
+        "text": "Dragonflies rest on its tall flower buds.",
+        "after": 1
+      },
+      {
+        "text": "The lotus rises clean from muddy water: a symbol of purity.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Something grand could grow in the ornamental pond.",
+        "after": "into-the-noble-garden"
+      }
+    ]
+  },
+  {
+    "id": "weeping-cherry",
+    "name": "Weeping cherry",
+    "description": "A cherry whose branches fall like a waterfall of blossom.",
+    "seedItem": "weeping-cherry-sapling",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Sapling",
+        "durationSec": 600
+      },
+      {
+        "name": "Young tree",
+        "durationSec": 1500
+      },
+      {
+        "name": "Weeping cherry"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.4
+      },
+      "moisture": {
+        "min": 0.3,
+        "max": 0.7
+      }
+    },
+    "produces": [
+      {
+        "item": "blossom-petals",
+        "everySec": 600,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "weeping-cherry-sapling",
+        "everySec": 3600,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1.2,
+    "flowerStage": 2,
+    "cover": 0.5,
+    "shade": {
+      "radius": 1.5,
+      "strength": 0.35,
+      "minStage": 2
+    },
+    "look": {
+      "form": "tree",
+      "colour": "#7a8a4a",
+      "accent": "#f8c8d8",
+      "size": 1.1
+    },
+    "facts": [
+      {
+        "text": "Its falling branches make a room of blossom beneath.",
+        "after": 1
+      }
+    ]
   }
 ]

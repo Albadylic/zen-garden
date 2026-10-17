@@ -38,7 +38,7 @@ The aim is to provide a coherent, detailed concept that can be reviewed and refi
 - The **Noble Garden** (Garden 12) is the first batch's landmark destination: a milestone, not an ending. It plays the role of the Grand Sanctuary milestone described below, while further batches of twelve can extend the sanctuary.
 - No predation is ever shown (see 7.5).
 
-Built so far: Chapters 1 and 2. Progress is tracked in [`build-order.md`](build-order.md).
+Built so far: all twelve chapters of the first batch, with seasons, rare visitors and the return gate. Progress is tracked in [`build-order.md`](build-order.md).
 
 ## 2. World, setting, and artistic direction
 

@@ -6,22 +6,22 @@ The content for the first batch of twelve gardens is outlined in [`forgotten_gar
 
 ## Progress
 
-| Phase                              | Status      | Where it stands                                                                                               |
-| ---------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
-| 01. Garden foundation              | Done        | Isometric grid, terrain, placement, camera; the Forgotten Garden                                              |
-| 02. Planting and growth            | Done        | Growth stages, suitability, flowering, moss and bamboo spreading                                              |
-| 03. Resources and inventory        | Done        | Physical items, batch gathering, recipes, crafted items                                                       |
-| 04. Wildlife                       | Done        | Nectar, shelter, perch and feeder attraction; arrivals that depend on other species                           |
-| 05. Habitats and upgrades          | Done        | Natural shelter with two tiers, then three branches (Chapter 2)                                               |
-| 06. Core progression and tutorial  | Done        | Chapter 1 milestones, suggestions, the gate to the grove                                                      |
-| 07. Journal and discovery          | Done        | Journal with facts, hints and a "new" badge; no pop-ups                                                       |
-| 08. Pond and food-web ecology      | Next        | Chapter 3, Living Waters                                                                                      |
-| 09. Land restoration and expansion | In progress | Separate garden maps joined by gates; the Bamboo Grove with a restoration project. Ten gardens still to build |
-| 10. Offline development            | Done        | Bounded catch-up, return recap, slow-grower reminders                                                         |
-| 11. Advanced progression           | Not started | Rare encounters (golden dragonfly), return gate, seasons                                                      |
-| 12. Atmosphere and polish          | Not started | Placeholder art and no audio so far                                                                           |
+| Phase                              | Status      | Where it stands                                                                                                |
+| ---------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------- |
+| 01. Garden foundation              | Done        | Isometric grid, terrain, placement, camera; the Forgotten Garden                                               |
+| 02. Planting and growth            | Done        | Growth stages, suitability, flowering, moss and bamboo spreading                                               |
+| 03. Resources and inventory        | Done        | Physical items, batch gathering, recipes, crafted items                                                        |
+| 04. Wildlife                       | Done        | Nectar, shelter, perch and feeder attraction; arrivals that depend on other species; rare visitors             |
+| 05. Habitats and upgrades          | Done        | Natural shelter with tiers and branches, and a habitat or structure in every garden                            |
+| 06. Core progression and tutorial  | Done        | Chapter 1 milestones, suggestions, the gate to the grove                                                       |
+| 07. Journal and discovery          | Done        | Journal with facts, hints and a "new" badge; no pop-ups                                                        |
+| 08. Pond and food-web ecology      | Done        | Water depth (Living Waters), streams, marshes; food relationships as arrival rules only                        |
+| 09. Land restoration and expansion | Done        | All twelve gardens of the first batch, each with its own map, content and restoration project, joined by gates |
+| 10. Offline development            | Done        | Bounded catch-up, return recap, slow-grower reminders                                                          |
+| 11. Advanced progression           | Mostly done | Seasons, the golden dragonfly, the return gate. Optional side gates and a world-map overview are still to come |
+| 12. Atmosphere and polish          | Not started | Placeholder art and no audio so far                                                                            |
 
-Chapter 2 was built before pond ecology, with the owner's approval, to follow the chapter order of the first batch. The current phase plan is [`phase-2-plan.md`](phase-2-plan.md).
+Chapter 2 was built before pond ecology, with the owner's approval, to follow the chapter order of the first batch. Gardens 3–12 were built from [`chapter-build-guide.md`](chapter-build-guide.md). Next: the owner's [`snag-list.md`](snag-list.md), then polish (phase 12).
 
 ## 01. Garden foundation (first)
 

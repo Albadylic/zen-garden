@@ -29,6 +29,8 @@ export interface Recap {
   unreadNotes: number
   milestones: string[]
   shelterResidents: number
+  /** Seasons that began while away, in order. */
+  seasons: string[]
   /** Slow-growing plants still on their way, as a gentle reminder (not news by itself). */
   growing: { name: string; stage: string; remainingMs: number }[]
 }
@@ -43,7 +45,9 @@ export function hasNews(r: Recap): boolean {
       r.newEntries +
       r.factsLearned +
       r.shelterResidents >
-      0 || r.milestones.length > 0
+      0 ||
+    r.milestones.length > 0 ||
+    r.seasons.length > 0
   )
 }
 
@@ -73,6 +77,7 @@ export function summarise(
     milestones: [],
     shelterResidents: 0,
     growing: [],
+    seasons: [],
   }
   for (const e of events) {
     switch (e.type) {
@@ -103,6 +108,9 @@ export function summarise(
         break
       case 'milestone':
         recap.milestones.push(e.title)
+        break
+      case 'seasonBegan':
+        recap.seasons.push(e.season)
         break
     }
   }

@@ -66,6 +66,8 @@ export interface ProductionDef {
   amount: number
   /** First growth stage (index) at which production starts. */
   minStage: number
+  /** Seasons in which it produces once the seasons have begun; every season if absent. */
+  seasons?: Season[]
 }
 
 export interface GrowthStageDef {

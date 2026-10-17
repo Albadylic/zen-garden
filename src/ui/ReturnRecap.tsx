@@ -10,6 +10,8 @@ function lines(recap: Recap): string[] {
       `Your plants grew${recap.stagesGrown > 1 ? ` (${recap.stagesGrown} new growth stages)` : ''}.`,
     )
   }
+  const season = recap.seasons.at(-1)
+  if (season) out.push(`${season[0]!.toUpperCase()}${season.slice(1)} has come to the sanctuary.`)
   for (const g of recap.growing) {
     out.push(
       `Your ${g.name} is a ${g.stage.toLowerCase()} now, fully grown in ${formatDuration(g.remainingMs)}.`,

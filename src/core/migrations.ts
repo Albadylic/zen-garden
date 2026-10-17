@@ -80,8 +80,10 @@ export function legacyMap(content: Content): LegacyMap {
   terrain[NORTH_GATE.y * LEGACY_WIDTH + NORTH_GATE.x] = 'boundary'
   terrain[EAST_GATE.y * LEGACY_WIDTH + EAST_GATE.x] = 'path'
   // Only the two gardens of the old single map, and none of the gardens built since.
+  // (The return gate from the Noble Garden stands where the old east gate was; it came later.)
   const fixed = content.world.fixed
     .filter((f) => isInGarden(garden, f.x, f.y) || isInGarden(grove, f.x, f.y))
+    .filter((f) => f.x !== EAST_GATE.x || f.y !== EAST_GATE.y)
     .map((f) => {
       if (f.x === NORTH_GATE.x && f.y === NORTH_GATE.y) return { ...f, ...EAST_GATE }
       if (isInGarden(garden, f.x, f.y)) return f

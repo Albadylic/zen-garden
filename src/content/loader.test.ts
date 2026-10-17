@@ -29,8 +29,8 @@ describe('content', () => {
     const main = world.connections.filter((c) => c.kind === 'main')
     expect(main).toHaveLength(11)
     expect(world.connections.find((c) => c.kind === 'return')?.gardens).toEqual([
-      'noble-garden',
       'forgotten-garden',
+      'noble-garden',
     ])
   })
 
@@ -44,9 +44,31 @@ describe('content', () => {
     })
   })
 
+  it('has a return gate from the Noble Garden to the Forgotten Garden', () => {
+    const gate = getContent().world.gates.find(
+      (g) => g.to === 'noble-garden' && g.from === 'forgotten-garden',
+    )
+    expect(gate).toEqual({
+      from: 'forgotten-garden',
+      to: 'noble-garden',
+      at: { x: 15, y: 12 },
+      passage: { x: 16, y: 12 },
+      unlock: 'chapter:noble-garden',
+    })
+  })
+
+  it('builds all twelve gardens of the first batch, side by side', () => {
+    const { world } = getContent()
+    expect(world.layout.every((g) => g.built)).toBe(true)
+    expect(world.gates).toHaveLength(12)
+  })
+
   it('places fixed objects from the legend in world tiles', () => {
     const { world } = getContent()
-    expect(world.fixed.filter((f) => f.id === 'old-pine')).toHaveLength(3)
+    const first = garden('forgotten-garden')
+    const inFirst = (f: { x: number; y: number }) =>
+      f.x >= 0 && f.y >= 0 && f.x < first.bounds.w && f.y < first.bounds.h
+    expect(world.fixed.filter((f) => f.id === 'old-pine' && inFirst(f))).toHaveLength(3)
     expect(world.fixed.filter((f) => f.id === 'old-azalea')).toHaveLength(4)
     expect(world.fixed.find((f) => f.id === 'grove-gate')).toMatchObject({ x: 10, y: 0 })
     expect(world.fixed.filter((f) => f.id === 'bamboo').every((f) => f.y < 0)).toBe(true)

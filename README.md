@@ -7,9 +7,9 @@ Garden_.)
 
 The player restores a neglected Japanese-inspired sanctuary one garden at a
 time: planting, gathering natural materials, building habitats and watching
-wildlife arrive. Two gardens are playable: Chapter 1, The Forgotten Garden, and
-Chapter 2, The Bamboo Grove. They are the first two of a planned first batch of
-twelve.
+wildlife arrive. All twelve gardens of the first batch are playable, from
+Chapter 1, The Forgotten Garden, to Chapter 12, the Noble Garden, whose
+restoration opens a return gate to where it all began.
 
 ## Design docs
 
@@ -17,6 +17,8 @@ twelve.
 - [First content batch](docs/forgotten_garden_first_batch.md): the twelve connected gardens, their world map and what each one introduces
 - [Build order](docs/build-order.md): the phased plan the project follows, with progress so far
 - [Phase 2 plan](docs/phase-2-plan.md): Chapter 1 snag list, then the Bamboo Grove (complete)
+- [Chapter build guide](docs/chapter-build-guide.md): how gardens 3–12 were built, and the shared scaffolding (complete)
+- [Snag list](docs/snag-list.md): the owner's latest playtest notes, next in line
 - [MVP plan](docs/mvp-plan.md): checklist for the first playable level (complete)
 - [Open items](docs/open-items.md): owner actions, decisions and every placeholder in use
 
@@ -71,14 +73,26 @@ Capacitor or other layers from it.
 `content/data/world.json` describes the sanctuary: all twelve gardens of the
 first batch, each with its number, name and slot on the world map, and the
 connections between them (the main route and the return gate from the Noble
-Garden to the Forgotten Garden). Gardens that have been built also have a world
-origin and a map file in `content/data/gardens/`. Gates are data too: a tile in
+Garden to the Forgotten Garden). Each garden has a world origin and a map file in
+`content/data/gardens/`. Gates are data too: a tile in
 one garden's wall and the opening beside it in the next.
 
 Positions in the game are world tiles. The Forgotten Garden sits at the origin,
 and gardens to its north have negative coordinates. Saved games keep each
 garden's terrain separately, so a garden added to the content later appears in
 existing saves without a migration.
+
+### Placeholder art
+
+Most of the newer species are drawn from a `look` in their data (a form such as
+`shrub`, `reed` or `dragonfly`, plus colours), by `src/render/looks.ts`. Final
+art can replace any of them through the same texture keys.
+
+### Proving the chapters
+
+`src/test/autoplay.ts` is a patient automatic player used in tests. The
+campaign test plays every chapter in order from a fresh garden, so a content
+change that makes a chapter impossible to finish fails the build.
 
 ### Saves
 

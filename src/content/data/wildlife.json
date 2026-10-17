@@ -1357,5 +1357,167 @@
         "after": "marsh-planting"
       }
     ]
+  },
+  {
+    "id": "brimstone",
+    "name": "Brimstone butterfly",
+    "description": "A sulphur-yellow butterfly, one of the first out in spring.",
+    "movement": "flying",
+    "speed": 1.6,
+    "attraction": {
+      "kind": "nectar",
+      "minNectar": 1,
+      "perMinute": 0.5
+    },
+    "seasons": ["spring"],
+    "maxPresent": 3,
+    "staySec": [60, 180],
+    "colour": "#f0d850",
+    "look": {
+      "form": "butterfly",
+      "colour": "#f0d850",
+      "accent": "#8a7a3a",
+      "size": 1.1
+    },
+    "facts": [
+      {
+        "text": "Visits in spring, as soon as early flowers open.",
+        "after": 1
+      },
+      {
+        "text": "It spends the winter tucked in evergreen leaves.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Some butterflies come only in spring.",
+        "after": "into-the-seasons"
+      }
+    ]
+  },
+  {
+    "id": "seven-spot-ladybird",
+    "name": "Seven-spot ladybird",
+    "description": "A bright red beetle with seven black spots.",
+    "movement": "flying",
+    "speed": 1.2,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "natural-shelter",
+      "minTier": 0,
+      "minSuitability": 0.35,
+      "perMinute": 0.5
+    },
+    "seasons": ["autumn", "winter"],
+    "maxPresent": 4,
+    "staySec": [600, 1500],
+    "colour": "#d83a2a",
+    "look": {
+      "form": "beetle",
+      "colour": "#d83a2a",
+      "accent": "#1a1a18",
+      "size": 0.7
+    },
+    "facts": [
+      {
+        "text": "In autumn and winter it gathers in sheltered places to see out the cold.",
+        "after": 1
+      },
+      {
+        "text": "Ladybirds cluster together through the winter.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A shelter in this garden might hold winter guests when the cold comes.",
+        "after": "turning-seasons"
+      }
+    ]
+  },
+  {
+    "id": "bullfinch",
+    "name": "Eurasian bullfinch",
+    "description": "A plump finch with a rosy breast and a soft, piping call.",
+    "movement": "flying",
+    "speed": 2,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["beautyberry", "japanese-apricot"],
+      "minCount": 2,
+      "perMinute": 0.5
+    },
+    "seasons": ["autumn", "winter"],
+    "maxPresent": 2,
+    "staySec": [90, 240],
+    "colour": "#d87a6a",
+    "look": {
+      "form": "bird",
+      "colour": "#d87a6a",
+      "accent": "#2a2a2a"
+    },
+    "facts": [
+      {
+        "text": "Comes in autumn and winter for berries and buds.",
+        "after": 1
+      },
+      {
+        "text": "Pairs of bullfinches stay together all year.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Berries and buds through the cold months might bring a winter bird.",
+        "after": "turning-seasons"
+      }
+    ]
+  },
+  {
+    "id": "golden-dragonfly",
+    "name": "Golden dragonfly",
+    "description": "A dragonfly that shines like gold leaf over still water. Few have ever seen one.",
+    "movement": "flying",
+    "speed": 2.8,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["lotus"],
+      "minCount": 3,
+      "perMinute": 0.12
+    },
+    "alongside": {
+      "wildlife": ["common-darter", "banded-demoiselle"],
+      "count": 2
+    },
+    "maxPresent": 1,
+    "staySec": [120, 300],
+    "colour": "#e0b030",
+    "look": {
+      "form": "dragonfly",
+      "colour": "#e0b030",
+      "accent": "#8a5a10",
+      "size": 1.2
+    },
+    "facts": [
+      {
+        "text": "A rare visitor to a well-planted pond already full of dragonflies.",
+        "after": 1
+      },
+      {
+        "text": "It never comes on a schedule; a suitable pond is all it asks.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "A rare dragonfly is said to visit the Noble Garden’s pond when it is at its best.",
+        "after": "into-the-noble-garden"
+      },
+      {
+        "text": "Flowering lotus and dragonflies already on the pond make it more likely.",
+        "after": "lotus-and-blossom"
+      }
+    ]
   }
 ]

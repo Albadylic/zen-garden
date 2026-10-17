@@ -43,6 +43,8 @@ export interface RenderView {
   reduceMotion: boolean
   /** Small item icons shown briefly where something was gathered. */
   flyouts: Flyout[]
+  /** The season, once the seasons have begun; tints the garden gently. */
+  season: string | null
   /** A request to turn the camera to a tile; `seq` changes with each new request. */
   focus: { x: number; y: number; seq: number } | null
 }
@@ -92,6 +94,14 @@ const CREATURE_SCALE = 1.5
 const DROP_HIT_PX = 24
 /** How much closer a drop must be than a creature to be picked instead. */
 const CREATURE_PRIORITY_PX = 14
+/** A gentle wash over the whole garden for each season. */
+const SEASON_TINTS: Record<string, number> = {
+  spring: 0xffffff,
+  summer: 0xfffbe8,
+  autumn: 0xffeedd,
+  winter: 0xe8eef6,
+}
+
 /** How far an item icon rises as it fades, in world pixels. */
 const FLYOUT_RISE = 30
 
@@ -317,6 +327,7 @@ export class GardenRenderer {
     const state = this.host.getState()
     const view = this.host.getView()
     this.syncAreas(state)
+    this.world.tint = SEASON_TINTS[view.season ?? ''] ?? 0xffffff
     if (view.focus && view.focus.seq !== this.focusSeq) {
       this.focusSeq = view.focus.seq
       this.centreOn(view.focus.x, view.focus.y)

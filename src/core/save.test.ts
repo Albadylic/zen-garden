@@ -146,7 +146,9 @@ describe('migration from version 1', () => {
     const gate = state.entities.find((e) => e.defId === 'grove-gate')!
     expect([gate.x, gate.y]).toEqual([10, 0])
     expect(terrainAt(state, 10, 0)).toBe('path')
-    expect(terrainAt(state, 15, 12)).toBe('boundary')
+    // The old east gate's place now holds the return gate from the Noble Garden.
+    const gates = state.entities.filter((e) => e.defId === 'grove-gate' && e.x === 15 && e.y === 12)
+    expect(gates).toHaveLength(1)
   })
 
   it('adds the grove features with fresh ids', () => {

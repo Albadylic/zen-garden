@@ -1371,5 +1371,258 @@
         "unlocks": []
       }
     ]
+  },
+  {
+    "id": "four-seasons-garden",
+    "title": "Four Seasons Garden",
+    "requires": "chapter:reed-marsh",
+    "completionUnlock": "chapter:four-seasons-garden",
+    "gift": {
+      "apricot-sapling": 2,
+      "beautyberry-cuttings": 2,
+      "mondo-divisions": 3,
+      "snowdrop-bulbs": 3
+    },
+    "completion": {
+      "title": "A garden for every season",
+      "body": [
+        "Ume blossom in late winter, fruit in autumn, evergreens through the cold: the garden is lovely in every season.",
+        "West of the garden, through an ornamental gateway, lies the Noble Garden."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-seasons",
+        "title": "The turning year",
+        "description": "You stepped into the Four Seasons Garden, and the seasons began to turn.",
+        "hint": "Go through the marsh’s south gate and take a look around.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "four-seasons-garden"
+          }
+        ],
+        "unlocks": ["seasons"]
+      },
+      {
+        "id": "a-plan-for-the-seasons",
+        "title": "A plan for the year",
+        "description": "You chose how to begin the garden for every season.",
+        "hint": "Open Restore and choose how to begin the garden for every season.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "garden-for-every-season"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "seasonal-planting",
+        "title": "Seasonal planting",
+        "description": "Plants for different seasons are growing here.",
+        "hint": "Plant ume, beautyberry, mondo grass or snowdrops: three in all.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "four-seasons-garden",
+            "plants": ["japanese-apricot", "beautyberry", "mondo-grass", "snowdrop"],
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "many-seasons",
+        "title": "Something for every season",
+        "description": "Four different species grow in the garden.",
+        "hint": "Grow four different species, so something is at its best in every season.",
+        "conditions": [
+          {
+            "kind": "speciesIn",
+            "garden": "four-seasons-garden",
+            "count": 4
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "turning-seasons",
+        "title": "The seasons turn",
+        "description": "You have seen the sanctuary in two seasons.",
+        "hint": "Each season lasts about an hour, and the year turns while you are away too.",
+        "conditions": [
+          {
+            "kind": "seasonsSeen",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-seasonal-visitor",
+        "title": "A seasonal visitor",
+        "description": "A visitor came that only appears at its time of year.",
+        "hint": "Brimstones come in spring; bullfinches and ladybirds come in autumn and winter.",
+        "conditions": [
+          {
+            "kind": "seenAny",
+            "wildlife": ["brimstone", "bullfinch", "seven-spot-ladybird"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-seasons-restored",
+        "title": "A garden for every season",
+        "description": "You completed one approach to the garden for every season.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "garden-for-every-season",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ]
+  },
+  {
+    "id": "noble-garden",
+    "title": "Noble Garden",
+    "requires": "chapter:four-seasons-garden",
+    "completionUnlock": "chapter:noble-garden",
+    "gift": {
+      "lotus-rhizomes": 3,
+      "weeping-cherry-sapling": 2,
+      "reed-rhizomes": 2,
+      "iris-seeds": 2
+    },
+    "completion": {
+      "title": "The Noble Garden",
+      "body": [
+        "Lotus flowers above clear water, the bridge spans the pond again, and blossom frames the pavilion. The finest garden of the sanctuary is restored.",
+        "In the west wall, the old gate swings open onto the Forgotten Garden where it all began. The sanctuary is whole, and it will keep growing."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-noble-garden",
+        "title": "The Noble Garden",
+        "description": "You stepped into the Noble Garden.",
+        "hint": "Go through the Four Seasons Garden’s west gate and take a look around.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "noble-garden"
+          }
+        ],
+        "unlocks": ["recipe:noble-materials"]
+      },
+      {
+        "id": "a-plan-for-the-noble-garden",
+        "title": "A noble plan",
+        "description": "You chose how to begin restoring the Noble Garden.",
+        "hint": "Open Restore and choose how to begin restoring the Noble Garden.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "restore-noble-garden"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "lotus-and-blossom",
+        "title": "Lotus and blossom",
+        "description": "Lotus and weeping cherries are growing in the Noble Garden.",
+        "hint": "Plant lotus in the pond and weeping cherries beside it: three in all.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "noble-garden",
+            "plants": ["lotus", "weeping-cherry"],
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering-timber",
+        "title": "Timber and stone",
+        "description": "You gathered fine timber. You can now build the bridge, pavilion and lanterns.",
+        "hint": "Clear the Noble Garden’s overgrowth for old timber, or make it from fallen branches and bark.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "fine-timber",
+            "count": 4
+          }
+        ],
+        "unlocks": ["recipe:noble-garden"]
+      },
+      {
+        "id": "a-bridge",
+        "title": "A bridge",
+        "description": "A stone bridge spans the water again.",
+        "hint": "Build a stone bridge over the water.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "noble-garden",
+            "ids": ["stone-bridge"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-composed-garden",
+        "title": "A composed garden",
+        "description": "A pavilion, lanterns or benches complete the view.",
+        "hint": "Build a pavilion, lanterns or stone benches: two in all.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "noble-garden",
+            "ids": ["pavilion", "stone-lantern", "petal-lantern", "stone-bench"],
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-noble-garden-restored",
+        "title": "The Noble Garden restored",
+        "description": "You completed one approach to restoring the Noble Garden.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "restore-noble-garden",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ],
+    "optional": [
+      {
+        "id": "a-golden-visitor",
+        "title": "A golden visitor",
+        "description": "The golden dragonfly came to the Noble Garden’s pond.",
+        "hint": "A rare dragonfly visits when lotus flowers on the pond and other dragonflies are about.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "golden-dragonfly",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      }
+    ]
   }
 ]

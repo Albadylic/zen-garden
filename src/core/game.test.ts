@@ -8,7 +8,7 @@ describe('createGame', () => {
     expect(Object.keys(state.gardens)).toEqual(content.world.gardens.map((g) => g.id))
     expect(terrainAt(state, 0, 0)).toBe('boundary')
     expect(terrainAt(state, 10, -1)).toBe('path')
-    expect(terrainAt(state, 20, 5)).toBeUndefined()
+    expect(terrainAt(state, 100, 100)).toBeUndefined()
     expect(state.inventory['wildflower-seeds']).toBe(
       content.world.startingInventory['wildflower-seeds'],
     )

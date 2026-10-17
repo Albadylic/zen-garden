@@ -18,6 +18,8 @@ import whisperingStream from './data/gardens/whispering-stream.json'
 import blossomCourt from './data/gardens/blossom-court.json'
 import ancientCanopy from './data/gardens/ancient-canopy.json'
 import reedMarsh from './data/gardens/reed-marsh.json'
+import fourSeasonsGarden from './data/gardens/four-seasons-garden.json'
+import nobleGarden from './data/gardens/noble-garden.json'
 import { loadContent } from './loader'
 
 export const rawContent = {
@@ -41,6 +43,8 @@ export const rawContent = {
     blossomCourt,
     ancientCanopy,
     reedMarsh,
+    fourSeasonsGarden,
+    nobleGarden,
   ],
 }
 

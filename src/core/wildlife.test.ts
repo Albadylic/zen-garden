@@ -145,6 +145,8 @@ describe('no predation is ever shown', () => {
     addPlant(state, content, 'fern', 3, 3)
     addPlant(state, content, 'fern', 2, 5)
     addPlant(state, content, 'fern', 4, 5)
+    // Wrens come to a garden already busy with insects.
+    for (let i = 0; i < 4; i++) addPlant(state, content, 'wildflower-mix', 4 + i, 11)
     const shelter = addShelter(state, content, 3, 4, 1)
     let checked = 0
     for (let i = 0; i < 90 * 60 && checked < 20; i++) {

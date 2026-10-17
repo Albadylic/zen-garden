@@ -281,5 +281,43 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "stone-bridge",
+    "name": "Stone bridge",
+    "description": "A gentle arch of dressed stone across the water.",
+    "terrain": ["water", "margin"],
+    "flat": false,
+    "cover": 0.1,
+    "look": {
+      "form": "bridge",
+      "colour": "#b8b4aa",
+      "accent": "#8a8a84"
+    },
+    "facts": [
+      {
+        "text": "Bridges in old gardens were placed to frame the best views.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "pavilion",
+    "name": "Pavilion",
+    "description": "A small open pavilion with a curved roof, for sitting by the pond.",
+    "terrain": ["path", "grass"],
+    "flat": false,
+    "cover": 0.2,
+    "look": {
+      "form": "pavilion",
+      "colour": "#5d4330",
+      "accent": "#8a5a3a"
+    },
+    "facts": [
+      {
+        "text": "From here, the whole pond can be seen at once.",
+        "after": 1
+      }
+    ]
   }
 ]

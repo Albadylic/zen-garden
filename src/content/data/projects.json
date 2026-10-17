@@ -1163,5 +1163,276 @@
         ]
       }
     ]
+  },
+  {
+    "id": "garden-for-every-season",
+    "title": "A garden for every season",
+    "description": "This garden should be lovely all year. Choose where to begin; every approach can be finished in time.",
+    "garden": "four-seasons-garden",
+    "requires": "chapter:reed-marsh",
+    "approaches": [
+      {
+        "id": "late-winter-blossom",
+        "title": "Late-winter blossom",
+        "description": "Plant ume and snowdrops for the cold months.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-for-winter",
+            "title": "Plant for winter",
+            "description": "Plant three Japanese apricots or snowdrops.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "four-seasons-garden",
+                "plants": ["japanese-apricot", "snowdrop"],
+                "count": 3
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "through-the-year",
+            "title": "Through the year",
+            "description": "See three seasons in the sanctuary.",
+            "conditions": [
+              {
+                "kind": "seasonsSeen",
+                "count": 3
+              }
+            ],
+            "cost": {
+              "evergreen-sprigs": 1
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "autumn-fruit",
+        "title": "Autumn fruit",
+        "description": "Grow beautyberries and gather their autumn fruit.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "grow-beautyberry",
+            "title": "Grow beautyberry",
+            "description": "Grow two beautyberries to fruiting size.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "four-seasons-garden",
+                "plants": ["beautyberry"],
+                "minStage": 2,
+                "count": 2
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "autumn-harvest",
+            "title": "Autumn harvest",
+            "description": "Gather four beautyberries.",
+            "conditions": [
+              {
+                "kind": "gathered",
+                "item": "beautyberries",
+                "count": 4
+              }
+            ],
+            "cost": {
+              "seed-heads": 1
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "evergreen-structure",
+        "title": "Evergreen structure",
+        "description": "Give the garden a green shape that lasts through winter.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-evergreens",
+            "title": "Plant evergreens",
+            "description": "Grow four mondo grasses to full size.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "four-seasons-garden",
+                "plants": ["mondo-grass"],
+                "minStage": 2,
+                "count": 4
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "winter-shelter",
+            "title": "Winter shelter",
+            "description": "Build a natural shelter here, for winter guests.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "four-seasons-garden",
+                "ids": ["natural-shelter"],
+                "count": 1
+              }
+            ],
+            "cost": {
+              "evergreen-sprigs": 2
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "restore-noble-garden",
+    "title": "Restore the Noble Garden",
+    "description": "The finest garden of the sanctuary, long neglected. Choose where to begin; every approach can be finished in time.",
+    "garden": "noble-garden",
+    "requires": "chapter:four-seasons-garden",
+    "approaches": [
+      {
+        "id": "ornamental-pond",
+        "title": "The ornamental pond",
+        "description": "Plant lotus in the pond, and soft edges around it.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-lotus",
+            "title": "Plant lotus",
+            "description": "Plant three lotus in the pond.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "noble-garden",
+                "plants": ["lotus"],
+                "count": 3
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "lotus-and-edges",
+            "title": "Lotus and edges",
+            "description": "Grow three lotus to flowering, and two iris, reeds or rushes beside the water.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "noble-garden",
+                "plants": ["lotus"],
+                "minStage": 2,
+                "count": 3
+              },
+              {
+                "kind": "plantedBeside",
+                "garden": "noble-garden",
+                "terrain": ["water", "deep-water"],
+                "plants": ["japanese-iris", "common-reed", "soft-rush"],
+                "count": 2
+              }
+            ],
+            "cost": {
+              "ornamental-stones": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "pavilion-and-bridge",
+        "title": "Pavilion and bridge",
+        "description": "Rebuild the bridge over the pond, and the pavilion beside it.",
+        "unlocks": ["recipe:noble-garden"],
+        "stages": [
+          {
+            "id": "the-bridge",
+            "title": "The bridge",
+            "description": "Build a stone bridge over the water.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "noble-garden",
+                "ids": ["stone-bridge"],
+                "count": 1
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "the-pavilion",
+            "title": "The pavilion",
+            "description": "Build the pavilion and two stone lanterns.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "noble-garden",
+                "ids": ["pavilion"],
+                "count": 1
+              },
+              {
+                "kind": "builtIn",
+                "garden": "noble-garden",
+                "ids": ["stone-lantern"],
+                "count": 2
+              }
+            ],
+            "cost": {
+              "fine-timber": 1
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "flowering-borders",
+        "title": "Flowering borders",
+        "description": "Frame the pond with blossom and flowering shrubs.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "border-variety",
+            "title": "Variety",
+            "description": "Grow five different species in the Noble Garden.",
+            "conditions": [
+              {
+                "kind": "speciesIn",
+                "garden": "noble-garden",
+                "count": 5
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "borders-in-flower",
+            "title": "In flower",
+            "description": "Grow three weeping cherries, camellias or azaleas to flowering.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "noble-garden",
+                "plants": ["weeping-cherry", "camellia", "satsuki-azalea"],
+                "minStage": 2,
+                "count": 3
+              }
+            ],
+            "cost": {
+              "leaf-mould": 2
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
   }
 ]

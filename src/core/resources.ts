@@ -9,6 +9,7 @@ import { addItems } from './inventory'
 import type { ActionResult } from './layout'
 import { growthRate } from './plants'
 import { random, randomInt } from './rng'
+import { inSeason } from './seasons'
 import type { StepContext } from './simulation'
 import type { Drop, Entity, GameState } from './state'
 
@@ -40,7 +41,7 @@ export function produce(state: GameState, content: Content, dtMs: number, ctx: S
     if (e.kind === 'structure' && content.structures[e.defId]?.feeder?.whileFilled && !isFilled(e))
       continue
     rules.forEach((rule, i) => {
-      if (stageOf(e) < rule.minStage) return
+      if (stageOf(e) < rule.minStage || !inSeason(state, rule.seasons)) return
       const period = rule.everySec * 1000
       const elapsed = (e.produceMs[i] ?? 0) + dtMs * rate
       if (elapsed < period) {
