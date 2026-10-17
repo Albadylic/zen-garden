@@ -40,3 +40,13 @@ export function seasonSystem(state: GameState, _content: unknown, _dtMs: number,
   state.stats.seasonsSeen.push(season)
   ctx.events.push({ type: 'seasonBegan', season })
 }
+
+/**
+ * Whether a seasonal visitor can come now. Unlike `inSeason`, it waits for the
+ * seasons to begin: a species of the seasons belongs to the garden that brings them.
+ */
+export function visitsInSeason(state: GameState, seasons: readonly Season[] | undefined): boolean {
+  if (!seasons) return true
+  const season = currentSeason(state)
+  return season !== null && seasons.includes(season)
+}

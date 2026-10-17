@@ -2,7 +2,7 @@ import { plantSuitability } from '../core/environment'
 import { entityById, terrainAt } from '../core/grid'
 import { isFinalStage, plantsToWater, timeToMaturity, timeToNextStage } from '../core/plants'
 import { knownFacts } from '../core/journal'
-import { describeActivity } from '../core/wildlife'
+import { describeActivity, REFUGE_REACH } from '../core/wildlife'
 import type { PlantEntity } from '../core/state'
 import { describePreferences, formatDuration, RATING_LABELS } from './format'
 import { useGame, useUi } from './hooks'
@@ -136,7 +136,21 @@ export function InspectPanel() {
             <ShelterDetails shelter={entity} />
           )
         ) : (
-          <p>{def?.description}</p>
+          <>
+            <p>{def?.description}</p>
+            {entity.kind === 'decoration' && content.decorations[entity.defId]?.refuge && (
+              <p className="muted">
+                Ground creatures living within {REFUGE_REACH} tiles bask and shelter here, and stay
+                a little longer.
+              </p>
+            )}
+            {entity.kind === 'decoration' && content.decorations[entity.defId]?.flat && (
+              <p className="muted">
+                Ground creatures follow paths and stepping stones to forage further from their
+                shelter.
+              </p>
+            )}
+          </>
         )}
         {entity.kind === 'plant' && <HarvestAction plant={entity} />}
         {!entity.fixed && (

@@ -1,6 +1,6 @@
 import type { Content } from '../core/content'
 import { nextId } from '../core/game'
-import type { GameState, PlantEntity, StructureEntity } from '../core/state'
+import type { DecorationEntity, GameState, PlantEntity, StructureEntity } from '../core/state'
 
 /** Adds a plant directly at a given stage (default: fully grown), bypassing seeds and rules. */
 export function addPlant(
@@ -51,4 +51,19 @@ export function addShelter(
   state.entities.push(shelter)
   state.layoutVersion++
   return shelter
+}
+
+/** Adds a decoration directly, bypassing recipes and placement rules. */
+export function addDecoration(state: GameState, defId: string, x: number, y: number) {
+  const decoration: DecorationEntity = {
+    id: nextId(state),
+    kind: 'decoration',
+    defId,
+    x,
+    y,
+    fixed: false,
+  }
+  state.entities.push(decoration)
+  state.layoutVersion++
+  return decoration
 }

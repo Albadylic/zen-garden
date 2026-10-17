@@ -24,6 +24,7 @@
     "terrain": ["grass", "moss", "margin"],
     "flat": false,
     "cover": 0.3,
+    "refuge": true,
     "facts": [
       {
         "text": "Odd-numbered, uneven groupings are traditional in Japanese stone arrangement.",
@@ -47,6 +48,7 @@
     "terrain": ["grass", "moss"],
     "flat": false,
     "cover": 0.4,
+    "refuge": true,
     "facts": []
   },
   {
@@ -116,6 +118,7 @@
     "terrain": ["gravel", "grass", "moss"],
     "flat": false,
     "cover": 0.3,
+    "refuge": true,
     "look": {
       "form": "stone",
       "colour": "#a3a29a",
@@ -154,6 +157,7 @@
     "terrain": ["moss", "grass"],
     "flat": false,
     "cover": 0.5,
+    "refuge": true,
     "look": {
       "form": "log",
       "colour": "#6b4c33",
@@ -173,6 +177,7 @@
     "terrain": ["moss", "grass"],
     "flat": false,
     "cover": 0.5,
+    "refuge": true,
     "look": {
       "form": "log",
       "colour": "#7a5a3a",

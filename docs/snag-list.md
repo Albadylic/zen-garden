@@ -23,5 +23,8 @@ Owner feedback from playtesting, to come back to once all twelve gardens of the 
 
 ## Design questions
 
-- [ ] **Are plants specific to each garden, or usable anywhere?** Decide, and with it what each new garden brings beyond extra space (its own plants, wildlife, materials, terrain, mechanics, projects).
-- [ ] **What are rocks for?** Are stones only decoration? Should paths and stepping stones help animals move around the garden?
+- [x] **Are plants specific to each garden, or usable anywhere?** Decide, and with it what each new garden brings beyond extra space (its own plants, wildlife, materials, terrain, mechanics, projects).
+  - Proposed answer (owner to confirm; recorded in `open-items.md`): usable anywhere their ground allows, which is how the game already works. Seeds are shared across gardens. What a new garden brings is its ground, the native plants whose seeds turn up there first, its own wildlife community, materials, decorations, a new mechanic and its project. Hiding plants until their seed is found (above) makes each garden's newcomers feel like its own.
+- [x] **What are rocks for?** Are stones only decoration? Should paths and stepping stones help animals move around the garden?
+  - Done (a proposal, kept in data): stones and logs are now refuges. Ground creatures living in a shelter within 3 tiles come out to bask and shelter by them ("Basking and sheltering by the old boulder"), and stay a quarter longer. Paths and stepping stones joined to a shelter's foraging ground let its residents forage up to 5 tiles from home instead of 2, so they visibly wander along them. The inspect panel says what each stone, log or path does. Stones also still give cover and perches, and some species need them (jumping spiders and rock piles, wagtails and stepping stones, stag beetles and logs).
+  - Found along the way: seasonal species (brimstone, seven-spot ladybird, bullfinch) were arriving long before the seasons began, and ladybirds were filling shelter places in the first garden. They now wait for Chapter 11.

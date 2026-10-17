@@ -8,7 +8,7 @@ import { isFilled } from './feeders'
 import { nextId } from './game'
 import { distance, entityById, forEachTile, isOpenGround, terrainAt } from './grid'
 import { isFlowering } from './plants'
-import { inSeason } from './seasons'
+import { visitsInSeason } from './seasons'
 import { chance, pick, random, randomRange } from './rng'
 import type { StepContext } from './simulation'
 import type { Creature, Entity, GameState, PlantEntity, StructureEntity } from './state'
@@ -248,7 +248,7 @@ function attractTo(
       (c) => c.speciesId === def.id && within(garden, c),
     ).length
     if (present >= def.maxPresent) continue
-    if (!inSeason(state, def.seasons)) continue
+    if (!visitsInSeason(state, def.seasons)) continue
     if (!companionsPresent(state, def, content, garden)) continue
     const a = def.attraction
     if (a.kind === 'nectar') {
@@ -374,14 +374,18 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
     return
   }
   if (def.movement === 'ground') {
-    // Forage a little way from the shelter, then return.
-    for (let tries = 0; tries < 6; tries++) {
-      const x = home.x + Math.round(randomRange(state, -2, 2))
-      const y = home.y + Math.round(randomRange(state, -2, 2))
-      if (isOpenGround(terrainAt(state, x, y)) && isTileOpen(state, content, x, y)) {
-        setTarget(c, x + 0.5 + jitter(), y + 0.5 + jitter(), null, 'moving')
-        return
-      }
+    // Now and then, bask or shelter at a stone or log near home.
+    const refuge = random(state) < 0.35 ? pick(state, refugesNear(state, content, home)) : undefined
+    if (refuge) {
+      setTarget(c, refuge.x + 0.5 + jitter(), refuge.y + 0.5 + jitter(), refuge.id, 'moving')
+      return
+    }
+    // Otherwise forage a little way from the shelter, or further along a path, then return.
+    const { near, paths } = forageTiles(state, content, home)
+    const spot = paths.length > 0 && random(state) < 0.5 ? pick(state, paths) : pick(state, near)
+    if (spot) {
+      setTarget(c, spot.x + 0.5 + jitter(), spot.y + 0.5 + jitter(), null, 'moving')
+      return
     }
     restInside(state, content, c)
     return
@@ -392,6 +396,75 @@ function nextActivity(state: GameState, content: Content, def: WildlifeDef, c: C
     c.activity = 'perching'
     c.timerMs = randomRange(state, 6, 12) * 1000
   }
+}
+
+/** How far ground residents forage from their shelter on open ground. */
+export const FORAGE_REACH = 2
+/** How far a path or stepping stones can carry a forager from its shelter. */
+export const PATH_REACH = 5
+/** How close a stone or log must be to a shelter to count as its refuge. */
+export const REFUGE_REACH = 3
+/** How much longer a ground resident stays when it has a refuge near its shelter. */
+export const REFUGE_STAY = 1.25
+
+/** Stones and logs near a shelter where its ground residents bask and shelter. */
+export function refugesNear(state: GameState, content: Content, home: { x: number; y: number }) {
+  return state.entities.filter(
+    (e) =>
+      e.kind === 'decoration' &&
+      content.decorations[e.defId]?.refuge === true &&
+      Math.abs(e.x - home.x) <= REFUGE_REACH &&
+      Math.abs(e.y - home.y) <= REFUGE_REACH,
+  )
+}
+
+/** A tile a forager can walk along: path ground, or a path laid as a decoration. */
+function isPathTile(state: GameState, content: Content, x: number, y: number): boolean {
+  if (terrainAt(state, x, y) === 'path') return true
+  return state.entities.some(
+    (e) => e.x === x && e.y === y && e.kind === 'decoration' && content.decorations[e.defId]?.flat,
+  )
+}
+
+/**
+ * Where a ground resident can forage: open ground close to its shelter, and
+ * path tiles joined to that ground, up to PATH_REACH away. Paths and stepping
+ * stones let foragers range further, never less far.
+ */
+export function forageTiles(state: GameState, content: Content, home: { x: number; y: number }) {
+  const open = (x: number, y: number) =>
+    isOpenGround(terrainAt(state, x, y)) &&
+    isTileOpen(state, content, x, y) &&
+    gardenAt(content, x, y) === gardenAt(content, home.x, home.y)
+  const near: { x: number; y: number }[] = []
+  const queue: { x: number; y: number }[] = []
+  const seen = new Set<string>()
+  for (let y = home.y - FORAGE_REACH; y <= home.y + FORAGE_REACH; y++) {
+    for (let x = home.x - FORAGE_REACH; x <= home.x + FORAGE_REACH; x++) {
+      if ((x === home.x && y === home.y) || !open(x, y)) continue
+      near.push({ x, y })
+      seen.add(`${x},${y}`)
+      if (isPathTile(state, content, x, y)) queue.push({ x, y })
+    }
+  }
+  const paths: { x: number; y: number }[] = []
+  while (queue.length > 0) {
+    const p = queue.shift()!
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        const x = p.x + dx
+        const y = p.y + dy
+        const key = `${x},${y}`
+        if (seen.has(key)) continue
+        if (Math.abs(x - home.x) > PATH_REACH || Math.abs(y - home.y) > PATH_REACH) continue
+        if (!open(x, y) || !isPathTile(state, content, x, y)) continue
+        seen.add(key)
+        paths.push({ x, y })
+        queue.push({ x, y })
+      }
+    }
+  }
+  return { near, paths }
 }
 
 /** How much longer a resident rests in its shelter (1 unless the shelter suits a long rest). */
@@ -419,8 +492,10 @@ function arrive(
   const target = c.targetId !== null ? entityById(state, c.targetId) : undefined
   if (c.homeId !== null && c.targetId === c.homeId && target?.kind === 'structure') {
     if (c.activity === 'arriving') {
-      // A resident that settles in here stays for longer.
+      // A resident that settles in here stays for longer, and longer still with a refuge nearby.
       c.stayMs *= settleFactor(state, content, c)
+      if (def.movement === 'ground' && refugesNear(state, content, target).length > 0)
+        c.stayMs *= REFUGE_STAY
       target.visits++
       state.stats.visits[target.defId] = (state.stats.visits[target.defId] ?? 0) + 1
       ctx.events.push({
@@ -441,6 +516,15 @@ function arrive(
   if (target?.kind === 'structure' && def.attraction.kind === 'feeder' && isFilled(target)) {
     c.activity = 'feeding'
     c.timerMs = randomRange(state, 5, 10) * 1000
+    return
+  }
+  if (
+    target?.kind === 'decoration' &&
+    def.movement === 'ground' &&
+    content.decorations[target.defId]?.refuge
+  ) {
+    c.activity = 'resting'
+    c.timerMs = randomRange(state, 10, 20) * 1000
     return
   }
   if (target && def.attraction.kind === 'perch') {
@@ -536,6 +620,13 @@ export function describeActivity(state: GameState, content: Content, c: Creature
       : 'Resting out of sight in its shelter'
   }
   if (c.activity === 'feeding' && targetName) return `Feeding at the ${targetName.toLowerCase()}`
+  if (
+    c.activity === 'resting' &&
+    target?.kind === 'decoration' &&
+    content.decorations[target.defId]?.refuge &&
+    targetName
+  )
+    return `Basking and sheltering by the ${targetName.toLowerCase()}`
   if ((c.activity === 'resting' || c.activity === 'perching') && targetName) {
     return `${ACTIVITY_TEXT[c.activity]} on the ${targetName.toLowerCase()}`
   }

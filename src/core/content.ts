@@ -176,6 +176,11 @@ export interface DecorationDef {
   flat: boolean
   /** Cover offered to ground-dwelling wildlife. */
   cover: number
+  /**
+   * A stone or log that ground creatures living nearby bask and shelter at.
+   * Residents with one close to their shelter stay a little longer.
+   */
+  refuge?: boolean
   look?: Look
   facts: Fact[]
 }

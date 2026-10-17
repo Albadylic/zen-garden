@@ -1,10 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import { setup } from '../test/fixtures'
-import { addPlant, addShelter } from '../test/helpers'
+import { addDecoration, addPlant, addShelter } from '../test/helpers'
 import type { GameEvent } from './events'
 import { removeEntity } from './layout'
 import { advance } from './simulation'
-import { describeActivity, nectarAvailable, residents } from './wildlife'
+import {
+  describeActivity,
+  FORAGE_REACH,
+  forageTiles,
+  nectarAvailable,
+  PATH_REACH,
+  refugesNear,
+  residents,
+} from './wildlife'
 
 const MIN = 60_000
 
@@ -185,5 +193,51 @@ describe('no predation is ever shown', () => {
       expect(ids.has(c.id)).toBe(false)
       ids.add(c.id)
     }
+  })
+})
+
+describe('stones, logs and paths', () => {
+  it('lets paths and stepping stones carry foragers further from their shelter', () => {
+    const { content, state } = setup()
+    const shelter = addShelter(state, content, 3, 11)
+    const reach = (tiles: { x: number; y: number }[]) =>
+      Math.max(0, ...tiles.map((t) => Math.max(Math.abs(t.x - 3), Math.abs(t.y - 11))))
+    const before = forageTiles(state, content, shelter)
+    expect(reach([...before.near, ...before.paths])).toBe(FORAGE_REACH)
+    // A line of stepping stones heading east from beside the shelter.
+    for (let x = 4; x <= 9; x++) addDecoration(state, 'stepping-stone', x, 13)
+    const after = forageTiles(state, content, shelter)
+    expect(after.paths.length).toBeGreaterThan(0)
+    expect(reach([...after.near, ...after.paths])).toBe(PATH_REACH)
+  })
+
+  it('draws ground residents to bask by a stone near their shelter', () => {
+    const { content, state } = setup(4)
+    const shelter = addShelter(state, content, 3, 11)
+    const boulder = addDecoration(state, 'old-boulder', 5, 12)
+    expect(refugesNear(state, content, shelter).map((e) => e.id)).toContain(boulder.id)
+    let basked = false
+    for (let i = 0; i < 90 && !basked; i++) {
+      run(state, content, MIN)
+      basked = state.creatures.some(
+        (c) =>
+          c.targetId === boulder.id &&
+          c.activity === 'resting' &&
+          describeActivity(state, content, c) === 'Basking and sheltering by the old boulder',
+      )
+    }
+    expect(basked).toBe(true)
+  })
+
+  it('keeps seasonal visitors away until the seasons begin', () => {
+    const { content, state } = setup()
+    addShelter(state, content, 3, 4)
+    const seen = new Set(
+      run(state, content, 60 * MIN)
+        .filter((e) => e.type === 'wildlifeArrived')
+        .map((e) => (e as { speciesId: string }).speciesId),
+    )
+    for (const def of Object.values(content.wildlife))
+      if (def.seasons) expect(seen.has(def.id)).toBe(false)
   })
 })
