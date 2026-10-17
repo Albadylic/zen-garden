@@ -19,7 +19,7 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 - [x] Game state model and deterministic tick driven by real elapsed time
 - [x] Seeded random number generator
-- [ ] Event log ("plant matured", "butterfly arrived", …) feeding the UI, recap and milestones
+- [x] Event log ("plant matured", "butterfly arrived", …) feeding the UI, recap and milestones
 - [x] Per-tile suitability model (shade, moisture, water proximity, cover), shared by plants, wildlife and habitats
 - [x] Content loader with schema validation for JSON data
 
@@ -39,7 +39,7 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 - [x] Production from plants, with visible items in the garden
 - [x] Auto-collect and one-tap batch collect
 - [x] Inventory panel
-- [ ] Crafting: twigs + bark → basic natural shelter
+- [x] Crafting: twigs + bark → basic natural shelter
 
 ## 5. Wildlife
 
@@ -58,10 +58,10 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 7. Progression and guidance
 
-- [ ] Milestone system: conditions → unlocks
-- [ ] Chapter 1 sequence: plant flowers → first growth → collect → first butterfly → build shelter → first habitat milestone
-- [ ] Up to 3 optional suggestions at a time, reacting to garden state
-- [ ] Bamboo-grove unlock: end-of-level moment revealing the (not yet playable) area
+- [x] Milestone system: conditions → unlocks
+- [x] Chapter 1 sequence: plant flowers → first growth → collect → first butterfly → build shelter → first habitat milestone
+- [x] Up to 3 optional suggestions at a time, reacting to garden state
+- [x] Bamboo-grove unlock: end-of-level moment revealing the (not yet playable) area
 
 ## 8. Journal (minimal)
 

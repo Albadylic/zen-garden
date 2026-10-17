@@ -41,12 +41,12 @@ export type PlaceSource =
 export type Mode =
   { type: 'idle' } | { type: 'place'; source: PlaceSource; tile: Point | null } | { type: 'clear' }
 
-export type Panel = null | 'plants' | 'build' | 'inventory' | 'settings'
+export type Panel = null | 'plants' | 'build' | 'inventory' | 'goals' | 'settings'
 
 export interface Toast {
   id: number
   text: string
-  tone: 'info' | 'warning'
+  tone: 'info' | 'warning' | 'milestone'
   expiresAt: number
 }
 
@@ -56,6 +56,10 @@ export interface UiState {
   panel: Panel
   toasts: Toast[]
   canUndo: boolean
+  /** Shown once when the chapter is completed. */
+  chapterCelebration: boolean
+  /** Whether the suggestion card is expanded. */
+  suggestionsOpen: boolean
 }
 
 export interface PlacementInfo {
@@ -97,6 +101,8 @@ export class GameController {
       panel: null,
       toasts: [],
       canUndo: false,
+      chapterCelebration: false,
+      suggestionsOpen: true,
     })
   }
 
@@ -151,8 +157,36 @@ export class GameController {
               : 'Cleared overgrowth',
           )
           break
+        case 'milestone':
+          this.toast(`Milestone: ${e.title}`, 'milestone')
+          break
+        case 'unlocked':
+          if (e.key.startsWith('recipe:')) {
+            const recipe = this.content.recipes[e.key.slice('recipe:'.length)]
+            if (recipe) this.toast(`New to build: ${recipe.name}`, 'milestone')
+          } else if (e.key.startsWith('upgrade:')) {
+            this.toast('Shelters can now be improved', 'milestone')
+          }
+          break
+        case 'chapterComplete':
+          this.ui.set({ chapterCelebration: true, panel: null, mode: { type: 'idle' } })
+          break
+        case 'wildlifeArrived':
+          if (this.state.stats.seen[e.speciesId] === 1) {
+            const name = this.content.wildlife[e.speciesId]?.name ?? 'A new visitor'
+            this.toast(`${name}: a first visit to the garden`, 'milestone')
+          }
+          break
       }
     }
+  }
+
+  dismissCelebration(): void {
+    this.ui.set({ chapterCelebration: false })
+  }
+
+  toggleSuggestions(): void {
+    this.ui.set((s) => ({ suggestionsOpen: !s.suggestionsOpen }))
   }
 
   // --- Gathering and restoring ---------------------------------------------

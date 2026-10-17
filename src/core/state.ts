@@ -82,6 +82,8 @@ export interface Stats {
   built: Record<string, number>
   visits: Record<string, number>
   upgraded: number
+  /** Plants that reached their final stage, per species. */
+  matured: Record<string, number>
 }
 
 export interface JournalRecord {
@@ -129,5 +131,6 @@ export function emptyStats(): Stats {
     built: {},
     visits: {},
     upgraded: 0,
+    matured: {},
   }
 }

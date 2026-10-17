@@ -40,7 +40,7 @@
       "title": "A first visitor",
       "description": "A butterfly found its way to your flowers.",
       "hint": "Butterflies visit flowering plants. Give your wildflowers time to bloom.",
-      "conditions": [{ "kind": "seen", "count": 1 }],
+      "conditions": [{ "kind": "seen", "wildlife": "small-white", "count": 1 }],
       "unlocks": []
     },
     {

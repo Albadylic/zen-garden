@@ -132,6 +132,8 @@ export function growPlants(
     e.progressMs = isFinalStage(def, e.stage + 1) ? 0 : e.progressMs - duration
     e.stage++
     state.stats.grown[e.stage] = (state.stats.grown[e.stage] ?? 0) + 1
+    if (isFinalStage(def, e.stage))
+      state.stats.matured[e.defId] = (state.stats.matured[e.defId] ?? 0) + 1
     // Bigger plants cast more shade and cover, so suitability may change.
     state.layoutVersion++
     ctx.events.push({ type: 'plantStage', entityId: e.id, plantId: e.defId, stage: e.stage })

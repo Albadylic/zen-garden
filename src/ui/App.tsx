@@ -2,7 +2,9 @@ import { useEffect } from 'react'
 import { BottomBar } from './BottomBar'
 import { BuildPanel } from './BuildPanel'
 import { ClearBar } from './ClearBar'
+import { ChapterComplete } from './ChapterComplete'
 import { GardenView } from './GardenView'
+import { GoalsPanel } from './GoalsPanel'
 import { useController, useUi } from './hooks'
 import { Hud } from './Hud'
 import { InspectPanel } from './InspectPanel'
@@ -36,8 +38,8 @@ export function App({ mountGarden }: Props) {
       <GardenView mount={mountGarden} />
       <div className="hud">
         <Hud />
-        <Toasts />
         <div className="hud-bottom">
+          <Toasts />
           {placing ? (
             <PlacementBar />
           ) : mode.type === 'clear' ? (
@@ -47,12 +49,14 @@ export function App({ mountGarden }: Props) {
               {panel === 'plants' && <PlantsPanel />}
               {panel === 'build' && <BuildPanel />}
               {panel === 'inventory' && <InventoryPanel />}
+              {panel === 'goals' && <GoalsPanel />}
               {!panel && selection && <InspectPanel />}
               <BottomBar />
             </>
           )}
         </div>
       </div>
+      <ChapterComplete />
     </div>
   )
 }

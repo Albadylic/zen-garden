@@ -86,12 +86,13 @@ Each has a default I will build with so work is not blocked. Values live in data
 
 ### Phase 06 — Progression and tutorial
 
-| Status | Decision                           | Placeholder default                                        |
-| ------ | ---------------------------------- | ---------------------------------------------------------- |
-| ☐      | Chapter 1 milestone list and order | GDD 14 "Proposed opening sequence"                         |
-| ☐      | First habitat milestone condition  | Build a shelter and have it visited once                   |
-| ☐      | Bamboo grove unlock condition      | First habitat milestone + a small material cost            |
-| ☐      | Tutorial style                     | Gentle optional suggestions (max 3 shown); no forced steps |
+| Status | Decision                           | Placeholder in use                                                                                                                                                                                           |
+| ------ | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ☐      | Chapter 1 milestone list and order | 8 milestones: first planting → signs of growth → clear 3 overgrown tiles → gather 8 items (unlocks shelter recipe) → first butterfly → build a shelter → first resident (unlocks upgrade) → 3 species mature |
+| ☐      | First habitat milestone condition  | A natural shelter receives its first resident                                                                                                                                                                |
+| ☐      | Bamboo grove unlock condition      | Completing all Chapter 1 milestones (no material cost). The gate opens and bamboo appears beyond the wall; the grove itself is not playable yet                                                              |
+| ☐      | Tutorial style                     | One optional suggestion on screen (more in Goals), never forced; milestones complete in order but progress made out of order still counts                                                                    |
+| ☐      | Chapter length                     | About 12 minutes when played efficiently (tested); expect 25–40 minutes for a relaxed first play. Tune with real players                                                                                     |
 
 ### Phase 07 — Journal
 
