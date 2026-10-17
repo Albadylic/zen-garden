@@ -201,5 +201,17 @@
       "id": "bee-bank"
     },
     "unlock": "recipe:bee-bank"
+  },
+  {
+    "id": "resting-stone",
+    "name": "Resting stone",
+    "inputs": {
+      "pebbles": 3
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "resting-stone"
+    },
+    "unlock": "recipe:resting-stone"
   }
 ]

@@ -134,12 +134,12 @@ An open, sunlit meadow. **New idea: flower variety draws a variety of pollinator
 
 A narrow stream with stepping stones and shaded banks. **New idea: flowing water and planted banks.**
 
-- [ ] Map with a stream crossing the garden and a small cascade.
-- [ ] Plants: Japanese iris, sedge, marsh fern (all bank plants).
-- [ ] Wildlife: water strider (calm stream), mayfly (planted banks), grey wagtail (perches on stepping stones in the stream).
-- [ ] Materials: smooth stones, reed stems.
-- [ ] Stepping stones can be placed in the stream.
-- [ ] Milestones and the "Reconnect the stream" project (planted banks · stepping-stone crossing · resting places).
+- [x] Map with a stream crossing the garden and a small cascade.
+- [x] Plants: Japanese iris, sedge, marsh fern (all bank plants).
+- [x] Wildlife: banded demoiselle (iris and sedge), mayfly (well-planted banks), grey wagtail (stands on stepping and resting stones, alongside stream insects). The autoplayer finishes the chapter in about an hour.
+- [x] Materials: pebbles (for resting stones), stones and reed stems from clearing.
+- [x] Stepping stones can be placed in the stream.
+- [x] Milestones and the "Reconnect the stream" project (planted banks · stepping-stone crossing · resting places).
 
 ### Chapter 8 — Blossom Court
 

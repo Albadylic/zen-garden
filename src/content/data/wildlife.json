@@ -871,5 +871,127 @@
         "after": "many-kinds"
       }
     ]
+  },
+  {
+    "id": "banded-demoiselle",
+    "name": "Banded demoiselle",
+    "description": "A metallic blue damselfly with dark bands on its wings.",
+    "movement": "flying",
+    "speed": 1.8,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["japanese-iris", "sedge"],
+      "minCount": 2,
+      "perMinute": 0.5
+    },
+    "maxPresent": 3,
+    "staySec": [90, 240],
+    "colour": "#3a6ab0",
+    "look": {
+      "form": "dragonfly",
+      "colour": "#3a6ab0",
+      "accent": "#1a2a50",
+      "size": 0.85
+    },
+    "facts": [
+      {
+        "text": "Rests on iris and sedge beside moving water.",
+        "after": 1
+      },
+      {
+        "text": "It flutters more than it flies, like a butterfly.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Tall leaves beside the stream make perches for a jewel-bright insect.",
+        "after": "into-the-stream"
+      }
+    ]
+  },
+  {
+    "id": "mayfly",
+    "name": "Mayfly",
+    "description": "A delicate insect with upright wings and long tail threads.",
+    "movement": "flying",
+    "speed": 1.2,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["sedge", "marsh-fern", "japanese-iris"],
+      "minCount": 3,
+      "perMinute": 0.6
+    },
+    "maxPresent": 4,
+    "staySec": [60, 180],
+    "colour": "#c8c0a0",
+    "look": {
+      "form": "fly",
+      "colour": "#c8c0a0",
+      "accent": "#6a6050",
+      "size": 0.7
+    },
+    "facts": [
+      {
+        "text": "Gathers where the banks are well planted.",
+        "after": 1
+      },
+      {
+        "text": "A mayfly lives most of its life as a nymph in the stream.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Plant the banks well, and delicate stream insects may gather.",
+        "after": "planted-banks"
+      }
+    ]
+  },
+  {
+    "id": "grey-wagtail",
+    "name": "Grey wagtail",
+    "description": "A slim grey and lemon-yellow bird that bobs its long tail.",
+    "movement": "flying",
+    "speed": 2.2,
+    "attraction": {
+      "kind": "perch",
+      "plants": [],
+      "things": ["stepping-stone", "resting-stone", "cascade"],
+      "minCount": 3,
+      "perMinute": 0.4
+    },
+    "alongside": {
+      "wildlife": ["mayfly", "banded-demoiselle"],
+      "count": 1
+    },
+    "maxPresent": 2,
+    "staySec": [90, 240],
+    "colour": "#a8a8a0",
+    "look": {
+      "form": "waterbird",
+      "colour": "#a8a8a0",
+      "accent": "#e8d050"
+    },
+    "facts": [
+      {
+        "text": "Comes to streams busy with insects, and stands on stones in the water.",
+        "after": 1
+      },
+      {
+        "text": "It bobs its tail constantly as it walks.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Stones to stand on in the stream might bring a water-loving bird.",
+        "after": "gathering-pebbles"
+      },
+      {
+        "text": "Wagtails stand on stepping and resting stones once stream insects are about.",
+        "after": "a-crossing"
+      }
+    ]
   }
 ]

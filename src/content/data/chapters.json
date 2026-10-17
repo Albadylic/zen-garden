@@ -824,5 +824,138 @@
         "unlocks": []
       }
     ]
+  },
+  {
+    "id": "whispering-stream",
+    "title": "Whispering Stream",
+    "requires": "chapter:wildflower-meadow",
+    "completionUnlock": "chapter:whispering-stream",
+    "gift": {
+      "iris-seeds": 3,
+      "sedge-divisions": 3,
+      "marsh-fern-spores": 2,
+      "stones": 4
+    },
+    "completion": {
+      "title": "The stream sings again",
+      "body": [
+        "Water runs clear between planted banks, demoiselles flicker over the iris, and a wagtail bobs on the stones.",
+        "Across a small arched gate to the west, blossom drifts over an old court."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-stream",
+        "title": "By the stream",
+        "description": "You looked around the stream garden.",
+        "hint": "Go through the meadow’s south gate and take a look along the stream.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "whispering-stream"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-plan-for-the-stream",
+        "title": "A plan for the stream",
+        "description": "You chose how to begin reconnecting the stream.",
+        "hint": "Open Restore and choose how to begin reconnecting the stream.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "reconnect-stream"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "planted-banks",
+        "title": "Planted banks",
+        "description": "Plants are growing right beside the stream.",
+        "hint": "Plant iris, sedge or marsh fern right beside the running water.",
+        "conditions": [
+          {
+            "kind": "plantedBeside",
+            "garden": "whispering-stream",
+            "terrain": ["stream"],
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "demoiselles",
+        "title": "Demoiselles",
+        "description": "A banded demoiselle came to rest by the stream.",
+        "hint": "Demoiselles rest on mature iris and sedge beside the water.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "banded-demoiselle",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering-pebbles",
+        "title": "Gathering pebbles",
+        "description": "You gathered pebbles. You can now set resting stones.",
+        "hint": "Clear the stream’s overgrown banks to find pebbles.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "pebbles",
+            "count": 5
+          }
+        ],
+        "unlocks": ["recipe:resting-stone"]
+      },
+      {
+        "id": "a-crossing",
+        "title": "A crossing",
+        "description": "Stones lie in and across the stream.",
+        "hint": "Place stepping stones or resting stones in the stream: three in all.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "whispering-stream",
+            "ids": ["stepping-stone", "resting-stone"],
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-wagtail",
+        "title": "A wagtail",
+        "description": "A grey wagtail came to bob on the stones.",
+        "hint": "Wagtails stand on stones in the stream once mayflies or demoiselles are about.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "grey-wagtail",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-stream-reconnected",
+        "title": "The stream reconnected",
+        "description": "You completed one approach to reconnecting the stream.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "reconnect-stream",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ]
   }
 ]

@@ -1679,5 +1679,172 @@
         "after": 3
       }
     ]
+  },
+  {
+    "id": "japanese-iris",
+    "name": "Japanese iris",
+    "description": "Tall sword leaves and broad purple flowers at the water’s edge.",
+    "seedItem": "iris-seeds",
+    "terrain": ["margin", "grass"],
+    "stages": [
+      {
+        "name": "Young",
+        "durationSec": 300
+      },
+      {
+        "name": "Growing",
+        "durationSec": 1080
+      },
+      {
+        "name": "Established"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.5
+      },
+      "moisture": {
+        "min": 0.6,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "iris-seeds",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1,
+    "flowerStage": 2,
+    "cover": 0.6,
+    "look": {
+      "form": "flower",
+      "colour": "#5f8a4a",
+      "accent": "#6a4ab8",
+      "size": 1.25
+    },
+    "facts": [
+      {
+        "text": "Demoiselles rest on its tall leaves.",
+        "after": 1
+      },
+      {
+        "text": "Irises are a classic of Japanese stream gardens.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "sedge",
+    "name": "Streamside sedge",
+    "description": "Arching clumps of fine green leaves that hold the bank together.",
+    "seedItem": "sedge-divisions",
+    "terrain": ["margin", "grass", "moss"],
+    "stages": [
+      {
+        "name": "Young",
+        "durationSec": 240
+      },
+      {
+        "name": "Growing",
+        "durationSec": 900
+      },
+      {
+        "name": "Established"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.7
+      },
+      "moisture": {
+        "min": 0.55,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "sedge-divisions",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.6,
+    "look": {
+      "form": "tuft",
+      "colour": "#7a9a4a",
+      "accent": "#a8a050",
+      "size": 1
+    },
+    "facts": [
+      {
+        "text": "Its roots hold the stream bank firm.",
+        "after": 1
+      },
+      {
+        "text": "Mayflies rest among its leaves.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "marsh-fern",
+    "name": "Marsh fern",
+    "description": "A soft fern of wet, shaded banks.",
+    "seedItem": "marsh-fern-spores",
+    "terrain": ["margin", "moss", "grass"],
+    "stages": [
+      {
+        "name": "Young",
+        "durationSec": 300
+      },
+      {
+        "name": "Growing",
+        "durationSec": 1080
+      },
+      {
+        "name": "Established"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.35,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.6,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "marsh-fern-spores",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.6,
+    "look": {
+      "form": "fern",
+      "colour": "#5f8a4a",
+      "accent": "#7fa04e",
+      "size": 1
+    },
+    "facts": [
+      {
+        "text": "It keeps shaded banks cool and damp.",
+        "after": 1
+      }
+    ]
   }
 ]

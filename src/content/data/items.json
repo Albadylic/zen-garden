@@ -572,5 +572,63 @@
         "after": "into-the-meadow"
       }
     ]
+  },
+  {
+    "id": "iris-seeds",
+    "name": "Iris seeds",
+    "category": "seed",
+    "description": "Flat brown seeds from a Japanese iris pod.",
+    "colour": "#8a6a45",
+    "facts": [
+      {
+        "text": "Irises grow best with their feet in wet ground.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "sedge-divisions",
+    "name": "Sedge divisions",
+    "category": "seed",
+    "description": "A rooted clump of streamside sedge.",
+    "colour": "#7a8a4a",
+    "facts": [
+      {
+        "text": "Sedges have triangular stems: “sedges have edges”.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "marsh-fern-spores",
+    "name": "Marsh fern spores",
+    "category": "seed",
+    "description": "Spores of a fern of wet, shaded banks.",
+    "colour": "#6f8f5a",
+    "facts": [
+      {
+        "text": "Marsh ferns spread by creeping roots along wet ground.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "pebbles",
+    "name": "Pebbles",
+    "category": "material",
+    "description": "Small round stones, smoothed by the stream.",
+    "colour": "#a8a49a",
+    "facts": [
+      {
+        "text": "The stream rolls pebbles smooth over many years.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "The stream’s overgrown banks hide smooth pebbles.",
+        "after": "into-the-stream"
+      }
+    ]
   }
 ]

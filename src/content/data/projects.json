@@ -642,5 +642,136 @@
         ]
       }
     ]
+  },
+  {
+    "id": "reconnect-stream",
+    "title": "Reconnect the stream",
+    "description": "The stream is choked and its banks bare. Choose where to begin; every approach can be finished in time.",
+    "garden": "whispering-stream",
+    "requires": "chapter:wildflower-meadow",
+    "approaches": [
+      {
+        "id": "planted-banks",
+        "title": "Planted banks",
+        "description": "Hold the banks together with iris, sedge and fern.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-banks",
+            "title": "Plant the banks",
+            "description": "Grow five plants right beside the stream.",
+            "conditions": [
+              {
+                "kind": "plantedBeside",
+                "garden": "whispering-stream",
+                "terrain": ["stream"],
+                "count": 5
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "banks-hold",
+            "title": "Banks hold firm",
+            "description": "Grow five bank plants to full size.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "whispering-stream",
+                "plants": ["japanese-iris", "sedge", "marsh-fern"],
+                "minStage": 2,
+                "count": 5
+              }
+            ],
+            "cost": {
+              "pebbles": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "stepping-stones",
+        "title": "A stepping-stone crossing",
+        "description": "Lay stones across the water.",
+        "unlocks": ["recipe:resting-stone"],
+        "stages": [
+          {
+            "id": "lay-stones",
+            "title": "Lay the stones",
+            "description": "Place four stepping stones in the stream garden.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "whispering-stream",
+                "ids": ["stepping-stone"],
+                "count": 4
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "a-place-to-stand",
+            "title": "A place to stand",
+            "description": "Set two resting stones in the stream.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "whispering-stream",
+                "ids": ["resting-stone"],
+                "count": 2
+              }
+            ],
+            "cost": {
+              "stones": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "resting-places",
+        "title": "Resting places",
+        "description": "Give the stream’s wildlife places to rest.",
+        "unlocks": ["recipe:resting-stone"],
+        "stages": [
+          {
+            "id": "set-resting-stones",
+            "title": "Resting stones",
+            "description": "Set three resting stones in the stream garden.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "whispering-stream",
+                "ids": ["resting-stone"],
+                "count": 3
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "leafy-perches",
+            "title": "Leafy perches",
+            "description": "Grow three irises or sedges to full size.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "whispering-stream",
+                "plants": ["japanese-iris", "sedge"],
+                "minStage": 2,
+                "count": 3
+              }
+            ],
+            "cost": {
+              "pebbles": 1
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
   }
 ]

@@ -116,6 +116,16 @@
         "kind": "plant",
         "id": "old-alder"
       }
+    },
+    "S": {
+      "terrain": "stream"
+    },
+    "C": {
+      "terrain": "stream",
+      "fixed": {
+        "kind": "decoration",
+        "id": "cascade"
+      }
     }
   },
   "startingInventory": {
@@ -401,7 +411,38 @@
       "slot": {
         "col": 2,
         "row": -2
-      }
+      },
+      "origin": {
+        "x": 30,
+        "y": -27
+      },
+      "unlock": "chapter:wildflower-meadow",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        },
+        {
+          "item": "pebbles",
+          "min": 1,
+          "max": 2,
+          "chance": 0.6
+        },
+        {
+          "item": "stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.4
+        },
+        {
+          "item": "reed-stems",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        }
+      ]
     },
     {
       "id": "blossom-court",
@@ -522,7 +563,17 @@
     },
     {
       "gardens": ["wildflower-meadow", "whispering-stream"],
-      "kind": "main"
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 8,
+          "y": 15
+        },
+        "passage": {
+          "x": 8,
+          "y": 0
+        }
+      }
     },
     {
       "gardens": ["whispering-stream", "blossom-court"],

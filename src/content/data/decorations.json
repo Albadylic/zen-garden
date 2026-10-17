@@ -3,7 +3,7 @@
     "id": "stepping-stone",
     "name": "Stepping stone",
     "description": "A flat stone set into the ground, inviting a slower path through the garden.",
-    "terrain": ["grass", "moss", "margin"],
+    "terrain": ["grass", "moss", "margin", "stream"],
     "flat": true,
     "cover": 0,
     "facts": []
@@ -182,6 +182,45 @@
     "facts": [
       {
         "text": "Fungi grow beside it once the wood begins to soften.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "cascade",
+    "name": "Little cascade",
+    "description": "A tumble of stones where the stream drops and sings.",
+    "terrain": ["stream"],
+    "flat": false,
+    "cover": 0.2,
+    "look": {
+      "form": "pile",
+      "colour": "#9a9a92",
+      "accent": "#d2e6ec"
+    },
+    "facts": [
+      {
+        "text": "Moving water carries fresh air into the stream.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "resting-stone",
+    "name": "Resting stone",
+    "description": "A broad, flat stone set in the stream for birds to stand on.",
+    "terrain": ["stream", "margin"],
+    "flat": false,
+    "cover": 0,
+    "look": {
+      "form": "pile",
+      "colour": "#a8a49a",
+      "accent": "#8a8a84",
+      "size": 0.6
+    },
+    "facts": [
+      {
+        "text": "Wagtails stand on stones in the water, bobbing their tails.",
         "after": 1
       }
     ]
