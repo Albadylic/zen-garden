@@ -2,7 +2,15 @@ import { describe, expect, it } from 'vitest'
 import { setup } from '../test/fixtures'
 import type { GameEvent } from './events'
 import { entityAt, terrainAt } from './grid'
-import { growthRate, isSlowGrowing, plant, timeToMaturity, timeToNextStage, water } from './plants'
+import {
+  growthRate,
+  isSlowGrowing,
+  plant,
+  sowablePlants,
+  timeToMaturity,
+  timeToNextStage,
+  water,
+} from './plants'
 import { advance } from './simulation'
 import type { PlantEntity } from './state'
 
@@ -140,5 +148,20 @@ describe('time to maturity', () => {
     const { content } = setup()
     expect(isSlowGrowing(content, 'japanese-maple')).toBe(true)
     expect(isSlowGrowing(content, 'wildflower-mix')).toBe(false)
+  })
+})
+
+describe('sowable plants', () => {
+  it('lists only plants whose seeds the player has had', () => {
+    const { content, state } = setup()
+    const ids = () => sowablePlants(state, content).map((p) => p.id)
+    expect(ids()).toContain('wildflower-mix')
+    const reed = Object.values(content.plants).find(
+      (p) => p.seedItem && (state.inventory[p.seedItem] ?? 0) === 0,
+    )!
+    expect(ids()).not.toContain(reed.id)
+    // Once found, a plant stays listed even after its last seed is sown.
+    state.stats.gathered[reed.seedItem!] = 1
+    expect(ids()).toContain(reed.id)
   })
 })

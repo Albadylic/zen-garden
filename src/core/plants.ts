@@ -5,7 +5,7 @@ import { gardenAt, isTileOpen } from './gardens'
 import { plantSuitability } from './environment'
 import { nextId } from './game'
 import { distance, entityAt, entityById, neighbours, setTerrain, terrainAt } from './grid'
-import { addItems, hasItems, removeItems } from './inventory'
+import { addItems, hasHad, hasItems, removeItems } from './inventory'
 import { type ActionResult, checkPlacement } from './layout'
 import { chance, pick } from './rng'
 import { inSeason } from './seasons'
@@ -125,6 +125,19 @@ export function plant(
     events: [{ type: 'planted', entityId: id, plantId }],
     undo: { type: 'place', entityId: id, refund: cost },
   }
+}
+
+/**
+ * Plants the player can sow, in content order: those whose seed they hold or
+ * have found before, or that they have planted. Species they cannot get yet
+ * stay out of sight until their seed turns up.
+ */
+export function sowablePlants(state: GameState, content: Content): PlantDef[] {
+  return Object.values(content.plants).filter(
+    (p) =>
+      p.seedItem !== undefined &&
+      (hasHad(state, p.seedItem) || (state.stats.planted[p.id] ?? 0) > 0),
+  )
 }
 
 /** Watering reaches every plant within this many tiles of the one tapped (a 5 × 5 patch). */

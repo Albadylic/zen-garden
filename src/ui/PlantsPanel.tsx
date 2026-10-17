@@ -1,3 +1,4 @@
+import { sowablePlants } from '../core/plants'
 import { describePreferences } from './format'
 import { useGame } from './hooks'
 import { Sheet } from './Sheet'
@@ -5,7 +6,7 @@ import { Sheet } from './Sheet'
 export function PlantsPanel() {
   const controller = useGame()
   const { content, state } = controller
-  const plants = Object.values(content.plants).filter((p) => p.seedItem)
+  const plants = sowablePlants(state, content)
   return (
     <Sheet title="Plants" onClose={() => controller.closePanel()} testId="plants-panel">
       <ul className="choice-list">
@@ -29,6 +30,7 @@ export function PlantsPanel() {
           )
         })}
       </ul>
+      <p className="muted">More plants appear here as you find their seeds.</p>
     </Sheet>
   )
 }
