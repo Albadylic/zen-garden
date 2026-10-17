@@ -100,6 +100,22 @@
         "kind": "decoration",
         "id": "standing-stone"
       }
+    },
+    "F": {
+      "terrain": "moss",
+      "shade": 0.4,
+      "fixed": {
+        "kind": "decoration",
+        "id": "fallen-log"
+      }
+    },
+    "Y": {
+      "terrain": "moss",
+      "shade": 0.4,
+      "fixed": {
+        "kind": "plant",
+        "id": "old-alder"
+      }
     }
   },
   "startingInventory": {
@@ -299,7 +315,44 @@
       "slot": {
         "col": 1,
         "row": -3
-      }
+      },
+      "origin": {
+        "x": 14,
+        "y": -43
+      },
+      "unlock": "chapter:quiet-stone-garden",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "item": "deadwood",
+          "min": 1,
+          "max": 1,
+          "chance": 0.6
+        },
+        {
+          "item": "leaf-litter",
+          "min": 1,
+          "max": 2,
+          "chance": 0.7
+        },
+        {
+          "item": "bark",
+          "min": 1,
+          "max": 1,
+          "chance": 0.25
+        },
+        {
+          "item": "mushroom-spawn",
+          "min": 1,
+          "max": 1,
+          "chance": 0.15
+        }
+      ]
     },
     {
       "id": "wildflower-meadow",
@@ -410,7 +463,17 @@
     },
     {
       "gardens": ["quiet-stone-garden", "fernwood-hollow"],
-      "kind": "main"
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 15,
+          "y": 8
+        },
+        "passage": {
+          "x": 0,
+          "y": 8
+        }
+      }
     },
     {
       "gardens": ["fernwood-hollow", "wildflower-meadow"],

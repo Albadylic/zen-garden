@@ -161,5 +161,31 @@
       "id": "standing-stone"
     },
     "unlock": "recipe:raked-gravel"
+  },
+  {
+    "id": "leaf-litter-bed",
+    "name": "Leaf-litter bed",
+    "inputs": {
+      "twigs": 4,
+      "deadwood": 2,
+      "leaf-litter": 2
+    },
+    "output": {
+      "kind": "structure",
+      "id": "leaf-litter-bed"
+    },
+    "unlock": "recipe:leaf-litter-bed"
+  },
+  {
+    "id": "log-stack",
+    "name": "Log stack",
+    "inputs": {
+      "deadwood": 3
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "log-stack"
+    },
+    "unlock": "recipe:leaf-litter-bed"
   }
 ]

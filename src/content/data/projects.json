@@ -385,5 +385,135 @@
         ]
       }
     ]
+  },
+  {
+    "id": "restore-hollow",
+    "title": "Restore the woodland floor",
+    "description": "The hollow is tangled and bare underneath. Choose where to begin; every approach can be finished in time.",
+    "garden": "fernwood-hollow",
+    "requires": "chapter:quiet-stone-garden",
+    "approaches": [
+      {
+        "id": "fern-hollow",
+        "title": "A fern hollow",
+        "description": "Fill the shade with royal ferns and ferns.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-ferns",
+            "title": "Plant ferns",
+            "description": "Plant four ferns or royal ferns in the hollow.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "fernwood-hollow",
+                "plants": ["royal-fern", "fern"],
+                "count": 4
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "ferns-unfurl",
+            "title": "Ferns unfurl",
+            "description": "Grow four ferns or royal ferns to full size.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "fernwood-hollow",
+                "plants": ["royal-fern", "fern"],
+                "minStage": 2,
+                "count": 4
+              }
+            ],
+            "cost": {
+              "leaf-mould": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "log-habitat",
+        "title": "Deadwood for wildlife",
+        "description": "Stack deadwood and let fungi take hold.",
+        "unlocks": ["recipe:leaf-litter-bed"],
+        "stages": [
+          {
+            "id": "stack-logs",
+            "title": "Stack the logs",
+            "description": "Build two log stacks in the hollow.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "fernwood-hollow",
+                "ids": ["log-stack"],
+                "count": 2
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "fungi-grow",
+            "title": "Fungi grow",
+            "description": "Grow two fungi beside the wood.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "fernwood-hollow",
+                "plants": ["oyster-mushroom", "turkey-tail"],
+                "minStage": 2,
+                "count": 2
+              }
+            ],
+            "cost": {
+              "deadwood": 1
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "compost-corner",
+        "title": "A compost corner",
+        "description": "Turn the hollow’s leaves into rich leaf mould.",
+        "unlocks": ["recipe:leaf-litter-bed"],
+        "stages": [
+          {
+            "id": "build-bed",
+            "title": "Build a leaf-litter bed",
+            "description": "Build a leaf-litter bed in the hollow.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "fernwood-hollow",
+                "ids": ["leaf-litter-bed"],
+                "count": 1
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "make-mould",
+            "title": "Make leaf mould",
+            "description": "Gather eight leaf mould.",
+            "conditions": [
+              {
+                "kind": "gathered",
+                "item": "leaf-mould",
+                "count": 8
+              }
+            ],
+            "cost": {
+              "leaf-litter": 2
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
   }
 ]

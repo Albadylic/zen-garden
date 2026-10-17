@@ -112,12 +112,12 @@ A contemplative stone garden of moss, gravel and ground cover. **New idea: dry, 
 
 A damp hollow around a fallen log. **New idea: decay as habitat, and compost.**
 
-- [ ] Map with a fixed fallen log, deep shade and leaf litter.
-- [ ] Plants: royal fern, wood sorrel, shelf fungus and oyster mushroom (only beside dead wood).
-- [ ] Wildlife: woodlouse and millipede (a leaf-litter bed), Japanese toad (alongside decomposers).
-- [ ] Materials: leaf mould (from the compost bed), fungus.
-- [ ] Structure: leaf-litter bed (a compost heap that turns leaf litter into leaf mould while filled). Leaf mould is used to restore later gardens.
-- [ ] Milestones and the "Restore the woodland floor" project (fern hollow · log habitat · compost corner).
+- [x] Map with a fixed fallen log, deep shade and leaf litter.
+- [x] Plants: royal fern, wood sorrel, and two fungi that grow only beside dead wood (oyster mushroom, turkey tail). Old alders shade the hollow. The autoplayer finishes the chapter in under an hour.
+- [x] Wildlife: woodlouse and millipede (a leaf-litter bed), Japanese toad (alongside decomposers).
+- [x] Materials: leaf mould (from the compost bed) and deadwood (from clearing, and from turkey tail).
+- [x] Structure: leaf-litter bed (a compost heap that turns leaf litter into leaf mould while filled). Leaf mould is used to restore later gardens.
+- [x] Milestones and the "Restore the woodland floor" project (fern hollow · log habitat · compost corner).
 
 ### Chapter 6 — Wildflower Meadow
 

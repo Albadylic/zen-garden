@@ -530,5 +530,151 @@
         "unlocks": []
       }
     ]
+  },
+  {
+    "id": "fernwood-hollow",
+    "title": "Fernwood Hollow",
+    "requires": "chapter:quiet-stone-garden",
+    "completionUnlock": "chapter:fernwood-hollow",
+    "gift": {
+      "royal-fern-spores": 3,
+      "sorrel-seeds": 3,
+      "mushroom-spawn": 2
+    },
+    "completion": {
+      "title": "The woodland floor",
+      "body": [
+        "Ferns unfurl over soft logs, fungi return old wood to the soil, and the hollow’s leaf litter is alive with small workers.",
+        "East of the hollow, the trees open onto a sunlit meadow."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-hollow",
+        "title": "Into the hollow",
+        "description": "You looked around the damp, shaded hollow.",
+        "hint": "Go through the stone garden’s east gate and take a look around the hollow.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "fernwood-hollow"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-plan-for-the-hollow",
+        "title": "A plan for the hollow",
+        "description": "You chose how to begin restoring the woodland floor.",
+        "hint": "Open Restore and choose how to begin restoring the hollow.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "restore-hollow"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "ferns-in-the-shade",
+        "title": "Ferns in the shade",
+        "description": "Royal ferns and wood sorrel are growing in the hollow.",
+        "hint": "Plant royal ferns or wood sorrel in the deep shade.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "fernwood-hollow",
+            "plants": ["royal-fern", "wood-sorrel"],
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering-deadwood",
+        "title": "Gathering deadwood",
+        "description": "You gathered deadwood. You can now build a leaf-litter bed and log stacks.",
+        "hint": "Clear the hollow’s overgrowth to find fallen wood.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "deadwood",
+            "count": 4
+          }
+        ],
+        "unlocks": ["recipe:leaf-litter-bed"]
+      },
+      {
+        "id": "a-compost-heap",
+        "title": "A compost heap",
+        "description": "You built a leaf-litter bed.",
+        "hint": "Build a leaf-litter bed in the shade, then fill it with leaf litter.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "fernwood-hollow",
+            "ids": ["leaf-litter-bed"],
+            "count": 1
+          }
+        ],
+        "unlocks": ["upgrade:leaf-litter-bed"]
+      },
+      {
+        "id": "making-leaf-mould",
+        "title": "Making leaf mould",
+        "description": "Your leaf-litter bed made rich leaf mould.",
+        "hint": "Fill the leaf-litter bed with leaf litter; it makes leaf mould while it is full.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "leaf-mould",
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "decomposers-at-work",
+        "title": "Decomposers at work",
+        "description": "Woodlice or millipedes have moved into the leaf bed.",
+        "hint": "Woodlice and millipedes live in a leaf-litter bed in damp shade.",
+        "conditions": [
+          {
+            "kind": "seenAny",
+            "wildlife": ["woodlouse", "millipede"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-toad-appears",
+        "title": "A toad appears",
+        "description": "A toad has found the deep leaf litter.",
+        "hint": "Improve the leaf-litter bed into a deep leaf bed; toads follow the woodlice and millipedes.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "japanese-toad",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-hollow-restored",
+        "title": "The hollow restored",
+        "description": "You completed one approach to restoring the woodland floor.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "restore-hollow",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ]
   }
 ]

@@ -146,5 +146,44 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "fallen-log",
+    "name": "Fallen log",
+    "description": "An old trunk, soft with moss, slowly returning to the soil.",
+    "terrain": ["moss", "grass"],
+    "flat": false,
+    "cover": 0.5,
+    "look": {
+      "form": "log",
+      "colour": "#6b4c33",
+      "accent": "#a4743d"
+    },
+    "facts": [
+      {
+        "text": "Fungi slowly break the wood down into soil.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "log-stack",
+    "name": "Log stack",
+    "description": "A loose stack of deadwood, left to rot for wildlife.",
+    "terrain": ["moss", "grass"],
+    "flat": false,
+    "cover": 0.5,
+    "look": {
+      "form": "log",
+      "colour": "#7a5a3a",
+      "accent": "#b48a5a",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Fungi grow beside it once the wood begins to soften.",
+        "after": 1
+      }
+    ]
   }
 ]

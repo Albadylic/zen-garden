@@ -392,5 +392,82 @@
         "after": "into-the-stone-garden"
       }
     ]
+  },
+  {
+    "id": "royal-fern-spores",
+    "name": "Royal fern spores",
+    "category": "seed",
+    "description": "Green spores from the tip of a royal fern frond.",
+    "colour": "#6f8f4a",
+    "facts": [
+      {
+        "text": "Royal ferns carry their spores on special upright fronds.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "sorrel-seeds",
+    "name": "Wood sorrel seeds",
+    "category": "seed",
+    "description": "Tiny seeds that pop from wood sorrel’s pods.",
+    "colour": "#c8b0a0",
+    "facts": [
+      {
+        "text": "The ripe pods flick their seeds a surprising distance.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "mushroom-spawn",
+    "name": "Mushroom spawn",
+    "category": "seed",
+    "description": "Threads of fungus in a handful of damp sawdust.",
+    "colour": "#d8ccb0",
+    "facts": [
+      {
+        "text": "A mushroom is only the fruit; the fungus lives as threads in the wood.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "deadwood",
+    "name": "Deadwood",
+    "category": "material",
+    "description": "Old, softening branches from the woodland floor.",
+    "colour": "#7a5a3a",
+    "facts": [
+      {
+        "text": "Decaying wood is home to more life than living wood.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Fallen wood lies hidden under the hollow’s overgrowth.",
+        "after": "into-the-hollow"
+      }
+    ]
+  },
+  {
+    "id": "leaf-mould",
+    "name": "Leaf mould",
+    "category": "material",
+    "description": "Dark, crumbly earth made from rotted leaves.",
+    "colour": "#4f3a2a",
+    "facts": [
+      {
+        "text": "Leaf mould holds water like a sponge and feeds the soil.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Leaf litter left to rot in a bed becomes rich leaf mould.",
+        "after": "gathering-deadwood"
+      }
+    ]
   }
 ]

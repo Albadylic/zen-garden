@@ -1084,5 +1084,297 @@
         "after": 3
       }
     ]
+  },
+  {
+    "id": "old-alder",
+    "name": "Old alder",
+    "description": "A tall alder of the damp hollow, its roots in wet ground.",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Old tree"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "leaf-litter",
+        "everySec": 300,
+        "amount": 1,
+        "minStage": 0
+      },
+      {
+        "item": "twigs",
+        "everySec": 400,
+        "amount": 1,
+        "minStage": 0
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.5,
+    "shade": {
+      "radius": 2.5,
+      "strength": 0.5,
+      "minStage": 0
+    },
+    "look": {
+      "form": "tree",
+      "colour": "#3f5f36",
+      "accent": "#6b4c33",
+      "size": 1.15
+    },
+    "facts": [
+      {
+        "text": "Alders love wet ground and enrich the soil around them.",
+        "after": 1
+      },
+      {
+        "text": "Its fallen leaves feed the woodland floor.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "royal-fern",
+    "name": "Royal fern",
+    "description": "A large, stately fern of damp, shaded ground.",
+    "seedItem": "royal-fern-spores",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Fiddlehead",
+        "durationSec": 300
+      },
+      {
+        "name": "Young fronds",
+        "durationSec": 1200
+      },
+      {
+        "name": "Royal fern"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.45,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.5,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "royal-fern-spores",
+        "everySec": 1500,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.7,
+    "look": {
+      "form": "fern",
+      "colour": "#5f8a3e",
+      "accent": "#7fa04e",
+      "size": 1.25
+    },
+    "facts": [
+      {
+        "text": "One of the largest ferns, at home in damp hollows.",
+        "after": 1
+      },
+      {
+        "text": "Its fronds shelter the woodland floor from drying out.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "wood-sorrel",
+    "name": "Wood sorrel",
+    "description": "Clover-like leaves and delicate white flowers on the shaded floor.",
+    "seedItem": "sorrel-seeds",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Seedling",
+        "durationSec": 240
+      },
+      {
+        "name": "Leaves",
+        "durationSec": 720
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.4,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.45,
+        "max": 0.95
+      }
+    },
+    "produces": [
+      {
+        "item": "sorrel-seeds",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.6,
+    "flowerStage": 2,
+    "cover": 0.2,
+    "look": {
+      "form": "flower",
+      "colour": "#6f9a4a",
+      "accent": "#f4efe4",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Its leaves fold up at night and in rain.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "oyster-mushroom",
+    "name": "Oyster mushroom",
+    "description": "Soft grey-brown fans that grow from rotting wood.",
+    "seedItem": "mushroom-spawn",
+    "terrain": ["moss", "grass"],
+    "near": {
+      "ids": ["fallen-log", "log-stack"],
+      "distance": 1.5
+    },
+    "stages": [
+      {
+        "name": "Threads",
+        "durationSec": 300
+      },
+      {
+        "name": "Buttons",
+        "durationSec": 600
+      },
+      {
+        "name": "Fans"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.3,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.45,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "mushroom-spawn",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.2,
+    "look": {
+      "form": "fungus",
+      "colour": "#a8a090",
+      "accent": "#d8d0c0"
+    },
+    "facts": [
+      {
+        "text": "It grows only beside dead wood, which it slowly breaks down.",
+        "after": 1
+      },
+      {
+        "text": "Fungi return the wood’s goodness to the soil.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Something grows only beside the fallen logs.",
+        "after": "into-the-hollow"
+      }
+    ]
+  },
+  {
+    "id": "turkey-tail",
+    "name": "Turkey tail",
+    "description": "Banded brackets in brown and cream, layered like a fan.",
+    "seedItem": "mushroom-spawn",
+    "terrain": ["moss", "grass"],
+    "near": {
+      "ids": ["fallen-log", "log-stack"],
+      "distance": 1.5
+    },
+    "stages": [
+      {
+        "name": "Threads",
+        "durationSec": 360
+      },
+      {
+        "name": "Brackets",
+        "durationSec": 900
+      },
+      {
+        "name": "Fan of brackets"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.2,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.4,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "deadwood",
+        "everySec": 1800,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.1,
+    "look": {
+      "form": "fungus",
+      "colour": "#8a6a45",
+      "accent": "#e8dcc0",
+      "size": 0.9
+    },
+    "facts": [
+      {
+        "text": "Each bracket is banded like a turkey’s tail feathers.",
+        "after": 1
+      }
+    ]
   }
 ]

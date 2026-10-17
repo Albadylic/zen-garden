@@ -344,5 +344,90 @@
         "after": "into-the-stone-garden"
       }
     ]
+  },
+  {
+    "id": "leaf-litter-bed",
+    "name": "Leaf-litter bed",
+    "description": "A low, open heap where leaf litter rots down into leaf mould, full of small life.",
+    "terrain": ["moss", "grass"],
+    "prefers": {
+      "shade": {
+        "min": 0.25,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.4,
+        "max": 1
+      },
+      "cover": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "feeder": {
+      "item": "leaf-litter",
+      "durationSec": 1200,
+      "whileFilled": true
+    },
+    "look": {
+      "form": "mound",
+      "colour": "#6b5038",
+      "accent": "#8a6a45"
+    },
+    "levels": [
+      {
+        "name": "Leaf-litter bed",
+        "tier": 0,
+        "attraction": 1,
+        "capacity": 3,
+        "produces": [
+          {
+            "item": "leaf-mould",
+            "everySec": 300,
+            "amount": 1,
+            "minStage": 0
+          }
+        ]
+      },
+      {
+        "name": "Deep leaf bed",
+        "tier": 1,
+        "attraction": 1.6,
+        "capacity": 4,
+        "unlock": "upgrade:leaf-litter-bed",
+        "upgradeCost": {
+          "deadwood": 3,
+          "leaf-mould": 2
+        },
+        "upgradeAfterVisits": 2,
+        "favours": {
+          "japanese-toad": 2
+        },
+        "produces": [
+          {
+            "item": "leaf-mould",
+            "everySec": 240,
+            "amount": 1,
+            "minStage": 0
+          }
+        ]
+      }
+    ],
+    "facts": [
+      {
+        "text": "It only makes leaf mould while it holds leaf litter; add more when it runs low.",
+        "after": 1
+      },
+      {
+        "text": "Woodlice and millipedes do most of the work.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Deadwood and leaves could make a bed that rots into rich soil.",
+        "after": "into-the-hollow"
+      }
+    ]
   }
 ]

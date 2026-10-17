@@ -641,9 +641,11 @@ export class PlaceholderArt {
         const def = this.content.plants[id]
         const stage = Number(variant)
         if (def?.look) {
-          const last = Math.max(1, def.stages.length - 1)
+          const last = def.stages.length - 1
+          // Plants with a single stage (old trees) are always fully grown.
+          const growth = last <= 0 ? 1 : Math.min(1, stage / last)
           const accent = def.nectar > 0 ? stage >= def.flowerStage : stage >= last
-          drawPlantLook(g, id, def.look, Math.min(1, stage / last), accent)
+          drawPlantLook(g, id, def.look, growth, accent)
         } else drawPlant(g, id, stage)
         break
       }

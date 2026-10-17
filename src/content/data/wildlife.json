@@ -596,5 +596,124 @@
         "after": "small-lives"
       }
     ]
+  },
+  {
+    "id": "woodlouse",
+    "name": "Woodlouse",
+    "description": "A small grey armoured creature of damp, rotting places.",
+    "movement": "ground",
+    "speed": 0.5,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "leaf-litter-bed",
+      "minTier": 0,
+      "minSuitability": 0.4,
+      "perMinute": 0.7
+    },
+    "maxPresent": 4,
+    "staySec": [300, 900],
+    "colour": "#7a7a74",
+    "look": {
+      "form": "beetle",
+      "colour": "#7a7a74",
+      "accent": "#4f4f4a",
+      "size": 0.6
+    },
+    "facts": [
+      {
+        "text": "Lives in a leaf-litter bed, breaking leaves down into soil.",
+        "after": 1
+      },
+      {
+        "text": "It is a crustacean, a land-living cousin of crabs.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A bed of rotting leaves might draw small decomposers.",
+        "after": "gathering-deadwood"
+      }
+    ]
+  },
+  {
+    "id": "millipede",
+    "name": "Millipede",
+    "description": "A slow, many-legged creature that curls into a spiral when touched.",
+    "movement": "ground",
+    "speed": 0.4,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "leaf-litter-bed",
+      "minTier": 0,
+      "minSuitability": 0.45,
+      "perMinute": 0.45
+    },
+    "maxPresent": 3,
+    "staySec": [300, 900],
+    "colour": "#5a3a28",
+    "look": {
+      "form": "insect",
+      "colour": "#5a3a28",
+      "accent": "#2f2018",
+      "size": 0.7
+    },
+    "facts": [
+      {
+        "text": "Feeds on rotting leaves and wood.",
+        "after": 1
+      },
+      {
+        "text": "Despite the name, most have far fewer than a thousand legs.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "japanese-toad",
+    "name": "Japanese common toad",
+    "description": "A broad, warty toad that spends the day tucked into damp leaf litter.",
+    "movement": "ground",
+    "speed": 0.6,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "leaf-litter-bed",
+      "minTier": 1,
+      "minSuitability": 0.45,
+      "perMinute": 0.4
+    },
+    "alongside": {
+      "wildlife": ["woodlouse", "millipede"],
+      "count": 2
+    },
+    "maxPresent": 2,
+    "staySec": [400, 1000],
+    "colour": "#8a7050",
+    "look": {
+      "form": "amphibian",
+      "colour": "#8a7050",
+      "accent": "#3a2a1a",
+      "size": 1.2
+    },
+    "facts": [
+      {
+        "text": "Comes to a hollow already busy with life in the leaf litter.",
+        "after": 1
+      },
+      {
+        "text": "It shelters in deep, damp leaves through the day.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "A deep, damp leaf bed might hide something larger.",
+        "after": "a-compost-heap"
+      },
+      {
+        "text": "Toads come to a deep leaf bed once woodlice and millipedes live there.",
+        "after": "decomposers-at-work"
+      }
+    ]
   }
 ]

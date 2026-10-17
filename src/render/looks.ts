@@ -430,6 +430,16 @@ export function drawThingLook(g: Graphics, look: Look, level: number, variant = 
           .stroke({ color: a, width: 1.5, alpha: 0.7 })
       return
     }
+    case 'log': {
+      g.ellipse(0, 0, 40 * k, 12 * k).fill({ color: 0x30302a, alpha: 0.3 })
+      g.moveTo(-34 * k, 8 * k)
+        .lineTo(30 * k, -14 * k)
+        .stroke({ color: c, width: 16 * k, cap: 'round' })
+      g.ellipse(32 * k, -15 * k, 7 * k, 8 * k).fill(a)
+      g.circle(32 * k, -15 * k, 3 * k).stroke({ color: c, width: 1.5 })
+      g.ellipse(-6 * k, -4 * k, 10 * k, 4 * k).fill({ color: 0x7f9a4f, alpha: 0.9 })
+      return
+    }
     case 'post': {
       g.rect(-3, -50 * k, 6, 50 * k).fill(a)
       g.ellipse(0, -52 * k, 14 * k, 6 * k).fill(c)
