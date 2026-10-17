@@ -1277,5 +1277,85 @@
         "after": "night-and-day"
       }
     ]
+  },
+  {
+    "id": "reed-warbler",
+    "name": "Oriental reed warbler",
+    "description": "A loud brown warbler that sings from the top of a reed stem.",
+    "movement": "flying",
+    "speed": 2,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["common-reed", "cattail"],
+      "minCount": 4,
+      "perMinute": 0.45
+    },
+    "alongside": {
+      "wildlife": ["common-darter", "mayfly", "banded-demoiselle", "pond-skater"],
+      "count": 1
+    },
+    "maxPresent": 2,
+    "staySec": [90, 240],
+    "colour": "#a08060",
+    "look": {
+      "form": "bird",
+      "colour": "#a08060",
+      "accent": "#6b5038",
+      "size": 0.95
+    },
+    "facts": [
+      {
+        "text": "Sings from dense reed beds in a marsh already busy with insects.",
+        "after": 1
+      },
+      {
+        "text": "It weaves its nest between upright reed stems.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A dense reed bed might bring a loud little singer.",
+        "after": "marsh-planting"
+      }
+    ]
+  },
+  {
+    "id": "moorhen",
+    "name": "Moorhen",
+    "description": "A dark waterbird with a red bill, picking its way among floating leaves.",
+    "movement": "flying",
+    "speed": 1.4,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["frogbit", "water-lily"],
+      "minCount": 2,
+      "perMinute": 0.4
+    },
+    "maxPresent": 2,
+    "staySec": [120, 360],
+    "colour": "#3a3a40",
+    "look": {
+      "form": "waterbird",
+      "colour": "#3a3a40",
+      "accent": "#c83a3a",
+      "size": 1.15
+    },
+    "facts": [
+      {
+        "text": "Comes to pools with floating leaves to walk on.",
+        "after": 1
+      },
+      {
+        "text": "Its long toes spread its weight on soft leaves and mud.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Floating leaves on open pools suit a long-toed waterbird.",
+        "after": "marsh-planting"
+      }
+    ]
   }
 ]

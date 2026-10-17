@@ -265,5 +265,18 @@
       "id": "nest-box"
     },
     "unlock": "recipe:nest-box"
+  },
+  {
+    "id": "boardwalk",
+    "name": "Boardwalk",
+    "inputs": {
+      "reed-stems": 2,
+      "fallen-branches": 2
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "boardwalk"
+    },
+    "unlock": "recipe:boardwalk"
   }
 ]

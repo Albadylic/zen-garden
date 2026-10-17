@@ -2406,5 +2406,183 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "cattail",
+    "name": "Cattail",
+    "description": "Tall reed-mace with brown velvet heads, in the shallows and mud.",
+    "seedItem": "cattail-shoots",
+    "terrain": ["margin", "water"],
+    "stages": [
+      {
+        "name": "Shoot",
+        "durationSec": 240
+      },
+      {
+        "name": "Young leaves",
+        "durationSec": 900
+      },
+      {
+        "name": "Cattail stand"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.5
+      },
+      "moisture": {
+        "min": 0.7,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "cattail-fluff",
+        "everySec": 360,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "cattail-shoots",
+        "everySec": 1500,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.8,
+    "spread": {
+      "chancePerHour": 0.25,
+      "minStage": 2,
+      "mode": "plant",
+      "maxNearby": 4
+    },
+    "look": {
+      "form": "reed",
+      "colour": "#7a8a4a",
+      "accent": "#6b4630",
+      "size": 1.2
+    },
+    "facts": [
+      {
+        "text": "Reed warblers sing from cattail and reed stems.",
+        "after": 1
+      },
+      {
+        "text": "A dense stand shelters the marsh’s birds.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "marsh-marigold",
+    "name": "Marsh marigold",
+    "description": "Glossy round leaves and bright golden cups at the water’s edge.",
+    "seedItem": "marigold-divisions",
+    "terrain": ["margin", "grass"],
+    "stages": [
+      {
+        "name": "Clump",
+        "durationSec": 240
+      },
+      {
+        "name": "Leafy",
+        "durationSec": 720
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.5
+      },
+      "moisture": {
+        "min": 0.65,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "marigold-divisions",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1,
+    "flowerStage": 2,
+    "cover": 0.3,
+    "look": {
+      "form": "flower",
+      "colour": "#4f7a3a",
+      "accent": "#f0c838"
+    },
+    "facts": [
+      {
+        "text": "Its early flowers feed the first insects of the year.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "frogbit",
+    "name": "Frogbit",
+    "description": "Small floating rosettes like tiny lily pads, with white flowers.",
+    "seedItem": "frogbit-buds",
+    "terrain": ["water", "deep-water"],
+    "stages": [
+      {
+        "name": "Bud",
+        "durationSec": 240
+      },
+      {
+        "name": "Rosettes",
+        "durationSec": 720
+      },
+      {
+        "name": "Flowering"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.5
+      },
+      "moisture": {
+        "min": 0.8,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "frogbit-buds",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.3,
+    "flowerStage": 2,
+    "cover": 0.3,
+    "look": {
+      "form": "floating",
+      "colour": "#6f9a4a",
+      "accent": "#f8f4ec",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Moorhens pick their way among its floating leaves.",
+        "after": 1
+      },
+      {
+        "text": "Leave some water open: a marsh needs pools as well as plants.",
+        "after": 3
+      }
+    ]
   }
 ]

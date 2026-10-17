@@ -17,6 +17,7 @@ import wildflowerMeadow from './data/gardens/wildflower-meadow.json'
 import whisperingStream from './data/gardens/whispering-stream.json'
 import blossomCourt from './data/gardens/blossom-court.json'
 import ancientCanopy from './data/gardens/ancient-canopy.json'
+import reedMarsh from './data/gardens/reed-marsh.json'
 import { loadContent } from './loader'
 
 export const rawContent = {
@@ -39,6 +40,7 @@ export const rawContent = {
     whisperingStream,
     blossomCourt,
     ancientCanopy,
+    reedMarsh,
   ],
 }
 

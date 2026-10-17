@@ -262,5 +262,24 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "boardwalk",
+    "name": "Boardwalk",
+    "description": "A short run of timber boards over the water and mud.",
+    "terrain": ["water", "margin"],
+    "flat": true,
+    "cover": 0,
+    "look": {
+      "form": "boardwalk",
+      "colour": "#a8843a",
+      "accent": "#8a6a35"
+    },
+    "facts": [
+      {
+        "text": "A boardwalk lets you cross the marsh without trampling it.",
+        "after": 1
+      }
+    ]
   }
 ]

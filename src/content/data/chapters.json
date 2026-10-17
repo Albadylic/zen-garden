@@ -1238,5 +1238,138 @@
         "unlocks": []
       }
     ]
+  },
+  {
+    "id": "reed-marsh",
+    "title": "Reed Marsh",
+    "requires": "chapter:ancient-canopy",
+    "completionUnlock": "chapter:reed-marsh",
+    "gift": {
+      "cattail-shoots": 3,
+      "marigold-divisions": 3,
+      "frogbit-buds": 3,
+      "reed-rhizomes": 2
+    },
+    "completion": {
+      "title": "A living marsh",
+      "body": [
+        "Reed beds rustle around open pools, marigolds glow at the edges, and the marsh rings with birdsong.",
+        "South of the marsh, a garden of many trees waits for the turning of the seasons."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-marsh",
+        "title": "Into the marsh",
+        "description": "You looked around the wet, silted marsh.",
+        "hint": "Go through the canopy’s east gate and take a look around the marsh.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "reed-marsh"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-plan-for-the-marsh",
+        "title": "A plan for the marsh",
+        "description": "You chose how to begin restoring the marsh.",
+        "hint": "Open Restore and choose how to begin restoring the marsh.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "restore-marsh"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "marsh-planting",
+        "title": "Marsh planting",
+        "description": "Cattails, marigolds or frogbit are growing in the marsh.",
+        "hint": "Plant cattails or marigolds in the mud, and frogbit on the open water.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "reed-marsh",
+            "plants": ["cattail", "marsh-marigold", "frogbit"],
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering-fluff",
+        "title": "Gathering fluff",
+        "description": "You gathered cattail fluff. You can now lay a boardwalk.",
+        "hint": "Ripe cattails shed fluff; gather four.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "cattail-fluff",
+            "count": 4
+          }
+        ],
+        "unlocks": ["recipe:boardwalk"]
+      },
+      {
+        "id": "a-boardwalk",
+        "title": "A boardwalk",
+        "description": "A boardwalk crosses the marsh.",
+        "hint": "Lay two boardwalk sections over the water or mud.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "reed-marsh",
+            "ids": ["boardwalk"],
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "reed-song",
+        "title": "Reed song",
+        "description": "A reed warbler sang from the reed beds.",
+        "hint": "Reed warblers come to four or more reeds or cattails once water insects are about.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "reed-warbler",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-moorhen",
+        "title": "A moorhen",
+        "description": "A moorhen came to walk among the floating leaves.",
+        "hint": "Moorhens come where frogbit or lilies float on the pools.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "moorhen",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-marsh-restored",
+        "title": "The marsh restored",
+        "description": "You completed one approach to restoring the marsh.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "restore-marsh",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ]
   }
 ]

@@ -158,7 +158,7 @@ A great old tree with cavities. **New idea: canopy layers and nesting places.**
 
 - [x] Map around a fixed ancient konara oak (wide shade, acorns, fallen branches), with fallen logs and an understory to restore.
 - [x] Plants: Japanese holly, ivy, wood anemone.
-- [x] Wildlife: varied tit (nest box), stag beetle (a log stack), Japanese dormouse (nest box, alongside the tit's tree), Japanese pipistrelle bat (rare, bat box).
+- [x] Wildlife: varied tit (nest box), stag beetle (three fallen logs or log stacks), Japanese dormouse (dormouse box, alongside tits or beetles), Japanese pipistrelle (rare; bat box, alongside insects). The autoplayer finishes the chapter in about twenty minutes.
 - [x] Materials: acorns, fallen branches.
 - [x] Structure: nest box, with a bat-box branch.
 - [x] Milestones and the "Protect the old tree" project (understory · nesting places · deadwood).
@@ -167,12 +167,12 @@ A great old tree with cavities. **New idea: canopy layers and nesting places.**
 
 A shallow marsh with reed beds and a boardwalk. **New idea: open water pockets among dense reeds.**
 
-- [ ] Map of pools, mud and margins.
-- [ ] Plants: cattail, marsh marigold, frogbit (floating).
-- [ ] Wildlife: reed warbler (reed beds), moorhen (open water), Japanese tree frog (returns here).
-- [ ] Materials: cattail fluff, reed stems.
-- [ ] Decoration: a boardwalk that can be laid over water.
-- [ ] Milestones and the "Restore the marsh" project (reed beds · open pools · boardwalk).
+- [x] Map of pools, mud and margins.
+- [x] Plants: cattail, marsh marigold, frogbit (floating).
+- [x] Wildlife: Oriental reed warbler (four reeds or cattails, alongside water insects), moorhen (floating frogbit or lilies), and the Japanese tree frog returns to a frog shelter here. The autoplayer finishes the chapter in under an hour.
+- [x] Materials: cattail fluff, reed stems.
+- [x] Decoration: a boardwalk that can be laid over water or mud (reed stems and fallen branches from the Ancient Canopy).
+- [x] Milestones and the "Restore the marsh" project (reed beds · open pools · boardwalk).
 
 ### Chapter 11 — Four Seasons Garden
 

@@ -1027,5 +1027,141 @@
         ]
       }
     ]
+  },
+  {
+    "id": "restore-marsh",
+    "title": "Restore the marsh",
+    "description": "The marsh is choked and silted. Choose where to begin; every approach can be finished in time.",
+    "garden": "reed-marsh",
+    "requires": "chapter:ancient-canopy",
+    "approaches": [
+      {
+        "id": "reed-beds",
+        "title": "Reed beds",
+        "description": "Grow dense beds of reed and cattail along the margins.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-beds",
+            "title": "Plant the beds",
+            "description": "Grow six reeds or cattails in the marsh.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "reed-marsh",
+                "plants": ["common-reed", "cattail"],
+                "count": 6
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "beds-grown",
+            "title": "Beds grown",
+            "description": "Grow six reeds or cattails to full height.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "reed-marsh",
+                "plants": ["common-reed", "cattail"],
+                "minStage": 2,
+                "count": 6
+              }
+            ],
+            "cost": {
+              "cattail-fluff": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "open-pools",
+        "title": "Open pools",
+        "description": "Plant the edges, and keep the pools open.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "edges-not-pools",
+            "title": "Edges, not pools",
+            "description": "Grow three marigolds or cattails beside the water, and leave twelve water tiles open.",
+            "conditions": [
+              {
+                "kind": "plantedBeside",
+                "garden": "reed-marsh",
+                "terrain": ["water", "deep-water"],
+                "plants": ["marsh-marigold", "cattail"],
+                "count": 3
+              },
+              {
+                "kind": "openWater",
+                "garden": "reed-marsh",
+                "count": 12
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "floating-leaves",
+            "title": "Floating leaves",
+            "description": "Grow two frogbits to flowering.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "reed-marsh",
+                "plants": ["frogbit"],
+                "minStage": 2,
+                "count": 2
+              }
+            ],
+            "cost": {
+              "reed-stems": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "boardwalk",
+        "title": "A boardwalk",
+        "description": "Lay a boardwalk across the marsh, and a shelter for frogs beside it.",
+        "unlocks": ["recipe:boardwalk", "recipe:frog-shelter"],
+        "stages": [
+          {
+            "id": "lay-boards",
+            "title": "Lay the boards",
+            "description": "Lay three boardwalk sections in the marsh.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "reed-marsh",
+                "ids": ["boardwalk"],
+                "count": 3
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "frogs-of-the-marsh",
+            "title": "Frogs of the marsh",
+            "description": "Build a frog shelter in the marsh, and wait for frogs to use it twice.",
+            "conditions": [
+              {
+                "kind": "visitedIn",
+                "garden": "reed-marsh",
+                "count": 2
+              }
+            ],
+            "cost": {
+              "clay": 1
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
   }
 ]

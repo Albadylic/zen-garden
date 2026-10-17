@@ -810,5 +810,63 @@
         "after": "under-the-canopy"
       }
     ]
+  },
+  {
+    "id": "cattail-shoots",
+    "name": "Cattail shoots",
+    "category": "seed",
+    "description": "A rooted shoot of cattail, ready for the mud.",
+    "colour": "#8a7a4a",
+    "facts": [
+      {
+        "text": "Cattails spread through the mud by thick roots.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "marigold-divisions",
+    "name": "Marsh marigold divisions",
+    "category": "seed",
+    "description": "A clump of marsh marigold with glossy leaves.",
+    "colour": "#e0c040",
+    "facts": [
+      {
+        "text": "One of the first flowers of the year in wet places.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "frogbit-buds",
+    "name": "Frogbit buds",
+    "category": "seed",
+    "description": "Small winter buds of frogbit, which float up in spring.",
+    "colour": "#5f8f4a",
+    "facts": [
+      {
+        "text": "Frogbit buds sink in autumn and rise again in spring.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "cattail-fluff",
+    "name": "Cattail fluff",
+    "category": "material",
+    "description": "Soft, downy fluff from a ripe cattail head.",
+    "colour": "#d8c8a8",
+    "facts": [
+      {
+        "text": "Birds line their nests with cattail fluff.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Ripe cattails shed soft fluff.",
+        "after": "into-the-marsh"
+      }
+    ]
   }
 ]
