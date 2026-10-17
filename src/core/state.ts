@@ -143,7 +143,7 @@ export interface GameState {
   layoutVersion: number
 }
 
-export const STATE_VERSION = 2
+export const STATE_VERSION = 3
 
 export function emptyStats(): Stats {
   return {

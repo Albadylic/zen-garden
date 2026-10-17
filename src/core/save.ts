@@ -1,7 +1,8 @@
 // Save format: a versioned wrapper around the game state, with migrations so
 // older saves keep loading as the state shape changes.
 
-import type { Content, Terrain } from './content'
+import { isInArea } from './areas'
+import type { Content, FixedObject, Terrain } from './content'
 import { emptyStats, STATE_VERSION, type GameState } from './state'
 
 export const SAVE_FORMAT = 'zen-garden-save'
@@ -32,6 +33,27 @@ export type Migration = (
  */
 export const migrations: Record<number, Migration> = {
   1: addBambooGrove,
+  2: addShadeToFirstGarden,
+}
+
+/** A fixed feature from the map as a new entity. */
+function fixedEntity(content: Content, f: FixedObject, id: number): GameState['entities'][number] {
+  if (f.kind === 'plant') {
+    const def = content.plants[f.id]
+    return {
+      id,
+      kind: 'plant',
+      defId: f.id,
+      x: f.x,
+      y: f.y,
+      stage: f.stage ?? (def ? def.stages.length - 1 : 0),
+      progressMs: 0,
+      produceMs: def ? def.produces.map(() => 0) : [],
+      wateredMs: 0,
+      fixed: true,
+    }
+  }
+  return { id, kind: 'decoration', defId: f.id, x: f.x, y: f.y, fixed: true }
 }
 
 /**
@@ -65,24 +87,7 @@ function addBambooGrove(raw: Record<string, unknown>, content: Content): Record<
   // Fixed features in the new columns.
   for (const f of map.fixed) {
     if (f.x < oldWidth) continue
-    const id = s.nextId++
-    if (f.kind === 'plant') {
-      const def = content.plants[f.id]
-      s.entities.push({
-        id,
-        kind: 'plant',
-        defId: f.id,
-        x: f.x,
-        y: f.y,
-        stage: f.stage ?? (def ? def.stages.length - 1 : 0),
-        progressMs: 0,
-        produceMs: def ? def.produces.map(() => 0) : [],
-        wateredMs: 0,
-        fixed: true,
-      })
-    } else {
-      s.entities.push({ id, kind: 'decoration', defId: f.id, x: f.x, y: f.y, fixed: true })
-    }
+    s.entities.push(fixedEntity(content, f, s.nextId++))
   }
   s.terrain = terrain
   s.width = map.width
@@ -90,6 +95,37 @@ function addBambooGrove(raw: Record<string, unknown>, content: Content): Record<
   s.mapId = map.id
   s.areasVisited = []
   s.stats.clearedIn = {}
+  s.layoutVersion++
+  return s as unknown as Record<string, unknown>
+}
+
+/**
+ * Version 2 → 3: the first garden gains more shade (a third old pine, old
+ * azaleas and a mossy strip along the north wall). New features go in where
+ * the tile is free; a spot the player has already used is left as it is.
+ * Lawn becomes moss where the new map has moss; everything else is kept.
+ */
+function addShadeToFirstGarden(
+  raw: Record<string, unknown>,
+  content: Content,
+): Record<string, unknown> {
+  const s = raw as unknown as GameState
+  const map = content.map
+  const garden = map.areas.find((a) => a.id === 'forgotten-garden')
+  if (!garden || s.width !== map.width || s.height !== map.height) return raw
+  for (let y = 0; y < map.height; y++) {
+    for (let x = 0; x < map.width; x++) {
+      const i = y * map.width + x
+      if (isInArea(garden, x, y) && map.terrain[i] === 'moss' && s.terrain[i] === 'grass')
+        s.terrain[i] = 'moss'
+    }
+  }
+  for (const f of map.fixed) {
+    if (!isInArea(garden, f.x, f.y)) continue
+    if (s.entities.some((e) => e.x === f.x && e.y === f.y)) continue
+    s.entities.push(fixedEntity(content, f, s.nextId++))
+    s.terrain[f.y * map.width + f.x] = map.terrain[f.y * map.width + f.x]!
+  }
   s.layoutVersion++
   return s as unknown as Record<string, unknown>
 }

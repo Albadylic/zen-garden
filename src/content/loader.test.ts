@@ -13,8 +13,16 @@ describe('content', () => {
 
   it('places fixed objects from the map legend', () => {
     const { map } = getContent()
-    expect(map.fixed.filter((f) => f.id === 'old-pine')).toHaveLength(2)
+    expect(map.fixed.filter((f) => f.id === 'old-pine')).toHaveLength(3)
+    expect(map.fixed.filter((f) => f.id === 'old-azalea')).toHaveLength(4)
     expect(map.fixed.some((f) => f.id === 'grove-gate')).toBe(true)
+  })
+
+  it('adds shade from the legend, such as along the north wall', () => {
+    const { map } = getContent()
+    // (5, 1) is in the shaded strip; (5, 6) is open lawn.
+    expect(map.baseShade[1 * 26 + 5]).toBeCloseTo(0.5)
+    expect(map.baseShade[6 * 26 + 5]).toBe(0)
   })
 
   it('gives tiles beside the wall a little shade', () => {

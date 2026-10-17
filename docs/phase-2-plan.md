@@ -65,13 +65,13 @@ Owner's report: the interface gets too busy.
 
 Owner's report: few excellent spots make placement hard.
 
-- [ ] Redesign the Chapter 1 map with more shaded and varied areas:
-  - a third old tree, or a small stand of trees, near the pond
-  - a shaded strip along the north wall
-  - dense old shrubs that cast light shade
-- [ ] Spread moss terrain so the shade-loving plants and the shelter have several good-to-excellent spots in different parts of the garden.
-- [ ] Add a map test: at least N excellent tiles for each starter plant and for the shelter.
-- [ ] Re-run the Chapter 1 playthrough test and adjust its tile choices.
+- [x] Redesign the Chapter 1 map with more shaded and varied areas:
+  - a third old pine beside the pond
+  - a shaded, mossy strip along the north wall (map tiles can now add shade of their own)
+  - four old azaleas, dense fixed shrubs that cast light shade and give cover
+- [x] Spread moss terrain so the shade-loving plants and the shelter have several good-to-excellent spots in different parts of the garden. Excellent spots in a fresh garden: moss 11 → 29, fern 11 → 25, shelter 10 → 35, spread over every quarter of the garden.
+- [x] Add a map test: at least 20 excellent tiles for each starter plant, 25 for the shelter, in at least three quarters of the garden.
+- [x] Re-run the Chapter 1 playthrough test and adjust its tile choices (no changes were needed). Existing saves gain the new features on free tiles (save version 3).
 
 ### A6. The maple as a long-term goal
 

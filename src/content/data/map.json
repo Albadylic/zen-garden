@@ -65,21 +65,36 @@
         "kind": "decoration",
         "id": "stone-basin"
       }
+    },
+    "n": {
+      "terrain": "moss",
+      "shade": 0.4
+    },
+    "o": {
+      "terrain": "overgrown",
+      "shade": 0.4
+    },
+    "A": {
+      "terrain": "moss",
+      "fixed": {
+        "kind": "plant",
+        "id": "old-azalea"
+      }
     }
   },
   "rows": [
     "XXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "Xmmm..%...#..%%Xm%%TmmT%%X",
-    "XmPmm.....#...%Xmm%mm%%mmX",
-    "XmmLm..%.#.....X%mmm..%TmX",
-    "XPmm.....#,,,..X%%m....%mX",
-    "Xmm...%..#,~~,.XmT%..#..%X",
-    "X.......#,~~~,.Xm%...#.mmX",
+    "Xmmmnnonnn#nnooXm%%TmmT%%X",
+    "XmPmm..A..#..A%Xmm%mm%%mmX",
+    "XmmLm..%.#...mmX%mmm..%TmX",
+    "XPmm.....#,,,mPX%%m....%mX",
+    "Xmm...%..#,~~,mXmT%..#..%X",
+    "X.......#,~~~,mXm%...#.mmX",
     "X%......#,~~~,%X%%..W#.%TX",
     "X%%..B.#.,,~,,.Xmm%..#..%X",
-    "X......#..,,,..Xm%T..#.mmX",
-    "X..%...#......%X%%m..#%%mX",
-    "X..%%...#......Xmm%..##..X",
+    "XmA....#..,,,..Xm%T..#.mmX",
+    "X..%...#....mm%X%%m..#%%mX",
+    "X..%%...#...Am.Xmm%..##..X",
     "X.......#...%..G......%%mX",
     "X%.......#..%%.X%m%TmmT%%X",
     "X%%......#.....Xmm%%m%%mmX",

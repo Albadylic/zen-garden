@@ -259,6 +259,16 @@ function drawPlant(g: Graphics, id: string, stage: number): void {
       }
       return
     }
+    case 'old-azalea': {
+      // A clipped, rounded mound of small dark leaves.
+      g.ellipse(0, 0, 34, 15).fill({ color: 0x2e3a24, alpha: 0.3 })
+      g.ellipse(0, -16, 30, 20).fill(0x3a5530)
+      g.ellipse(-8, -24, 20, 14).fill(0x456a38)
+      g.ellipse(10, -20, 16, 11).fill(0x4d723d)
+      for (let i = 0; i < 9; i++)
+        g.circle((r[i]! - 0.5) * 44, -10 - r[i + 6]! * 24, 2).fill(0x6a8f4c)
+      return
+    }
     default:
       g.circle(0, -10, 10).fill(0xff00ff)
   }

@@ -412,6 +412,53 @@
     ]
   },
   {
+    "id": "old-azalea",
+    "name": "Old azalea",
+    "description": "A dense, rounded shrub left from the garden's first planting. Its low branches cast a soft, dappled shade.",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Old shrub"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "leaf-litter",
+        "everySec": 360,
+        "amount": 1,
+        "minStage": 0
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.7,
+    "shade": {
+      "radius": 1.5,
+      "strength": 0.55,
+      "minStage": 0
+    },
+    "facts": [
+      {
+        "text": "Its tangle of low branches gives small creatures somewhere sheltered to rest.",
+        "after": 1
+      },
+      {
+        "text": "Azaleas are often clipped into soft mounds in Japanese gardens, a style called o-karikomi.",
+        "after": 3
+      }
+    ]
+  },
+  {
     "id": "bamboo",
     "name": "Bamboo",
     "description": "Tall, jointed culms that whisper in the wind and cast a cool, green shade.",

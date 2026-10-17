@@ -92,6 +92,7 @@ function buildMap(raw: unknown, problems: string[]): MapDef | undefined {
   const width = file.rows[0]?.length ?? 0
   const terrain: Terrain[] = []
   const fixed: FixedObject[] = []
+  const extraShade: number[] = []
   file.rows.forEach((row, y) => {
     if (row.length !== width)
       problems.push(`map.json: row ${y} has ${row.length} tiles, expected ${width}`)
@@ -100,9 +101,11 @@ function buildMap(raw: unknown, problems: string[]): MapDef | undefined {
       if (!entry) {
         problems.push(`map.json: unknown tile "${char}" at ${x},${y}`)
         terrain.push('grass')
+        extraShade.push(0)
         return
       }
       terrain.push(entry.terrain)
+      extraShade.push(entry.shade ?? 0)
       if (entry.fixed) fixed.push({ ...entry.fixed, x, y })
     })
   })
@@ -112,7 +115,7 @@ function buildMap(raw: unknown, problems: string[]): MapDef | undefined {
     width,
     height,
     terrain,
-    baseShade: wallShade(terrain, width, height),
+    baseShade: wallShade(terrain, width, height).map((s, i) => Math.min(1, s + extraShade[i]!)),
     fixed,
     startingInventory: file.startingInventory,
     clearing: file.clearing,

@@ -302,7 +302,12 @@ export const mapFileSchema = z.object({
   name: z.string().min(1),
   legend: z.record(
     z.string().length(1),
-    z.object({ terrain: terrainSchema, fixed: fixedSchema.optional() }),
+    z.object({
+      terrain: terrainSchema,
+      fixed: fixedSchema.optional(),
+      /** Shade cast from beyond the tile, such as by the tall north wall (0 to 1). */
+      shade: z.number().min(0).max(1).optional(),
+    }),
   ),
   rows: z.array(z.string()).min(1),
   startingInventory: itemCounts,

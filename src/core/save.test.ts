@@ -117,3 +117,41 @@ describe('migration from version 1', () => {
     expect(() => advance(state, content, 60 * 60_000, { offline: true })).not.toThrow()
   })
 })
+
+/** A version 2 save: the garden before the extra shade was added. */
+function version2Save() {
+  const { content, state } = setup(5)
+  const added = (e: { defId: string; x: number; y: number }) =>
+    e.defId === 'old-azalea' || (e.defId === 'old-pine' && e.x === 14 && e.y === 4)
+  // The player has already planted where one azalea now grows.
+  const azalea = state.entities.find((e) => e.defId === 'old-azalea' && e.x === 2 && e.y === 9)!
+  state.entities = state.entities.filter((e) => !added(e))
+  plant(state, content, 'wildflower-mix', azalea.x, azalea.y)
+  // The north wall strip was lawn.
+  for (const x of [4, 5, 7, 8, 9]) state.terrain[1 * state.width + x] = 'grass'
+  const old: Record<string, unknown> = { ...state, version: 2 }
+  return { content, old: { format: 'zen-garden-save', version: 2, savedAt: 1, state: old } }
+}
+
+describe('migration from version 2', () => {
+  it('adds the new shade-giving features on free tiles', () => {
+    const { content, old } = version2Save()
+    const { state } = deserialize(JSON.parse(JSON.stringify(old)), content)
+    expect(state.entities.filter((e) => e.defId === 'old-azalea')).toHaveLength(3)
+    expect(state.entities.some((e) => e.defId === 'old-pine' && e.x === 14 && e.y === 4)).toBe(true)
+    expect(new Set(state.entities.map((e) => e.id)).size).toBe(state.entities.length)
+  })
+
+  it("keeps the player's own planting where a feature would have gone", () => {
+    const { content, old } = version2Save()
+    const { state } = deserialize(JSON.parse(JSON.stringify(old)), content)
+    const at = state.entities.filter((e) => e.x === 2 && e.y === 9)
+    expect(at.map((e) => e.defId)).toEqual(['wildflower-mix'])
+  })
+
+  it('turns the north wall strip to moss', () => {
+    const { content, old } = version2Save()
+    const { state } = deserialize(JSON.parse(JSON.stringify(old)), content)
+    for (const x of [4, 5, 7, 8, 9]) expect(state.terrain[1 * state.width + x]).toBe('moss')
+  })
+})
