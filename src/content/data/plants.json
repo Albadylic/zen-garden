@@ -35,7 +35,7 @@
     "produces": [
       {
         "item": "wildflower-seeds",
-        "everySec": 300,
+        "everySec": 240,
         "amount": 1,
         "minStage": 3
       }

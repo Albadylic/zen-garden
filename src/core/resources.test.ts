@@ -105,6 +105,21 @@ describe('seed supply', () => {
     expect(state.drops.some((d) => d.itemId === 'wildflower-seeds')).toBe(true)
   })
 
+  it('sometimes finds seeds while clearing, but not past the same cap', () => {
+    const { content, state } = setup()
+    const overgrown: [number, number][] = []
+    for (let y = 0; y < 16; y++)
+      for (let x = 0; x < 16; x++)
+        if (terrainAt(state, x, y) === 'overgrown') overgrown.push([x, y])
+    const before = state.inventory['wildflower-seeds'] ?? 0
+    for (const [x, y] of overgrown.slice(0, 10)) clearOvergrowth(state, content, x, y)
+    expect(state.inventory['wildflower-seeds']).toBeGreaterThan(before)
+
+    state.inventory['wildflower-seeds'] = SEED_SOFT_CAP
+    for (const [x, y] of overgrown.slice(10)) clearOvergrowth(state, content, x, y)
+    expect(state.inventory['wildflower-seeds']).toBe(SEED_SOFT_CAP)
+  })
+
   it('turns spare seeds into a seed bundle', () => {
     const { content, state } = setup()
     state.inventory['wildflower-seeds'] = 5

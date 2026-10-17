@@ -24,7 +24,7 @@ test('first session: plant, clear, gather, attract a butterfly and house the fir
   await expect.poll(() => milestone(page, 'first-planting')).toBe(true)
   expect(
     await page.evaluate(() => window.__zen!.controller.state.inventory['wildflower-seeds'] ?? 0),
-  ).toBe(1)
+  ).toBe(3)
 
   // Clear overgrowth with the Restore tool.
   await openTab(page, 'Restore')

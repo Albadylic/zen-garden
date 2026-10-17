@@ -30,6 +30,13 @@ function stageOf(e: Entity): number {
   return e.kind === 'plant' ? e.stage : 0
 }
 
+/** Seeds pause once the player has plenty (counting any lying in the garden), so they never pile up unused. */
+function seedIsFull(state: GameState, content: Content, itemId: string): boolean {
+  if (content.items[itemId]?.category !== 'seed') return false
+  const lying = state.drops.filter((d) => d.itemId === itemId).length
+  return (state.inventory[itemId] ?? 0) + lying >= SEED_SOFT_CAP
+}
+
 /** System: plants and structures produce items over time, up to a cap per source. */
 export function produce(state: GameState, content: Content, dtMs: number, ctx: StepContext): void {
   for (const e of state.entities) {
@@ -49,13 +56,7 @@ export function produce(state: GameState, content: Content, dtMs: number, ctx: S
         return
       }
       const lying = state.drops.filter((d) => d.sourceId === e.id && d.itemId === rule.item).length
-      // Seeds pause once the player has plenty, so they never pile up unused.
-      const seedFull =
-        content.items[rule.item]?.category === 'seed' &&
-        (state.inventory[rule.item] ?? 0) +
-          state.drops.filter((d) => d.itemId === rule.item).length >=
-          SEED_SOFT_CAP
-      if (lying >= DROP_CAP || seedFull) {
+      if (lying >= DROP_CAP || seedIsFull(state, content, rule.item)) {
         // Rest until something is gathered, then start the next one from scratch.
         e.produceMs[i] = 0
         return
@@ -153,6 +154,8 @@ export function clearOvergrowth(
   for (const find of garden?.clearing ?? content.world.clearing) {
     if (random(state) >= find.chance) continue
     const n = randomInt(state, find.min, find.max)
+    // Seeds found while clearing respect the same soft cap as seeds from plants.
+    if (seedIsFull(state, content, find.item)) continue
     if (n > 0) items[find.item] = (items[find.item] ?? 0) + n
   }
   addItems(state, items)

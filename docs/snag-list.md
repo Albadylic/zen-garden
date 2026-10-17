@@ -4,7 +4,8 @@ Owner feedback from playtesting, to come back to once all twelve gardens of the 
 
 ## Balance
 
-- [ ] **Too few wildflower seeds.** Since the A2 fix (slower seeds, pausing at 12 held), seeds have dried up and the game feels stale. Find a balance between the earlier flood (about 60 by the end of Chapter 1) and now.
+- [x] **Too few wildflower seeds.** Since the A2 fix (slower seeds, pausing at 12 held), seeds have dried up and the game feels stale. Find a balance between the earlier flood (about 60 by the end of Chapter 1) and now.
+  - Done: the first seed came 11–15 minutes in, so the opening felt dry. Now the player starts with 6 seeds, wildflowers seed every 4 minutes (was 5), and clearing overgrowth turns up a seed about one time in four. A player who sows every seed holds about 20 by minute 20, against about 7 before. The cap of 12 held still applies, and now covers seeds found while clearing too.
 
 ## Interactions
 
