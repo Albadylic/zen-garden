@@ -733,5 +733,82 @@
         "after": "shrubs-planted"
       }
     ]
+  },
+  {
+    "id": "holly-berries",
+    "name": "Holly berries",
+    "category": "seed",
+    "description": "Red berries of Japanese holly, each with a hard seed.",
+    "colour": "#c83a3a",
+    "facts": [
+      {
+        "text": "Birds carry holly seeds through the woods.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "ivy-cuttings",
+    "name": "Ivy cuttings",
+    "category": "seed",
+    "description": "Trailing cuttings of ivy, rooting at every joint.",
+    "colour": "#3f5f3a",
+    "facts": [
+      {
+        "text": "Ivy flowers late, when few other plants do.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "anemone-bulbs",
+    "name": "Wood anemone roots",
+    "category": "seed",
+    "description": "Thin brown roots of wood anemone.",
+    "colour": "#8a7a5a",
+    "facts": [
+      {
+        "text": "It flowers before the canopy fills with leaves.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "acorns",
+    "name": "Acorns",
+    "category": "material",
+    "description": "Glossy acorns from the ancient oak.",
+    "colour": "#a8843a",
+    "facts": [
+      {
+        "text": "Many woodland creatures depend on acorns in autumn.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "The ancient oak drops acorns.",
+        "after": "under-the-canopy"
+      }
+    ]
+  },
+  {
+    "id": "fallen-branches",
+    "name": "Fallen branches",
+    "category": "material",
+    "description": "Sturdy branches brought down by the wind.",
+    "colour": "#6b4c33",
+    "facts": [
+      {
+        "text": "Old trees shed branches as they age, making new homes for wildlife.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "The canopy floor hides fallen branches under its overgrowth.",
+        "after": "under-the-canopy"
+      }
+    ]
   }
 ]

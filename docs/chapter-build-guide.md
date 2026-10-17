@@ -156,12 +156,12 @@ A flowering court with a blossom tree. **New idea: flowering shrubs and fruit th
 
 A great old tree with cavities. **New idea: canopy layers and nesting places.**
 
-- [ ] Map around a fixed ancient zelkova, with an understory to restore.
-- [ ] Plants: Japanese holly, ivy, wood anemone.
-- [ ] Wildlife: varied tit (nest box), stag beetle (a log stack), Japanese dormouse (nest box, alongside the tit's tree), Japanese pipistrelle bat (rare, bat box).
-- [ ] Materials: acorns, fallen branches.
-- [ ] Structure: nest box, with a bat-box branch.
-- [ ] Milestones and the "Protect the old tree" project (understory · nesting places · deadwood).
+- [x] Map around a fixed ancient konara oak (wide shade, acorns, fallen branches), with fallen logs and an understory to restore.
+- [x] Plants: Japanese holly, ivy, wood anemone.
+- [x] Wildlife: varied tit (nest box), stag beetle (a log stack), Japanese dormouse (nest box, alongside the tit's tree), Japanese pipistrelle bat (rare, bat box).
+- [x] Materials: acorns, fallen branches.
+- [x] Structure: nest box, with a bat-box branch.
+- [x] Milestones and the "Protect the old tree" project (understory · nesting places · deadwood).
 
 ### Chapter 10 — Reed Marsh
 

@@ -2184,5 +2184,227 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "ancient-oak",
+    "name": "Ancient konara oak",
+    "description": "A vast old oak, hollowed by age, its canopy spread wide over the garden.",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Ancient tree"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "produces": [
+      {
+        "item": "acorns",
+        "everySec": 300,
+        "amount": 1,
+        "minStage": 0
+      },
+      {
+        "item": "fallen-branches",
+        "everySec": 600,
+        "amount": 1,
+        "minStage": 0
+      },
+      {
+        "item": "leaf-litter",
+        "everySec": 300,
+        "amount": 1,
+        "minStage": 0
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 0,
+    "cover": 0.6,
+    "shade": {
+      "radius": 3.5,
+      "strength": 0.6,
+      "minStage": 0
+    },
+    "look": {
+      "form": "tree",
+      "colour": "#46602f",
+      "accent": "#5d4330",
+      "size": 1.7
+    },
+    "facts": [
+      {
+        "text": "An old oak supports more kinds of life than almost any other tree.",
+        "after": 1
+      },
+      {
+        "text": "Its hollows are homes for birds, bats and dormice.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "japanese-holly",
+    "name": "Japanese holly",
+    "description": "A dense evergreen shrub of the understory, red-berried in winter.",
+    "seedItem": "holly-berries",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Seedling",
+        "durationSec": 480
+      },
+      {
+        "name": "Young shrub",
+        "durationSec": 1500
+      },
+      {
+        "name": "Berried shrub"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.3,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.3,
+        "max": 0.8
+      }
+    },
+    "produces": [
+      {
+        "item": "holly-berries",
+        "everySec": 1500,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.3,
+    "flowerStage": 2,
+    "cover": 0.8,
+    "look": {
+      "form": "shrub",
+      "colour": "#2f4a2c",
+      "accent": "#c83a3a"
+    },
+    "facts": [
+      {
+        "text": "Its dense evergreen leaves shelter small birds through winter.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "ivy",
+    "name": "Ivy",
+    "description": "Evergreen ivy, clambering over the ground and up old stumps.",
+    "seedItem": "ivy-cuttings",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Cutting",
+        "durationSec": 240
+      },
+      {
+        "name": "Trailing",
+        "durationSec": 900
+      },
+      {
+        "name": "Flowering ivy"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.2,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.3,
+        "max": 0.9
+      }
+    },
+    "produces": [
+      {
+        "item": "ivy-cuttings",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.8,
+    "flowerStage": 2,
+    "cover": 0.6,
+    "look": {
+      "form": "vine",
+      "colour": "#3a5a32",
+      "accent": "#c8c860"
+    },
+    "facts": [
+      {
+        "text": "Its late flowers feed insects when little else is in bloom.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "wood-anemone",
+    "name": "Wood anemone",
+    "description": "White starry flowers that carpet the woodland floor.",
+    "seedItem": "anemone-bulbs",
+    "terrain": ["grass", "moss"],
+    "stages": [
+      {
+        "name": "Shoots",
+        "durationSec": 240
+      },
+      {
+        "name": "Leaves",
+        "durationSec": 600
+      },
+      {
+        "name": "In flower"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0.35,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.4,
+        "max": 0.9
+      }
+    },
+    "produces": [
+      {
+        "item": "anemone-bulbs",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0.8,
+    "flowerStage": 2,
+    "cover": 0.2,
+    "look": {
+      "form": "flower",
+      "colour": "#5f8a4a",
+      "accent": "#f8f4ec",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "A carpet of anemones is a sign of very old woodland.",
+        "after": 1
+      }
+    ]
   }
 ]

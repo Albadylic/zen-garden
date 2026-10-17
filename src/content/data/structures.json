@@ -530,5 +530,98 @@
         "after": "first-fruit"
       }
     ]
+  },
+  {
+    "id": "nest-box",
+    "name": "Nest box",
+    "description": "A wooden box on a post, with a small round entrance hole.",
+    "terrain": ["grass", "moss"],
+    "prefers": {
+      "shade": {
+        "min": 0.3,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0.2,
+        "max": 0.85
+      },
+      "cover": {
+        "min": 0.2,
+        "max": 1
+      }
+    },
+    "look": {
+      "form": "box",
+      "colour": "#a8843a",
+      "accent": "#6b4c33"
+    },
+    "levels": [
+      {
+        "name": "Nest box",
+        "tier": 0,
+        "attraction": 1,
+        "capacity": 2,
+        "favours": {
+          "varied-tit": 2
+        },
+        "produces": []
+      },
+      {
+        "name": "Dormouse box",
+        "tier": 1,
+        "from": 0,
+        "branch": "dormouse-box",
+        "art": "1",
+        "description": "A box with its entrance facing the trunk, for dormice.",
+        "unlock": "upgrade:nest-box",
+        "upgradeCost": {
+          "acorns": 3,
+          "bark": 2
+        },
+        "upgradeAfterVisits": 2,
+        "attraction": 1.4,
+        "capacity": 3,
+        "favours": {
+          "japanese-dormouse": 2
+        },
+        "produces": []
+      },
+      {
+        "name": "Bat box",
+        "tier": 1,
+        "from": 0,
+        "branch": "bat-box",
+        "art": "2",
+        "description": "A narrow box open at the bottom, for roosting bats.",
+        "unlock": "upgrade:nest-box",
+        "upgradeCost": {
+          "fallen-branches": 3,
+          "bark": 2
+        },
+        "upgradeAfterVisits": 2,
+        "attraction": 1.4,
+        "capacity": 4,
+        "favours": {
+          "pipistrelle": 2
+        },
+        "produces": []
+      }
+    ],
+    "facts": [
+      {
+        "text": "The size of the hole decides who can use it.",
+        "after": 1
+      },
+      {
+        "text": "Placed in shade with cover nearby, it stays cool in summer.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Acorns and bark could make a home for hole-nesting birds.",
+        "after": "under-the-canopy"
+      }
+    ]
   }
 ]

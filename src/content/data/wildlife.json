@@ -1108,5 +1108,174 @@
         "after": 3
       }
     ]
+  },
+  {
+    "id": "varied-tit",
+    "name": "Varied tit",
+    "description": "A bold little tit with chestnut flanks and a cream face.",
+    "movement": "flying",
+    "speed": 2.2,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "nest-box",
+      "minTier": 0,
+      "minSuitability": 0.4,
+      "perMinute": 0.6
+    },
+    "maxPresent": 2,
+    "staySec": [120, 360],
+    "colour": "#8a5a3a",
+    "look": {
+      "form": "bird",
+      "colour": "#8a5a3a",
+      "accent": "#3a3428",
+      "size": 0.9
+    },
+    "facts": [
+      {
+        "text": "Nests in tree holes and nest boxes in shaded woodland.",
+        "after": 1
+      },
+      {
+        "text": "It stores acorns and seeds to find later.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A hole-nesting bird might move into a nest box.",
+        "after": "gathering-acorns"
+      }
+    ]
+  },
+  {
+    "id": "stag-beetle",
+    "name": "Stag beetle",
+    "description": "A large, gentle beetle with antler-like jaws.",
+    "movement": "ground",
+    "speed": 0.5,
+    "attraction": {
+      "kind": "perch",
+      "plants": [],
+      "things": ["fallen-log", "log-stack"],
+      "minCount": 3,
+      "perMinute": 0.4
+    },
+    "maxPresent": 2,
+    "staySec": [300, 900],
+    "colour": "#4a2a1a",
+    "look": {
+      "form": "beetle",
+      "colour": "#4a2a1a",
+      "accent": "#7a4a2a",
+      "size": 1.3
+    },
+    "facts": [
+      {
+        "text": "Its young live for years inside rotting wood.",
+        "after": 1
+      },
+      {
+        "text": "The “antlers” are only for show and wrestling.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "More deadwood on the ground might bring a large beetle.",
+        "after": "understory"
+      }
+    ]
+  },
+  {
+    "id": "japanese-dormouse",
+    "name": "Japanese dormouse",
+    "description": "A tiny tree-dwelling dormouse with a dark stripe down its back.",
+    "movement": "ground",
+    "speed": 0.9,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "nest-box",
+      "minTier": 1,
+      "branches": ["dormouse-box"],
+      "minSuitability": 0.4,
+      "perMinute": 0.4
+    },
+    "alongside": {
+      "wildlife": ["varied-tit", "stag-beetle"],
+      "count": 1
+    },
+    "maxPresent": 2,
+    "staySec": [400, 1000],
+    "colour": "#a8845a",
+    "look": {
+      "form": "mammal",
+      "colour": "#a8845a",
+      "accent": "#3a2a1a",
+      "size": 0.8
+    },
+    "facts": [
+      {
+        "text": "Lives in a dormouse box in woodland already full of life.",
+        "after": 1
+      },
+      {
+        "text": "It is protected as a natural monument in Japan.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A nest box turned towards the trunk suits a tiny climber.",
+        "after": "a-tit-nests"
+      }
+    ]
+  },
+  {
+    "id": "pipistrelle",
+    "name": "Japanese pipistrelle",
+    "description": "A small bat that flits around the canopy at dusk.",
+    "movement": "flying",
+    "speed": 3,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "nest-box",
+      "minTier": 1,
+      "branches": ["bat-box"],
+      "minSuitability": 0.4,
+      "perMinute": 0.15
+    },
+    "alongside": {
+      "wildlife": ["stag-beetle", "small-white", "bumblebee", "carpenter-bee"],
+      "count": 2
+    },
+    "maxPresent": 2,
+    "staySec": [200, 600],
+    "colour": "#5a4a40",
+    "look": {
+      "form": "bat",
+      "colour": "#5a4a40",
+      "accent": "#2a2220"
+    },
+    "facts": [
+      {
+        "text": "A rare visitor that roosts in a bat box near a garden busy with insects.",
+        "after": 1
+      },
+      {
+        "text": "It finds its way in the dark by listening to echoes.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A narrow box open at the bottom might shelter something that flies at dusk.",
+        "after": "a-tit-nests"
+      },
+      {
+        "text": "Bats are rare; they roost in a bat box once insects are plentiful.",
+        "after": "night-and-day"
+      }
+    ]
   }
 ]

@@ -16,6 +16,7 @@ import fernwoodHollow from './data/gardens/fernwood-hollow.json'
 import wildflowerMeadow from './data/gardens/wildflower-meadow.json'
 import whisperingStream from './data/gardens/whispering-stream.json'
 import blossomCourt from './data/gardens/blossom-court.json'
+import ancientCanopy from './data/gardens/ancient-canopy.json'
 import { loadContent } from './loader'
 
 export const rawContent = {
@@ -37,6 +38,7 @@ export const rawContent = {
     wildflowerMeadow,
     whisperingStream,
     blossomCourt,
+    ancientCanopy,
   ],
 }
 

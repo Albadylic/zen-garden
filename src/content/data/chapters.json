@@ -1106,5 +1106,137 @@
         "unlocks": []
       }
     ]
+  },
+  {
+    "id": "ancient-canopy",
+    "title": "Ancient Canopy",
+    "requires": "chapter:blossom-court",
+    "completionUnlock": "chapter:ancient-canopy",
+    "gift": {
+      "holly-berries": 2,
+      "ivy-cuttings": 3,
+      "anemone-bulbs": 3
+    },
+    "completion": {
+      "title": "Under the old oak",
+      "body": [
+        "Beneath the ancient oak, holly and ivy fill the understory, tits nest in the boxes, and something small stirs at dusk.",
+        "East of the canopy, the ground grows soft and wet: a marsh of reeds is waiting."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "under-the-canopy",
+        "title": "Under the canopy",
+        "description": "You looked around beneath the ancient oak.",
+        "hint": "Go through the court’s south gate and take a look under the old oak.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "ancient-canopy"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-plan-for-the-tree",
+        "title": "A plan for the tree",
+        "description": "You chose how to begin protecting the old tree.",
+        "hint": "Open Restore and choose how to begin protecting the old tree.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "protect-the-old-tree"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "understory",
+        "title": "The understory",
+        "description": "Holly, ivy or anemones grow beneath the canopy.",
+        "hint": "Plant three understory plants in the oak’s shade: holly, ivy or wood anemone.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "ancient-canopy",
+            "plants": ["japanese-holly", "ivy", "wood-anemone"],
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering-acorns",
+        "title": "Gathering acorns",
+        "description": "You gathered acorns. You can now build a nest box.",
+        "hint": "The ancient oak drops acorns; gather four.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "acorns",
+            "count": 4
+          }
+        ],
+        "unlocks": ["recipe:nest-box"]
+      },
+      {
+        "id": "a-nest-box",
+        "title": "A nest box",
+        "description": "You put up a nest box.",
+        "hint": "Build a nest box in the shade, near cover.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "ancient-canopy",
+            "ids": ["nest-box"],
+            "count": 1
+          }
+        ],
+        "unlocks": ["upgrade:nest-box"]
+      },
+      {
+        "id": "a-tit-nests",
+        "title": "A tit nests",
+        "description": "A varied tit moved into the nest box.",
+        "hint": "Varied tits use a nest box in shade with cover nearby.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "varied-tit",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "night-and-day",
+        "title": "Night and day",
+        "description": "A dormouse or a bat has found a home under the canopy.",
+        "hint": "Turn a used nest box into a dormouse box or a bat box.",
+        "conditions": [
+          {
+            "kind": "seenAny",
+            "wildlife": ["japanese-dormouse", "pipistrelle"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-tree-protected",
+        "title": "The tree protected",
+        "description": "You completed one approach to protecting the old tree.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "protect-the-old-tree",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ]
   }
 ]

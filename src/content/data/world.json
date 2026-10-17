@@ -133,6 +133,14 @@
         "kind": "plant",
         "id": "old-cherry"
       }
+    },
+    "O": {
+      "terrain": "moss",
+      "shade": 0.4,
+      "fixed": {
+        "kind": "plant",
+        "id": "ancient-oak"
+      }
     }
   },
   "startingInventory": {
@@ -498,7 +506,44 @@
       "slot": {
         "col": 1,
         "row": -1
-      }
+      },
+      "origin": {
+        "x": 14,
+        "y": -11
+      },
+      "unlock": "chapter:blossom-court",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "item": "fallen-branches",
+          "min": 1,
+          "max": 1,
+          "chance": 0.5
+        },
+        {
+          "item": "deadwood",
+          "min": 1,
+          "max": 1,
+          "chance": 0.4
+        },
+        {
+          "item": "bark",
+          "min": 1,
+          "max": 1,
+          "chance": 0.4
+        },
+        {
+          "item": "leaf-litter",
+          "min": 1,
+          "max": 1,
+          "chance": 0.4
+        }
+      ]
     },
     {
       "id": "reed-marsh",
@@ -629,7 +674,17 @@
     },
     {
       "gardens": ["blossom-court", "ancient-canopy"],
-      "kind": "main"
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 7,
+          "y": 15
+        },
+        "passage": {
+          "x": 7,
+          "y": 0
+        }
+      }
     },
     {
       "gardens": ["ancient-canopy", "reed-marsh"],

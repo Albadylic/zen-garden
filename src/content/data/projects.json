@@ -900,5 +900,132 @@
         ]
       }
     ]
+  },
+  {
+    "id": "protect-the-old-tree",
+    "title": "Protect the old tree",
+    "description": "The oak stands alone in a tangle. Choose where to begin; every approach can be finished in time.",
+    "garden": "ancient-canopy",
+    "requires": "chapter:blossom-court",
+    "approaches": [
+      {
+        "id": "understory",
+        "title": "An understory",
+        "description": "Fill the layers beneath the canopy with holly, ivy and anemones.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "layers",
+            "title": "Layers",
+            "description": "Grow four different species under the canopy.",
+            "conditions": [
+              {
+                "kind": "speciesIn",
+                "garden": "ancient-canopy",
+                "count": 4
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "understory-grown",
+            "title": "Understory grown",
+            "description": "Grow four understory plants to full size.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "ancient-canopy",
+                "plants": ["japanese-holly", "ivy", "wood-anemone"],
+                "minStage": 2,
+                "count": 4
+              }
+            ],
+            "cost": {
+              "leaf-mould": 1
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "nesting-places",
+        "title": "Nesting places",
+        "description": "Put up nest boxes around the old tree.",
+        "unlocks": ["recipe:nest-box"],
+        "stages": [
+          {
+            "id": "boxes-up",
+            "title": "Boxes up",
+            "description": "Build two nest boxes under the canopy.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "ancient-canopy",
+                "ids": ["nest-box"],
+                "count": 2
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "boxes-used",
+            "title": "Boxes used",
+            "description": "Wait for wildlife to use the boxes three times.",
+            "conditions": [
+              {
+                "kind": "visitedIn",
+                "garden": "ancient-canopy",
+                "count": 3
+              }
+            ],
+            "cost": {
+              "acorns": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "deadwood",
+        "title": "Deadwood",
+        "description": "Leave wood to rot for the creatures that need it.",
+        "unlocks": ["recipe:leaf-litter-bed"],
+        "stages": [
+          {
+            "id": "stack-wood",
+            "title": "Stack wood",
+            "description": "Build two log stacks under the canopy.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "ancient-canopy",
+                "ids": ["log-stack"],
+                "count": 2
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "beetles-come",
+            "title": "Beetles come",
+            "description": "See two stag beetle visits.",
+            "conditions": [
+              {
+                "kind": "seenAny",
+                "wildlife": ["stag-beetle"],
+                "count": 2
+              }
+            ],
+            "cost": {
+              "fallen-branches": 2
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
   }
 ]

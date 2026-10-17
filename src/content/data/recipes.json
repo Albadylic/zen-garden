@@ -251,5 +251,19 @@
       "id": "petal-lantern"
     },
     "unlock": "recipe:petal-lantern"
+  },
+  {
+    "id": "nest-box",
+    "name": "Nest box",
+    "inputs": {
+      "twigs": 3,
+      "bark": 2,
+      "acorns": 2
+    },
+    "output": {
+      "kind": "structure",
+      "id": "nest-box"
+    },
+    "unlock": "recipe:nest-box"
   }
 ]
