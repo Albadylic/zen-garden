@@ -326,7 +326,8 @@ export class GardenRenderer {
       if (this.host.content.structures[e.defId]?.feeder) {
         return `structure:${e.defId}:${(e.filledMs ?? 0) > 0 ? 'full' : 'empty'}`
       }
-      return `structure:${e.defId}:${e.level}`
+      const level = this.host.content.structures[e.defId]?.levels[e.level]
+      return `structure:${e.defId}:${level?.art ?? e.level}`
     }
     if (e.defId === 'grove-gate')
       return `decoration:grove-gate:${view.gateOpen ? 'open' : 'closed'}`

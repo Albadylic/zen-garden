@@ -92,6 +92,8 @@ export interface Stats {
   matured: Record<string, number>
   /** Items gathered, harvested or found, per item. */
   gathered: Record<string, number>
+  /** Shelters upgraded into each branch. */
+  branched: Record<string, number>
 }
 
 export interface JournalRecord {
@@ -144,5 +146,6 @@ export function emptyStats(): Stats {
     upgraded: 0,
     matured: {},
     gathered: {},
+    branched: {},
   }
 }

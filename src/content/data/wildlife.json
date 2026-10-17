@@ -87,9 +87,9 @@
     "attraction": {
       "kind": "shelter",
       "structure": "natural-shelter",
-      "minLevel": 0,
       "minSuitability": 0.35,
-      "perMinute": 0.5
+      "perMinute": 0.5,
+      "minTier": 0
     },
     "maxPresent": 4,
     "staySec": [300, 900],
@@ -114,9 +114,9 @@
     "attraction": {
       "kind": "shelter",
       "structure": "natural-shelter",
-      "minLevel": 1,
       "minSuitability": 0.5,
-      "perMinute": 0.3
+      "perMinute": 0.3,
+      "minTier": 1
     },
     "maxPresent": 1,
     "staySec": [90, 240],
@@ -187,6 +187,62 @@
       },
       {
         "text": "Often basks with its wings spread flat in the sun.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "mason-bee",
+    "name": "Mason bee",
+    "description": "A small, gentle solitary bee that seals its nest tubes with mud.",
+    "movement": "flying",
+    "speed": 1.5,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "natural-shelter",
+      "minTier": 2,
+      "branches": ["insect-hotel"],
+      "minSuitability": 0.35,
+      "perMinute": 0.6
+    },
+    "maxPresent": 4,
+    "staySec": [120, 360],
+    "colour": "#7a5a3a",
+    "facts": [
+      {
+        "text": "Nests in hollow canes, one egg chamber after another.",
+        "after": 1
+      },
+      {
+        "text": "Solitary bees rarely sting; there is no hive for them to defend.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "wood-mouse",
+    "name": "Wood mouse",
+    "description": "A bright-eyed mouse with big ears and a long tail, busy after dark.",
+    "movement": "ground",
+    "speed": 0.9,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "natural-shelter",
+      "minTier": 2,
+      "branches": ["log-lodge"],
+      "minSuitability": 0.4,
+      "perMinute": 0.4
+    },
+    "maxPresent": 2,
+    "staySec": [300, 900],
+    "colour": "#8a6a4a",
+    "facts": [
+      {
+        "text": "Stores seeds and nuts in hidden larders near its nest.",
+        "after": 1
+      },
+      {
+        "text": "Prefers dense cover; it seldom crosses open ground.",
         "after": 3
       }
     ]

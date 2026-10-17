@@ -100,12 +100,15 @@ function nearestBoundary(state: GameState, content: Content, from: { x: number; 
 /** Shelters this species could live in, with how well each suits it right now. */
 export function sheltersFor(state: GameState, content: Content, def: WildlifeDef) {
   if (def.attraction.kind !== 'shelter') return []
-  const { structure, minLevel, minSuitability } = def.attraction
+  const { structure, minTier, branches, minSuitability } = def.attraction
   return state.entities
-    .filter(
-      (e): e is StructureEntity =>
-        e.kind === 'structure' && e.defId === structure && e.level >= minLevel,
-    )
+    .filter((e): e is StructureEntity => {
+      if (e.kind !== 'structure' || e.defId !== structure) return false
+      if (!isTileOpen(state, content, e.x, e.y)) return false
+      const level = content.structures[e.defId]?.levels[e.level]
+      if (!level || level.tier < minTier) return false
+      return !branches || (level.branch !== undefined && branches.includes(level.branch))
+    })
     .map((s) => ({
       shelter: s,
       suitability: structureSuitability(state, content, s.defId, s.x, s.y, s.id).score,
@@ -185,7 +188,8 @@ export function attractWildlife(
       for (const { shelter, suitability } of sheltersFor(state, content, def)) {
         const level = content.structures[shelter.defId]?.levels[shelter.level]
         if (!level || residents(state, shelter.id).length >= level.capacity) continue
-        if (!chance(state, a.perMinute * suitability * level.attraction, dtMs)) continue
+        const favour = level.favours?.[def.id] ?? 1
+        if (!chance(state, a.perMinute * suitability * level.attraction * favour, dtMs)) continue
         const from =
           def.movement === 'ground'
             ? nearestBoundary(state, content, shelter)

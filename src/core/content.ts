@@ -77,6 +77,20 @@ export interface PlantDef {
 
 export interface StructureLevelDef {
   name: string
+  /** How far along the structure is: 0 for the first level. */
+  tier: number
+  /** Index of the level this one upgrades from (defaults to the previous one). */
+  from?: number
+  /** Set on levels that are one of several alternative directions. */
+  branch?: string
+  /** Shown when choosing between branches. */
+  description?: string
+  /** Unlock key needed for this upgrade (defaults to "upgrade:<structure>"). */
+  unlock?: string
+  /** Texture variant for the level's look (defaults to the level index). */
+  art?: string
+  /** Species this level especially suits, with how much more it draws them. */
+  favours?: Record<string, number>
   /** Multiplies wildlife arrival rates for species that use this structure. */
   attraction: number
   /** Number of resident creatures it can hold at once. */
@@ -136,7 +150,10 @@ export interface WildlifeDef {
     | {
         kind: 'shelter'
         structure: string
-        minLevel: number
+        /** Lowest tier of the structure that suits it. */
+        minTier: number
+        /** Only these branches suit it, when given. */
+        branches?: string[]
         minSuitability: number
         perMinute: number
       }

@@ -4,7 +4,7 @@
 import { openOvergrowth } from './areas'
 import type { Content } from './content'
 import { structureSuitability } from './environment'
-import { upgradeStatus } from './habitats'
+import { upgradeOptions } from './habitats'
 import { currentMilestone } from './progression'
 import type { GameState, StructureEntity } from './state'
 
@@ -26,7 +26,7 @@ export function suggestions(state: GameState, content: Content): Suggestion[] {
 
   const shelters = state.entities.filter((e): e is StructureEntity => e.kind === 'structure')
   for (const s of shelters) {
-    if (upgradeStatus(state, content, s).kind === 'ready') {
+    if (upgradeOptions(state, content, s).some((o) => o.status.kind === 'ready')) {
       add('upgrade', 'Your shelter can be improved: select it to see how.')
       break
     }

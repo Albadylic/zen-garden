@@ -2,7 +2,7 @@
 // older saves keep loading as the state shape changes.
 
 import type { Content, Terrain } from './content'
-import { STATE_VERSION, type GameState } from './state'
+import { emptyStats, STATE_VERSION, type GameState } from './state'
 
 export const SAVE_FORMAT = 'zen-garden-save'
 
@@ -142,6 +142,9 @@ export function deserialize(
     isRecord(s.stats) &&
     typeof s.elapsedMs === 'number'
   if (!valid) throw new SaveError('The saved garden is damaged')
+  // Fields added within a version get their defaults rather than a migration.
+  s.stats = { ...emptyStats(), ...s.stats }
+  s.areasVisited ??= []
   s.version = currentVersion
   return { format: SAVE_FORMAT, version: currentVersion, savedAt: raw.savedAt, state: s }
 }

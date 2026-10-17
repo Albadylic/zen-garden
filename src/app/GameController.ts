@@ -441,10 +441,10 @@ export class GameController {
     this.applyResult(fillFeeder(this.state, this.content, sel.id))
   }
 
-  upgradeSelected(): void {
+  upgradeSelected(toLevel?: number): void {
     const sel = this.ui.get().selection
     if (sel?.kind !== 'entity') return
-    this.applyResult(upgradeStructure(this.state, this.content, sel.id))
+    this.applyResult(upgradeStructure(this.state, this.content, sel.id, toLevel))
   }
 
   waterSelected(): void {

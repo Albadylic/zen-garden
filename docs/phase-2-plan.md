@@ -125,12 +125,12 @@ The maple taking hours to mature is good. Let it pay off in Chapter 2 rather tha
 
 ### B4. Branching habitat upgrades
 
-- [ ] After the Mossy log lodge (A3), the shelter branches:
+- [x] After the Mossy log lodge (A3), the shelter branches:
   - **insect hotel:** pollinators and beetles
   - **log lodge:** small mammals
   - **nesting bundle:** birds
-- [ ] Each branch has its own look, residents, production and capacity.
-- [ ] The branch not taken stays available by building another shelter. Nothing is locked out.
+- [x] Each branch has its own look, residents, production and capacity.
+- [x] The branch not taken stays available by building another shelter. Nothing is locked out.
 
 ### B5. Contextual hints
 

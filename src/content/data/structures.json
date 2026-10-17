@@ -23,7 +23,8 @@
         "name": "Natural shelter",
         "attraction": 1,
         "capacity": 2,
-        "produces": []
+        "produces": [],
+        "tier": 0
       },
       {
         "name": "Sheltered log pile",
@@ -42,7 +43,83 @@
             "amount": 1,
             "minStage": 0
           }
+        ],
+        "tier": 1,
+        "favours": {
+          "wren": 1
+        }
+      },
+      {
+        "name": "Insect hotel",
+        "tier": 2,
+        "from": 1,
+        "branch": "insect-hotel",
+        "art": "insect-hotel",
+        "unlock": "branch:natural-shelter",
+        "description": "Bundles of hollow bamboo canes and drilled wood: nesting tubes for solitary bees and shelter for beetles.",
+        "attraction": 2,
+        "capacity": 5,
+        "upgradeCost": {
+          "bamboo-canes": 4,
+          "twigs": 2,
+          "stones": 1
+        },
+        "upgradeAfterVisits": 1,
+        "favours": {
+          "mason-bee": 2,
+          "ground-beetle": 1.5
+        },
+        "produces": []
+      },
+      {
+        "name": "Log lodge",
+        "tier": 2,
+        "from": 1,
+        "branch": "log-lodge",
+        "art": "log-lodge",
+        "unlock": "branch:natural-shelter",
+        "description": "A deep, dry lodge of heavy logs and leaves, roomy enough for small mammals.",
+        "attraction": 2,
+        "capacity": 5,
+        "upgradeCost": {
+          "twigs": 6,
+          "bark": 4,
+          "leaf-litter": 3
+        },
+        "upgradeAfterVisits": 1,
+        "favours": {
+          "wood-mouse": 2,
+          "ground-beetle": 1.2
+        },
+        "produces": [
+          {
+            "item": "leaf-litter",
+            "everySec": 600,
+            "amount": 1,
+            "minStage": 0
+          }
         ]
+      },
+      {
+        "name": "Nesting bundle",
+        "tier": 2,
+        "from": 1,
+        "branch": "nesting-bundle",
+        "art": "nesting-bundle",
+        "unlock": "branch:natural-shelter",
+        "description": "A raised bundle of canes and soft maple leaves where small birds can tuck in a nest.",
+        "attraction": 2,
+        "capacity": 3,
+        "upgradeCost": {
+          "bamboo-canes": 3,
+          "maple-leaves": 2,
+          "twigs": 2
+        },
+        "upgradeAfterVisits": 1,
+        "favours": {
+          "wren": 3
+        },
+        "produces": []
       }
     ],
     "facts": [
@@ -88,7 +165,8 @@
         "name": "Sap feeder",
         "attraction": 1,
         "capacity": 2,
-        "produces": []
+        "produces": [],
+        "tier": 0
       }
     ],
     "facts": [

@@ -107,6 +107,13 @@ export const structureSchema = z.object({
     .array(
       z.object({
         name: z.string().min(1),
+        tier: count,
+        from: count.optional(),
+        branch: id.optional(),
+        description: z.string().min(1).optional(),
+        unlock: z.string().min(1).optional(),
+        art: id.optional(),
+        favours: z.record(id, z.number().positive()).optional(),
         attraction: z.number().positive(),
         capacity: z.number().int().positive(),
         upgradeCost: itemCounts.optional(),
@@ -151,7 +158,8 @@ export const wildlifeSchema = z.object({
     z.object({
       kind: z.literal('shelter'),
       structure: id,
-      minLevel: count,
+      minTier: count,
+      branches: z.array(id).optional(),
       minSuitability: unit,
       perMinute: z.number().positive(),
     }),

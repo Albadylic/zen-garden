@@ -278,6 +278,54 @@ function drawStructure(g: Graphics, id: string, variant: string): void {
     g.rect(-16, -30, 32, 30).fill(0xff00ff)
     return
   }
+  if (variant === 'insect-hotel') {
+    g.ellipse(0, 0, 30, 12).fill({ color: 0x3a3020, alpha: 0.3 })
+    g.rect(-4, -18, 8, 18).fill(0x6b4c33)
+    g.rect(-24, -60, 48, 42).fill(0x7a5a3c)
+    g.poly([-30, -60, 0, -76, 30, -60]).fill(0x5d4330)
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 5; col++) {
+        const x = -18 + col * 9
+        const y = -52 + row * 12
+        g.circle(x, y, 3.6).fill(0xc9b46a)
+        g.circle(x, y, 1.8).fill(0x3a3020)
+      }
+    }
+    return
+  }
+  if (variant === 'log-lodge') {
+    g.ellipse(0, 0, 46, 18).fill({ color: 0x3a3020, alpha: 0.3 })
+    for (const [x, y, w] of [
+      [-20, -8, 46],
+      [18, -10, 44],
+      [0, -24, 50],
+      [-6, -38, 40],
+    ] as const) {
+      g.moveTo(x - w / 2, y)
+        .lineTo(x + w / 2, y + 4)
+        .stroke({ color: 0x5d4330, width: 13, cap: 'round' })
+      g.circle(x + w / 2, y + 4, 6).fill(0xa4743d)
+    }
+    g.poly([-40, -40, 0, -64, 40, -40, 0, -30]).fill(0x4e3a2a)
+    g.ellipse(-4, -48, 16, 6).fill(0x7f9a4f)
+    g.ellipse(0, -6, 7, 6).fill(0x2a2018)
+    return
+  }
+  if (variant === 'nesting-bundle') {
+    g.ellipse(0, 0, 26, 10).fill({ color: 0x3a3020, alpha: 0.3 })
+    g.rect(-3, -50, 6, 50).fill(0x6b4c33)
+    for (let i = -3; i <= 3; i++)
+      g.rect(-18, -66 + i * 3.4, 36, 3).fill(i % 2 ? 0xc9b46a : 0xb8a35e)
+    g.moveTo(-20, -72).lineTo(20, -52).stroke({ color: 0x5d4330, width: 2 })
+    g.ellipse(0, -62, 7, 6).fill(0x2a2018)
+    for (const [x, y] of [
+      [-14, -74],
+      [12, -76],
+      [16, -60],
+    ] as const)
+      g.ellipse(x, y, 5, 3).fill(0xc8583a)
+    return
+  }
   const level = Number(variant)
   g.ellipse(0, 0, 34 + level * 8, 14 + level * 3).fill({ color: 0x3a3020, alpha: 0.3 })
   if (level >= 1) {
@@ -469,6 +517,21 @@ function drawCreature(g: Graphics, id: string, colour: number, frame: number): v
       g.rect(-1, -8, 2, 12).fill(0x2a2420)
       return
     }
+    case 'mason-bee':
+      g.ellipse(-3, -7, 4, 2 + frame * 1.5).fill({ color: 0xffffff, alpha: 0.7 })
+      g.ellipse(3, -7, 4, 2 + frame * 1.5).fill({ color: 0xffffff, alpha: 0.7 })
+      g.ellipse(0, 0, 7, 5).fill(colour)
+      g.circle(6, -1, 3).fill(0x2a2620)
+      return
+    case 'wood-mouse':
+      g.ellipse(0, 0, 9, 5.5).fill(colour)
+      g.circle(8, -2, 4).fill(colour)
+      g.circle(7, -6, 2.4).fill(0xb08a6a)
+      g.circle(10, -2.5, 1).fill(0x111111)
+      g.moveTo(-9, 1)
+        .quadraticCurveTo(-16, -2 - frame * 2, -20, 2)
+        .stroke({ color: 0x8a6a4a, width: 1.5 })
+      return
     case 'wren':
       g.ellipse(0, 0, 10, 8).fill(colour)
       g.circle(8, -5, 5).fill(colour)
