@@ -3,6 +3,11 @@
 An isometric garden-restoration game for the web, built with TypeScript, React,
 PixiJS and Vite. It will later be packaged for iPhone with Capacitor.
 
+## Design docs
+
+- [Game design document](docs/game-design-document.md): vision, systems and design principles
+- [Build order](docs/build-order.md): the phased plan the project follows
+
 ## Getting started
 
 Requires Node 22+.
