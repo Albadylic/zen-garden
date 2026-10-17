@@ -6,9 +6,9 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 
 ## 1. Garden foundation
 
-- [ ] Isometric grid model and grid ↔ screen coordinate maths
+- [x] Isometric grid model and grid ↔ screen coordinate maths
 - [ ] Starting garden map as data: terrain, pond, paths, existing trees, shaded corner, boundary
-- [ ] Terrain rendering with placeholder tiles and correct depth sorting
+- [x] Terrain rendering with placeholder tiles and correct depth sorting
 - [ ] Camera: pan, pinch/scroll zoom, limits, fit-to-screen
 - [ ] Unified pointer input for mouse and touch: tap, drag, pinch
 - [ ] Tile selection and highlight
@@ -91,7 +91,7 @@ Tick items as they land. Placeholders and open decisions used along the way are 
 - [ ] Playwright flow: save, reload and continue
 - [ ] Playwright flow: simulated return visit after time away
 - [ ] Playwright: desktop and mobile layouts
-- [ ] Placeholder art drawn in code behind a sprite manifest, ready for real art
+- [x] Placeholder art drawn in code behind a sprite manifest, ready for real art
 - [ ] Every push to `main` deployed to GitHub Pages for play-testing and balancing on a phone
 
 ## Out of scope for the MVP

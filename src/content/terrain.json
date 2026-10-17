@@ -1,0 +1,9 @@
+{
+  "grass": { "name": "Grass", "sprite": "ground_grass" },
+  "worn_grass": { "name": "Worn grass", "sprite": "ground_worn_grass" },
+  "moss": { "name": "Moss", "sprite": "ground_moss" },
+  "bare_soil": { "name": "Bare soil", "sprite": "ground_bare_soil" },
+  "dirt_path": { "name": "Dirt path", "sprite": "path_dirt" },
+  "stepping_stones": { "name": "Stepping stones", "sprite": "path_stepping_stones" },
+  "water": { "name": "Pond water", "sprite": "pond_water_base" }
+}

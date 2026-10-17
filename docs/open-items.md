@@ -124,7 +124,9 @@ All art starts as shapes drawn in code (`pixi.js` Graphics) or simple generated 
 
 **Art direction reference:** [`docs/art/forgotten-garden-concept.jpg`](art/forgotten-garden-concept.jpg) is the target look for Level 1 ("Day 0 – Forgotten Garden"). It shows overgrown, partly restored and fully restored areas side by side, labelled with the asset-pack filenames. The sprites currently in the pack are much simpler than this, so the final art should be judged against the concept image.
 
-**Level 1 MVP asset pack received (2026-10-17):** 56 PNG sprites and 15 SVG icons in [`public/assets/`](../public/assets/README.md), covering terrain tiles, plants by growth stage, maple, bamboo, pond, butterfly and bee frames, resources, natural shelter stages, placement overlays, effects and core UI icons. They are not wired into the renderer yet (that happens with the sprite manifest), and they are @1x individual PNGs rather than the target atlas format, so the rows below stay open.
+**Level 1 MVP asset pack received (2026-10-17):** 56 PNG sprites and 15 SVG icons in [`public/assets/`](../public/assets/README.md), covering terrain tiles, plants by growth stage, maple, bamboo, pond, butterfly and bee frames, resources, natural shelter stages, placement overlays, effects and core UI icons. Terrain and scenery sprites are drawn in the starting garden through the sprite manifest (`src/content/sprites.json`); the rest are listed there, ready for the systems that use them. They are @1x individual PNGs rather than the target atlas format and are simpler than the concept art, so the rows below stay open.
+
+**Sprite anchors** in `src/content/sprites.json` were generated from each image's visible pixels (bottom-centre of the opaque area for standing sprites, centre for tiles, creatures and effects), because the pack had no anchor data. Adjust them by hand where a sprite sits wrongly. `ground_earth_edge.png` is not used: side by side it leaves a sawtooth gap, so the garden has no visible edge thickness yet.
 
 | Status | Asset group           | Placeholder                              | Final asset needed                                                                   |
 | ------ | --------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------ |
@@ -169,11 +171,11 @@ Audio is silent until phase 12 unless assets arrive earlier. Audio hooks are wir
 
 ## 6. Licensing and legal
 
-| Status | Item                                                                          | Notes                                                                                            |
-| ------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| ☐      | Licences for all art, audio and fonts allow commercial App Store distribution | Record source and licence per asset. Level 1 MVP asset pack: author and licence not yet recorded |
-| ☐      | Privacy policy                                                                | Required for the App Store even with local-only saves                                            |
-| ☐      | Project licence                                                               | Repository currently has none (all rights reserved by default)                                   |
+| Status | Item                                                                          | Notes                                                                                                                                                                                                                                                                              |
+| ------ | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ☐      | Licences for all art, audio and fonts allow commercial App Store distribution | Record source and licence per asset. Level 1 MVP asset pack and concept image: AI-generated with Google Gemini (owner, 2026-10-17). Confirm the Gemini terms for the account used allow commercial use, and note that purely AI-generated images may not be protected by copyright |
+| ☐      | Privacy policy                                                                | Required for the App Store even with local-only saves                                                                                                                                                                                                                              |
+| ☐      | Project licence                                                               | Repository currently has none (all rights reserved by default)                                                                                                                                                                                                                     |
 
 ---
 

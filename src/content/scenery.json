@@ -1,0 +1,17 @@
+{
+  "japanese_maple": { "name": "Japanese maple", "sprite": "tree_japanese_maple" },
+  "bamboo": { "name": "Bamboo", "sprite": "bamboo_cluster" },
+  "overgrown_shrub": { "name": "Overgrown shrub", "sprite": "shrub_overgrown" },
+  "tall_grass": { "name": "Tall grass", "sprite": "grass_tall_overgrown" },
+  "wild_fern": { "name": "Wild fern", "sprite": "fern_wild" },
+  "mossy_stone_large": { "name": "Large mossy stone", "sprite": "stone_mossy_large" },
+  "mossy_stone_small": { "name": "Small mossy stone", "sprite": "stone_mossy_small" },
+  "fallen_branch": { "name": "Fallen branch", "sprite": "fallen_branch" },
+  "pond_edge_stone": { "name": "Pond edge stone", "sprite": "pond_edge_stone" },
+  "pond_reeds": { "name": "Reeds", "sprite": "pond_reeds" },
+  "water_lily": { "name": "Water lily", "sprite": "pond_water_lily" },
+  "loose_twigs": { "name": "Twigs", "sprite": "resource_twigs" },
+  "loose_stones": { "name": "Stones", "sprite": "resource_stones" },
+  "leaf_litter": { "name": "Leaf litter", "sprite": "resource_leaf_litter" },
+  "loose_bark": { "name": "Bark", "sprite": "resource_bark" }
+}

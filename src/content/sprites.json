@@ -1,0 +1,229 @@
+{
+  "basePath": "assets/",
+  "sprites": {
+    "bamboo_cluster": {
+      "src": "sprites/bamboo_cluster.png",
+      "anchor": [0.51, 0.94]
+    },
+    "bee_flying_01": {
+      "src": "sprites/bee_flying_01.png",
+      "anchor": [0.5, 0.5]
+    },
+    "bee_flying_02": {
+      "src": "sprites/bee_flying_02.png",
+      "anchor": [0.5, 0.5]
+    },
+    "butterfly_feeding": {
+      "src": "sprites/butterfly_feeding.png",
+      "anchor": [0.5, 0.5]
+    },
+    "butterfly_flying_01": {
+      "src": "sprites/butterfly_flying_01.png",
+      "anchor": [0.5, 0.5]
+    },
+    "butterfly_flying_02": {
+      "src": "sprites/butterfly_flying_02.png",
+      "anchor": [0.5, 0.5]
+    },
+    "butterfly_idle_01": {
+      "src": "sprites/butterfly_idle_01.png",
+      "anchor": [0.5, 0.5]
+    },
+    "butterfly_landing": {
+      "src": "sprites/butterfly_landing.png",
+      "anchor": [0.5, 0.5]
+    },
+    "fallen_branch": {
+      "src": "sprites/fallen_branch.png",
+      "anchor": [0.51, 0.84]
+    },
+    "fern_wild": {
+      "src": "sprites/fern_wild.png",
+      "anchor": [0.5, 0.58]
+    },
+    "fx_butterfly_pollen": {
+      "src": "sprites/fx_butterfly_pollen.png",
+      "anchor": [0.5, 0.5]
+    },
+    "fx_growth_sparkle": {
+      "src": "sprites/fx_growth_sparkle.png",
+      "anchor": [0.5, 0.5]
+    },
+    "fx_milestone_glow": {
+      "src": "sprites/fx_milestone_glow.png",
+      "anchor": [0.5, 0.5]
+    },
+    "fx_planting_sparkle": {
+      "src": "sprites/fx_planting_sparkle.png",
+      "anchor": [0.5, 0.5]
+    },
+    "fx_resource_collect": {
+      "src": "sprites/fx_resource_collect.png",
+      "anchor": [0.5, 0.5]
+    },
+    "fx_water_ripple": {
+      "src": "sprites/fx_water_ripple.png",
+      "anchor": [0.5, 0.5]
+    },
+    "grass_tall_overgrown": {
+      "src": "sprites/grass_tall_overgrown.png",
+      "anchor": [0.54, 0.91]
+    },
+    "ground_bare_soil": {
+      "src": "sprites/ground_bare_soil.png",
+      "anchor": [0.5, 0.5]
+    },
+    "ground_earth_edge": {
+      "src": "sprites/ground_earth_edge.png",
+      "anchor": [0.5, 0.5]
+    },
+    "ground_grass": {
+      "src": "sprites/ground_grass.png",
+      "anchor": [0.5, 0.5]
+    },
+    "ground_moss": {
+      "src": "sprites/ground_moss.png",
+      "anchor": [0.5, 0.5]
+    },
+    "ground_worn_grass": {
+      "src": "sprites/ground_worn_grass.png",
+      "anchor": [0.5, 0.5]
+    },
+    "path_dirt": {
+      "src": "sprites/path_dirt.png",
+      "anchor": [0.5, 0.5]
+    },
+    "path_stepping_stones": {
+      "src": "sprites/path_stepping_stones.png",
+      "anchor": [0.5, 0.5]
+    },
+    "plant_fern_01": {
+      "src": "sprites/plant_fern_01.png",
+      "anchor": [0.51, 0.81]
+    },
+    "plant_fern_02": {
+      "src": "sprites/plant_fern_02.png",
+      "anchor": [0.51, 0.81]
+    },
+    "plant_japanese_maple_sapling_01": {
+      "src": "sprites/plant_japanese_maple_sapling_01.png",
+      "anchor": [0.51, 0.94]
+    },
+    "plant_japanese_maple_sapling_02": {
+      "src": "sprites/plant_japanese_maple_sapling_02.png",
+      "anchor": [0.51, 0.94]
+    },
+    "plant_moss": {
+      "src": "sprites/plant_moss.png",
+      "anchor": [0.51, 0.81]
+    },
+    "plant_ornamental_grass": {
+      "src": "sprites/plant_ornamental_grass.png",
+      "anchor": [0.52, 0.48]
+    },
+    "plant_pond_edge_grass": {
+      "src": "sprites/plant_pond_edge_grass.png",
+      "anchor": [0.52, 0.48]
+    },
+    "plant_wildflower_bloom": {
+      "src": "sprites/plant_wildflower_bloom.png",
+      "anchor": [0.51, 0.91]
+    },
+    "plant_wildflower_growing": {
+      "src": "sprites/plant_wildflower_growing.png",
+      "anchor": [0.51, 0.91]
+    },
+    "plant_wildflower_seedling": {
+      "src": "sprites/plant_wildflower_seedling.png",
+      "anchor": [0.51, 0.88]
+    },
+    "plant_wildflower_spent": {
+      "src": "sprites/plant_wildflower_spent.png",
+      "anchor": [0.51, 0.91]
+    },
+    "planting_preview": {
+      "src": "sprites/planting_preview.png",
+      "anchor": [0.5, 0.88]
+    },
+    "pond_edge_stone": {
+      "src": "sprites/pond_edge_stone.png",
+      "anchor": [0.51, 0.81]
+    },
+    "pond_reeds": {
+      "src": "sprites/pond_reeds.png",
+      "anchor": [0.58, 0.94]
+    },
+    "pond_water_base": {
+      "src": "sprites/pond_water_base.png",
+      "anchor": [0.5, 0.5]
+    },
+    "pond_water_lily": {
+      "src": "sprites/pond_water_lily.png",
+      "anchor": [0.51, 0.75]
+    },
+    "resource_bark": {
+      "src": "sprites/resource_bark.png",
+      "anchor": [0.47, 0.79]
+    },
+    "resource_leaf_litter": {
+      "src": "sprites/resource_leaf_litter.png",
+      "anchor": [0.53, 0.79]
+    },
+    "resource_stones": {
+      "src": "sprites/resource_stones.png",
+      "anchor": [0.51, 0.75]
+    },
+    "resource_twigs": {
+      "src": "sprites/resource_twigs.png",
+      "anchor": [0.53, 0.85]
+    },
+    "shelter_natural_building": {
+      "src": "sprites/shelter_natural_building.png",
+      "anchor": [0.5, 0.83]
+    },
+    "shelter_natural_complete": {
+      "src": "sprites/shelter_natural_complete.png",
+      "anchor": [0.5, 0.84]
+    },
+    "shelter_natural_preview": {
+      "src": "sprites/shelter_natural_preview.png",
+      "anchor": [0.5, 0.88]
+    },
+    "shrub_overgrown": {
+      "src": "sprites/shrub_overgrown.png",
+      "anchor": [0.51, 0.83]
+    },
+    "stone_mossy_large": {
+      "src": "sprites/stone_mossy_large.png",
+      "anchor": [0.5, 0.78]
+    },
+    "stone_mossy_small": {
+      "src": "sprites/stone_mossy_small.png",
+      "anchor": [0.51, 0.81]
+    },
+    "tile_invalid_placement": {
+      "src": "sprites/tile_invalid_placement.png",
+      "anchor": [0.5, 0.5]
+    },
+    "tile_selection": {
+      "src": "sprites/tile_selection.png",
+      "anchor": [0.5, 0.5]
+    },
+    "tile_valid_placement": {
+      "src": "sprites/tile_valid_placement.png",
+      "anchor": [0.5, 0.5]
+    },
+    "tree_japanese_maple": {
+      "src": "sprites/tree_japanese_maple.png",
+      "anchor": [0.5, 0.94]
+    },
+    "tree_japanese_maple_sapling_01": {
+      "src": "sprites/tree_japanese_maple_sapling_01.png",
+      "anchor": [0.51, 0.94]
+    },
+    "tree_japanese_maple_sapling_02": {
+      "src": "sprites/tree_japanese_maple_sapling_02.png",
+      "anchor": [0.51, 0.94]
+    }
+  }
+}

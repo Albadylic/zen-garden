@@ -1,10 +1,11 @@
 import { expect, test } from '@playwright/test'
 
-test('loads the garden canvas with the HUD overlay', async ({ page }) => {
+test('loads the garden with its sprites and the HUD overlay', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', (err) => errors.push(err.message))
   page.on('console', (msg) => {
-    if (msg.type() === 'error') errors.push(msg.text())
+    // Missing sprites only warn in the game, but the shipped art should be complete.
+    if (msg.type() === 'error' || msg.text().startsWith('Sprite ')) errors.push(msg.text())
   })
 
   await page.goto('./')
@@ -20,5 +21,6 @@ test('loads the garden canvas with the HUD overlay', async ({ page }) => {
   expect(Math.abs(box!.width - viewport.width)).toBeLessThan(1)
   expect(Math.abs(box!.height - viewport.height)).toBeLessThan(1)
 
+  await expect(canvas).toHaveAttribute('data-ready', 'true')
   expect(errors).toEqual([])
 })

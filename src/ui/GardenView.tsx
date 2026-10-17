@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { startingMap } from '../content'
 import { GardenRenderer } from '../render/GardenRenderer'
 
 export function GardenView() {
@@ -8,7 +9,7 @@ export function GardenView() {
     const host = hostRef.current
     if (!host) return
     const renderer = new GardenRenderer()
-    void renderer.mount(host)
+    void renderer.mount(host, startingMap)
     return () => renderer.destroy()
   }, [])
 
