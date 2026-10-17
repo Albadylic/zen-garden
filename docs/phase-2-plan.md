@@ -77,17 +77,17 @@ Owner's report: few excellent spots make placement hard.
 
 The maple taking hours to mature is good. Let it pay off in Chapter 2 rather than speeding it up:
 
-- [ ] Keep the maple's growth roughly as is (about five hours, so it is mature the day after planting).
-- [ ] Remind the player about it gently:
-  - the inspect panel shows "fully grown in about N hours"
-  - the return recap mentions the maple's progress
+- [x] Keep the maple's growth roughly as is (about five hours, so it is mature the day after planting).
+- [x] Remind the player about it gently:
+  - the inspect panel shows "fully grown in about N hours" (for any plant with more than one stage to go, adding that it keeps growing while away)
+  - the return recap mentions the progress of slow growers (an hour or more to mature), such as the maple, alongside other news
   - a Chapter 1 suggestion encourages planting it early (done)
 - [x] When mature, the maple yields **maple leaves**, a seasonal-looking material.
 - [x] It also yields **maple sap**, gathered from the tree rather than processed by people. Its use: a **sap feeder**, a small dish on a post that draws a sap-feeding butterfly (for example a red admiral). Some real butterflies feed on tree sap rather than nectar, so the sap gives the maple an ecological role, not just a crafting one.
-- [ ] Chapter 2 uses maple leaves in a reward:
+- [x] Chapter 2 uses maple leaves in a reward:
   - an optional milestone, "A tree comes of age"
   - leaves as an ingredient in the nesting bundle branch and in a decorative maple-leaf lantern
-- [ ] A mature maple attracts the Chapter 2 songbird a little more strongly, linking the two chapters.
+- [x] A mature maple attracts the Chapter 2 songbird a little more strongly, linking the two chapters.
 
 ---
 

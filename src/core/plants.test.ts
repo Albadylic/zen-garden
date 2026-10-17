@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { setup } from '../test/fixtures'
 import type { GameEvent } from './events'
 import { entityAt, terrainAt } from './grid'
-import { growthRate, plant, timeToNextStage, water } from './plants'
+import { growthRate, isSlowGrowing, plant, timeToMaturity, timeToNextStage, water } from './plants'
 import { advance } from './simulation'
 import type { PlantEntity } from './state'
 
@@ -94,5 +94,26 @@ describe('moss', () => {
     const after = state.terrain.filter((t) => t === 'moss').length
     expect(after).toBeGreaterThan(before)
     expect(terrainAt(state, 5, 11)).toBe('grass')
+  })
+})
+
+describe('time to maturity', () => {
+  it('adds up the stages still to come', () => {
+    const { content, state } = setup()
+    plant(state, content, 'japanese-maple', 6, 6)
+    const p = planted(state, 6, 6)
+    const rate = growthRate(state, content, p)
+    const total = content.plants['japanese-maple']!.stages.reduce(
+      (n, s) => n + (s.durationSec ?? 0) * 1000,
+      0,
+    )
+    expect(timeToMaturity(state, content, p)).toBeCloseTo(total / rate)
+    expect(timeToMaturity(state, content, p)).toBeGreaterThan(timeToNextStage(state, content, p)!)
+  })
+
+  it('treats the maple as slow growing but not wildflowers', () => {
+    const { content } = setup()
+    expect(isSlowGrowing(content, 'japanese-maple')).toBe(true)
+    expect(isSlowGrowing(content, 'wildflower-mix')).toBe(false)
   })
 })

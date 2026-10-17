@@ -1,6 +1,6 @@
 import { plantSuitability } from '../core/environment'
 import { entityById, terrainAt } from '../core/grid'
-import { isFinalStage, timeToNextStage } from '../core/plants'
+import { isFinalStage, timeToMaturity, timeToNextStage } from '../core/plants'
 import { knownFacts } from '../core/journal'
 import { describeActivity } from '../core/wildlife'
 import type { PlantEntity } from '../core/state'
@@ -28,6 +28,7 @@ function PlantDetails({ plant }: { plant: PlantEntity }) {
   const final = isFinalStage(def, plant.stage)
   const duration = (def.stages[plant.stage]?.durationSec ?? 0) * 1000
   const remaining = timeToNextStage(state, content, plant)
+  const toMaturity = timeToMaturity(state, content, plant)
   const suit = plantSuitability(state, content, plant.defId, plant.x, plant.y, plant.id)
   return (
     <>
@@ -59,6 +60,12 @@ function PlantDetails({ plant }: { plant: PlantEntity }) {
                 style={{ width: `${Math.min(100, (plant.progressMs / duration) * 100)}%` }}
               />
             </div>
+          )}
+          {toMaturity !== null && plant.stage < def.stages.length - 2 && (
+            <p className="muted" data-testid="time-to-maturity">
+              Fully grown in {formatDuration(toMaturity)}
+              {toMaturity > 60 * 60_000 && ', and it keeps growing while you are away'}.
+            </p>
           )}
           <p className={`rating--${suit.rating}`}>
             {RATING_LABELS[suit.rating]} spot

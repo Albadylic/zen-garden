@@ -3,6 +3,7 @@
 import type { Content } from './content'
 import type { GameEvent } from './events'
 import { unreadCount } from './journal'
+import { isSlowGrowing, timeToMaturity } from './plants'
 import { advance } from './simulation'
 import type { GameState } from './state'
 
@@ -28,6 +29,8 @@ export interface Recap {
   unreadNotes: number
   milestones: string[]
   shelterResidents: number
+  /** Slow-growing plants still on their way, as a gentle reminder (not news by itself). */
+  growing: { name: string; stage: string; remainingMs: number }[]
 }
 
 export function hasNews(r: Recap): boolean {
@@ -69,6 +72,7 @@ export function summarise(
     unreadNotes: unreadCount(state, content),
     milestones: [],
     shelterResidents: 0,
+    growing: [],
   }
   for (const e of events) {
     switch (e.type) {
@@ -103,6 +107,20 @@ export function summarise(
     }
   }
   recap.matured = [...matured]
+  // One line per slow-growing species: the planting nearest to maturity.
+  const nearest = new Map<string, Recap['growing'][number]>()
+  for (const e of state.entities) {
+    if (e.kind !== 'plant' || e.fixed || !isSlowGrowing(content, e.defId)) continue
+    const remainingMs = timeToMaturity(state, content, e)
+    const def = content.plants[e.defId]
+    if (remainingMs === null || !def) continue
+    const known = nearest.get(e.defId)
+    if (!known || remainingMs < known.remainingMs) {
+      const stage = def.stages[e.stage]?.name ?? ''
+      nearest.set(e.defId, { name: def.name, stage, remainingMs })
+    }
+  }
+  recap.growing = [...nearest.values()]
   return recap
 }
 

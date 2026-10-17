@@ -15,6 +15,8 @@ import type { GameState, PlantEntity } from './state'
 export const MIN_GROWTH_RATE = 0.35
 export const WATER_BOOST = 1.5
 export const WATER_DURATION_MS = 10 * 60_000
+/** Species taking at least this long to mature get gentle progress reminders. */
+export const SLOW_GROWING_SEC = 60 * 60
 
 const suitabilityCache = new WeakMap<GameState, Map<number, { version: number; score: number }>>()
 
@@ -59,6 +61,27 @@ export function timeToNextStage(
   const duration = def?.stages[plant.stage]?.durationSec
   if (!def || duration === undefined || isFinalStage(def, plant.stage)) return null
   return Math.max(0, (duration * 1000 - plant.progressMs) / growthRate(state, content, plant))
+}
+
+/** Milliseconds until the plant is fully grown at the current rate, or null if it already is. */
+export function timeToMaturity(
+  state: GameState,
+  content: Content,
+  plant: PlantEntity,
+): number | null {
+  const def = content.plants[plant.defId]
+  const next = timeToNextStage(state, content, plant)
+  if (!def || next === null) return null
+  let laterMs = 0
+  for (let i = plant.stage + 1; i < def.stages.length - 1; i++)
+    laterMs += (def.stages[i]?.durationSec ?? 0) * 1000
+  return next + laterMs / growthRate(state, content, plant)
+}
+
+/** Whether a species takes long enough to grow that the player is reminded of its progress. */
+export function isSlowGrowing(content: Content, plantId: string): boolean {
+  const stages = content.plants[plantId]?.stages ?? []
+  return stages.reduce((n, s) => n + (s.durationSec ?? 0), 0) >= SLOW_GROWING_SEC
 }
 
 export function plant(

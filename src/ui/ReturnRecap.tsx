@@ -1,5 +1,5 @@
 import type { Recap } from '../core/offline'
-import { formatAway } from './format'
+import { formatAway, formatDuration } from './format'
 import { useController, useUi } from './hooks'
 
 function lines(recap: Recap): string[] {
@@ -8,6 +8,11 @@ function lines(recap: Recap): string[] {
   else if (recap.stagesGrown > 0) {
     out.push(
       `Your plants grew${recap.stagesGrown > 1 ? ` (${recap.stagesGrown} new growth stages)` : ''}.`,
+    )
+  }
+  for (const g of recap.growing) {
+    out.push(
+      `Your ${g.name} is a ${g.stage.toLowerCase()} now, fully grown in ${formatDuration(g.remainingMs)}.`,
     )
   }
   if (recap.flowered > 0) {

@@ -44,3 +44,26 @@ describe('catching up on time away', () => {
       expect(state.inventory[id] ?? 0).toBeGreaterThanOrEqual(n)
   })
 })
+
+describe('reminders about slow growers', () => {
+  it("mentions a maple's progress until it is fully grown", () => {
+    const { content, state } = setup()
+    plant(state, content, 'japanese-maple', 6, 6)
+    const { recap } = catchUp(state, content, 30 * 60_000)
+    expect(recap.growing).toHaveLength(1)
+    expect(recap.growing[0]).toMatchObject({ name: 'Japanese maple', stage: 'Sapling' })
+    expect(recap.growing[0]!.remainingMs).toBeGreaterThan(60 * 60_000)
+    const later = catchUp(state, content, OFFLINE_CAP_MS).recap
+    expect(later.growing).toHaveLength(0)
+    expect(later.matured).toContain('Japanese maple')
+  })
+
+  it('does not count the reminder as news', () => {
+    const { content, state } = setup()
+    plant(state, content, 'japanese-maple', 6, 6)
+    catchUp(state, content, 30 * 60_000)
+    const { recap } = catchUp(state, content, 0)
+    expect(recap.growing).toHaveLength(1)
+    expect(hasNews({ ...recap, itemsWaiting: 0, stagesGrown: 0 })).toBe(false)
+  })
+})
