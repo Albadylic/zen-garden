@@ -842,5 +842,247 @@
         "after": "into-the-waters"
       }
     ]
+  },
+  {
+    "id": "lichen",
+    "name": "Map lichen",
+    "description": "Yellow-green patches that creep across bare stone and gravel.",
+    "seedItem": "lichen-fragments",
+    "terrain": ["gravel", "path"],
+    "near": {
+      "ids": ["standing-stone", "old-boulder", "rock-pile"],
+      "distance": 1.5
+    },
+    "stages": [
+      {
+        "name": "Specks",
+        "durationSec": 420
+      },
+      {
+        "name": "Patches",
+        "durationSec": 1200
+      },
+      {
+        "name": "Crust"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 1
+      },
+      "moisture": {
+        "min": 0,
+        "max": 0.6
+      }
+    },
+    "produces": [
+      {
+        "item": "lichen-fragments",
+        "everySec": 1500,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.1,
+    "look": {
+      "form": "lichen",
+      "colour": "#b8b97a",
+      "accent": "#d8c86a"
+    },
+    "facts": [
+      {
+        "text": "It grows only on or beside stone.",
+        "after": 1
+      },
+      {
+        "text": "Lichens are a sign of clean, unpolluted air.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Something small grows on the bare gravel beside old stones.",
+        "after": "into-the-stone-garden"
+      }
+    ]
+  },
+  {
+    "id": "creeping-thyme",
+    "name": "Creeping thyme",
+    "description": "A low, fragrant mat that flowers purple in dry, sunny spots.",
+    "seedItem": "thyme-cuttings",
+    "terrain": ["grass", "gravel"],
+    "stages": [
+      {
+        "name": "Sprig",
+        "durationSec": 240
+      },
+      {
+        "name": "Spreading mat",
+        "durationSec": 900
+      },
+      {
+        "name": "Flowering mat"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.3
+      },
+      "moisture": {
+        "min": 0,
+        "max": 0.4
+      }
+    },
+    "produces": [
+      {
+        "item": "thyme-cuttings",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 1,
+    "flowerStage": 2,
+    "cover": 0.2,
+    "look": {
+      "form": "cushion",
+      "colour": "#7a8a5a",
+      "accent": "#b48ad0"
+    },
+    "facts": [
+      {
+        "text": "Bees crowd its tiny flowers on warm days.",
+        "after": 1
+      },
+      {
+        "text": "It prefers poor, dry soil to rich ground.",
+        "after": 3
+      }
+    ]
+  },
+  {
+    "id": "blue-fescue",
+    "name": "Blue fescue",
+    "description": "Neat tufts of fine, blue-grey grass for dry ground.",
+    "seedItem": "fescue-seeds",
+    "terrain": ["grass", "gravel"],
+    "stages": [
+      {
+        "name": "Seedling",
+        "durationSec": 300
+      },
+      {
+        "name": "Tuft",
+        "durationSec": 900
+      },
+      {
+        "name": "Full tuft"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.35
+      },
+      "moisture": {
+        "min": 0,
+        "max": 0.45
+      }
+    },
+    "produces": [
+      {
+        "item": "fescue-seeds",
+        "everySec": 1200,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.4,
+    "look": {
+      "form": "tuft",
+      "colour": "#7f9fa0",
+      "accent": "#c8b878"
+    },
+    "facts": [
+      {
+        "text": "Its tufts give small creatures cover on open ground.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "dwarf-pine",
+    "name": "Dwarf mountain pine",
+    "description": "A slow, rounded little pine that suits stone and gravel.",
+    "seedItem": "pine-seedlings",
+    "terrain": ["gravel", "grass", "moss"],
+    "stages": [
+      {
+        "name": "Seedling",
+        "durationSec": 900
+      },
+      {
+        "name": "Young pine",
+        "durationSec": 2700
+      },
+      {
+        "name": "Dwarf pine"
+      }
+    ],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.5
+      },
+      "moisture": {
+        "min": 0.1,
+        "max": 0.6
+      }
+    },
+    "produces": [
+      {
+        "item": "twigs",
+        "everySec": 900,
+        "amount": 1,
+        "minStage": 2
+      },
+      {
+        "item": "pine-seedlings",
+        "everySec": 3600,
+        "amount": 1,
+        "minStage": 2
+      }
+    ],
+    "nectar": 0,
+    "flowerStage": 2,
+    "cover": 0.6,
+    "shade": {
+      "radius": 1,
+      "strength": 0.3,
+      "minStage": 2
+    },
+    "look": {
+      "form": "conifer",
+      "colour": "#3f5f3a",
+      "accent": "#4f7244",
+      "size": 0.75
+    },
+    "facts": [
+      {
+        "text": "Small creatures shelter beneath its low branches.",
+        "after": 1
+      },
+      {
+        "text": "Jumping spiders bask on its sunlit needles.",
+        "after": 3
+      }
+    ]
   }
 ]

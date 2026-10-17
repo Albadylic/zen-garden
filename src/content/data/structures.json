@@ -278,5 +278,71 @@
         "after": "into-the-waters"
       }
     ]
+  },
+  {
+    "id": "rock-pile",
+    "name": "Rock pile",
+    "description": "A heap of stones full of warm crevices, for sunny, dry ground.",
+    "terrain": ["gravel", "grass"],
+    "prefers": {
+      "shade": {
+        "min": 0,
+        "max": 0.4
+      },
+      "moisture": {
+        "min": 0,
+        "max": 0.45
+      },
+      "cover": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "look": {
+      "form": "pile",
+      "colour": "#a3a29a",
+      "accent": "#8a8a84"
+    },
+    "levels": [
+      {
+        "name": "Rock pile",
+        "tier": 0,
+        "attraction": 1,
+        "capacity": 3,
+        "produces": []
+      },
+      {
+        "name": "Sun-warmed cairn",
+        "tier": 1,
+        "attraction": 1.6,
+        "capacity": 4,
+        "unlock": "upgrade:rock-pile",
+        "upgradeCost": {
+          "river-stones": 3,
+          "gravel": 2
+        },
+        "upgradeAfterVisits": 2,
+        "favours": {
+          "grass-lizard": 2
+        },
+        "produces": []
+      }
+    ],
+    "facts": [
+      {
+        "text": "Its crevices stay warm long after the sun has gone.",
+        "after": 1
+      },
+      {
+        "text": "It suits sunny, dry ground best.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Stones piled in the sun make warm hiding places.",
+        "after": "into-the-stone-garden"
+      }
+    ]
   }
 ]

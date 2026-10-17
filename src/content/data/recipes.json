@@ -124,5 +124,42 @@
       "id": "frog-shelter"
     },
     "unlock": "recipe:frog-shelter"
+  },
+  {
+    "id": "rock-pile",
+    "name": "Rock pile",
+    "inputs": {
+      "stones": 3,
+      "gravel": 2
+    },
+    "output": {
+      "kind": "structure",
+      "id": "rock-pile"
+    },
+    "unlock": "recipe:rock-pile"
+  },
+  {
+    "id": "raked-gravel",
+    "name": "Raked gravel",
+    "inputs": {
+      "gravel": 2
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "raked-gravel"
+    },
+    "unlock": "recipe:raked-gravel"
+  },
+  {
+    "id": "standing-stone",
+    "name": "Standing stone",
+    "inputs": {
+      "river-stones": 2
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "standing-stone"
+    },
+    "unlock": "recipe:raked-gravel"
   }
 ]

@@ -90,6 +90,16 @@
         "kind": "decoration",
         "id": "old-boulder"
       }
+    },
+    "g": {
+      "terrain": "gravel"
+    },
+    "K": {
+      "terrain": "gravel",
+      "fixed": {
+        "kind": "decoration",
+        "id": "standing-stone"
+      }
     }
   },
   "startingInventory": {
@@ -243,7 +253,44 @@
       "slot": {
         "col": 0,
         "row": -3
-      }
+      },
+      "origin": {
+        "x": -2,
+        "y": -43
+      },
+      "unlock": "chapter:living-waters",
+      "clearing": [
+        {
+          "item": "twigs",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        },
+        {
+          "item": "gravel",
+          "min": 1,
+          "max": 2,
+          "chance": 0.6
+        },
+        {
+          "item": "river-stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.5
+        },
+        {
+          "item": "stones",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        },
+        {
+          "item": "lichen-fragments",
+          "min": 1,
+          "max": 1,
+          "chance": 0.15
+        }
+      ]
     },
     {
       "id": "fernwood-hollow",
@@ -349,7 +396,17 @@
     },
     {
       "gardens": ["living-waters", "quiet-stone-garden"],
-      "kind": "main"
+      "kind": "main",
+      "gate": {
+        "at": {
+          "x": 6,
+          "y": 0
+        },
+        "passage": {
+          "x": 6,
+          "y": 15
+        }
+      }
     },
     {
       "gardens": ["quiet-stone-garden", "fernwood-hollow"],

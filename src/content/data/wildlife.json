@@ -468,5 +468,133 @@
         "after": "a-home-by-the-water"
       }
     ]
+  },
+  {
+    "id": "carpenter-ant",
+    "name": "Japanese carpenter ant",
+    "description": "A large black ant that nests in dry crevices and dead wood.",
+    "movement": "ground",
+    "speed": 0.9,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "rock-pile",
+      "minTier": 0,
+      "minSuitability": 0.4,
+      "perMinute": 0.6
+    },
+    "maxPresent": 4,
+    "staySec": [240, 600],
+    "colour": "#3a2a20",
+    "look": {
+      "form": "insect",
+      "colour": "#3a2a20",
+      "accent": "#1f1814",
+      "size": 0.6
+    },
+    "facts": [
+      {
+        "text": "Nests in dry, warm crevices between stones.",
+        "after": 1
+      },
+      {
+        "text": "Ants keep busy trails between their nest and food.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "A warm, dry crevice might become a nest.",
+        "after": "gathering-stones"
+      }
+    ]
+  },
+  {
+    "id": "jumping-spider",
+    "name": "Jumping spider",
+    "description": "A tiny, big-eyed spider that leaps between sunny perches.",
+    "movement": "ground",
+    "speed": 1.2,
+    "attraction": {
+      "kind": "perch",
+      "plants": ["dwarf-pine", "creeping-thyme"],
+      "things": ["rock-pile"],
+      "minCount": 2,
+      "perMinute": 0.45
+    },
+    "maxPresent": 3,
+    "staySec": [90, 300],
+    "colour": "#5a4a3a",
+    "look": {
+      "form": "spider",
+      "colour": "#5a4a3a",
+      "accent": "#2f2620",
+      "size": 0.7
+    },
+    "facts": [
+      {
+        "text": "Basks on sunlit stones and thyme.",
+        "after": 1
+      },
+      {
+        "text": "It sees remarkably well for its size.",
+        "after": 3
+      }
+    ],
+    "hints": [
+      {
+        "text": "Warm stones and low plants in the sun suit a small leaping spider.",
+        "after": "dry-ground-plants"
+      }
+    ]
+  },
+  {
+    "id": "grass-lizard",
+    "name": "Japanese grass lizard",
+    "description": "A slender brown lizard with a very long tail, quick in the sun.",
+    "movement": "ground",
+    "speed": 1.6,
+    "attraction": {
+      "kind": "shelter",
+      "structure": "rock-pile",
+      "minTier": 1,
+      "minSuitability": 0.45,
+      "perMinute": 0.4
+    },
+    "alongside": {
+      "wildlife": ["carpenter-ant", "jumping-spider", "bumblebee"],
+      "count": 2
+    },
+    "maxPresent": 2,
+    "staySec": [240, 600],
+    "colour": "#8a6a45",
+    "look": {
+      "form": "lizard",
+      "colour": "#8a6a45",
+      "accent": "#5a4630"
+    },
+    "facts": [
+      {
+        "text": "Comes to gardens already busy with small life among the stones.",
+        "after": 1
+      },
+      {
+        "text": "It basks on warm stones to heat up in the morning.",
+        "after": 2
+      },
+      {
+        "text": "Its tail can be three times the length of its body.",
+        "after": 4
+      }
+    ],
+    "hints": [
+      {
+        "text": "A cairn warmed by the sun might draw a basking reptile.",
+        "after": "warm-stones"
+      },
+      {
+        "text": "Lizards come to a sun-warmed cairn once ants or spiders are about.",
+        "after": "small-lives"
+      }
+    ]
   }
 ]

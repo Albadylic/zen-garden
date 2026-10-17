@@ -302,5 +302,95 @@
         "after": "into-the-waters"
       }
     ]
+  },
+  {
+    "id": "lichen-fragments",
+    "name": "Lichen fragments",
+    "category": "seed",
+    "description": "Crusty flakes of lichen that will take hold on bare stone.",
+    "colour": "#b8b97a",
+    "facts": [
+      {
+        "text": "A lichen is a fungus and an alga living as one.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "thyme-cuttings",
+    "name": "Thyme cuttings",
+    "category": "seed",
+    "description": "Fragrant sprigs of creeping thyme, ready to root.",
+    "colour": "#8f7aa8",
+    "facts": [
+      {
+        "text": "Thyme roots easily from a sprig pressed into dry soil.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "fescue-seeds",
+    "name": "Fescue seeds",
+    "category": "seed",
+    "description": "Fine seeds of a tough blue-grey grass.",
+    "colour": "#9fb0a8",
+    "facts": [
+      {
+        "text": "Fescues thrive where the soil is thin and dry.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "pine-seedlings",
+    "name": "Dwarf pine seedling",
+    "category": "seed",
+    "description": "A tiny pine in a ball of gritty soil.",
+    "colour": "#4f7244",
+    "facts": [
+      {
+        "text": "Dwarf pines grow only a few centimetres a year.",
+        "after": 2
+      }
+    ]
+  },
+  {
+    "id": "gravel",
+    "name": "Gravel",
+    "category": "material",
+    "description": "Pale, rounded gravel from the old stone garden.",
+    "colour": "#d2ccbb",
+    "facts": [
+      {
+        "text": "Raked gravel stands for water in many Japanese dry gardens.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Clearing the stone garden’s overgrowth turns up gravel.",
+        "after": "into-the-stone-garden"
+      }
+    ]
+  },
+  {
+    "id": "river-stones",
+    "name": "River stones",
+    "category": "material",
+    "description": "Smooth, water-worn stones, grey and speckled.",
+    "colour": "#8f9496",
+    "facts": [
+      {
+        "text": "Stones warm in the sun and hold the heat into the evening.",
+        "after": 2
+      }
+    ],
+    "hints": [
+      {
+        "text": "Old river stones lie hidden under the stone garden’s overgrowth.",
+        "after": "into-the-stone-garden"
+      }
+    ]
   }
 ]

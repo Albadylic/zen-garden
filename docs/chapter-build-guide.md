@@ -101,12 +101,12 @@ The first water district: a larger pond with shallow margins, deep water and a r
 
 A contemplative stone garden of moss, gravel and ground cover. **New idea: dry, warm microhabitats and composition.**
 
-- [ ] Map with gravel beds, a stone arrangement, mossy corners.
-- [ ] Plants: lichen (on stony ground), creeping thyme (dry and sunny), dwarf mountain pine (small shrub), sedge grass (dry).
-- [ ] Wildlife: carpenter ant (a rock pile), jumping spider (sunlit stones), Japanese grass lizard (warm stones, alongside insects).
-- [ ] Materials: gravel, river stones.
-- [ ] Structure: rock pile (stones, gravel), which suits dry, sunny ground. Decorations: a raked gravel bed and a standing stone.
-- [ ] Milestones and the "Rebuild the stone garden" project (dry garden · moss garden · stone composition).
+- [x] Map with gravel beds, a stone arrangement, mossy corners.
+- [x] Plants: map lichen (only on gravel beside stones), creeping thyme (dry and sunny), dwarf mountain pine (small shrub), blue fescue (dry). The autoplayer finishes the chapter in about half an hour.
+- [x] Wildlife: carpenter ant (a rock pile), jumping spider (sunlit stones), Japanese grass lizard (warm stones, alongside insects).
+- [x] Materials: gravel, river stones.
+- [x] Structure: rock pile (stones, gravel), which suits dry, sunny ground. Decorations: a raked gravel bed and a standing stone.
+- [x] Milestones and the "Rebuild the stone garden" project (dry garden · moss garden · stone composition).
 
 ### Chapter 5 — Fernwood Hollow
 

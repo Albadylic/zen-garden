@@ -108,5 +108,43 @@
     "flat": false,
     "cover": 0.1,
     "facts": []
+  },
+  {
+    "id": "standing-stone",
+    "name": "Standing stone",
+    "description": "A tall, weathered stone set upright in the gravel.",
+    "terrain": ["gravel", "grass", "moss"],
+    "flat": false,
+    "cover": 0.3,
+    "look": {
+      "form": "stone",
+      "colour": "#a3a29a",
+      "accent": "#7f7e78"
+    },
+    "facts": [
+      {
+        "text": "Lichen grows slowly on bare stone, a few millimetres a year.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "raked-gravel",
+    "name": "Raked gravel",
+    "description": "Gravel raked into gentle ripples, like water.",
+    "terrain": ["gravel", "grass"],
+    "flat": true,
+    "cover": 0,
+    "look": {
+      "form": "gravel",
+      "colour": "#e2dccd",
+      "accent": "#b9b2a2"
+    },
+    "facts": [
+      {
+        "text": "The ripples are raked afresh after rain.",
+        "after": 1
+      }
+    ]
   }
 ]

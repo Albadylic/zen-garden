@@ -397,5 +397,138 @@
         "unlocks": []
       }
     ]
+  },
+  {
+    "id": "quiet-stone-garden",
+    "title": "Quiet Stone Garden",
+    "requires": "chapter:living-waters",
+    "completionUnlock": "chapter:quiet-stone-garden",
+    "gift": {
+      "thyme-cuttings": 3,
+      "fescue-seeds": 3,
+      "lichen-fragments": 2,
+      "pine-seedlings": 1
+    },
+    "completion": {
+      "title": "Stillness and life",
+      "body": [
+        "Raked gravel, warm stones and soft lichen: the stone garden is calm again, and full of small lives in its crevices.",
+        "Through a mossy gate to the east, a damp hollow of ferns and fallen wood waits."
+      ]
+    },
+    "milestones": [
+      {
+        "id": "into-the-stone-garden",
+        "title": "Among the stones",
+        "description": "You looked around the old stone garden.",
+        "hint": "Go through the pond’s north gate and take a look around the stone garden.",
+        "conditions": [
+          {
+            "kind": "visitedGarden",
+            "garden": "quiet-stone-garden"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-quiet-plan",
+        "title": "A quiet plan",
+        "description": "You chose how to begin rebuilding the stone garden.",
+        "hint": "Open Restore and choose how to begin rebuilding the stone garden.",
+        "conditions": [
+          {
+            "kind": "approachChosen",
+            "project": "restore-stone-garden"
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "dry-ground-plants",
+        "title": "Plants for dry ground",
+        "description": "Thyme, fescue or lichen are growing among the stones.",
+        "hint": "Plant thyme or fescue in sunny, dry spots, or lichen on gravel beside a stone.",
+        "conditions": [
+          {
+            "kind": "plantedIn",
+            "garden": "quiet-stone-garden",
+            "plants": ["creeping-thyme", "blue-fescue", "lichen"],
+            "count": 3
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "gathering-stones",
+        "title": "Gathering stones",
+        "description": "You gathered river stones. You can now build a rock pile and set stones.",
+        "hint": "Clear the stone garden’s overgrowth to find river stones.",
+        "conditions": [
+          {
+            "kind": "gathered",
+            "item": "river-stones",
+            "count": 5
+          }
+        ],
+        "unlocks": ["recipe:rock-pile", "recipe:raked-gravel"]
+      },
+      {
+        "id": "warm-stones",
+        "title": "Warm stones",
+        "description": "You built a rock pile in the sun.",
+        "hint": "Build a rock pile on sunny, dry ground.",
+        "conditions": [
+          {
+            "kind": "builtIn",
+            "garden": "quiet-stone-garden",
+            "ids": ["rock-pile"],
+            "count": 1
+          }
+        ],
+        "unlocks": ["upgrade:rock-pile"]
+      },
+      {
+        "id": "small-lives",
+        "title": "Small lives",
+        "description": "Ants or spiders have made the stone garden their home.",
+        "hint": "Ants nest in rock piles; jumping spiders bask on warm stones and thyme.",
+        "conditions": [
+          {
+            "kind": "seenAny",
+            "wildlife": ["carpenter-ant", "jumping-spider"],
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "a-lizard-basks",
+        "title": "A lizard basks",
+        "description": "A grass lizard has come to bask on the warm stones.",
+        "hint": "Improve a rock pile into a sun-warmed cairn; lizards follow the small life there.",
+        "conditions": [
+          {
+            "kind": "seen",
+            "wildlife": "grass-lizard",
+            "count": 1
+          }
+        ],
+        "unlocks": []
+      },
+      {
+        "id": "the-stone-garden-restored",
+        "title": "The stone garden restored",
+        "description": "You completed one approach to rebuilding the stone garden.",
+        "hint": "Finish both stages of your chosen approach in the Restore panel.",
+        "conditions": [
+          {
+            "kind": "stagesDone",
+            "project": "restore-stone-garden",
+            "count": 2
+          }
+        ],
+        "unlocks": []
+      }
+    ]
   }
 ]

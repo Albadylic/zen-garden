@@ -255,5 +255,135 @@
         ]
       }
     ]
+  },
+  {
+    "id": "restore-stone-garden",
+    "title": "Rebuild the stone garden",
+    "description": "The stone garden is half buried. Choose where to begin; every approach can be finished in time.",
+    "garden": "quiet-stone-garden",
+    "requires": "chapter:living-waters",
+    "approaches": [
+      {
+        "id": "dry-garden",
+        "title": "A dry garden",
+        "description": "Fill the sunny gravel with thyme and fescue.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-dry",
+            "title": "Plant the dry ground",
+            "description": "Plant four thymes or fescues.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "quiet-stone-garden",
+                "plants": ["creeping-thyme", "blue-fescue"],
+                "count": 4
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "dry-established",
+            "title": "Established",
+            "description": "Grow four thymes or fescues to full size.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "quiet-stone-garden",
+                "plants": ["creeping-thyme", "blue-fescue"],
+                "minStage": 2,
+                "count": 4
+              }
+            ],
+            "cost": {
+              "gravel": 2
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "moss-and-lichen",
+        "title": "Moss and lichen",
+        "description": "Let lichen and moss soften the old stones.",
+        "unlocks": [],
+        "stages": [
+          {
+            "id": "plant-lichen",
+            "title": "Lichen on stone",
+            "description": "Grow three lichens or mosses in the stone garden.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "quiet-stone-garden",
+                "plants": ["lichen", "garden-moss"],
+                "count": 3
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "lichen-crust",
+            "title": "A living crust",
+            "description": "Grow three lichens or mosses to full size.",
+            "conditions": [
+              {
+                "kind": "plantedIn",
+                "garden": "quiet-stone-garden",
+                "plants": ["lichen", "garden-moss"],
+                "minStage": 2,
+                "count": 3
+              }
+            ],
+            "cost": {
+              "river-stones": 1
+            },
+            "unlocks": []
+          }
+        ]
+      },
+      {
+        "id": "stone-composition",
+        "title": "A stone composition",
+        "description": "Set standing stones and raked gravel, and a rock pile for wildlife.",
+        "unlocks": ["recipe:raked-gravel"],
+        "stages": [
+          {
+            "id": "set-stones",
+            "title": "Set the stones",
+            "description": "Place three standing stones, raked gravel beds or stone arrangements.",
+            "conditions": [
+              {
+                "kind": "builtIn",
+                "garden": "quiet-stone-garden",
+                "ids": ["standing-stone", "raked-gravel", "stone-arrangement"],
+                "count": 3
+              }
+            ],
+            "cost": {},
+            "unlocks": []
+          },
+          {
+            "id": "stones-alive",
+            "title": "Stones come alive",
+            "description": "Wait for wildlife to use a rock pile twice.",
+            "conditions": [
+              {
+                "kind": "visitedIn",
+                "garden": "quiet-stone-garden",
+                "count": 2
+              }
+            ],
+            "cost": {
+              "river-stones": 2
+            },
+            "unlocks": []
+          }
+        ]
+      }
+    ]
   }
 ]
