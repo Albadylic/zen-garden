@@ -25,6 +25,17 @@ Everything that depends on the project owner, and every placeholder the build st
 
 ## 2. Design decisions
 
+### Confirmed by the owner
+
+| Decision          | Detail                                                                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| No predation      | Animals never kill, eat or remove one another, and nothing disappears because of another creature. Food relationships only affect which species arrive |
+| Chapter order     | Chapter 2 (Bamboo Grove) is built before pond ecology (Chapter 3)                                                                                      |
+| Grove reveal      | The grove is hidden until its gate opens, not shown faded                                                                                              |
+| Chapter 2 content | Bamboo, Japanese forest grass, hosta; songbird and wood mouse; shelter branches: insect hotel, log lodge, nesting bundle                               |
+| Shelter tiers     | A second upgrade tier is added in Chapter 1; branching becomes the next tier in Chapter 2                                                              |
+| Maple             | Stays slow; pays off in Chapter 2 with maple leaves (and possibly sap) as ingredients and an optional milestone                                        |
+
 Each has a default I will build with so work is not blocked. Values live in data or config so they can change without code changes.
 
 ### Phase 01 — Garden foundation

@@ -7,6 +7,7 @@ PixiJS and Vite. It will later be packaged for iPhone with Capacitor.
 
 - [Game design document](docs/game-design-document.md): vision, systems and design principles
 - [Build order](docs/build-order.md): the phased plan the project follows
+- [Phase 2 plan](docs/phase-2-plan.md): Chapter 1 snag list, then the Bamboo Grove
 - [MVP plan](docs/mvp-plan.md): checklist for the first playable level
 - [Open items](docs/open-items.md): owner actions, pending decisions and placeholders
 
