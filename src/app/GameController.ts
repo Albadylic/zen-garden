@@ -14,6 +14,7 @@ import { entityAt, entityById, terrainAt } from '../core/grid'
 import {
   type ActionResult,
   buildRecipe,
+  craftItem,
   type Check,
   checkPlacement,
   hasUnlock,
@@ -223,6 +224,9 @@ export class GameController {
         case 'gift':
           this.toast(`Waiting in the grove: ${formatItems(this.content, e.items)}`, 'milestone')
           break
+        case 'crafted':
+          this.toast(`Made ${formatItems(this.content, e.items)}`)
+          break
         case 'harvested':
           this.toast(`Harvested ${formatItems(this.content, e.items)}`)
           break
@@ -366,7 +370,9 @@ export class GameController {
     if (source.kind === 'seed') return { kind: 'plant', defId: source.plantId }
     if (source.kind === 'recipe') {
       const recipe = this.content.recipes[source.recipeId]
-      return recipe ? { kind: recipe.output.kind, defId: recipe.output.id } : null
+      return recipe && recipe.output.kind !== 'item'
+        ? { kind: recipe.output.kind, defId: recipe.output.id }
+        : null
     }
     const entity = entityById(this.state, source.entityId)
     return entity ? { kind: entity.kind, defId: entity.defId } : null
@@ -462,6 +468,10 @@ export class GameController {
     const sel = this.ui.get().selection
     if (sel?.kind !== 'entity') return
     this.startPlacing({ kind: 'move', entityId: sel.id })
+  }
+
+  craft(recipeId: string): void {
+    this.applyResult(craftItem(this.state, this.content, recipeId))
   }
 
   harvestSelected(): void {

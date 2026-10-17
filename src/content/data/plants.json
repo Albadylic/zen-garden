@@ -35,7 +35,7 @@
     "produces": [
       {
         "item": "wildflower-seeds",
-        "everySec": 150,
+        "everySec": 300,
         "amount": 1,
         "minStage": 3
       }
@@ -90,7 +90,7 @@
     "produces": [
       {
         "item": "moss-spores",
-        "everySec": 900,
+        "everySec": 1200,
         "amount": 1,
         "minStage": 2
       }
@@ -146,7 +146,7 @@
     "produces": [
       {
         "item": "fern-spores",
-        "everySec": 1200,
+        "everySec": 1500,
         "amount": 1,
         "minStage": 2
       }
@@ -197,7 +197,7 @@
     "produces": [
       {
         "item": "grass-seeds",
-        "everySec": 900,
+        "everySec": 1200,
         "amount": 1,
         "minStage": 2
       }
@@ -337,7 +337,7 @@
     "produces": [
       {
         "item": "rush-cuttings",
-        "everySec": 900,
+        "everySec": 1200,
         "amount": 1,
         "minStage": 2
       }
@@ -442,7 +442,7 @@
     "produces": [
       {
         "item": "bamboo-shoots",
-        "everySec": 1200,
+        "everySec": 1800,
         "amount": 1,
         "minStage": 2
       }
@@ -517,7 +517,7 @@
     "produces": [
       {
         "item": "grass-divisions",
-        "everySec": 1200,
+        "everySec": 1500,
         "amount": 1,
         "minStage": 2
       }
@@ -574,7 +574,7 @@
     "produces": [
       {
         "item": "hosta-divisions",
-        "everySec": 1500,
+        "everySec": 1800,
         "amount": 1,
         "minStage": 2
       }

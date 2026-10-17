@@ -145,7 +145,11 @@ export const recipeSchema = z.object({
   id,
   name: z.string().min(1),
   inputs: itemCounts,
-  output: z.object({ kind: z.enum(['structure', 'decoration']), id }),
+  output: z.discriminatedUnion('kind', [
+    z.object({ kind: z.literal('structure'), id }),
+    z.object({ kind: z.literal('decoration'), id }),
+    z.object({ kind: z.literal('item'), id, amount: z.number().int().positive() }),
+  ]),
   unlock: z.string().optional(),
 }) satisfies z.ZodType<RecipeDef>
 

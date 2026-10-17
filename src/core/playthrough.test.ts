@@ -66,6 +66,10 @@ describe('Chapter 1 playthrough', () => {
     }
 
     expect(isChapterComplete(state, content.chapters[0]!)).toBe(true)
+    // Seeds stay in check: production pauses before they pile up.
+    for (const plantDef of Object.values(content.plants)) {
+      if (plantDef.seedItem) expect(state.inventory[plantDef.seedItem] ?? 0).toBeLessThanOrEqual(14)
+    }
     expect(minutes).toBeLessThan(60)
     expect(events.some((e) => e.type === 'shelterVisited')).toBe(true)
     expect(content.chapters[0]!.milestones.every((m) => state.milestones[m.id] !== undefined)).toBe(

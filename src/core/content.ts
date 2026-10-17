@@ -143,7 +143,9 @@ export interface RecipeDef {
   id: string
   name: string
   inputs: Record<string, number>
-  output: { kind: 'structure' | 'decoration'; id: string }
+  /** What it makes: something to place in the garden, or items for the inventory. */
+  output:
+    { kind: 'structure' | 'decoration'; id: string } | { kind: 'item'; id: string; amount: number }
   /** Unlock key required before the recipe can be used; absent means always available. */
   unlock?: string
 }

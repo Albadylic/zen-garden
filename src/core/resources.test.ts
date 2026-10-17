@@ -2,7 +2,15 @@ import { describe, expect, it } from 'vitest'
 import { setup } from '../test/fixtures'
 import { entityAt, terrainAt } from './grid'
 import { plant } from './plants'
-import { AUTO_GATHER_MS, clearOvergrowth, collectAll, collectDrop, DROP_CAP } from './resources'
+import { craftItem } from './layout'
+import {
+  AUTO_GATHER_MS,
+  SEED_SOFT_CAP,
+  clearOvergrowth,
+  collectAll,
+  collectDrop,
+  DROP_CAP,
+} from './resources'
 import { advance } from './simulation'
 
 const MIN = 60_000
@@ -82,5 +90,28 @@ describe('clearing overgrowth', () => {
     expect(state.inventory.twigs).toBeGreaterThan(twigs)
     expect(state.stats.cleared).toBe(1)
     expect(clearOvergrowth(state, content, 6, 1)).toMatchObject({ ok: false })
+  })
+})
+
+describe('seed supply', () => {
+  it('pauses seed production while the player holds plenty', () => {
+    const { content, state } = setup()
+    plant(state, content, 'wildflower-mix', 5, 11)
+    state.inventory['wildflower-seeds'] = SEED_SOFT_CAP
+    advance(state, content, 3 * 60 * MIN, { offline: true })
+    expect(state.drops.some((d) => d.itemId === 'wildflower-seeds')).toBe(false)
+    state.inventory['wildflower-seeds'] = 2
+    advance(state, content, 30 * MIN, { offline: true })
+    expect(state.drops.some((d) => d.itemId === 'wildflower-seeds')).toBe(true)
+  })
+
+  it('turns spare seeds into a seed bundle', () => {
+    const { content, state } = setup()
+    state.inventory['wildflower-seeds'] = 5
+    state.inventory['leaf-litter'] = 1
+    expect(craftItem(state, content, 'seed-bundle').ok).toBe(true)
+    expect(state.inventory['seed-bundle']).toBe(1)
+    expect(state.inventory['wildflower-seeds']).toBe(1)
+    expect(craftItem(state, content, 'seed-bundle').ok).toBe(false)
   })
 })

@@ -98,6 +98,7 @@ export function buildRecipe(
   if (!recipe) return { ok: false, reason: 'Unknown recipe' }
   if (!hasUnlock(state, recipe.unlock)) return { ok: false, reason: 'Not discovered yet' }
   if (!hasItems(state, recipe.inputs)) return { ok: false, reason: 'Not enough materials' }
+  if (recipe.output.kind === 'item') return { ok: false, reason: 'This is made, not placed' }
   const check = checkPlacement(
     state,
     content,
@@ -167,6 +168,18 @@ export function moveEntity(
 }
 
 /** Materials returned when an entity is removed. */
+/** Makes an item from a recipe, straight into the inventory. */
+export function craftItem(state: GameState, content: Content, recipeId: string): ActionResult {
+  const recipe = content.recipes[recipeId]
+  if (!recipe || recipe.output.kind !== 'item') return { ok: false, reason: 'Nothing to make' }
+  if (!hasUnlock(state, recipe.unlock)) return { ok: false, reason: 'Not discovered yet' }
+  if (!hasItems(state, recipe.inputs)) return { ok: false, reason: 'Not enough materials' }
+  removeItems(state, recipe.inputs)
+  const items = { [recipe.output.id]: recipe.output.amount }
+  addItems(state, items)
+  return { ok: true, events: [{ type: 'crafted', recipeId, items }] }
+}
+
 export function refundFor(content: Content, entity: Entity): Record<string, number> {
   if (entity.kind === 'plant') {
     const seed = content.plants[entity.defId]?.seedItem

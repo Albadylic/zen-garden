@@ -212,5 +212,18 @@
         "text": "A fully grown maple may yield something new."
       }
     ]
+  },
+  {
+    "id": "seed-bundle",
+    "name": "Seed bundle",
+    "category": "material",
+    "description": "Spare seeds wrapped in leaves and tied with grass: a store of food that draws insects and birds to a shelter.",
+    "colour": "#d8b25a",
+    "facts": [
+      {
+        "text": "Seed heads left standing feed birds and shelter insects through the lean months.",
+        "after": 2
+      }
+    ]
   }
 ]

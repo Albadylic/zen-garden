@@ -97,5 +97,18 @@
       "id": "sap-feeder"
     },
     "unlock": "recipe:sap-feeder"
+  },
+  {
+    "id": "seed-bundle",
+    "name": "Seed bundle",
+    "inputs": {
+      "wildflower-seeds": 4,
+      "leaf-litter": 1
+    },
+    "output": {
+      "kind": "item",
+      "id": "seed-bundle",
+      "amount": 1
+    }
   }
 ]

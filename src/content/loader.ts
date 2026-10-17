@@ -184,7 +184,11 @@ export function loadContent(raw: RawContent): Content {
   for (const r of Object.values(recipes)) {
     for (const itemId of Object.keys(r.inputs)) needItem(itemId, `recipes.json ${r.id}.inputs`)
     const target =
-      r.output.kind === 'structure' ? structures[r.output.id] : decorations[r.output.id]
+      r.output.kind === 'structure'
+        ? structures[r.output.id]
+        : r.output.kind === 'item'
+          ? items[r.output.id]
+          : decorations[r.output.id]
     if (!target) problems.push(`recipes.json ${r.id}: unknown ${r.output.kind} "${r.output.id}"`)
   }
   for (const w of Object.values(wildlife)) {

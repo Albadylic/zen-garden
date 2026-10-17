@@ -11,6 +11,8 @@ import { random, randomInt } from './rng'
 import type { StepContext } from './simulation'
 import type { Drop, Entity, GameState } from './state'
 
+/** Seed production pauses while the player holds this many of that seed. */
+export const SEED_SOFT_CAP = 12
 /** Most items of one kind a single source leaves lying around before it pauses. */
 export const DROP_CAP = 2
 /** While the garden is on screen, items left lying this long are gathered automatically. */
@@ -42,7 +44,13 @@ export function produce(state: GameState, content: Content, dtMs: number, ctx: S
         return
       }
       const lying = state.drops.filter((d) => d.sourceId === e.id && d.itemId === rule.item).length
-      if (lying >= DROP_CAP) {
+      // Seeds pause once the player has plenty, so they never pile up unused.
+      const seedFull =
+        content.items[rule.item]?.category === 'seed' &&
+        (state.inventory[rule.item] ?? 0) +
+          state.drops.filter((d) => d.itemId === rule.item).length >=
+          SEED_SOFT_CAP
+      if (lying >= DROP_CAP || seedFull) {
         // Rest until something is gathered, then start the next one from scratch.
         e.produceMs[i] = 0
         return

@@ -5,7 +5,7 @@ import { Sheet } from './Sheet'
 export function BuildPanel() {
   const controller = useGame()
   const { content } = controller
-  const recipes = Object.values(content.recipes)
+  const recipes = Object.values(content.recipes).filter((r) => r.output.kind !== 'item')
   return (
     <Sheet title="Build" onClose={() => controller.closePanel()} testId="build-panel">
       <ul className="choice-list">

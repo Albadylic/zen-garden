@@ -38,10 +38,10 @@ Fixes:
 
 Owner's report: about 60 seeds by the end of the chapter, without many places to plant them.
 
-- [ ] Slow seed production: longer intervals for wildflower seeds and other propagules, and a lower cap per plant.
-- [ ] Stop producing a seed type once the player holds plenty of it (a soft inventory cap, for example 12), so seeds never pile up.
+- [x] Slow seed production: longer intervals for wildflower seeds and other propagules, and a lower cap per plant.
+- [x] Stop producing a seed type once the player holds plenty of it (a soft inventory cap, for example 12), so seeds never pile up.
 - [ ] Give seeds a use: a **seed bundle** recipe used as an ingredient in shelter upgrades (seed heads draw insects), and later as a bird-feeding feature in Chapter 2.
-- [ ] Rebalance the playthrough test so its end-of-chapter inventory stays within sensible bounds.
+- [x] Rebalance the playthrough test so its end-of-chapter inventory stays within sensible bounds.
 
 ### A3. A second upgrade tier for the first shelter
 
