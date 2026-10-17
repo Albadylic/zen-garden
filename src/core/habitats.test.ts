@@ -4,6 +4,7 @@ import { addPlant, addShelter } from '../test/helpers'
 import type { GameEvent } from './events'
 import { tierOf, upgradeOptions, upgradeStructure } from './habitats'
 import { advance } from './simulation'
+import { companionsPresent } from './wildlife'
 
 function ready(level = 0) {
   const { content, state } = setup(2)
@@ -78,6 +79,33 @@ describe('shelter upgrades', () => {
     s.shelter.visits = 1
     upgradeStructure(s.state, s.content, s.shelter.id)
     expect(arrivals(s, 60).has('wren')).toBe(true)
+  })
+
+  it('only draws wrens to a garden already busy with insects', () => {
+    const s = ready()
+    shade(s)
+    s.shelter.visits = 1
+    upgradeStructure(s.state, s.content, s.shelter.id)
+    const wren = s.content.wildlife.wren!
+    const quiet = { ...s, content: { ...s.content, wildlife: { ...s.content.wildlife } } }
+    // The same garden, but the wren now needs more insects than could ever be present.
+    quiet.content.wildlife.wren = { ...wren, alongside: { ...wren.alongside!, count: 99 } }
+    expect(arrivals(quiet, 60).has('wren')).toBe(false)
+  })
+})
+
+describe('arriving alongside other wildlife', () => {
+  it('counts the companions present in the sanctuary', () => {
+    const { content, state } = setup()
+    const wren = content.wildlife.wren!
+    expect(companionsPresent(state, wren)).toBe(false)
+    const visitor = (id: number, speciesId: string) =>
+      ({ id, speciesId }) as (typeof state.creatures)[number]
+    state.creatures.push(visitor(1, 'bumblebee'))
+    expect(companionsPresent(state, wren)).toBe(false)
+    state.creatures.push(visitor(2, 'ground-beetle'))
+    expect(companionsPresent(state, wren)).toBe(true)
+    expect(companionsPresent(state, content.wildlife['small-white']!)).toBe(true)
   })
 })
 

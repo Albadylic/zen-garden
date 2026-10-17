@@ -186,6 +186,12 @@ export interface WildlifeDef {
         perMinute: number
       }
     | { kind: 'feeder'; structure: string; perMinute: number }
+  /**
+   * Only arrives while at least `count` creatures of these species are already
+   * in the sanctuary, for example a bird that comes where insects are
+   * plentiful. This decides arrivals only; no creature ever affects another.
+   */
+  alongside?: { wildlife: string[]; count: number }
   maxPresent: number
   /** Range of seconds a visit lasts. */
   staySec: [number, number]

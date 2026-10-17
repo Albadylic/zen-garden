@@ -183,6 +183,9 @@ export const wildlifeSchema = z.object({
     }),
     z.object({ kind: z.literal('feeder'), structure: id, perMinute: z.number().positive() }),
   ]),
+  alongside: z
+    .object({ wildlife: z.array(id).min(1), count: z.number().int().positive() })
+    .optional(),
   maxPresent: z.number().int().positive(),
   staySec: z.tuple([z.number().positive(), z.number().positive()]),
   colour: z.string().regex(/^#[0-9a-f]{6}$/i),

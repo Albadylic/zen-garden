@@ -354,12 +354,14 @@ The game gradually introduces food relationships:
 
 - Flowers support pollinators and other flower-visiting insects.
 - Fruits, nuts, seeds, and suitable organic material support appropriate foragers.
-- Insects and other small prey can support species such as frogs and certain birds.
+- A garden already busy with insects draws species such as frogs and certain birds. Whether those species arrive depends on which animals are already present.
 - Cover, water, and specialized habitat features make the wider ecosystem more viable.
 
 Food availability should mainly be managed by creating suitable conditions—not repeatedly feeding every animal.
 
-For example, a frog hint might suggest adding aquatic cover and creating conditions that support suitable insect prey. The player improves the ecosystem rather than placing food on a timer.
+For example, a frog hint might suggest adding aquatic cover and creating conditions where pond insects thrive. The player improves the ecosystem rather than placing food on a timer.
+
+**No predation is ever shown.** Animals never kill, eat or remove one another, and no creature disappears because of another. Relationships between animals only decide which species are attracted, for example "wrens come to gardens already busy with insects". Every departure is an ordinary visit ending, and no journal text describes one animal hunting or eating another.
 
 ## 8. The water ecosystem
 

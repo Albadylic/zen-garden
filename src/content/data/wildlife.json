@@ -158,20 +158,28 @@
         "after": 1
       },
       {
+        "text": "Comes to gardens already busy with insects, a sign that there is plenty for a small bird.",
+        "after": 2
+      },
+      {
         "text": "Wrens often build nests in log piles and dense cover.",
         "after": 3
       }
     ],
     "hints": [
       {
-        "text": "An improved shelter might tempt a small bird.",
+        "text": "An improved shelter in a garden busy with butterflies, bees and beetles might tempt a small bird.",
         "after": "first-residents"
       },
       {
         "text": "Wrens visit improved shelters in good spots, and love a nesting bundle.",
         "after": "gathering-canes"
       }
-    ]
+    ],
+    "alongside": {
+      "wildlife": ["small-white", "swallowtail", "bumblebee", "ground-beetle", "mason-bee"],
+      "count": 2
+    }
   },
   {
     "id": "white-eye",

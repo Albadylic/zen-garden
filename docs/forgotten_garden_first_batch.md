@@ -855,7 +855,7 @@ Introduce ecological relationships gradually:
 
 - Flowers provide nectar and attract pollinators.
 - Fruits and seeds support foragers.
-- Insects support insect-eating wildlife.
+- A garden busy with insects draws birds and amphibians. Arrivals depend on which animals are already present, but no animal is ever shown hunting, eating or removing another.
 - Aquatic plants and pond margins support pond insects and amphibians.
 - Fallen wood and leaf litter support decomposers.
 - Mature trees provide canopy, cavities, seeds, and shelter.

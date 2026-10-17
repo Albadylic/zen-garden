@@ -311,6 +311,9 @@ export function loadContent(raw: RawContent): Content {
     if (a.kind === 'feeder' && !structures[a.structure]?.feeder) {
       problems.push(`wildlife.json ${w.id}: "${a.structure}" is not a feeder structure`)
     }
+    for (const other of w.alongside?.wildlife ?? []) {
+      if (!wildlife[other]) problems.push(`wildlife.json ${w.id}: unknown wildlife "${other}"`)
+    }
     if (w.attraction.kind === 'shelter' && !structures[w.attraction.structure]) {
       problems.push(`wildlife.json ${w.id}: unknown structure "${w.attraction.structure}"`)
     }

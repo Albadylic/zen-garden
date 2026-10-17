@@ -158,6 +158,13 @@ function spawn(
 }
 
 /** System: species arrive when the garden offers what they need. */
+/** Whether the creatures a species arrives alongside are in the sanctuary now. */
+export function companionsPresent(state: GameState, def: WildlifeDef): boolean {
+  const a = def.alongside
+  if (!a) return true
+  return state.creatures.filter((c) => a.wildlife.includes(c.speciesId)).length >= a.count
+}
+
 export function attractWildlife(
   state: GameState,
   content: Content,
@@ -168,6 +175,7 @@ export function attractWildlife(
   for (const def of Object.values(content.wildlife)) {
     const present = state.creatures.filter((c) => c.speciesId === def.id).length
     if (present >= def.maxPresent) continue
+    if (!companionsPresent(state, def)) continue
     const a = def.attraction
     if (a.kind === 'nectar') {
       if (nectar < a.minNectar) continue
