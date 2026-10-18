@@ -19,10 +19,7 @@ import {
   worldToTile,
 } from './iso'
 
-export type Selection =
-  | { kind: 'entity'; id: number }
-  | { kind: 'creature'; id: number }
-  | { kind: 'tile'; x: number; y: number }
+export type Selection = { kind: 'entity'; id: number } | { kind: 'tile'; x: number; y: number }
 
 export interface PlacementPreview {
   x: number
@@ -62,12 +59,16 @@ export interface Flyout {
   t: number
 }
 
-/** What lies under a tap: the tile (if inside the garden) and any creature or drop nearest the finger. */
+/**
+ * What lies under a tap: the tile (if inside the garden) and any drop nearest
+ * the finger. Creatures are never the target: they move, and a tap meant for
+ * a plant or shelter should not land on a butterfly passing over it. They are
+ * listed in the panel of whatever they are visiting instead.
+ */
 export interface TapTarget {
   tile: Point | null
   /** "mouse", "touch" or "pen". */
   pointerType: string
-  creatureId?: number
   dropId?: number
 }
 
@@ -88,12 +89,9 @@ const BACKGROUND = 0x3f4a33
 const FLIGHT_HEIGHT = 34
 /** Frame time for ambient animation when nothing else has changed (30 fps). */
 const AMBIENT_FRAME_MS = 1000 / 30 - 1
-const CREATURE_HIT_PX = 30
 /** Creatures are drawn larger than life so they read clearly at garden scale. */
 const CREATURE_SCALE = 1.5
 const DROP_HIT_PX = 24
-/** How much closer a drop must be than a creature to be picked instead. */
-const CREATURE_PRIORITY_PX = 14
 /** A gentle wash over the whole garden for each season. */
 const SEASON_TINTS: Record<string, number> = {
   spring: 0xffffff,
@@ -149,7 +147,6 @@ export class GardenRenderer {
   private selectSprite = new Sprite()
   private previewSprite = new Sprite()
   private previewOutline = new Sprite()
-  private creatureRing = new Sprite()
   private time = 0
 
   private readonly host: RenderHost
@@ -184,12 +181,7 @@ export class GardenRenderer {
     this.camera.resize(app.screen.width, app.screen.height)
     this.camera.reset()
 
-    this.markers.addChild(
-      this.hoverSprite,
-      this.selectSprite,
-      this.previewOutline,
-      this.creatureRing,
-    )
+    this.markers.addChild(this.hoverSprite, this.selectSprite, this.previewOutline)
     this.world.addChild(
       this.ground,
       this.overlayLayer,
@@ -267,25 +259,12 @@ export class GardenRenderer {
     const t = this.tileAt(screen)
     const tile = inBounds(state, t.x, t.y) && this.tileOpen(t.x, t.y) ? t : null
     const target: TapTarget = { tile, pointerType }
-    // Whichever creature or drop is nearest the finger wins. Creatures get a
-    // head start, since a butterfly feeding on top of fallen seeds is the more
-    // deliberate target (and seeds are gathered automatically anyway).
     let best = Infinity
-    for (const [id, c] of this.creatureSprites) {
-      if (!c.sprite.visible) continue
-      const s = this.camera.worldToScreen(c.sprite.x, c.sprite.y)
-      const d = Math.hypot(s.x - screen.x, s.y - screen.y)
-      if (d < CREATURE_HIT_PX && d - CREATURE_PRIORITY_PX < best) {
-        target.creatureId = id
-        best = d - CREATURE_PRIORITY_PX
-      }
-    }
     for (const [id, sprite] of this.dropSprites) {
       const s = this.camera.worldToScreen(sprite.x, sprite.y - 12)
       const d = Math.hypot(s.x - screen.x, s.y - screen.y)
       if (d < DROP_HIT_PX && d < best) {
         target.dropId = id
-        delete target.creatureId
         best = d
       }
     }
@@ -619,17 +598,6 @@ export class GardenRenderer {
     if (sel?.kind === 'entity') {
       const e = state.entities.find((en) => en.id === sel.id)
       if (e) placeTile(this.selectSprite, 'tile:select', e.x, e.y)
-    }
-    // A ring on the ground under the selected creature, following it.
-    this.creatureRing.visible = false
-    if (sel?.kind === 'creature') {
-      const entry = this.creatureSprites.get(sel.id)
-      if (entry?.sprite.visible) {
-        this.applyArt(this.creatureRing, 'tile:creature')
-        const w = gridToWorld(entry.x, entry.y)
-        this.creatureRing.position.set(w.x, w.y)
-        this.creatureRing.visible = true
-      }
     }
     const preview = view.preview
     this.previewOutline.visible = false

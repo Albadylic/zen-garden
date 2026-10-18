@@ -179,7 +179,7 @@
       "item": "stones",
       "min": 1,
       "max": 1,
-      "chance": 0.3
+      "chance": 0.5
     },
     {
       "item": "bark",
@@ -203,6 +203,10 @@
         "col": 0,
         "row": 0
       },
+      "emblem": {
+        "motif": "pine",
+        "colour": "#4a6636"
+      },
       "origin": {
         "x": 0,
         "y": 0
@@ -215,6 +219,10 @@
       "slot": {
         "col": 0,
         "row": -1
+      },
+      "emblem": {
+        "motif": "bamboo",
+        "colour": "#6f8f3a"
       },
       "origin": {
         "x": -2,
@@ -238,7 +246,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.25
+          "chance": 0.45
         },
         {
           "item": "grass-divisions",
@@ -262,6 +270,10 @@
         "col": 0,
         "row": -2
       },
+      "emblem": {
+        "motif": "water",
+        "colour": "#3f7a8c"
+      },
       "origin": {
         "x": -2,
         "y": -27
@@ -284,7 +296,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.3
+          "chance": 0.45
         },
         {
           "item": "leaf-litter",
@@ -307,6 +319,10 @@
       "slot": {
         "col": 0,
         "row": -3
+      },
+      "emblem": {
+        "motif": "stones",
+        "colour": "#7b7568"
       },
       "origin": {
         "x": -2,
@@ -336,7 +352,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.3
+          "chance": 0.45
         },
         {
           "item": "lichen-fragments",
@@ -353,6 +369,10 @@
       "slot": {
         "col": 1,
         "row": -3
+      },
+      "emblem": {
+        "motif": "fern",
+        "colour": "#3e6a45"
       },
       "origin": {
         "x": 14,
@@ -400,6 +420,10 @@
         "col": 2,
         "row": -3
       },
+      "emblem": {
+        "motif": "flower",
+        "colour": "#b0762e"
+      },
       "origin": {
         "x": 30,
         "y": -43
@@ -428,7 +452,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.3
+          "chance": 0.45
         }
       ]
     },
@@ -439,6 +463,10 @@
       "slot": {
         "col": 2,
         "row": -2
+      },
+      "emblem": {
+        "motif": "stream",
+        "colour": "#4f8aa8"
       },
       "origin": {
         "x": 30,
@@ -462,7 +490,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.4
+          "chance": 0.55
         },
         {
           "item": "reed-stems",
@@ -479,6 +507,10 @@
       "slot": {
         "col": 1,
         "row": -2
+      },
+      "emblem": {
+        "motif": "blossom",
+        "colour": "#b9637a"
       },
       "origin": {
         "x": 14,
@@ -502,7 +534,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.4
+          "chance": 0.55
         },
         {
           "item": "quince-cuttings",
@@ -519,6 +551,10 @@
       "slot": {
         "col": 1,
         "row": -1
+      },
+      "emblem": {
+        "motif": "canopy",
+        "colour": "#5a4a32"
       },
       "origin": {
         "x": 14,
@@ -566,6 +602,10 @@
         "col": 2,
         "row": -1
       },
+      "emblem": {
+        "motif": "reeds",
+        "colour": "#6d7a3f"
+      },
       "origin": {
         "x": 30,
         "y": -11
@@ -605,6 +645,10 @@
       "slot": {
         "col": 2,
         "row": 0
+      },
+      "emblem": {
+        "motif": "seasons",
+        "colour": "#a0522d"
       },
       "origin": {
         "x": 30,
@@ -646,6 +690,10 @@
         "col": 1,
         "row": 0
       },
+      "emblem": {
+        "motif": "pavilion",
+        "colour": "#7a3b3b"
+      },
       "origin": {
         "x": 16,
         "y": 0
@@ -674,7 +722,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.3
+          "chance": 0.45
         }
       ]
     }

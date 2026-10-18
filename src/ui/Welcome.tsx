@@ -13,6 +13,10 @@ export function Welcome() {
         aria-labelledby="welcome-title"
         data-testid="welcome"
       >
+        <p className="modal__brand">
+          <span className="modal__brand-name">Satoyama</span>
+          <span className="modal__brand-tagline">Bring back the garden</span>
+        </p>
         <p className="modal__eyebrow">Chapter 1</p>
         <h2 id="welcome-title" className="modal__title">
           The Forgotten Garden

@@ -42,6 +42,7 @@ export class PointerInput {
     element.addEventListener('pointercancel', this.cancel)
     element.addEventListener('pointerleave', this.leave)
     element.addEventListener('wheel', this.wheel, { passive: false })
+    element.addEventListener('touchend', this.touchEnd, { passive: false })
   }
 
   destroy(): void {
@@ -51,6 +52,16 @@ export class PointerInput {
     this.element.removeEventListener('pointercancel', this.cancel)
     this.element.removeEventListener('pointerleave', this.leave)
     this.element.removeEventListener('wheel', this.wheel)
+    this.element.removeEventListener('touchend', this.touchEnd)
+  }
+
+  /**
+   * Taps are handled from pointer events. Cancelling the touch's end stops the
+   * browser's follow-up click, which would otherwise land on whatever a tap
+   * just opened under the finger (such as a tile's panel).
+   */
+  private touchEnd = (e: TouchEvent): void => {
+    if (e.cancelable) e.preventDefault()
   }
 
   private local(e: PointerEvent | WheelEvent): Point {

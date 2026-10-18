@@ -7,7 +7,7 @@ import {
   type JournalSection,
   knownFacts,
 } from '../core/journal'
-import { useGame } from './hooks'
+import { useGame, useUi } from './hooks'
 import { Icon } from './Icon'
 
 const SECTIONS: { id: JournalSection; label: string }[] = [
@@ -44,8 +44,15 @@ export function JournalBook() {
       .map((entry) => ({ section: s.id, entry })),
   ])
   // The page showing, by section and entry, so it stays put as new entries are found.
-  // The book opens at the first page with something new, or at the beginning.
+  // Opened from something in the garden, the book opens at its entry (or, if
+  // it is not discovered yet, at its section's contents). Otherwise it opens at
+  // the first page with something new, or at the beginning.
+  const { journalFocus } = useUi()
   const [at, setAt] = useState<{ section: JournalSection; key?: string }>(() => {
+    if (journalFocus) {
+      const section = journalFocus.split(':')[0] as JournalSection
+      return state.journal[journalFocus] ? { section, key: journalFocus } : { section }
+    }
     const first = pages.find((p) => p.entry && isUnread(state, content, p.entry.key))
     return first ? { section: first.section, key: first.entry!.key } : { section: 'plant' }
   })

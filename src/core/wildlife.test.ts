@@ -12,6 +12,7 @@ import {
   PATH_REACH,
   refugesNear,
   residents,
+  visitorsAt,
 } from './wildlife'
 
 const MIN = 60_000
@@ -239,5 +240,28 @@ describe('stones, logs and paths', () => {
     )
     for (const def of Object.values(content.wildlife))
       if (def.seasons) expect(seen.has(def.id)).toBe(false)
+  })
+})
+
+describe('visitors', () => {
+  it('lists creatures close to a tile, or heading for or living in what is on it', () => {
+    const { content, state } = setup()
+    const shelter = addShelter(state, content, 3, 4)
+    const base = {
+      speciesId: 'small-white',
+      activity: 'feeding' as const,
+      hidden: false,
+      timerMs: 0,
+      stayMs: 1000,
+      homeId: null,
+      targetId: null,
+    }
+    state.creatures.push(
+      { ...base, id: 900, x: 3.5, y: 4.6, targetX: 0, targetY: 0 },
+      { ...base, id: 901, x: 12.5, y: 12.5, targetX: 0, targetY: 0 },
+      { ...base, id: 902, x: 9.5, y: 9.5, targetX: 0, targetY: 0, homeId: shelter.id },
+    )
+    expect(visitorsAt(state, 3, 4, shelter.id).map((c) => c.id)).toEqual([900, 902])
+    expect(visitorsAt(state, 3, 4).map((c) => c.id)).toEqual([900])
   })
 })

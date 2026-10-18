@@ -23,7 +23,7 @@ export const AUTO_GATHER_MS = 45_000
 function rulesFor(content: Content, e: Entity): ProductionDef[] {
   if (e.kind === 'plant') return content.plants[e.defId]?.produces ?? []
   if (e.kind === 'structure') return content.structures[e.defId]?.levels[e.level]?.produces ?? []
-  return []
+  return content.decorations[e.defId]?.produces ?? []
 }
 
 function stageOf(e: Entity): number {
@@ -37,31 +37,31 @@ function seedIsFull(state: GameState, content: Content, itemId: string): boolean
   return (state.inventory[itemId] ?? 0) + lying >= SEED_SOFT_CAP
 }
 
-/** System: plants and structures produce items over time, up to a cap per source. */
+/** System: plants, structures and a few decorations produce items over time, up to a cap per source. */
 export function produce(state: GameState, content: Content, dtMs: number, ctx: StepContext): void {
   for (const e of state.entities) {
-    if (e.kind === 'decoration') continue
     const rules = rulesFor(content, e)
     if (rules.length === 0) continue
     const rate = e.kind === 'plant' ? growthRate(state, content, e) : 1
     // A compost bed and the like only work while they hold something.
     if (e.kind === 'structure' && content.structures[e.defId]?.feeder?.whileFilled && !isFilled(e))
       continue
+    const timers = (e.produceMs ??= [])
     rules.forEach((rule, i) => {
       if (stageOf(e) < rule.minStage || !inSeason(state, rule.seasons)) return
       const period = rule.everySec * 1000
-      const elapsed = (e.produceMs[i] ?? 0) + dtMs * rate
+      const elapsed = (timers[i] ?? 0) + dtMs * rate
       if (elapsed < period) {
-        e.produceMs[i] = elapsed
+        timers[i] = elapsed
         return
       }
       const lying = state.drops.filter((d) => d.sourceId === e.id && d.itemId === rule.item).length
       if (lying >= DROP_CAP || seedIsFull(state, content, rule.item)) {
         // Rest until something is gathered, then start the next one from scratch.
-        e.produceMs[i] = 0
+        timers[i] = 0
         return
       }
-      e.produceMs[i] = elapsed - period
+      timers[i] = elapsed - period
       const drop: Drop = {
         id: nextId(state),
         itemId: rule.item,

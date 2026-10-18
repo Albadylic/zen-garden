@@ -1,6 +1,7 @@
+import { useRef, useState } from 'react'
 import { openOvergrowth } from '../core/gardens'
 import type { ProjectDef } from '../core/content'
-import { conditionProgress } from '../core/progression'
+import { conditionProgress, currentChapter } from '../core/progression'
 import {
   availableProjects,
   choosableApproaches,
@@ -10,9 +11,10 @@ import {
   progressOf,
   stageStatus,
 } from '../core/projects'
-import { formatItems } from './format'
+import { GardenEmblem } from './GardenEmblem'
 import { useGame } from './hooks'
 import { Sheet } from './Sheet'
+import { Cost } from './Cost'
 
 function Project({ project }: { project: ProjectDef }) {
   const controller = useGame()
@@ -74,17 +76,7 @@ function Project({ project }: { project: ProjectDef }) {
               </span>
             ) : null
           })}
-          {Object.keys(stage.cost).length > 0 && (
-            <span
-              className={
-                stageStatus(state, content, stage).kind === 'needsItems'
-                  ? 'choice__cost choice__cost--short'
-                  : 'choice__cost'
-              }
-            >
-              Uses {formatItems(content, stage.cost)}
-            </span>
-          )}
+          {Object.keys(stage.cost).length > 0 && <Cost items={stage.cost} />}
           <button
             type="button"
             className="button button--primary"
@@ -99,32 +91,94 @@ function Project({ project }: { project: ProjectDef }) {
   )
 }
 
+/** Horizontal distance, in pixels, that turns a page. */
+const SWIPE_PX = 48
+
+/**
+ * Restoration projects, one page each, with the emblem of the garden each
+ * belongs to. Clearing overgrowth sits above them while there is any left.
+ */
 export function RestorePanel() {
   const controller = useGame()
   const { content, state } = controller
   const overgrown = openOvergrowth(state, content)
   const projects = availableProjects(state, content)
+  // Open at the project for the current chapter's garden, else the first one unfinished.
+  const [page, setPage] = useState(() => {
+    const chapter = currentChapter(state, content)
+    const here = projects.findIndex((p) => p.garden === chapter.id && !isProjectComplete(state, p))
+    const open = projects.findIndex((p) => !isProjectComplete(state, p))
+    return Math.max(0, here >= 0 ? here : open)
+  })
+  const index = Math.min(page, Math.max(0, projects.length - 1))
+  const project = projects[index]
+  const garden = project && content.world.gardens.find((g) => g.id === project.garden)
+  const turn = (by: number) => setPage(Math.min(projects.length - 1, Math.max(0, index + by)))
+  const swipeFrom = useRef<number | null>(null)
   return (
     <Sheet title="Restore" onClose={() => controller.closePanel()} testId="restore-panel">
-      <div className="upgrade">
-        <strong>Clear overgrowth</strong>
-        <span className="muted">
-          {overgrown > 0
-            ? `${overgrown} overgrown ${overgrown === 1 ? 'patch' : 'patches'} left. Start clearing, then tap as many tangles as you like; each turns up twigs, leaf litter and more.`
-            : 'All the reachable overgrowth has been cleared.'}
-        </span>
-        <button
-          type="button"
-          className="button button--primary"
-          disabled={overgrown === 0}
-          onClick={() => controller.startClearing()}
+      {overgrown > 0 && (
+        <div className="upgrade" data-testid="clear-overgrowth">
+          <strong>Clear overgrowth</strong>
+          <span className="muted">
+            {`${overgrown} overgrown ${overgrown === 1 ? 'patch' : 'patches'} left. Start clearing, then tap as many tangles as you like; each turns up twigs, leaf litter and more.`}
+          </span>
+          <button
+            type="button"
+            className="button button--primary"
+            onClick={() => controller.startClearing()}
+          >
+            Start clearing
+          </button>
+        </div>
+      )}
+      {project && (
+        <div
+          className="project-pages"
+          onPointerDown={(e) => (swipeFrom.current = e.clientX)}
+          onPointerUp={(e) => {
+            if (swipeFrom.current === null) return
+            const dx = e.clientX - swipeFrom.current
+            swipeFrom.current = null
+            if (Math.abs(dx) >= SWIPE_PX) turn(dx < 0 ? 1 : -1)
+          }}
+          onPointerCancel={() => (swipeFrom.current = null)}
         >
-          Start clearing
-        </button>
-      </div>
-      {projects.map((p) => (
-        <Project key={p.id} project={p} />
-      ))}
+          <div className="project-pages__nav">
+            <button
+              type="button"
+              className="icon-button"
+              aria-label="Previous project"
+              disabled={index === 0}
+              onClick={() => turn(-1)}
+            >
+              ‹
+            </button>
+            <span className="project-pages__garden" data-testid="project-garden">
+              {garden && <GardenEmblem emblem={garden.emblem} />}
+              <span>
+                <span className="project-pages__garden-name">{garden?.name}</span>
+                <span className="muted" data-testid="project-page">
+                  Project {index + 1} of {projects.length}
+                </span>
+              </span>
+            </span>
+            <button
+              type="button"
+              className="icon-button"
+              aria-label="Next project"
+              disabled={index === projects.length - 1}
+              onClick={() => turn(1)}
+            >
+              ›
+            </button>
+          </div>
+          <Project key={project.id} project={project} />
+        </div>
+      )}
+      {!project && overgrown === 0 && (
+        <p className="muted">Nothing to restore here yet. Keep tending the garden.</p>
+      )}
     </Sheet>
   )
 }

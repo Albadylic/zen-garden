@@ -9,7 +9,7 @@ test('loads the garden canvas with the HUD overlay', async ({ page }) => {
 
   await page.goto('./')
 
-  await expect(page).toHaveTitle('Zen Garden')
+  await expect(page).toHaveTitle('Satoyama')
   // A new garden opens with a welcome; dismissing it reveals the HUD.
   await expect(page.getByTestId('welcome')).toBeVisible()
   await page.getByRole('button', { name: 'Step into the garden' }).click()

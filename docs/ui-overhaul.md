@@ -45,6 +45,12 @@ To finish the icon set, the interface still needs:
 - **Items:** about 35 more. Every seed, spore and cutting (moss, fern, grass, maple, rush, bamboo, reed and the later gardens' seeds), and every material from Chapters 2–12 (bamboo canes, maple leaves, river stones, fallen branches, cattail fluff, fine timber, ornamental stones and so on), plus the seed bundle.
 - **@2x and @3x** versions are not needed for the SVGs, but the same palette and line weight should carry through any new ones.
 
+## Deploying the branch
+
+While the owner compares, `.github/workflows/deploy.yml` on this branch also deploys on pushes to `ui/icons-and-journal`, so GitHub Pages shows the branch's build. Pages has one site, so the last deploy from either branch wins. Before the branch merges, take `ui/icons-and-journal` out of that list again.
+
+The branch has `main` merged in, so apart from the interface it is the same game: tapping a tile offers what can go there, visitors are listed in panels with a book button that opens the journal book at their page, costs show have and need, and Restore pages through projects.
+
 ## To compare
 
 Run this branch and `main` side by side (`npm run dev` on each), or check out the branch's GitHub Pages build if it is deployed. If the owner prefers it, the branch merges into `main` as it stands.

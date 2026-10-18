@@ -1,5 +1,6 @@
 import { isGardenOpen } from '../core/gardens'
 import { isChapterComplete } from '../core/progression'
+import { GardenEmblem } from './GardenEmblem'
 import { useGame } from './hooks'
 import { Sheet } from './Sheet'
 
@@ -27,7 +28,7 @@ export function GardensPanel() {
               className="garden-list__item"
               onClick={() => controller.visitGarden(g.id)}
             >
-              <span className="garden-list__number">{g.number}</span>
+              <GardenEmblem emblem={g.emblem} />
               <span className="garden-list__name">{g.name}</span>
               <span className="muted">{restored(g.id) ? 'Restored' : 'In progress'}</span>
             </button>

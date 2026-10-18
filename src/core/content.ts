@@ -110,6 +110,8 @@ export interface PlantDef {
   near?: { ids: string[]; distance: number }
   /** Seasons in which it flowers (and offers nectar) once seasons have begun; every season if absent. */
   flowerSeasons?: Season[]
+  /** Seasons in which it is at its best (blossom, fruit, evergreen leaves), for planning a garden for every season. */
+  bestSeasons?: Season[]
   look?: Look
   facts: Fact[]
   /** Clues shown in the journal before it is discovered, getting more specific over time. */
@@ -181,6 +183,8 @@ export interface DecorationDef {
    * Residents with one close to their shelter stay a little longer.
    */
   refuge?: boolean
+  /** Natural materials it gives up over time, such as stones loosened from an old boulder. */
+  produces?: ProductionDef[]
   look?: Look
   facts: Fact[]
 }
@@ -286,6 +290,8 @@ export type Condition =
   | { kind: 'openWater'; garden: string; count: number }
   /** Seasons seen since the seasons began. */
   | { kind: 'seasonsSeen'; count: number }
+  /** Seasons in which something growing in a garden is at its best (see `bestSeasons`). */
+  | { kind: 'seasonsCovered'; garden: string; count: number }
 
 export interface MilestoneDef {
   id: string
@@ -369,9 +375,31 @@ export interface Rect {
 }
 
 /** A built garden: its own map, placed in the world at a fixed origin. */
+/** The picture on a garden's emblem, used wherever the interface names a garden. */
+export type GardenMotif =
+  | 'pine'
+  | 'bamboo'
+  | 'water'
+  | 'stones'
+  | 'fern'
+  | 'flower'
+  | 'stream'
+  | 'blossom'
+  | 'canopy'
+  | 'reeds'
+  | 'seasons'
+  | 'pavilion'
+
+export interface GardenEmblem {
+  motif: GardenMotif
+  /** Background colour of the emblem. */
+  colour: string
+}
+
 export interface GardenDef {
   id: string
   name: string
+  emblem: GardenEmblem
   /** Position on the sanctuary's main restoration route (1 is the first garden). */
   number: number
   /** World tiles covered by the garden's map, walls included. */
@@ -393,6 +421,7 @@ export interface WorldGardenDef {
   name: string
   slot: { col: number; row: number }
   built: boolean
+  emblem: GardenEmblem
 }
 
 /** A gate between two neighbouring gardens, in world tiles. */

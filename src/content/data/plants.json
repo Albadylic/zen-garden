@@ -2681,6 +2681,7 @@
     "flowerStage": 2,
     "cover": 0.5,
     "flowerSeasons": ["winter", "spring"],
+    "bestSeasons": ["winter", "spring"],
     "look": {
       "form": "tree",
       "colour": "#6f7a4a",
@@ -2746,6 +2747,7 @@
     "flowerStage": 2,
     "cover": 0.6,
     "flowerSeasons": ["summer"],
+    "bestSeasons": ["summer", "autumn"],
     "look": {
       "form": "shrub",
       "colour": "#5a7a3a",
@@ -2803,6 +2805,7 @@
     ],
     "nectar": 0,
     "flowerStage": 2,
+    "bestSeasons": ["winter"],
     "cover": 0.4,
     "look": {
       "form": "tuft",
@@ -2858,6 +2861,7 @@
     "flowerStage": 2,
     "cover": 0.1,
     "flowerSeasons": ["winter"],
+    "bestSeasons": ["winter"],
     "look": {
       "form": "flower",
       "colour": "#5f8a5a",

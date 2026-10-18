@@ -1,9 +1,12 @@
-# Zen Garden
+# Satoyama
+
+_Bring back the garden._
 
 An isometric garden-restoration game for the web, built with TypeScript, React,
-PixiJS and Vite. It will later be packaged for iPhone with Capacitor. ("Zen
-Garden" is a working title; the first-batch design calls the game _Forgotten
-Garden_.)
+PixiJS and Vite. It will later be packaged for iPhone with Capacitor. Satoyama
+is the Japanese word for the gentle borderland where people and wildlife live
+side by side. (The repository keeps its earlier working name, `zen-garden`, and
+so do save data and storage keys, so existing gardens carry over.)
 
 The player restores a neglected Japanese-inspired sanctuary one garden at a
 time: planting, gathering natural materials, building habitats and watching

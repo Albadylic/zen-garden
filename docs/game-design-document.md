@@ -1,4 +1,6 @@
-# Zen Garden City-Builder — Game Design Document (Concept Stages 1–12)
+# Satoyama — Game Design Document (Concept Stages 1–12)
+
+_The game was called "Zen Garden City-Builder" when this document was written; the confirmed title is **Satoyama**, tagline "Bring back the garden."_
 
 Concept design document · Mobile-first peaceful garden builder · Consolidated through Stage 12
 
@@ -944,6 +946,8 @@ The proposed seasonal system changes foliage, flowers, colors, and wildlife appe
 Examples include maple foliage shifting in autumn, different flowering displays, and variations in the density or appearance of vegetation.
 
 The exact seasonal calendar and which species receive seasonal variants remain open content decisions. The confirmed principle is that players should not lose important rewards by missing a season.
+
+**Confirmed:** the seasons follow the real calendar, from the Four Seasons Garden (Chapter 11) on, in the player's hemisphere (guessed from the device's time zone, changeable in Settings). No goal waits on the calendar: Chapter 11 asks the player to plan a garden with something at its best in every season, and seasonal visitors fill in the journal as the real year turns.
 
 ## 19. Content framework and extensibility
 

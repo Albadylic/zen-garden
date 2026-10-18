@@ -10,6 +10,7 @@ interface ZenHooks {
       creatures: {
         id: number
         speciesId: string
+        targetId: number | null
         hidden: boolean
         activity: string
         x: number
@@ -19,6 +20,7 @@ interface ZenHooks {
       unlocks: string[]
       elapsedMs: number
       journal: Record<string, { discoveredAtMs: number; encounters: number; read?: number }>
+      gardens: Record<string, { terrain: string[] }>
     }
     canAfford(cost: Record<string, number>): boolean
     ui: { get(): { selection: unknown; toasts: { text: string }[] } }

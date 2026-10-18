@@ -87,7 +87,9 @@ describe('layout actions', () => {
     const id = state.entities.at(-1)!.id
     const stones = state.inventory.stones ?? 0
     const removed = removeEntity(state, content, id)
-    expect(state.inventory.stones).toBe(stones + 3)
+    expect(state.inventory.stones).toBe(
+      stones + content.recipes['stone-arrangement']!.inputs.stones!,
+    )
     if (!removed.ok || !removed.undo) throw new Error('remove failed')
     expect(undo(state, content, removed.undo).ok).toBe(true)
     expect(entityAt(state, 5, 11)?.id).toBe(id)

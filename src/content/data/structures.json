@@ -33,7 +33,7 @@
         "upgradeCost": {
           "twigs": 4,
           "bark": 3,
-          "stones": 2
+          "stones": 1
         },
         "upgradeAfterVisits": 1,
         "produces": [

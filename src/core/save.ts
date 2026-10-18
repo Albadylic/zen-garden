@@ -1,6 +1,7 @@
 // Save format: a versioned wrapper around the game state, with migrations so
 // older saves keep loading as the state shape changes.
 
+import { emptyCalendar } from './seasons'
 import type { Content } from './content'
 import { fixedEntity, freshGardenTiles } from './game'
 import { setTerrain, terrainAt } from './grid'
@@ -82,7 +83,7 @@ export function deserialize(
   currentVersion = STATE_VERSION,
 ): SaveData {
   if (!isRecord(raw) || raw.format !== SAVE_FORMAT)
-    throw new SaveError('This is not a Zen Garden save')
+    throw new SaveError('This is not a Satoyama save')
   const version = raw.version
   if (typeof version !== 'number' || !Number.isInteger(version))
     throw new SaveError('The save has no version')
@@ -113,6 +114,7 @@ export function deserialize(
   s.stats = { ...emptyStats(), ...s.stats }
   s.gardensVisited ??= []
   s.projects ??= {}
+  s.calendar ??= emptyCalendar()
   addNewGardens(s, content)
   addNewGates(s, content)
   s.version = currentVersion

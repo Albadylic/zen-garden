@@ -1,4 +1,4 @@
-import type { Activity, Terrain } from './content'
+import type { Activity, Season, Terrain } from './content'
 
 export interface PlantEntity {
   id: number
@@ -39,6 +39,8 @@ export interface DecorationEntity {
   x: number
   y: number
   fixed: boolean
+  /** Production timers, for the few decorations that give up materials (added when first needed). */
+  produceMs?: number[]
 }
 
 export type Entity = PlantEntity | StructureEntity | DecorationEntity
@@ -123,6 +125,18 @@ export interface GardenTiles {
   terrain: Terrain[]
 }
 
+export type Hemisphere = 'north' | 'south'
+
+/** The real calendar, as the app reports it; the seasons follow it once they begin. */
+export interface Calendar {
+  /** The month, 0 = January. */
+  month: number
+  /** The player's hemisphere, or null until the app has worked it out. */
+  hemisphere: Hemisphere | null
+  /** The season last announced, so a new one is noted once as it arrives. */
+  noted: Season | null
+}
+
 export interface GameState {
   version: number
   seed: number
@@ -151,6 +165,7 @@ export interface GameState {
   gardensVisited: string[]
   /** Bumped whenever terrain or anything affecting the environment changes. */
   layoutVersion: number
+  calendar: Calendar
 }
 
 export const STATE_VERSION = 4

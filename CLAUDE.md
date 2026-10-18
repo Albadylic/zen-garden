@@ -1,4 +1,6 @@
-# Zen Garden — guidance for Claude
+# Satoyama — guidance for Claude
+
+The game is called **Satoyama**, with the tagline "Bring back the garden." The repository, save format and storage keys keep the earlier working name `zen-garden` so existing saves still load; do not rename them.
 
 ## Source of truth
 

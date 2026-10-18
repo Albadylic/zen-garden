@@ -73,7 +73,7 @@ Every chapter brings a garden with its own character and **one or two new ideas*
 - [x] **Perches on things other than plants:** perch attraction can name decorations and structures (a wagtail on stepping stones).
 - [x] **Variety-loving visitors:** nectar attraction with `minSpecies`, the number of different flowering species needed.
 - [x] **Structures that work while filled:** a compost bed produces leaf mould while it holds leaf litter (`producesWhileFilled`).
-- [x] **Seasons:** a gentle in-game year (one season per hour of play). Plants can flower or fruit in chosen seasons, wildlife can visit in chosen seasons, and the garden's colours shift. Absence never causes loss.
+- [x] **Seasons:** follow the real calendar once the Four Seasons Garden opens (first built as an in-game year of one season per hour of play; the owner chose the real calendar). Plants can flower or fruit in chosen seasons, wildlife can visit in chosen seasons, and the garden's colours shift. Absence never causes loss.
 - [x] **Rare visitors:** a low arrival rate plus conditions, with journal clues; never on a timer and never missable for good.
 - [x] **New conditions:** `plantedBeside` (plants next to water or stream), `speciesIn` (different species growing in a garden), `openWater` (water tiles left clear) and `seasonsSeen`.
 
