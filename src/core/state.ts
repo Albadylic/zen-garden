@@ -166,6 +166,8 @@ export interface GameState {
   /** Bumped whenever terrain or anything affecting the environment changes. */
   layoutVersion: number
   calendar: Calendar
+  /** Plants, recipes and items the player has seen listed, so new ones can be marked. */
+  seenChoices: string[]
 }
 
 export const STATE_VERSION = 4

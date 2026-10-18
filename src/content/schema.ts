@@ -114,6 +114,7 @@ export const plantSchema = z
       .optional(),
     near: z.object({ ids: z.array(id).min(1), distance: z.number().positive() }).optional(),
     flowerSeasons: z.array(seasonSchema).min(1).optional(),
+    group: z.enum(['flowers', 'groundcover', 'shrubs-trees', 'water']).optional(),
     bestSeasons: z.array(seasonSchema).min(1).optional(),
     look: lookSchema.optional(),
     facts: z.array(factSchema),
@@ -181,6 +182,7 @@ export const recipeSchema = z.object({
     z.object({ kind: z.literal('item'), id, amount: z.number().int().positive() }),
   ]),
   unlock: z.string().optional(),
+  group: z.enum(['habitats', 'paths', 'features']).optional(),
 }) satisfies z.ZodType<RecipeDef>
 
 export const wildlifeSchema = z.object({

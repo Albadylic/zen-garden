@@ -76,10 +76,18 @@ export interface GrowthStageDef {
   durationSec?: number
 }
 
+/** How plants are grouped in the Plants panel. */
+export type PlantGroup = 'flowers' | 'groundcover' | 'shrubs-trees' | 'water'
+
+/** How things to build are grouped in the Build panel. */
+export type BuildGroup = 'habitats' | 'paths' | 'features'
+
 export interface PlantDef {
   id: string
   name: string
   description: string
+  /** Its group in the Plants panel; only plants the player can sow need one. */
+  group?: PlantGroup
   /** Inventory item consumed to plant this species. Absent for plants the player cannot plant. */
   seedItem?: string
   terrain: Terrain[]
@@ -198,6 +206,8 @@ export interface RecipeDef {
     { kind: 'structure' | 'decoration'; id: string } | { kind: 'item'; id: string; amount: number }
   /** Unlock key required before the recipe can be used; absent means always available. */
   unlock?: string
+  /** Its group in the Build panel; recipes that make items are listed under Make instead. */
+  group?: BuildGroup
 }
 
 export type Activity = 'arriving' | 'moving' | 'feeding' | 'resting' | 'perching' | 'leaving'

@@ -135,3 +135,14 @@ describe('tile options', () => {
     expect(c.ui.get().journalFocus).toBeNull()
   })
 })
+
+describe('new things in panels', () => {
+  it('stay marked while the panel is open, and are seen once it closes', () => {
+    const c = controller()
+    c.state.unlocks.push('recipe:natural-shelter')
+    c.openPanel('build')
+    expect(c.state.seenChoices).not.toContain('recipe:natural-shelter')
+    c.closePanel()
+    expect(c.state.seenChoices).toContain('recipe:natural-shelter')
+  })
+})

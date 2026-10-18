@@ -1280,3 +1280,61 @@ button:focus-visible {
 .goals-box__footer .icon-button:disabled {
   opacity: 0.35;
 }
+
+/* Category chips in the Plants, Build and Inventory panels */
+
+.chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin: 0 -4px 8px;
+  padding: 2px 4px 4px;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip.is-active {
+  background: var(--moss);
+  border-color: var(--moss-dark);
+  color: #fff;
+}
+
+.chip--new:not(.is-active) {
+  border-color: var(--earth);
+  color: var(--earth);
+}
+
+.chip__count {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--earth);
+  color: #fff;
+  font-size: 0.72rem;
+  line-height: 18px;
+  text-align: center;
+}
+
+.chip.is-active .chip__count {
+  background: rgba(255, 255, 255, 0.25);
+}

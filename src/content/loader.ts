@@ -285,6 +285,10 @@ export function loadContent(raw: RawContent): Content {
   }
   for (const plant of Object.values(plants)) {
     if (plant.seedItem) needItem(plant.seedItem, `plants.json ${plant.id}.seedItem`)
+    if (plant.seedItem && !plant.group)
+      problems.push(
+        `plants.json ${plant.id}: a plant with seeds needs a group for the Plants panel`,
+      )
     for (const p of plant.produces) needItem(p.item, `plants.json ${plant.id}.produces`)
     if (plant.harvest) needItem(plant.harvest.item, `plants.json ${plant.id}.harvest`)
     for (const id of plant.near?.ids ?? []) {
@@ -313,6 +317,8 @@ export function loadContent(raw: RawContent): Content {
           ? items[r.output.id]
           : decorations[r.output.id]
     if (!target) problems.push(`recipes.json ${r.id}: unknown ${r.output.kind} "${r.output.id}"`)
+    if (r.output.kind !== 'item' && !r.group)
+      problems.push(`recipes.json ${r.id}: something to build needs a group for the Build panel`)
   }
   for (const w of Object.values(wildlife)) {
     const a = w.attraction

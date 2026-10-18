@@ -28,6 +28,7 @@ import {
 import { upgradeStructure } from '../core/habitats'
 import { markRead, observe, recordJournal } from '../core/journal'
 import { fillFeeder } from '../core/feeders'
+import { markChoicesSeen } from '../core/novelty'
 import { harvest, plant, sowablePlants, water } from '../core/plants'
 import { chooseApproach, completeStage } from '../core/projects'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
@@ -154,6 +155,17 @@ export class GameController {
     })
     // Any UI change (mode, selection, panels) may change what the garden shows.
     this.ui.subscribe(() => this.renderVersion++)
+    // Leaving the Plants, Build or Inventory panel marks what it listed as seen,
+    // so things stay marked new for as long as the panel is open.
+    let lastPanel: Panel = null
+    this.ui.subscribe(() => {
+      const panel = this.ui.get().panel
+      if (panel === lastPanel) return
+      if (lastPanel === 'plants' || lastPanel === 'build' || lastPanel === 'inventory') {
+        if (markChoicesSeen(this.state, this.content, lastPanel)) this.notify()
+      }
+      lastPanel = panel
+    })
     this.reduceMotion = loadReduceMotion()
     this.syncCalendar()
   }

@@ -4,6 +4,7 @@
     "name": "Wildflowers",
     "description": "A loose patch of meadow flowers. Quick to bloom, and the first thing pollinators look for.",
     "seedItem": "wildflower-seeds",
+    "group": "flowers",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -63,6 +64,7 @@
     "name": "Garden moss",
     "description": "A soft green carpet that creeps across damp, shaded ground and softens old stone.",
     "seedItem": "moss-spores",
+    "group": "groundcover",
     "terrain": ["grass", "moss", "path"],
     "stages": [
       {
@@ -119,6 +121,7 @@
     "name": "Fern",
     "description": "Arching fronds that fill sheltered corners with cool, layered green.",
     "seedItem": "fern-spores",
+    "group": "groundcover",
     "terrain": ["grass", "moss", "margin"],
     "stages": [
       {
@@ -170,6 +173,7 @@
     "name": "Ornamental grass",
     "description": "Fine, arching blades that sway in the breeze and give the garden vertical texture.",
     "seedItem": "grass-seeds",
+    "group": "groundcover",
     "terrain": ["grass", "margin"],
     "stages": [
       {
@@ -217,6 +221,7 @@
     "name": "Japanese maple",
     "description": "A slow-growing ornamental tree. In time it shades the ground and drops twigs and leaves.",
     "seedItem": "maple-seeds",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -310,6 +315,7 @@
     "name": "Soft rush",
     "description": "Upright green stems that thrive in wet ground at the water's edge.",
     "seedItem": "rush-cuttings",
+    "group": "water",
     "terrain": ["margin"],
     "stages": [
       {
@@ -513,6 +519,7 @@
       }
     ],
     "seedItem": "bamboo-shoots",
+    "group": "shrubs-trees",
     "harvest": {
       "item": "bamboo-canes",
       "amount": 2,
@@ -537,6 +544,7 @@
     "name": "Japanese forest grass",
     "description": "Soft, arching blades that flow like water across a shady floor.",
     "seedItem": "grass-divisions",
+    "group": "groundcover",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -594,6 +602,7 @@
     "name": "Hosta",
     "description": "Broad, ribbed leaves that fill shady corners, with lilac flower spikes in summer.",
     "seedItem": "hosta-divisions",
+    "group": "flowers",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -651,6 +660,7 @@
     "name": "Water lily",
     "description": "Round floating leaves and cup-shaped flowers that open in the sun.",
     "seedItem": "lily-rhizomes",
+    "group": "water",
     "terrain": ["water", "deep-water"],
     "stages": [
       {
@@ -713,6 +723,7 @@
     "name": "Common reed",
     "description": "Tall feathery reeds that colonise the shallow margin.",
     "seedItem": "reed-rhizomes",
+    "group": "water",
     "terrain": ["margin", "water"],
     "stages": [
       {
@@ -787,6 +798,7 @@
     "name": "Hornwort",
     "description": "A submerged pond plant of soft, feathery whorls.",
     "seedItem": "hornwort-sprigs",
+    "group": "water",
     "terrain": ["deep-water", "water"],
     "stages": [
       {
@@ -848,6 +860,7 @@
     "name": "Map lichen",
     "description": "Yellow-green patches that creep across bare stone and gravel.",
     "seedItem": "lichen-fragments",
+    "group": "groundcover",
     "terrain": ["gravel", "path"],
     "near": {
       "ids": ["standing-stone", "old-boulder", "rock-pile"],
@@ -914,6 +927,7 @@
     "name": "Creeping thyme",
     "description": "A low, fragrant mat that flowers purple in dry, sunny spots.",
     "seedItem": "thyme-cuttings",
+    "group": "flowers",
     "terrain": ["grass", "gravel"],
     "stages": [
       {
@@ -970,6 +984,7 @@
     "name": "Blue fescue",
     "description": "Neat tufts of fine, blue-grey grass for dry ground.",
     "seedItem": "fescue-seeds",
+    "group": "groundcover",
     "terrain": ["grass", "gravel"],
     "stages": [
       {
@@ -1022,6 +1037,7 @@
     "name": "Dwarf mountain pine",
     "description": "A slow, rounded little pine that suits stone and gravel.",
     "seedItem": "pine-seedlings",
+    "group": "shrubs-trees",
     "terrain": ["gravel", "grass", "moss"],
     "stages": [
       {
@@ -1149,6 +1165,7 @@
     "name": "Royal fern",
     "description": "A large, stately fern of damp, shaded ground.",
     "seedItem": "royal-fern-spores",
+    "group": "groundcover",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -1206,6 +1223,7 @@
     "name": "Wood sorrel",
     "description": "Clover-like leaves and delicate white flowers on the shaded floor.",
     "seedItem": "sorrel-seeds",
+    "group": "flowers",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -1259,6 +1277,7 @@
     "name": "Oyster mushroom",
     "description": "Soft grey-brown fans that grow from rotting wood.",
     "seedItem": "mushroom-spawn",
+    "group": "groundcover",
     "terrain": ["moss", "grass"],
     "near": {
       "ids": ["fallen-log", "log-stack"],
@@ -1325,6 +1344,7 @@
     "name": "Turkey tail",
     "description": "Banded brackets in brown and cream, layered like a fan.",
     "seedItem": "mushroom-spawn",
+    "group": "groundcover",
     "terrain": ["moss", "grass"],
     "near": {
       "ids": ["fallen-log", "log-stack"],
@@ -1382,6 +1402,7 @@
     "name": "White clover",
     "description": "Low trefoil leaves and round white flower heads.",
     "seedItem": "clover-seeds",
+    "group": "flowers",
     "terrain": ["grass"],
     "stages": [
       {
@@ -1445,6 +1466,7 @@
     "name": "Oxeye daisy",
     "description": "Tall white daisies with sunny yellow centres.",
     "seedItem": "daisy-seeds",
+    "group": "flowers",
     "terrain": ["grass"],
     "stages": [
       {
@@ -1504,6 +1526,7 @@
     "name": "Aster",
     "description": "Starry lilac flowers that bloom late into the year.",
     "seedItem": "aster-seeds",
+    "group": "flowers",
     "terrain": ["grass"],
     "stages": [
       {
@@ -1563,6 +1586,7 @@
     "name": "Bellflower",
     "description": "Nodding violet bells on slender stems.",
     "seedItem": "bellflower-seeds",
+    "group": "flowers",
     "terrain": ["grass"],
     "stages": [
       {
@@ -1622,6 +1646,7 @@
     "name": "Meadow grass",
     "description": "Tall, swaying meadow grasses that turn golden.",
     "seedItem": "meadow-grass-seeds",
+    "group": "groundcover",
     "terrain": ["grass"],
     "stages": [
       {
@@ -1685,6 +1710,7 @@
     "name": "Japanese iris",
     "description": "Tall sword leaves and broad purple flowers at the water’s edge.",
     "seedItem": "iris-seeds",
+    "group": "flowers",
     "terrain": ["margin", "grass"],
     "stages": [
       {
@@ -1742,6 +1768,7 @@
     "name": "Streamside sedge",
     "description": "Arching clumps of fine green leaves that hold the bank together.",
     "seedItem": "sedge-divisions",
+    "group": "groundcover",
     "terrain": ["margin", "grass", "moss"],
     "stages": [
       {
@@ -1799,6 +1826,7 @@
     "name": "Marsh fern",
     "description": "A soft fern of wet, shaded banks.",
     "seedItem": "marsh-fern-spores",
+    "group": "groundcover",
     "terrain": ["margin", "moss", "grass"],
     "stages": [
       {
@@ -1905,6 +1933,7 @@
     "name": "Flowering cherry",
     "description": "A young cherry tree that will cloud the court with blossom.",
     "seedItem": "cherry-sapling",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -1968,6 +1997,7 @@
     "name": "Camellia",
     "description": "A glossy evergreen shrub with waxy red flowers.",
     "seedItem": "camellia-cuttings",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2025,6 +2055,7 @@
     "name": "Satsuki azalea",
     "description": "A low, clipped azalea smothered in pink flowers.",
     "seedItem": "azalea-cuttings",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2078,6 +2109,7 @@
     "name": "Hydrangea",
     "description": "Lacecap flowers of blue and pink in dappled shade.",
     "seedItem": "hydrangea-cuttings",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2131,6 +2163,7 @@
     "name": "Flowering quince",
     "description": "A spreading, thorny shrub with scarlet blossom and golden fruit.",
     "seedItem": "quince-cuttings",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2255,6 +2288,7 @@
     "name": "Japanese holly",
     "description": "A dense evergreen shrub of the understory, red-berried in winter.",
     "seedItem": "holly-berries",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2307,6 +2341,7 @@
     "name": "Ivy",
     "description": "Evergreen ivy, clambering over the ground and up old stumps.",
     "seedItem": "ivy-cuttings",
+    "group": "groundcover",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2359,6 +2394,7 @@
     "name": "Wood anemone",
     "description": "White starry flowers that carpet the woodland floor.",
     "seedItem": "anemone-bulbs",
+    "group": "flowers",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2412,6 +2448,7 @@
     "name": "Cattail",
     "description": "Tall reed-mace with brown velvet heads, in the shallows and mud.",
     "seedItem": "cattail-shoots",
+    "group": "water",
     "terrain": ["margin", "water"],
     "stages": [
       {
@@ -2481,6 +2518,7 @@
     "name": "Marsh marigold",
     "description": "Glossy round leaves and bright golden cups at the water’s edge.",
     "seedItem": "marigold-divisions",
+    "group": "flowers",
     "terrain": ["margin", "grass"],
     "stages": [
       {
@@ -2533,6 +2571,7 @@
     "name": "Frogbit",
     "description": "Small floating rosettes like tiny lily pads, with white flowers.",
     "seedItem": "frogbit-buds",
+    "group": "water",
     "terrain": ["water", "deep-water"],
     "stages": [
       {
@@ -2645,6 +2684,7 @@
     "name": "Japanese apricot",
     "description": "Ume: a small tree that blossoms pink and white in late winter.",
     "seedItem": "apricot-sapling",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2704,6 +2744,7 @@
     "name": "Japanese beautyberry",
     "description": "An arching shrub that bears clusters of violet berries in autumn.",
     "seedItem": "beautyberry-cuttings",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2765,6 +2806,7 @@
     "name": "Mondo grass",
     "description": "Low tufts of dark green that stay fresh all year.",
     "seedItem": "mondo-divisions",
+    "group": "groundcover",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2825,6 +2867,7 @@
     "name": "Snowdrop",
     "description": "Nodding white flowers in the coldest months.",
     "seedItem": "snowdrop-bulbs",
+    "group": "flowers",
     "terrain": ["grass", "moss"],
     "stages": [
       {
@@ -2880,6 +2923,7 @@
     "name": "Lotus",
     "description": "Great round leaves held above the water, and pink flowers that rise from the mud.",
     "seedItem": "lotus-rhizomes",
+    "group": "water",
     "terrain": ["water", "deep-water"],
     "stages": [
       {
@@ -2943,6 +2987,7 @@
     "name": "Weeping cherry",
     "description": "A cherry whose branches fall like a waterfall of blossom.",
     "seedItem": "weeping-cherry-sapling",
+    "group": "shrubs-trees",
     "terrain": ["grass", "moss"],
     "stages": [
       {

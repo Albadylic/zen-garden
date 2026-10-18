@@ -1,6 +1,7 @@
 // Save format: a versioned wrapper around the game state, with migrations so
 // older saves keep loading as the state shape changes.
 
+import { allChoices } from './novelty'
 import { emptyCalendar } from './seasons'
 import type { Content } from './content'
 import { fixedEntity, freshGardenTiles } from './game'
@@ -115,6 +116,8 @@ export function deserialize(
   s.gardensVisited ??= []
   s.projects ??= {}
   s.calendar ??= emptyCalendar()
+  // Older gardens: everything already on offer counts as seen.
+  s.seenChoices ??= allChoices(s, content)
   addNewGardens(s, content)
   addNewGates(s, content)
   s.version = currentVersion

@@ -1,3 +1,4 @@
+import { allChoices } from './novelty'
 import { emptyCalendar } from './seasons'
 import type { Content, FixedObject } from './content'
 import { emptyStats, STATE_VERSION, type Entity, type GameState, type GardenTiles } from './state'
@@ -32,7 +33,7 @@ export function createGame(content: Content, seed: number): GameState {
   const { world } = content
   let nextId = 1
   const entities: Entity[] = world.fixed.map((f) => fixedEntity(content, f, nextId++))
-  return {
+  const state: GameState = {
     version: STATE_VERSION,
     seed,
     rng: seed | 0,
@@ -63,7 +64,11 @@ export function createGame(content: Content, seed: number): GameState {
     projects: {},
     layoutVersion: 0,
     calendar: emptyCalendar(),
+    seenChoices: [],
   }
+  // What the player starts with is not news.
+  state.seenChoices = allChoices(state, content)
+  return state
 }
 
 export function nextId(state: GameState): number {

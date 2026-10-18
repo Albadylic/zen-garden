@@ -11,6 +11,7 @@
       "kind": "structure",
       "id": "natural-shelter"
     },
+    "group": "habitats",
     "unlock": "recipe:natural-shelter"
   },
   {
@@ -22,7 +23,8 @@
     "output": {
       "kind": "decoration",
       "id": "stepping-stone"
-    }
+    },
+    "group": "paths"
   },
   {
     "id": "stone-path",
@@ -33,7 +35,8 @@
     "output": {
       "kind": "decoration",
       "id": "stone-path"
-    }
+    },
+    "group": "paths"
   },
   {
     "id": "stone-arrangement",
@@ -44,7 +47,8 @@
     "output": {
       "kind": "decoration",
       "id": "stone-arrangement"
-    }
+    },
+    "group": "features"
   },
   {
     "id": "bamboo-fence",
@@ -57,6 +61,7 @@
       "kind": "decoration",
       "id": "bamboo-fence"
     },
+    "group": "features",
     "unlock": "recipe:bamboo-fence"
   },
   {
@@ -70,6 +75,7 @@
       "kind": "decoration",
       "id": "bamboo-water-spout"
     },
+    "group": "features",
     "unlock": "recipe:bamboo-water-spout"
   },
   {
@@ -83,6 +89,7 @@
       "kind": "decoration",
       "id": "maple-leaf-lantern"
     },
+    "group": "features",
     "unlock": "recipe:maple-leaf-lantern"
   },
   {
@@ -96,6 +103,7 @@
       "kind": "structure",
       "id": "sap-feeder"
     },
+    "group": "habitats",
     "unlock": "recipe:sap-feeder"
   },
   {
@@ -123,6 +131,7 @@
       "kind": "structure",
       "id": "frog-shelter"
     },
+    "group": "habitats",
     "unlock": "recipe:frog-shelter"
   },
   {
@@ -136,6 +145,7 @@
       "kind": "structure",
       "id": "rock-pile"
     },
+    "group": "habitats",
     "unlock": "recipe:rock-pile"
   },
   {
@@ -148,6 +158,7 @@
       "kind": "decoration",
       "id": "raked-gravel"
     },
+    "group": "paths",
     "unlock": "recipe:raked-gravel"
   },
   {
@@ -160,6 +171,7 @@
       "kind": "decoration",
       "id": "standing-stone"
     },
+    "group": "features",
     "unlock": "recipe:raked-gravel"
   },
   {
@@ -174,6 +186,7 @@
       "kind": "structure",
       "id": "leaf-litter-bed"
     },
+    "group": "habitats",
     "unlock": "recipe:leaf-litter-bed"
   },
   {
@@ -186,6 +199,7 @@
       "kind": "decoration",
       "id": "log-stack"
     },
+    "group": "features",
     "unlock": "recipe:leaf-litter-bed"
   },
   {
@@ -200,6 +214,7 @@
       "kind": "structure",
       "id": "bee-bank"
     },
+    "group": "habitats",
     "unlock": "recipe:bee-bank"
   },
   {
@@ -212,6 +227,7 @@
       "kind": "decoration",
       "id": "resting-stone"
     },
+    "group": "paths",
     "unlock": "recipe:resting-stone"
   },
   {
@@ -225,6 +241,7 @@
       "kind": "structure",
       "id": "fruit-table"
     },
+    "group": "habitats",
     "unlock": "recipe:fruit-table"
   },
   {
@@ -237,6 +254,7 @@
       "kind": "decoration",
       "id": "stone-bench"
     },
+    "group": "features",
     "unlock": "recipe:petal-lantern"
   },
   {
@@ -250,6 +268,7 @@
       "kind": "decoration",
       "id": "petal-lantern"
     },
+    "group": "features",
     "unlock": "recipe:petal-lantern"
   },
   {
@@ -264,6 +283,7 @@
       "kind": "structure",
       "id": "nest-box"
     },
+    "group": "habitats",
     "unlock": "recipe:nest-box"
   },
   {
@@ -277,6 +297,7 @@
       "kind": "decoration",
       "id": "boardwalk"
     },
+    "group": "paths",
     "unlock": "recipe:boardwalk"
   },
   {
@@ -290,6 +311,7 @@
       "kind": "decoration",
       "id": "stone-bridge"
     },
+    "group": "paths",
     "unlock": "recipe:noble-garden"
   },
   {
@@ -303,6 +325,7 @@
       "kind": "decoration",
       "id": "pavilion"
     },
+    "group": "features",
     "unlock": "recipe:noble-garden"
   },
   {
@@ -315,6 +338,7 @@
       "kind": "decoration",
       "id": "stone-lantern"
     },
+    "group": "features",
     "unlock": "recipe:noble-garden"
   },
   {
