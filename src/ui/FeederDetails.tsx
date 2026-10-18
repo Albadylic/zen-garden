@@ -1,6 +1,8 @@
 import type { StructureEntity } from '../core/state'
 import { formatDuration } from './format'
 import { useGame } from './hooks'
+import { UpgradeList } from './ShelterDetails'
+import { Cost } from './Cost'
 
 export function FeederDetails({ feeder }: { feeder: StructureEntity }) {
   const controller = useGame()
@@ -26,9 +28,7 @@ export function FeederDetails({ feeder }: { feeder: StructureEntity }) {
       )}
       <div className="upgrade">
         <strong>Fill with {item?.name.toLowerCase()}</strong>
-        <span className={have > 0 ? 'choice__cost' : 'choice__cost choice__cost--short'}>
-          {item?.name} ×1 (you have {have})
-        </span>
+        <Cost items={{ [def.feeder.item]: 1 }} />
         <button
           type="button"
           className="button button--primary"
@@ -38,6 +38,8 @@ export function FeederDetails({ feeder }: { feeder: StructureEntity }) {
           Fill
         </button>
       </div>
+      {/* A feeder that is also a home (such as the leaf-litter bed) can be improved too. */}
+      <UpgradeList structure={feeder} />
     </>
   )
 }

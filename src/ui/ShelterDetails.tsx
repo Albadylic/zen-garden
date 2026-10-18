@@ -37,8 +37,6 @@ export function ShelterDetails({ shelter }: { shelter: StructureEntity }) {
   const level = def.levels[shelter.level]!
   const suit = structureSuitability(state, content, shelter.defId, shelter.x, shelter.y, shelter.id)
   const living = residents(state, shelter.id)
-  const options = upgradeOptions(state, content, shelter).filter((o) => o.status.kind !== 'locked')
-  const branching = options.length > 1
   const names = [...new Set(living.map((c) => content.wildlife[c.speciesId]?.name ?? c.speciesId))]
   return (
     <>
@@ -60,6 +58,20 @@ export function ShelterDetails({ shelter }: { shelter: StructureEntity }) {
             ? 'Its residents are out foraging.'
             : 'No residents yet. Shade and plant cover nearby help.'}
       </p>
+      <UpgradeList structure={shelter} />
+    </>
+  )
+}
+
+/** The ways a structure can be improved now, for shelters and feeders alike. */
+export function UpgradeList({ structure }: { structure: StructureEntity }) {
+  const controller = useGame()
+  const options = upgradeOptions(controller.state, controller.content, structure).filter(
+    (o) => o.status.kind !== 'locked',
+  )
+  const branching = options.length > 1
+  return (
+    <>
       {branching && (
         <p className="activity">
           Choose a direction. You can always build another shelter to try a different one.
