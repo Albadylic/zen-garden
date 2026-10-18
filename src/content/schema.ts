@@ -380,6 +380,23 @@ export const worldSchema = z.object({
         name: z.string().min(1),
         /** Column and row on the world map, for adjacency and the overview. */
         slot: z.object({ col: z.number().int(), row: z.number().int() }),
+        emblem: z.object({
+          motif: z.enum([
+            'pine',
+            'bamboo',
+            'water',
+            'stones',
+            'fern',
+            'flower',
+            'stream',
+            'blossom',
+            'canopy',
+            'reeds',
+            'seasons',
+            'pavilion',
+          ]),
+          colour: z.string().regex(/^#[0-9a-f]{6}$/i),
+        }),
         /** World tile of the map's top-left corner; only gardens that have been built have one. */
         origin: tile.optional(),
         unlock: z.string().min(1).optional(),

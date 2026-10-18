@@ -941,17 +941,6 @@ button:focus-visible {
   font: inherit;
 }
 
-.garden-list__number {
-  display: inline-grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--moss);
-  color: var(--paper);
-  font-weight: 700;
-}
-
 .garden-list__name {
   flex: 1;
   font-weight: 600;
@@ -1012,4 +1001,44 @@ button:focus-visible {
 .visitors__book {
   display: grid;
   place-items: center;
+}
+
+/* Restoration projects, one page each */
+
+.project-pages__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+
+.project-pages__nav .icon-button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.project-pages__garden {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.project-pages__garden > span {
+  display: grid;
+}
+
+.project-pages__garden-name {
+  font-weight: 600;
+}
+
+.project-pages {
+  touch-action: pan-y;
+}
+
+.garden-emblem {
+  flex: none;
+  display: block;
 }

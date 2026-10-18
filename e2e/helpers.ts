@@ -19,6 +19,7 @@ interface ZenHooks {
       drops: unknown[]
       unlocks: string[]
       elapsedMs: number
+      gardens: Record<string, { terrain: string[] }>
     }
     canAfford(cost: Record<string, number>): boolean
     ui: { get(): { selection: unknown; toasts: { text: string }[] } }

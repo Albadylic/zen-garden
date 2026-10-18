@@ -373,9 +373,31 @@ export interface Rect {
 }
 
 /** A built garden: its own map, placed in the world at a fixed origin. */
+/** The picture on a garden's emblem, used wherever the interface names a garden. */
+export type GardenMotif =
+  | 'pine'
+  | 'bamboo'
+  | 'water'
+  | 'stones'
+  | 'fern'
+  | 'flower'
+  | 'stream'
+  | 'blossom'
+  | 'canopy'
+  | 'reeds'
+  | 'seasons'
+  | 'pavilion'
+
+export interface GardenEmblem {
+  motif: GardenMotif
+  /** Background colour of the emblem. */
+  colour: string
+}
+
 export interface GardenDef {
   id: string
   name: string
+  emblem: GardenEmblem
   /** Position on the sanctuary's main restoration route (1 is the first garden). */
   number: number
   /** World tiles covered by the garden's map, walls included. */
@@ -397,6 +419,7 @@ export interface WorldGardenDef {
   name: string
   slot: { col: number; row: number }
   built: boolean
+  emblem: GardenEmblem
 }
 
 /** A gate between two neighbouring gardens, in world tiles. */
