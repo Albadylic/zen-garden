@@ -43,7 +43,7 @@ const TERRAIN_COLOURS: Record<string, [number, number]> = {
   stream: [0x8db6c2, 0x88b0bc],
   margin: [0x8f9a6a, 0x899466],
   gravel: [0xd8d2c2, 0xd2ccbb],
-  overgrown: [0x7d8c54, 0x76854f],
+  overgrown: [0x6a6440, 0x645e3b],
   boundary: [0x5b6b45, 0x56653f],
 }
 
@@ -95,15 +95,34 @@ function drawTerrain(g: Graphics, terrain: string, variant: number): void {
     for (let i = 0; i < 4; i++)
       g.circle((r[i]! - 0.5) * HW, (r[i + 4]! - 0.5) * HH, 4).fill(0x6e7a52)
   } else if (terrain === 'overgrown') {
-    for (let i = 0; i < 9; i++) {
-      const x = (r[i]! - 0.5) * HW * 1.1
-      const y = (r[(i + 3) % 12]! - 0.5) * HH * 1.1
-      g.moveTo(x, y)
-        .lineTo(x - 5, y - 18)
-        .stroke({ color: 0x5b6b3a, width: 3 })
-      g.moveTo(x, y)
-        .lineTo(x + 6, y - 14)
-        .stroke({ color: 0x66783f, width: 3 })
+    // Tangled, untended ground: dark bramble loops, tall dry grass and dead
+    // leaves, so it reads at a glance as something to clear.
+    for (let i = 0; i < 5; i++)
+      g.ellipse((r[i]! - 0.5) * HW, (r[i + 5]! - 0.5) * HH, 9, 4).fill({
+        color: 0x8a6a3c,
+        alpha: 0.85,
+      })
+    for (let i = 0; i < 7; i++) {
+      const x = (r[i]! - 0.5) * HW * 1.15
+      const y = (r[(i + 4) % 12]! - 0.5) * HH * 1.1
+      const h = 20 + r[(i + 2) % 12]! * 12
+      const lean = (r[(i + 6) % 12]! - 0.5) * 14
+      g.moveTo(x - 3, y)
+        .lineTo(x - 3 + lean, y - h)
+        .stroke({ color: 0xc2ad6a, width: 2 })
+      g.moveTo(x + 2, y)
+        .lineTo(x + 2 - lean * 0.6, y - h * 0.8)
+        .stroke({ color: 0xa8935a, width: 2 })
+    }
+    for (let i = 0; i < 4; i++) {
+      const x = (r[(i + 8) % 12]! - 0.5) * HW
+      const y = (r[(i + 1) % 12]! - 0.5) * HH
+      const w = 12 + r[(i + 9) % 12]! * 8
+      g.moveTo(x - w, y)
+        .bezierCurveTo(x - w, y - 22, x + w, y - 22, x + w, y)
+        .stroke({ color: 0x3e3324, width: 3 })
+      g.circle(x - w * 0.4, y - 15, 3.5).fill(0x4f5f2c)
+      g.circle(x + w * 0.5, y - 13, 3).fill(0x4f5f2c)
     }
   } else {
     for (let i = 0; i < 3; i++) {
