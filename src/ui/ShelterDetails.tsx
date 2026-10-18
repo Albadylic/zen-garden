@@ -2,12 +2,12 @@ import { structureSuitability } from '../core/environment'
 import { type UpgradeOption, upgradeOptions } from '../core/habitats'
 import type { StructureEntity } from '../core/state'
 import { residents } from '../core/wildlife'
-import { formatItems, RATING_LABELS } from './format'
+import { RATING_LABELS } from './format'
 import { useGame } from './hooks'
+import { Cost } from './Cost'
 
 function OptionCard({ option, branching }: { option: UpgradeOption; branching: boolean }) {
   const controller = useGame()
-  const { content } = controller
   const { status, def } = option
   return (
     <div className="upgrade" data-testid={`upgrade-${def.branch ?? option.level}`}>
@@ -16,13 +16,7 @@ function OptionCard({ option, branching }: { option: UpgradeOption; branching: b
       {status.kind === 'needsVisits' && (
         <span className="muted">Available once wildlife has moved in.</span>
       )}
-      {(status.kind === 'ready' || status.kind === 'needsItems') && (
-        <span
-          className={status.kind === 'ready' ? 'choice__cost' : 'choice__cost choice__cost--short'}
-        >
-          {formatItems(content, status.cost)}
-        </span>
-      )}
+      {(status.kind === 'ready' || status.kind === 'needsItems') && <Cost items={status.cost} />}
       <button
         type="button"
         className="button button--primary"

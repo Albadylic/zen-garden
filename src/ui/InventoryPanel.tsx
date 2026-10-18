@@ -1,7 +1,7 @@
 import type { ItemCategory } from '../core/content'
-import { formatItems } from './format'
 import { useGame } from './hooks'
 import { Sheet } from './Sheet'
+import { Cost } from './Cost'
 
 const CATEGORIES: { id: ItemCategory; label: string }[] = [
   { id: 'seed', label: 'Seeds and cuttings' },
@@ -57,9 +57,7 @@ export function InventoryPanel() {
                   >
                     <span className="choice__name">{recipe.name}</span>
                     <span className="choice__detail">{out?.description}</span>
-                    <span className={`choice__cost${affordable ? '' : ' choice__cost--short'}`}>
-                      {formatItems(content, recipe.inputs)}
-                    </span>
+                    <Cost items={recipe.inputs} />
                   </button>
                 </li>
               )

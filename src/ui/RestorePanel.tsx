@@ -11,10 +11,10 @@ import {
   progressOf,
   stageStatus,
 } from '../core/projects'
-import { formatItems } from './format'
 import { GardenEmblem } from './GardenEmblem'
 import { useGame } from './hooks'
 import { Sheet } from './Sheet'
+import { Cost } from './Cost'
 
 function Project({ project }: { project: ProjectDef }) {
   const controller = useGame()
@@ -76,17 +76,7 @@ function Project({ project }: { project: ProjectDef }) {
               </span>
             ) : null
           })}
-          {Object.keys(stage.cost).length > 0 && (
-            <span
-              className={
-                stageStatus(state, content, stage).kind === 'needsItems'
-                  ? 'choice__cost choice__cost--short'
-                  : 'choice__cost'
-              }
-            >
-              Uses {formatItems(content, stage.cost)}
-            </span>
-          )}
+          {Object.keys(stage.cost).length > 0 && <Cost items={stage.cost} />}
           <button
             type="button"
             className="button button--primary"

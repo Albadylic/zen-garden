@@ -4,12 +4,13 @@ import { isFinalStage, plantsToWater, timeToMaturity, timeToNextStage } from '..
 import { describeActivity, REFUGE_REACH, visitorsAt } from '../core/wildlife'
 import type { PlantEntity } from '../core/state'
 import type { TileOption } from '../app/GameController'
-import { describePreferences, formatDuration, formatItems, RATING_LABELS } from './format'
+import { describePreferences, formatDuration, RATING_LABELS } from './format'
 import { useGame, useUi } from './hooks'
 import { FeederDetails } from './FeederDetails'
 import { HarvestAction } from './HarvestAction'
 import { ShelterDetails } from './ShelterDetails'
 import { Sheet } from './Sheet'
+import { Cost } from './Cost'
 
 const TERRAIN_LABELS: Record<string, string> = {
   grass: 'Grass',
@@ -71,7 +72,6 @@ function Visitors({ x, y, entityId }: { x: number; y: number; entityId?: number 
 /** What can be planted or built on an empty tile, ready to place with one tap. */
 function TileOptions({ x, y }: { x: number; y: number }) {
   const controller = useGame()
-  const { content } = controller
   const options = controller.optionsForTile(x, y)
   const plants = options.filter((o) => o.kind === 'plant')
   const builds = options.filter((o) => o.kind === 'build')
@@ -93,9 +93,7 @@ function TileOptions({ x, y }: { x: number; y: number }) {
                 {o.suitability.reasons.length > 0 && ` · ${o.suitability.reasons[0]}`}
               </span>
             )}
-            <span className={`choice__cost${o.affordable ? '' : ' choice__cost--short'}`}>
-              {formatItems(content, o.cost)}
-            </span>
+            <Cost items={o.cost} />
           </button>
         </li>
       ))}

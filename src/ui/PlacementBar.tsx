@@ -1,5 +1,6 @@
-import { formatItems, RATING_LABELS } from './format'
+import { RATING_LABELS } from './format'
 import { useGame } from './hooks'
+import { Cost } from './Cost'
 
 export function PlacementBar() {
   const controller = useGame()
@@ -20,8 +21,7 @@ export function PlacementBar() {
         <strong>{info.name}</strong>
         {Object.keys(info.cost).length > 0 && (
           <span className="placement-bar__cost">
-            {' '}
-            · {formatItems(controller.content, info.cost)}
+            <Cost items={info.cost} compact />
           </span>
         )}
         <div

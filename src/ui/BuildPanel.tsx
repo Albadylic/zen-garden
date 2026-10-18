@@ -1,6 +1,6 @@
-import { formatItems } from './format'
 import { useGame } from './hooks'
 import { Sheet } from './Sheet'
+import { Cost } from './Cost'
 
 export function BuildPanel() {
   const controller = useGame()
@@ -28,9 +28,7 @@ export function BuildPanel() {
               >
                 <span className="choice__name">{recipe.name}</span>
                 <span className="choice__detail">{def?.description}</span>
-                <span className={`choice__cost${affordable ? '' : ' choice__cost--short'}`}>
-                  {formatItems(content, recipe.inputs)}
-                </span>
+                <Cost items={recipe.inputs} />
               </button>
             </li>
           )
