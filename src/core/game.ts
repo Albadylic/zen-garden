@@ -1,3 +1,4 @@
+import { emptyCalendar } from './seasons'
 import type { Content, FixedObject } from './content'
 import { emptyStats, STATE_VERSION, type Entity, type GameState, type GardenTiles } from './state'
 
@@ -61,6 +62,7 @@ export function createGame(content: Content, seed: number): GameState {
     gardensVisited: [],
     projects: {},
     layoutVersion: 0,
+    calendar: emptyCalendar(),
   }
 }
 

@@ -114,6 +114,7 @@ export const plantSchema = z
       .optional(),
     near: z.object({ ids: z.array(id).min(1), distance: z.number().positive() }).optional(),
     flowerSeasons: z.array(seasonSchema).min(1).optional(),
+    bestSeasons: z.array(seasonSchema).min(1).optional(),
     look: lookSchema.optional(),
     facts: z.array(factSchema),
     hints: z.array(hintSchema).optional(),
@@ -279,6 +280,11 @@ const conditionSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('speciesIn'), garden: id, count: z.number().int().positive() }),
   z.object({ kind: z.literal('openWater'), garden: id, count: z.number().int().positive() }),
   z.object({ kind: z.literal('seasonsSeen'), count: z.number().int().positive() }),
+  z.object({
+    kind: z.literal('seasonsCovered'),
+    garden: id,
+    count: z.number().int().positive().max(4),
+  }),
 ]) satisfies z.ZodType<Condition>
 
 const milestoneSchema = z.object({

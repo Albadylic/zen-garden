@@ -1,7 +1,7 @@
 // Chapter milestones: conditions, completion, unlocks, and progress for the UI.
 
 import { isInGarden } from './gardens'
-import type { ChapterDef, Condition, Content, MilestoneDef } from './content'
+import type { ChapterDef, Condition, Content, MilestoneDef, Season } from './content'
 import { entityAt, forEachTile, isWater, neighbours, terrainAt } from './grid'
 import { addItems } from './inventory'
 import type { StepContext } from './simulation'
@@ -119,7 +119,28 @@ export function conditionProgress(
     }
     case 'seasonsSeen':
       return { current: s.seasonsSeen.length, target: c.count }
+    case 'seasonsCovered':
+      return { current: seasonsCovered(state, content, c.garden).size, target: c.count }
   }
+}
+
+/**
+ * Seasons in which something established in a garden is at its best. A plant
+ * counts once it reaches its flowering stage (or its last stage, if sooner),
+ * whatever the season is now: this is about planning, not waiting.
+ */
+export function seasonsCovered(state: GameState, content: Content, gardenId: string): Set<Season> {
+  const seasons = new Set<Season>()
+  const garden = content.world.gardens.find((g) => g.id === gardenId)
+  if (!garden) return seasons
+  for (const e of state.entities) {
+    if (e.kind !== 'plant' || e.fixed || !isInGarden(garden, e.x, e.y)) continue
+    const def = content.plants[e.defId]
+    if (!def?.bestSeasons) continue
+    if (e.stage < Math.min(def.flowerStage, def.stages.length - 1)) continue
+    for (const season of def.bestSeasons) seasons.add(season)
+  }
+  return seasons
 }
 
 export function conditionMet(state: GameState, content: Content, c: Condition): boolean {

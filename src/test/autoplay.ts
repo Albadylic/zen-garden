@@ -19,6 +19,7 @@ import {
   currentChapter,
   isChapterComplete,
   isChapterStarted,
+  seasonsCovered,
 } from '../core/progression'
 import {
   availableProjects,
@@ -129,6 +130,15 @@ class Autoplayer {
       case 'speciesIn': {
         const have = new Set(this.plantsIn(garden).map((p) => p.defId))
         const fresh = this.plantable(garden).filter((id) => !have.has(id))
+        this.plantSome(garden, fresh, 1)
+        return
+      }
+      case 'seasonsCovered': {
+        // Plant something at its best in a season not yet covered.
+        const covered = seasonsCovered(state, content, garden.id)
+        const fresh = this.plantable(garden).filter((id) =>
+          content.plants[id]?.bestSeasons?.some((s) => !covered.has(s)),
+        )
         this.plantSome(garden, fresh, 1)
         return
       }

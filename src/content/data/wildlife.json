@@ -1369,7 +1369,7 @@
       "minNectar": 1,
       "perMinute": 0.5
     },
-    "seasons": ["spring"],
+    "seasons": ["spring", "summer"],
     "maxPresent": 3,
     "staySec": [60, 180],
     "colour": "#f0d850",
@@ -1432,7 +1432,7 @@
     "hints": [
       {
         "text": "A shelter in this garden might hold winter guests when the cold comes.",
-        "after": "turning-seasons"
+        "after": "ready-for-every-season"
       }
     ]
   },
@@ -1470,7 +1470,7 @@
     "hints": [
       {
         "text": "Berries and buds through the cold months might bring a winter bird.",
-        "after": "turning-seasons"
+        "after": "ready-for-every-season"
       }
     ]
   },

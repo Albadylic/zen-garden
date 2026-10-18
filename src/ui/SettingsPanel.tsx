@@ -1,13 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
 import { SaveError } from '../core/save'
+import { seasonsBegun } from '../core/seasons'
+import type { Hemisphere } from '../core/state'
 import { downloadJson, isStoragePersistent, readJsonFile } from '../persistence/browser'
 import { debugEnabled } from '../app/testHooks'
 import { DebugTools } from './DebugTools'
-import { useController, useSession } from './hooks'
+import { useGame, useSession } from './hooks'
 import { Sheet } from './Sheet'
 
+const HEMISPHERES: { id: Hemisphere; label: string }[] = [
+  { id: 'north', label: 'Northern hemisphere' },
+  { id: 'south', label: 'Southern hemisphere' },
+]
+
 export function SettingsPanel() {
-  const controller = useController()
+  // Re-renders as the game changes, so the hemisphere choice shows at once.
+  const controller = useGame()
   const session = useSession()
   const fileRef = useRef<HTMLInputElement>(null)
   const [confirmReset, setConfirmReset] = useState(false)
@@ -103,6 +111,27 @@ export function SettingsPanel() {
           />
           Reduce motion (no bobbing or fluttering)
         </label>
+      </section>
+      <section className="settings-group" data-testid="seasons-setting">
+        <h3 className="inventory-group__title">Seasons</h3>
+        <p className="muted">
+          {seasonsBegun(controller.state)
+            ? 'The garden follows the seasons of your calendar.'
+            : 'Once the seasons begin, the garden will follow the seasons of your calendar.'}
+        </p>
+        <div className="actions" role="radiogroup" aria-label="Hemisphere">
+          {HEMISPHERES.map((h) => (
+            <label key={h.id} className="toggle toggle--active">
+              <input
+                type="radio"
+                name="hemisphere"
+                checked={(controller.state.calendar.hemisphere ?? 'north') === h.id}
+                onChange={() => controller.setHemisphere(h.id)}
+              />
+              {h.label}
+            </label>
+          ))}
+        </div>
       </section>
       <section className="settings-group">
         <h3 className="inventory-group__title">Sound</h3>

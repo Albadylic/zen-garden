@@ -110,6 +110,8 @@ export interface PlantDef {
   near?: { ids: string[]; distance: number }
   /** Seasons in which it flowers (and offers nectar) once seasons have begun; every season if absent. */
   flowerSeasons?: Season[]
+  /** Seasons in which it is at its best (blossom, fruit, evergreen leaves), for planning a garden for every season. */
+  bestSeasons?: Season[]
   look?: Look
   facts: Fact[]
   /** Clues shown in the journal before it is discovered, getting more specific over time. */
@@ -286,6 +288,8 @@ export type Condition =
   | { kind: 'openWater'; garden: string; count: number }
   /** Seasons seen since the seasons began. */
   | { kind: 'seasonsSeen'; count: number }
+  /** Seasons in which something growing in a garden is at its best (see `bestSeasons`). */
+  | { kind: 'seasonsCovered'; garden: string; count: number }
 
 export interface MilestoneDef {
   id: string

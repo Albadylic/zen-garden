@@ -1394,7 +1394,7 @@
       {
         "id": "into-the-seasons",
         "title": "The turning year",
-        "description": "You stepped into the Four Seasons Garden, and the seasons began to turn.",
+        "description": "You stepped into the Four Seasons Garden. From now on the sanctuary follows the seasons of your own calendar.",
         "hint": "Go through the marsh’s south gate and take a look around.",
         "conditions": [
           {
@@ -1447,14 +1447,15 @@
         "unlocks": []
       },
       {
-        "id": "turning-seasons",
-        "title": "The seasons turn",
-        "description": "You have seen the sanctuary in two seasons.",
-        "hint": "Each season lasts about an hour, and the year turns while you are away too.",
+        "id": "ready-for-every-season",
+        "title": "Ready for every season",
+        "description": "Something in the garden is at its best in every season of the year.",
+        "hint": "Ume and snowdrops for winter, ume for spring, beautyberry for summer flowers and autumn fruit, and mondo grass to stay green through the cold.",
         "conditions": [
           {
-            "kind": "seasonsSeen",
-            "count": 2
+            "kind": "seasonsCovered",
+            "garden": "four-seasons-garden",
+            "count": 4
           }
         ],
         "unlocks": []
@@ -1463,7 +1464,7 @@
         "id": "a-seasonal-visitor",
         "title": "A seasonal visitor",
         "description": "A visitor came that only appears at its time of year.",
-        "hint": "Brimstones come in spring; bullfinches and ladybirds come in autumn and winter.",
+        "hint": "Brimstones come in spring and summer; bullfinches and ladybirds come in autumn and winter.",
         "conditions": [
           {
             "kind": "seenAny",

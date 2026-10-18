@@ -32,12 +32,13 @@ import { harvest, plant, water } from '../core/plants'
 import { chooseApproach, completeStage } from '../core/projects'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
 import { catchUp, hasNews, type Recap } from '../core/offline'
-import { currentSeason } from '../core/seasons'
+import { currentSeason, setCalendar } from '../core/seasons'
 import { advance } from '../core/simulation'
-import type { GameState } from '../core/state'
+import type { GameState, Hemisphere } from '../core/state'
 import type { Point } from '../render/iso'
 import type { Flyout, RenderHost, RenderView, Selection, TapTarget } from '../render/GardenRenderer'
 import { createStore, type Store } from './store'
+import { currentMonth, guessHemisphere } from './calendar'
 import { loadReduceMotion, saveReduceMotion } from './preferences'
 import { formatItems } from './text'
 
@@ -138,6 +139,19 @@ export class GameController {
     // Any UI change (mode, selection, panels) may change what the garden shows.
     this.ui.subscribe(() => this.renderVersion++)
     this.reduceMotion = loadReduceMotion()
+    this.syncCalendar()
+  }
+
+  /** Tells the garden the real month, and a first guess at the hemisphere if it has none. */
+  private syncCalendar(): void {
+    const { calendar } = this.state
+    setCalendar(this.state, currentMonth(), calendar.hemisphere ?? guessHemisphere())
+  }
+
+  /** Changes which hemisphere's seasons the garden follows. */
+  setHemisphere(hemisphere: Hemisphere): void {
+    setCalendar(this.state, currentMonth(), hemisphere)
+    this.notify()
   }
 
   /** Turns off decorative motion; remembered on this device. */
@@ -197,6 +211,7 @@ export class GameController {
   /** Replaces the whole garden, for loading, importing or starting over. */
   replaceState(state: GameState): void {
     this.state = state
+    this.syncCalendar()
     this.undoStack = []
     this.overlayCache = null
     this.flyouts = []
@@ -217,6 +232,7 @@ export class GameController {
     // Long gaps (a backgrounded tab) are handled by catch-up, not by one huge frame.
     const dt = Math.min(realDtMs, 1000)
     this.realTime += dt
+    this.syncCalendar()
     const events = advance(this.state, this.content, dt * this.timeScale)
     if (events.length > 0) this.handleEvents(events)
     this.expireToasts()

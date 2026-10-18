@@ -10,7 +10,7 @@ import { fillFeeder } from './feeders'
 import { checkPlacement } from './layout'
 import { conditionProgress } from './progression'
 import { produce } from './resources'
-import { currentSeason, inSeason, SEASON_MS, SEASONS_UNLOCK } from './seasons'
+import { currentSeason, inSeason, seasonOfMonth, SEASONS_UNLOCK, setCalendar } from './seasons'
 import { advance } from './simulation'
 import { companionsPresent, nectarAvailable } from './wildlife'
 
@@ -50,17 +50,39 @@ describe('seasons', () => {
     expect(inSeason(state, ['winter'])).toBe(true)
   })
 
-  it('turn every hour once begun, and are noted as they arrive', () => {
+  it('follow the calendar once begun, and are noted as they arrive', () => {
     const { content, state } = setup()
     state.unlocks.push(SEASONS_UNLOCK)
+    setCalendar(state, 3, 'north') // April
     const events: GameEvent[] = []
     events.push(...advance(state, content, 1000, { offline: true }))
     expect(currentSeason(state)).toBe('spring')
     expect(inSeason(state, ['winter'])).toBe(false)
-    events.push(...advance(state, content, SEASON_MS, { offline: true }))
+    // Time passing in the garden does not change the season; the calendar does.
+    events.push(...advance(state, content, 3 * 60 * 60_000, { offline: true }))
+    expect(currentSeason(state)).toBe('spring')
+    setCalendar(state, 6) // July
+    events.push(...advance(state, content, 60_000, { offline: true }))
     expect(currentSeason(state)).toBe('summer')
     expect(events.filter((e) => e.type === 'seasonBegan').length).toBe(2)
     expect(conditionProgress(state, content, { kind: 'seasonsSeen', count: 4 }).current).toBe(2)
+  })
+
+  it('are half a year apart in the two hemispheres', () => {
+    expect([0, 3, 6, 9].map((m) => seasonOfMonth(m, 'north'))).toEqual([
+      'winter',
+      'spring',
+      'summer',
+      'autumn',
+    ])
+    expect([0, 3, 6, 9].map((m) => seasonOfMonth(m, 'south'))).toEqual([
+      'summer',
+      'autumn',
+      'winter',
+      'spring',
+    ])
+    expect(seasonOfMonth(11, 'north')).toBe('winter')
+    expect(seasonOfMonth(2, 'north')).toBe('spring')
   })
 
   it('limit flowering to a plant’s seasons', () => {
