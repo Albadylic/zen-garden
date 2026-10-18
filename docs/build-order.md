@@ -1,4 +1,4 @@
-# Zen Garden City-Builder — Recommended Build Order
+# Satoyama — Recommended Build Order
 
 Build the game in dependency order: establish a small, playable garden first, then layer in ecology, progression, and content. Each phase should leave the game in a playable state.
 

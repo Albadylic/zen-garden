@@ -667,6 +667,29 @@ button:focus-visible {
   line-height: 1.45;
 }
 
+.modal__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 0 0 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.modal__brand-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--moss-dark);
+}
+
+.modal__brand-tagline {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
 .modal__eyebrow {
   margin: 0;
   font-size: 0.8rem;

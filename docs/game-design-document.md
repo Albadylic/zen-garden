@@ -1,4 +1,6 @@
-# Zen Garden City-Builder — Game Design Document (Concept Stages 1–12)
+# Satoyama — Game Design Document (Concept Stages 1–12)
+
+_The game was called "Zen Garden City-Builder" when this document was written; the confirmed title is **Satoyama**, tagline "Bring back the garden."_
 
 Concept design document · Mobile-first peaceful garden builder · Consolidated through Stage 12
 

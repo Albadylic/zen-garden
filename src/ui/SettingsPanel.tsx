@@ -28,7 +28,7 @@ export function SettingsPanel() {
 
   const exportSave = () => {
     const date = new Date().toISOString().slice(0, 10)
-    downloadJson(session.exportSave(), `zen-garden-${date}.json`)
+    downloadJson(session.exportSave(), `satoyama-${date}.json`)
   }
 
   const importSave = async (file: File | undefined) => {
