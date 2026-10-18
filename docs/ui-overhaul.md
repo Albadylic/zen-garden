@@ -11,6 +11,19 @@ The interface items from the [snag list](snag-list.md), built on a branch so the
   - The book opens at the first page with something new. An entry counts as read when its page is shown, so the badge goes down page by page.
 - **Item icons in the inventory** for the five items the pack draws (twigs, bark, stones, leaf litter, wildflower seeds). The rest keep their colour swatch.
 
+## The top bar
+
+After choosing the overhaul, the owner asked for a simpler top bar. It is now one row of round icons, right-aligned:
+
+- **Goals** (a flag): shows the goals box below the bar, or closes it. Its badge counts ideas not yet seen.
+- **Journal** (the book): opens the journal book. Its badge counts what is new.
+- **Gather all** (a basket): gathers everything lying in the open gardens. Its badge counts what is lying there.
+- **Gardens** (a map): the travel panel. Its badge counts gardens opened but not yet looked around.
+- **Undo** (a curved arrow): appears only while there is something to undo.
+- **Settings** (sliders).
+
+The garden's name and the current goal are no longer written in the bar. The goals box under it shows the chapter's emblem, name and season, then the current ideas one at a time, with arrows to flick through them, "All goals" for the chapter's full list, and a cross to close it. It is open when a garden is new, and the Goals icon brings it back.
+
 ## The asset pack (PR #1)
 
 PR #1 adds 56 PNG sprites and 15 SVG icons (AI-generated with Google Gemini; the licence for commercial use still needs confirming, see `open-items.md` section 6). This branch copies in only the 12 icons it uses, into `public/assets/icons/`. The sprites belong with PR #1's renderer work, which predates the separate garden maps and would need reworking before it merges.

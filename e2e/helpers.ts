@@ -86,3 +86,13 @@ export async function placeOn(page: Page, x: number, y: number): Promise<void> {
 export function milestone(page: Page, id: string): Promise<boolean> {
   return page.evaluate((id) => window.__zen!.controller.state.milestones[id] !== undefined, id)
 }
+
+/** Opens the chapter's full goals: the Goals icon shows the goals box, which links to them. */
+export async function openGoals(page: Page): Promise<void> {
+  if ((await page.getByTestId('suggestions').count()) === 0)
+    await page
+      .getByRole('navigation', { name: 'Garden menu' })
+      .getByRole('button', { name: 'Goals', exact: true })
+      .click()
+  await page.getByRole('button', { name: 'All goals' }).click()
+}

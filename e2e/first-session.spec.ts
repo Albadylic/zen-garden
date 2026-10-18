@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { milestone, openGarden, openTab, placeOn, play, tapTile } from './helpers'
+import { milestone, openGarden, openGoals, openTab, placeOn, play, tapTile } from './helpers'
 
 const MIN = 60_000
 
@@ -132,7 +132,7 @@ test('first session: plant, clear, gather, attract a butterfly and house the fir
     .toBe(true)
 
   // The goals panel shows the progress made.
-  await page.getByRole('button', { name: /chapter goals/ }).click()
+  await openGoals(page)
   await expect(page.getByTestId('goals-panel')).toContainText(
     /Restoration: [7-8] of 8 milestones|Chapter complete/,
   )

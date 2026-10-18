@@ -68,8 +68,10 @@ export interface UiState {
   canUndo: boolean
   /** Shown once when the chapter is completed. */
   chapterCelebration: string | null
-  /** Whether the suggestion card is expanded. */
+  /** Whether the goals box (the current ideas, under the top bar) is open. */
   suggestionsOpen: boolean
+  /** Ideas the player has already seen in the goals box, so only new ones raise its badge. */
+  suggestionsSeen: string[]
   /** Summary shown after returning from time away. */
   recap: Recap | null
   /** First-visit introduction to the garden. */
@@ -145,6 +147,7 @@ export class GameController {
       canUndo: false,
       chapterCelebration: null,
       suggestionsOpen: true,
+      suggestionsSeen: [],
       recap: null,
       welcome: false,
       journalFocus: null,
@@ -386,6 +389,25 @@ export class GameController {
 
   toggleSuggestions(): void {
     this.ui.set((s) => ({ suggestionsOpen: !s.suggestionsOpen }))
+  }
+
+  /**
+   * The Goals icon: shows the goals box, closing whatever panel or selection
+   * hides it, or closes the box when it is already showing.
+   */
+  toggleGoals(): void {
+    const s = this.ui.get()
+    const showing = s.suggestionsOpen && !s.panel && !s.selection && s.mode.type === 'idle'
+    if (showing) this.ui.set({ suggestionsOpen: false })
+    else
+      this.ui.set({ suggestionsOpen: true, panel: null, selection: null, mode: { type: 'idle' } })
+  }
+
+  /** Notes the ideas shown in the goals box as seen. */
+  markSuggestionsSeen(ids: string[]): void {
+    const seen = this.ui.get().suggestionsSeen
+    if (ids.every((id) => seen.includes(id))) return
+    this.ui.set({ suggestionsSeen: [...new Set([...seen, ...ids])] })
   }
 
   // --- Gathering and restoring ---------------------------------------------
