@@ -594,6 +594,26 @@ export function moveWildlife(
   if (gone.size > 0) state.creatures = state.creatures.filter((c) => !gone.has(c.id))
 }
 
+/** How close (in tiles) a creature must be to a tile to count as visiting it. */
+export const VISITOR_REACH = 1
+
+/**
+ * Creatures visiting a tile or the thing on it: close by, heading for it, or
+ * living in it. Nearest first.
+ */
+export function visitorsAt(state: GameState, x: number, y: number, entityId?: number): Creature[] {
+  const cx = x + 0.5
+  const cy = y + 0.5
+  return state.creatures
+    .filter(
+      (c) =>
+        c.activity !== 'leaving' &&
+        ((entityId !== undefined && (c.homeId === entityId || c.targetId === entityId)) ||
+          (Math.abs(c.x - cx) <= VISITOR_REACH + 0.5 && Math.abs(c.y - cy) <= VISITOR_REACH + 0.5)),
+    )
+    .sort((a, b) => Math.hypot(a.x - cx, a.y - cy) - Math.hypot(b.x - cx, b.y - cy))
+}
+
 const ACTIVITY_TEXT: Record<Activity, string> = {
   arriving: 'Arriving in the garden',
   moving: 'Moving through the garden',

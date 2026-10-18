@@ -753,6 +753,11 @@ button:focus-visible {
   border: 1px solid var(--line);
 }
 
+.journal-entry.is-focus {
+  border-color: var(--moss);
+  box-shadow: inset 0 0 0 1px var(--moss);
+}
+
 .journal-entry.is-unknown {
   background: transparent;
   border-style: dashed;
@@ -961,4 +966,50 @@ button:focus-visible {
   color: var(--ink-soft);
   font-size: 0.8rem;
   font-weight: 600;
+}
+
+/* Creatures visiting a tile or the thing on it */
+
+.visitors {
+  margin-top: 12px;
+}
+
+.visitors__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.visitors__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.visitors__swatch {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.visitors__text {
+  flex: 1;
+  display: grid;
+  font-size: 0.88rem;
+}
+
+.visitors__name {
+  font-weight: 600;
+}
+
+.visitors__book {
+  display: grid;
+  place-items: center;
 }

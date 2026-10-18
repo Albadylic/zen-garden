@@ -107,3 +107,31 @@ describe('watering', () => {
     expect(c.ui.get().toasts.map((t) => t.text)).toEqual(['Watered 3 plants'])
   })
 })
+
+describe('tile options', () => {
+  it('offers plants with seed in hand, best spots first, and things to build', () => {
+    const c = controller()
+    const options = c.optionsForTile(6, 9)
+    const plants = options.filter((o) => o.kind === 'plant')
+    expect(plants.map((o) => o.name)).toContain('Wildflowers')
+    const scores = plants.map((o) => o.suitability?.score ?? 0)
+    expect(scores).toEqual([...scores].sort((a, b) => b - a))
+    expect(options.some((o) => o.kind === 'build')).toBe(true)
+  })
+
+  it('offers nothing on an overgrown or occupied tile', () => {
+    const c = controller()
+    expect(c.optionsForTile(7, 3)).toEqual([])
+    c.placeOnTile({ kind: 'seed', plantId: 'wildflower-mix' }, 6, 9)
+    expect(c.optionsForTile(6, 9)).toEqual([])
+    expect(c.ui.get().selection).toEqual({ kind: 'entity', id: entityAt(c.state, 6, 9)!.id })
+  })
+
+  it('opens the journal at an entry', () => {
+    const c = controller()
+    c.openJournal('wildlife:small-white')
+    expect(c.ui.get()).toMatchObject({ panel: 'journal', journalFocus: 'wildlife:small-white' })
+    c.closePanel()
+    expect(c.ui.get().journalFocus).toBeNull()
+  })
+})

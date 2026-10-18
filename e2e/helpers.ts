@@ -10,6 +10,7 @@ interface ZenHooks {
       creatures: {
         id: number
         speciesId: string
+        targetId: number | null
         hidden: boolean
         activity: string
         x: number

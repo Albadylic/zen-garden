@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { milestone, openGarden, openTab, placeOn, play, tapAt, tapTile } from './helpers'
+import { milestone, openGarden, openTab, placeOn, play, tapTile } from './helpers'
 
 const MIN = 60_000
 
@@ -56,43 +56,36 @@ test('first session: plant, clear, gather, attract a butterfly and house the fir
     )
     .toBe(true)
 
-  // Tap a butterfly while it feeds (so it stays put) to inspect it.
+  // Butterflies are not tap targets: tapping the flower one is feeding on
+  // lists it as a visitor, with a book that opens its journal page.
+  let flower: { x: number; y: number } | null = null
   await expect
     .poll(
       async () => {
         await play(page, 5000)
-        return page.evaluate(() => {
-          // A butterfly feeding on its own, so the tap cannot land on a bee beside it.
-          const all = window.__zen!.controller.state.creatures
-          const c = all.find(
-            (c) =>
-              c.speciesId === 'small-white' &&
-              c.activity === 'feeding' &&
-              all.every((o) => o === c || Math.hypot(o.x - c.x, o.y - c.y) > 1),
+        flower = await page.evaluate(() => {
+          const { state } = window.__zen!.controller
+          const c = state.creatures.find(
+            (c) => c.speciesId === 'small-white' && c.activity === 'feeding',
           )
-          if (!c) return false
-          window.__zen!.focusTile(Math.floor(c.x), Math.floor(c.y))
-          ;(window as unknown as { __target: number }).__target = c.id
-          return true
+          const target = c && state.entities.find((e) => e.id === c.targetId)
+          return target ? { x: target.x, y: target.y } : null
         })
+        return flower !== null
       },
       { timeout: 20_000 },
     )
     .toBe(true)
+  await page.evaluate(({ x, y }) => window.__zen!.focusTile(x, y), flower!)
   await page.waitForTimeout(300)
-  const point = await page.evaluate(() =>
-    window.__zen!.creatureToScreen((window as unknown as { __target: number }).__target),
+  await tapTile(page, flower!.x, flower!.y)
+  await expect(page.getByTestId('visitor-small-white').first()).toContainText(
+    'Small white butterfly',
   )
-  const box = await page.locator('canvas').boundingBox()
-  expect(point && box).toBeTruthy()
-  await tapAt(page, box!.x + point!.x, box!.y + point!.y)
-  await expect(page.getByTestId('inspect-panel')).toContainText('Small white butterfly')
-  await page.getByRole('button', { name: 'Close Small white butterfly' }).click()
 
   // Nothing pops up about the journal; a badge on its tab invites a visit instead.
   await expect(page.getByTestId('journal-badge')).toBeVisible()
-  await openTab(page, 'Journal')
-  await page.getByRole('tab', { name: /Wildlife/ }).click()
+  await page.getByRole('button', { name: 'Open the journal at Small white butterfly' }).click()
   await expect(page.getByTestId('journal-wildlife:small-white')).toContainText('New')
   // Reading every section clears the badge.
   for (const section of ['Plants', 'Habitats', 'Materials']) {

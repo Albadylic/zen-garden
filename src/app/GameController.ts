@@ -28,7 +28,7 @@ import {
 import { upgradeStructure } from '../core/habitats'
 import { markRead, observe, recordJournal } from '../core/journal'
 import { fillFeeder } from '../core/feeders'
-import { harvest, plant, water } from '../core/plants'
+import { harvest, plant, sowablePlants, water } from '../core/plants'
 import { chooseApproach, completeStage } from '../core/projects'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
 import { catchUp, hasNews, type Recap } from '../core/offline'
@@ -74,6 +74,18 @@ export interface UiState {
   recap: Recap | null
   /** First-visit introduction to the garden. */
   welcome: boolean
+  /** The journal entry to open at, when the journal is opened from something in the garden. */
+  journalFocus: string | null
+}
+
+/** Something that could be planted or built on a tile, offered in the tile's panel. */
+export interface TileOption {
+  source: PlaceSource
+  name: string
+  kind: 'plant' | 'build'
+  suitability: Suitability | null
+  cost: Record<string, number>
+  affordable: boolean
 }
 
 export interface PlacementInfo {
@@ -135,6 +147,7 @@ export class GameController {
       suggestionsOpen: true,
       recap: null,
       welcome: false,
+      journalFocus: null,
     })
     // Any UI change (mode, selection, panels) may change what the garden shows.
     this.ui.subscribe(() => this.renderVersion++)
@@ -426,11 +439,20 @@ export class GameController {
   // --- Panels and selection -------------------------------------------------
 
   openPanel(panel: Panel): void {
-    this.ui.set((s) => ({ panel: s.panel === panel ? null : panel, mode: { type: 'idle' } }))
+    this.ui.set((s) => ({
+      panel: s.panel === panel ? null : panel,
+      mode: { type: 'idle' },
+      journalFocus: null,
+    }))
   }
 
   closePanel(): void {
-    this.ui.set({ panel: null })
+    this.ui.set({ panel: null, journalFocus: null })
+  }
+
+  /** Opens the journal at one entry, such as a visitor listed beside a plant or shelter. */
+  openJournal(key: string): void {
+    this.ui.set({ panel: 'journal', journalFocus: key, mode: { type: 'idle' } })
   }
 
   select(selection: Selection | null): void {
@@ -452,10 +474,6 @@ export class GameController {
   }
 
   private journalKeyFor(selection: Selection | null): string | null {
-    if (selection?.kind === 'creature') {
-      const c = this.state.creatures.find((cr) => cr.id === selection.id)
-      return c ? `wildlife:${c.speciesId}` : null
-    }
     if (selection?.kind === 'entity') {
       const e = entityById(this.state, selection.id)
       if (e?.kind === 'plant') return `plant:${e.defId}`
@@ -562,6 +580,55 @@ export class GameController {
     }
   }
 
+  /**
+   * What could go on an empty tile: plants the player has seed for that grow
+   * there (best spots first), then discovered things to build that fit there.
+   */
+  optionsForTile(x: number, y: number): TileOption[] {
+    if (entityAt(this.state, x, y) || !isTileOpen(this.state, this.content, x, y)) return []
+    const options: TileOption[] = []
+    for (const def of sowablePlants(this.state, this.content)) {
+      if ((this.state.inventory[def.seedItem!] ?? 0) === 0) continue
+      const source: PlaceSource = { kind: 'seed', plantId: def.id }
+      const option = this.tileOption(source, x, y)
+      if (option) options.push(option)
+    }
+    options.sort((a, b) => (b.suitability?.score ?? 0) - (a.suitability?.score ?? 0))
+    for (const recipe of Object.values(this.content.recipes)) {
+      if (recipe.output.kind === 'item' || !this.recipeAvailable(recipe.id)) continue
+      const option = this.tileOption({ kind: 'recipe', recipeId: recipe.id }, x, y)
+      if (option) options.push(option)
+    }
+    return options
+  }
+
+  private tileOption(source: PlaceSource, x: number, y: number): TileOption | null {
+    const placeable = this.placeableFor(source)
+    if (!placeable || !checkPlacement(this.state, this.content, placeable, x, y).ok) return null
+    const cost = this.costFor(source)
+    return {
+      source,
+      name: placeableName(this.content, placeable),
+      kind: placeable.kind === 'plant' ? 'plant' : 'build',
+      suitability: this.suitabilityFor(placeable, x, y),
+      cost,
+      affordable: this.canAfford(cost),
+    }
+  }
+
+  /** Plants or builds one thing on a tile chosen from its panel, then shows what was placed. */
+  placeOnTile(source: PlaceSource, x: number, y: number): void {
+    const result =
+      source.kind === 'seed'
+        ? plant(this.state, this.content, source.plantId, x, y)
+        : source.kind === 'recipe'
+          ? buildRecipe(this.state, this.content, source.recipeId, x, y)
+          : moveEntity(this.state, this.content, source.entityId, x, y)
+    if (!this.applyResult(result)) return
+    const placed = entityAt(this.state, x, y)
+    this.select(placed ? { kind: 'entity', id: placed.id } : null)
+  }
+
   canAfford(cost: Record<string, number>): boolean {
     return Object.entries(cost).every(([id, n]) => (this.state.inventory[id] ?? 0) >= n)
   }
@@ -666,10 +733,6 @@ export class GameController {
   private tapIdle(target: TapTarget): void {
     if (target.dropId !== undefined) {
       this.applyResult(collectDrop(this.state, target.dropId))
-      return
-    }
-    if (target.creatureId !== undefined) {
-      this.select({ kind: 'creature', id: target.creatureId })
       return
     }
     if (!target.tile) {

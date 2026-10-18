@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   currentHint,
   isUnread,
@@ -6,7 +6,7 @@ import {
   type JournalSection,
   knownFacts,
 } from '../core/journal'
-import { useGame } from './hooks'
+import { useGame, useUi } from './hooks'
 import { Sheet } from './Sheet'
 
 const SECTIONS: { id: JournalSection; label: string }[] = [
@@ -19,7 +19,15 @@ const SECTIONS: { id: JournalSection; label: string }[] = [
 export function JournalPanel() {
   const controller = useGame()
   const { content, state } = controller
-  const [section, setSection] = useState<JournalSection>('plant')
+  // Opened from something in the garden: start at its entry.
+  const { journalFocus } = useUi()
+  const [section, setSection] = useState<JournalSection>(
+    () => (journalFocus?.split(':')[0] as JournalSection | undefined) ?? 'plant',
+  )
+  const focusRef = useRef<HTMLLIElement>(null)
+  useEffect(() => {
+    focusRef.current?.scrollIntoView({ block: 'nearest' })
+  }, [journalFocus])
   // What was unread when it came into view: the facts read before then, or
   // null for a whole new entry. Kept while the panel is open so new things stay
   // highlighted after they are marked as read.
@@ -96,7 +104,8 @@ export function JournalPanel() {
           return (
             <li
               key={entry.key}
-              className={`journal-entry${isNew ? ' is-new' : ''}`}
+              ref={entry.key === journalFocus ? focusRef : undefined}
+              className={`journal-entry${isNew ? ' is-new' : ''}${entry.key === journalFocus ? ' is-focus' : ''}`}
               data-testid={`journal-${entry.key}`}
             >
               <span className="journal-entry__name">
