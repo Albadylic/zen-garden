@@ -15,14 +15,22 @@ The interface items from the [snag list](snag-list.md), built on a branch so the
 
 After choosing the overhaul, the owner asked for a simpler top bar. It is now one row of round icons, right-aligned:
 
-- **Goals** (a flag): shows the goals box below the bar, or closes it. Its badge counts ideas not yet seen.
 - **Journal** (the book): opens the journal book. Its badge counts what is new.
 - **Gather all** (a basket): gathers everything lying in the open gardens. Its badge counts what is lying there.
 - **Gardens** (a map): the travel panel. Its badge counts gardens opened but not yet looked around.
 - **Undo** (a curved arrow): appears only while there is something to undo.
 - **Settings** (sliders).
 
-The garden's name and the current goal are no longer written in the bar. The goals box under it shows the chapter's emblem, name and season, then the current ideas one at a time, with arrows to flick through them, "All goals" for the chapter's full list, and a cross to close it. It is open when a garden is new, and the Goals icon brings it back.
+The garden's name and the current goal are no longer written in the bar.
+
+## Goals live in Restore
+
+Goals and Restore were two views of the same thing, so they are now one: Restore. Its pages, turned with the arrows, the dots or a swipe:
+
+1. **The chapter's goals**: the garden's emblem, name and season, the milestones with the current hint and its progress, things along the way, ideas, and approaches finished so far.
+2. **One page per approach** to every restoration project on offer, from every open garden (the current chapter's garden first): its stages, ticked off as they are done, and the next stage's progress and cost.
+
+Several approaches can be under way at once, so the player can work on one while plants grow for another. Restore opens on a stage that is ready to complete, else an approach under way, else the chapter's goals, and its tool icon shows how many stages are ready. A new garden opens Restore at the first goal. Clearing overgrowth is a one-line strip above the pages while any is left.
 
 ## The asset pack (PR #1)
 

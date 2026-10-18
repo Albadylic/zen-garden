@@ -86,7 +86,7 @@ describe('Chapter 2 playthrough', () => {
       }
       for (const e of state.entities)
         if (e.kind === 'plant' && e.defId === 'bamboo') harvest(state, content, e.id)
-      completeStage(state, content, 'restore-grove')
+      completeStage(state, content, 'restore-grove', 'shaded-corner')
       // Once branches are discovered, turn the shelter into an insect hotel.
       const hotel = upgradeOptions(state, content, shelter).find(
         (o) => o.def.branch === 'insect-hotel',

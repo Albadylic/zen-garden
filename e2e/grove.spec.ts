@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { milestone, openGarden, openTab, play, tapTile } from './helpers'
+import { milestone, openGarden, openRestorePage, openTab, play, tapTile } from './helpers'
 
 /** Skips to the end of Chapter 1: milestones done, the grove open, an improved shelter with residents. */
 async function finishChapterOne(page: import('@playwright/test').Page) {
@@ -29,7 +29,9 @@ test('the grove opens, an approach is chosen, and a stage is completed', async (
   test.setTimeout(90_000)
   await openGarden(page)
   await finishChapterOne(page)
+  await openRestorePage(page, 'Chapter goals')
   await expect(page.getByRole('heading', { name: /The Bamboo Grove/ })).toBeVisible()
+  await page.getByRole('button', { name: 'Close Restore' }).click()
 
   // Look around the grove.
   await tapTile(page, 3, -6)
@@ -37,7 +39,7 @@ test('the grove opens, an approach is chosen, and a stage is completed', async (
   await page.keyboard.press('Escape')
 
   // Choose the shaded corner in Restore.
-  await openTab(page, 'Restore')
+  await openRestorePage(page, 'A shaded planting corner')
   await page
     .getByTestId('approach-shaded-corner')
     .getByRole('button', { name: 'Begin this' })

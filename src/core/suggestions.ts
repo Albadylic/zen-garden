@@ -8,7 +8,7 @@ import { isFilled } from './feeders'
 import { upgradeOptions } from './habitats'
 import { harvestStatus } from './plants'
 import { isChapterStarted } from './progression'
-import { availableProjects, currentStage, stageStatus } from './projects'
+import { readyStages } from './projects'
 import { currentMilestone } from './progression'
 import type { GameState, StructureEntity } from './state'
 
@@ -57,11 +57,8 @@ export function suggestions(state: GameState, content: Content): Suggestion[] {
     }
   }
 
-  for (const project of availableProjects(state, content)) {
-    const stage = currentStage(state, project)
-    if (stage && stageStatus(state, content, stage).kind === 'ready') {
-      add('stage-ready', `A restoration stage is ready: "${stage.title}". Complete it in Restore.`)
-    }
+  for (const { stage } of readyStages(state, content)) {
+    add('stage-ready', `A restoration stage is ready: "${stage.title}". Complete it in Restore.`)
   }
 
   const sap = state.inventory['maple-sap'] ?? 0

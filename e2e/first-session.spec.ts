@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { milestone, openGarden, openGoals, openTab, placeOn, play, tapTile } from './helpers'
+import { milestone, openGarden, openRestorePage, openTab, placeOn, play, tapTile } from './helpers'
 
 const MIN = 60_000
 
@@ -131,9 +131,10 @@ test('first session: plant, clear, gather, attract a butterfly and house the fir
     )
     .toBe(true)
 
-  // The goals panel shows the progress made.
-  await openGoals(page)
-  await expect(page.getByTestId('goals-panel')).toContainText(
-    /Restoration: [7-8] of 8 milestones|Chapter complete/,
+  // Restore's chapter page shows the progress made.
+  await page.keyboard.press('Escape')
+  await openRestorePage(page, 'Chapter goals')
+  await expect(page.getByTestId('chapter-page')).toContainText(
+    /[7-8] of 8 milestones|Chapter complete/,
   )
 })

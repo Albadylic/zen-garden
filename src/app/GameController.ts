@@ -52,7 +52,7 @@ export type Mode =
   { type: 'idle' } | { type: 'place'; source: PlaceSource; tile: Point | null } | { type: 'clear' }
 
 export type Panel =
-  null | 'plants' | 'build' | 'restore' | 'inventory' | 'journal' | 'goals' | 'gardens' | 'settings'
+  null | 'plants' | 'build' | 'restore' | 'inventory' | 'journal' | 'gardens' | 'settings'
 
 export interface Toast {
   id: number
@@ -69,10 +69,6 @@ export interface UiState {
   canUndo: boolean
   /** Shown once when the chapter is completed. */
   chapterCelebration: string | null
-  /** Whether the goals box (the current ideas, under the top bar) is open. */
-  suggestionsOpen: boolean
-  /** Ideas the player has already seen in the goals box, so only new ones raise its badge. */
-  suggestionsSeen: string[]
   /** Summary shown after returning from time away. */
   recap: Recap | null
   /** First-visit introduction to the garden. */
@@ -147,8 +143,6 @@ export class GameController {
       toasts: [],
       canUndo: false,
       chapterCelebration: null,
-      suggestionsOpen: true,
-      suggestionsSeen: [],
       recap: null,
       welcome: false,
       journalFocus: null,
@@ -227,8 +221,9 @@ export class GameController {
     this.ui.set({ welcome: true })
   }
 
+  /** Leaves the welcome for the garden, opening Restore at the chapter's first goal. */
   dismissWelcome(): void {
-    this.ui.set({ welcome: false })
+    this.ui.set({ welcome: false, panel: 'restore', mode: { type: 'idle' } })
   }
 
   dismissRecap(gather: boolean): void {
@@ -399,29 +394,6 @@ export class GameController {
     this.ui.set({ chapterCelebration: null })
   }
 
-  toggleSuggestions(): void {
-    this.ui.set((s) => ({ suggestionsOpen: !s.suggestionsOpen }))
-  }
-
-  /**
-   * The Goals icon: shows the goals box, closing whatever panel or selection
-   * hides it, or closes the box when it is already showing.
-   */
-  toggleGoals(): void {
-    const s = this.ui.get()
-    const showing = s.suggestionsOpen && !s.panel && !s.selection && s.mode.type === 'idle'
-    if (showing) this.ui.set({ suggestionsOpen: false })
-    else
-      this.ui.set({ suggestionsOpen: true, panel: null, selection: null, mode: { type: 'idle' } })
-  }
-
-  /** Notes the ideas shown in the goals box as seen. */
-  markSuggestionsSeen(ids: string[]): void {
-    const seen = this.ui.get().suggestionsSeen
-    if (ids.every((id) => seen.includes(id))) return
-    this.ui.set({ suggestionsSeen: [...new Set([...seen, ...ids])] })
-  }
-
   // --- Gathering and restoring ---------------------------------------------
 
   collectAll(): void {
@@ -432,8 +404,8 @@ export class GameController {
     this.applyResult(chooseApproach(this.state, this.content, projectId, approachId))
   }
 
-  completeStage(projectId: string): void {
-    this.applyResult(completeStage(this.state, this.content, projectId))
+  completeStage(projectId: string, approachId: string): void {
+    this.applyResult(completeStage(this.state, this.content, projectId, approachId))
   }
 
   startClearing(): void {

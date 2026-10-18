@@ -80,7 +80,7 @@ export function conditionProgress(
     case 'approachChosen': {
       const p = state.projects[c.project]
       return {
-        current: p && (p.approach !== null || p.approachesDone.length > 0) ? 1 : 0,
+        current: p && (p.active.length > 0 || p.approachesDone.length > 0) ? 1 : 0,
         target: 1,
       }
     }

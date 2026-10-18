@@ -7,7 +7,7 @@ import type { Content } from './content'
 import { fixedEntity, freshGardenTiles } from './game'
 import { setTerrain, terrainAt } from './grid'
 import { migrations } from './migrations'
-import { emptyStats, STATE_VERSION, type GameState } from './state'
+import { emptyStats, STATE_VERSION, type GameState, type ProjectProgress } from './state'
 
 export { type Migration, migrations } from './migrations'
 
@@ -116,6 +116,11 @@ export function deserialize(
   s.gardensVisited ??= []
   s.projects ??= {}
   s.calendar ??= emptyCalendar()
+  // Projects once had a single approach under way; now several can be.
+  for (const p of Object.values(s.projects) as (ProjectProgress & { approach?: string | null })[]) {
+    if (!Array.isArray(p.active)) p.active = p.approach ? [p.approach] : []
+    delete p.approach
+  }
   // Older gardens: everything already on offer counts as seen.
   s.seenChoices ??= allChoices(s, content)
   addNewGardens(s, content)

@@ -1,5 +1,5 @@
 import { expect, type Page, test } from '@playwright/test'
-import { openGarden, openGoals, openTab } from './helpers'
+import { openGarden, openRestorePage, openTab } from './helpers'
 
 async function expectWithinViewport(page: Page, testId: string) {
   const box = await page.getByTestId(testId).boundingBox()
@@ -34,8 +34,8 @@ test('every panel fits on screen with the tool bar still reachable', async ({ pa
   }
   await page.getByRole('button', { name: 'Settings' }).click()
   await expectWithinViewport(page, 'settings-panel')
-  await openGoals(page)
-  await expectWithinViewport(page, 'goals-panel')
+  await openRestorePage(page, 'Chapter goals')
+  await expectWithinViewport(page, 'restore-panel')
   await expect(bar).toBeInViewport()
 })
 
@@ -93,37 +93,16 @@ test('the placement bar and its actions fit while placing', async ({ page }) => 
   await expectNoHorizontalScroll(page)
 })
 
-test('the top bar is one row of icons, and Goals opens a box of ideas to flick through', async ({
+test('the top bar is one row of icons, with no garden name or goal written out', async ({
   page,
 }) => {
   await openGarden(page)
   const nav = page.getByRole('navigation', { name: 'Garden menu' })
-  for (const name of ['Goals', 'Journal', 'Gather all', 'Gardens', 'Settings'])
+  for (const name of ['Journal', 'Gather all', 'Gardens', 'Settings'])
     await expect(nav.getByRole('button', { name, exact: true })).toBeVisible()
-  // All on one row.
   const tops = await nav
     .getByRole('button')
     .evaluateAll((els) => els.map((el) => Math.round(el.getBoundingClientRect().top)))
   expect(new Set(tops).size).toBe(1)
-  // No garden name or goal text written out in the bar itself.
-  await expect(nav).not.toContainText('Forgotten Garden')
-
-  // The goals box starts open for a new garden, with the first idea.
-  const box = page.getByTestId('suggestions')
-  await expect(box).toBeVisible()
-  await expect(box).toContainText('The Forgotten Garden')
-  const first = await page.getByTestId('suggestion-text').textContent()
-  await expect(page.getByTestId('suggestion-page')).toHaveText(/^1 of \d+$/)
-  if ((await page.getByTestId('suggestion-page').textContent()) !== '1 of 1') {
-    await box.getByRole('button', { name: 'Next idea' }).click()
-    await expect(page.getByTestId('suggestion-text')).not.toHaveText(first!)
-    await box.getByRole('button', { name: 'Previous idea' }).click()
-    await expect(page.getByTestId('suggestion-text')).toHaveText(first!)
-  }
-  await expectWithinViewport(page, 'suggestions')
-  // The cross closes it; the Goals icon opens it again.
-  await box.getByRole('button', { name: 'Close goals' }).click()
-  await expect(box).toHaveCount(0)
-  await nav.getByRole('button', { name: 'Goals', exact: true }).click()
-  await expect(page.getByTestId('suggestions')).toBeVisible()
+  await expect(page.getByRole('banner')).not.toContainText('Forgotten Garden')
 })

@@ -14,6 +14,8 @@ test('loads the garden canvas with the HUD overlay', async ({ page }) => {
   await expect(page.getByTestId('welcome')).toBeVisible()
   await page.getByRole('button', { name: 'Step into the garden' }).click()
   await expect(page.getByTestId('welcome')).toBeHidden()
+  // Restore opens at the chapter's goals.
+  await expect(page.getByTestId('chapter-page')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'The Forgotten Garden' })).toBeVisible()
 
   const canvas = page.locator('canvas[data-testid="garden-canvas"]')

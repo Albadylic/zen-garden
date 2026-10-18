@@ -1,20 +1,11 @@
 import type { ReactNode } from 'react'
 import { openGardens } from '../core/gardens'
 import { unreadCount } from '../core/journal'
-import { suggestions } from '../core/suggestions'
-import { GoalsBox } from './GoalsBox'
 import { useGame, useUi } from './hooks'
 import { Icon } from './Icon'
 
 /** Line icons for the top bar, on a 24 × 24 grid in the current text colour. */
 const ICONS = {
-  // A flag on a pole: the chapter's goals.
-  goals: (
-    <>
-      <path d="M6 21V4" />
-      <path d="M6 4h11l-2.5 4L17 12H6" />
-    </>
-  ),
   // A basket: gather everything lying in the garden.
   gather: (
     <>
@@ -109,19 +100,16 @@ function NavButton({
 }
 
 /**
- * The top bar: one row of icons (goals, journal, gather, map, undo, settings),
- * each with a badge for anything new, and the goals box below it.
+ * The top bar: one row of icons (journal, gather, map, undo, settings), each
+ * with a badge for anything new. Goals live in Restore.
  */
 export function Hud() {
   const controller = useGame()
   const { content, state } = controller
-  const { canUndo, mode, panel, selection, suggestionsOpen, suggestionsSeen } = useUi()
+  const { canUndo, mode, panel } = useUi()
   const idle = mode.type === 'idle'
   const lying = state.drops.length
   const unread = unreadCount(state, content)
-  const ideas = suggestions(state, content)
-  const newIdeas = ideas.filter((s) => !suggestionsSeen.includes(s.id)).length
-  const goalsShowing = suggestionsOpen && idle && !panel && !selection
   const gardens = openGardens(state, content)
   // Gardens opened since the start and not looked around yet (the first garden is home).
   const unvisited = gardens.filter(
@@ -130,16 +118,6 @@ export function Hud() {
   return (
     <header className="hud-top">
       <nav className="hud-nav" aria-label="Garden menu">
-        <NavButton
-          label="Goals"
-          title={newIdeas > 0 ? `${newIdeas} new ${newIdeas === 1 ? 'idea' : 'ideas'}` : 'Goals'}
-          active={goalsShowing}
-          badge={goalsShowing ? 0 : newIdeas}
-          badgeTestId="goals-badge"
-          onClick={() => controller.toggleGoals()}
-        >
-          <LineIcon name="goals" />
-        </NavButton>
         <NavButton
           label="Journal"
           title={unread > 0 ? `${unread} new in your journal` : 'Journal'}
@@ -187,7 +165,6 @@ export function Hud() {
           <LineIcon name="settings" />
         </NavButton>
       </nav>
-      {goalsShowing && <GoalsBox ideas={ideas} />}
     </header>
   )
 }

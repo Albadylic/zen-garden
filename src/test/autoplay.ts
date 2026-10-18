@@ -26,7 +26,8 @@ import {
   choosableApproaches,
   chooseApproach,
   completeStage,
-  currentStage,
+  nextStage,
+  activeApproaches,
   stageStatus,
 } from '../core/projects'
 import { clearOvergrowth, collectAll } from '../core/resources'
@@ -216,13 +217,17 @@ class Autoplayer {
     const { state, content } = this
     const project = availableProjects(state, content).find((p) => p.id === projectId)
     if (!project) return
-    const choice = choosableApproaches(state, project)[0]
-    if (choice) chooseApproach(state, content, project.id, choice.id)
-    const stage = currentStage(state, project)
-    if (!stage) return
+    // One approach at a time, like a player following a single plan.
+    if (activeApproaches(state, project).length === 0) {
+      const choice = choosableApproaches(state, project)[0]
+      if (choice) chooseApproach(state, content, project.id, choice.id)
+    }
+    const approach = activeApproaches(state, project)[0]
+    const stage = approach && nextStage(state, project, approach)
+    if (!approach || !stage) return
     const status = stageStatus(state, content, stage)
     if (status.kind === 'ready') {
-      completeStage(state, content, project.id)
+      completeStage(state, content, project.id, approach.id)
       return
     }
     for (const c of stage.conditions) if (!conditionMet(state, content, c)) this.work(c)

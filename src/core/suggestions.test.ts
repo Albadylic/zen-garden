@@ -67,7 +67,7 @@ describe('grove suggestions', () => {
   it('points to a restoration stage that is ready', () => {
     const { content, state } = grove()
     state.projects['restore-grove'] = {
-      approach: 'shaded-corner',
+      active: ['shaded-corner'],
       stagesDone: [],
       approachesDone: [],
     }

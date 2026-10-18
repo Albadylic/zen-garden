@@ -44,7 +44,17 @@ export async function openGarden(page: Page, { seed = 7, fresh = true } = {}): P
   await page.goto(`./?test&seed=${seed}`)
   await expect(page.locator('canvas[data-testid="garden-canvas"]')).toHaveCount(1)
   await page.waitForFunction(() => window.__zen?.tileToScreen(0, 0) !== null)
-  if (fresh) await page.getByRole('button', { name: 'Step into the garden' }).click()
+  if (fresh) {
+    // Stepping in opens Restore at the first goal; close it to start from the garden.
+    await page.getByRole('button', { name: 'Step into the garden' }).click()
+    await page.getByRole('button', { name: 'Close Restore' }).click()
+  }
+}
+
+/** Opens Restore at a page: the chapter's goals, or an approach by its title. */
+export async function openRestorePage(page: Page, name: string | RegExp): Promise<void> {
+  if ((await page.getByTestId('restore-panel').count()) === 0) await openTab(page, 'Restore')
+  await page.getByRole('tablist', { name: 'Restoration pages' }).getByRole('tab', { name }).click()
 }
 
 /** Taps (clicks or touches) the centre of a tile, centring the camera on it first. */
@@ -85,14 +95,4 @@ export async function placeOn(page: Page, x: number, y: number): Promise<void> {
 
 export function milestone(page: Page, id: string): Promise<boolean> {
   return page.evaluate((id) => window.__zen!.controller.state.milestones[id] !== undefined, id)
-}
-
-/** Opens the chapter's full goals: the Goals icon shows the goals box, which links to them. */
-export async function openGoals(page: Page): Promise<void> {
-  if ((await page.getByTestId('suggestions').count()) === 0)
-    await page
-      .getByRole('navigation', { name: 'Garden menu' })
-      .getByRole('button', { name: 'Goals', exact: true })
-      .click()
-  await page.getByRole('button', { name: 'All goals' }).click()
 }

@@ -1,6 +1,7 @@
-// Restoration projects: the player picks an approach, then completes its
-// stages. Finishing one approach opens the choice again, so nothing is
-// ever locked out; the order only changes what is discovered first.
+// Restoration projects: each has several approaches, each a short run of
+// stages. The player can begin as many approaches as they like and work on
+// them side by side (one while plants grow for another); nothing is ever
+// locked out, and the order only changes what is discovered first.
 
 import type { ApproachDef, Content, ProjectDef, ProjectStageDef } from './content'
 import type { GameEvent } from './events'
@@ -10,7 +11,7 @@ import { conditionMet } from './progression'
 import type { GameState, ProjectProgress } from './state'
 
 export function progressOf(state: GameState, projectId: string): ProjectProgress {
-  return state.projects[projectId] ?? { approach: null, stagesDone: [], approachesDone: [] }
+  return state.projects[projectId] ?? { active: [], stagesDone: [], approachesDone: [] }
 }
 
 /** Projects the player can work on now. */
@@ -22,23 +23,34 @@ export function isProjectComplete(state: GameState, project: ProjectDef): boolea
   return progressOf(state, project.id).approachesDone.length === project.approaches.length
 }
 
-/** Approaches that can be chosen now (none while one is under way). */
+/** Approaches not begun yet. */
 export function choosableApproaches(state: GameState, project: ProjectDef): ApproachDef[] {
   const progress = progressOf(state, project.id)
-  if (progress.approach !== null) return []
-  return project.approaches.filter((a) => !progress.approachesDone.includes(a.id))
+  return project.approaches.filter(
+    (a) => !progress.active.includes(a.id) && !progress.approachesDone.includes(a.id),
+  )
 }
 
-export function currentApproach(state: GameState, project: ProjectDef): ApproachDef | undefined {
-  const id = progressOf(state, project.id).approach
-  return project.approaches.find((a) => a.id === id)
+/** Approaches under way, in the order they were begun. */
+export function activeApproaches(state: GameState, project: ProjectDef): ApproachDef[] {
+  return progressOf(state, project.id)
+    .active.map((id) => project.approaches.find((a) => a.id === id))
+    .filter((a): a is ApproachDef => a !== undefined)
 }
 
-/** The next stage of the current approach, if any. */
-export function currentStage(state: GameState, project: ProjectDef): ProjectStageDef | undefined {
-  const approach = currentApproach(state, project)
+export function isApproachDone(state: GameState, project: ProjectDef, approach: ApproachDef) {
+  return progressOf(state, project.id).approachesDone.includes(approach.id)
+}
+
+/** The next stage of an approach under way, if any. */
+export function nextStage(
+  state: GameState,
+  project: ProjectDef,
+  approach: ApproachDef,
+): ProjectStageDef | undefined {
+  if (!progressOf(state, project.id).active.includes(approach.id)) return undefined
   const done = progressOf(state, project.id).stagesDone
-  return approach?.stages.find((s) => !done.includes(s.id))
+  return approach.stages.find((s) => !done.includes(s.id))
 }
 
 export type StageStatus = { kind: 'waiting' } | { kind: 'needsItems' } | { kind: 'ready' }
@@ -70,20 +82,25 @@ export function chooseApproach(
   if (!project || !state.unlocks.includes(project.requires))
     return { ok: false, reason: 'Not available yet' }
   const approach = choosableApproaches(state, project).find((a) => a.id === approachId)
-  if (!approach) return { ok: false, reason: 'Finish the current approach first' }
+  if (!approach) return { ok: false, reason: 'Already begun' }
   const progress = progressOf(state, projectId)
-  state.projects[projectId] = { ...progress, approach: approach.id }
+  state.projects[projectId] = { ...progress, active: [...progress.active, approach.id] }
   const events: GameEvent[] = [{ type: 'approachChosen', projectId, approachId }]
   grant(state, approach.unlocks, events)
   return { ok: true, events }
 }
 
-export function completeStage(state: GameState, content: Content, projectId: string): ActionResult {
+export function completeStage(
+  state: GameState,
+  content: Content,
+  projectId: string,
+  approachId: string,
+): ActionResult {
   const project = content.projects[projectId]
   if (!project) return { ok: false, reason: 'Unknown project' }
-  const stage = currentStage(state, project)
-  const approach = currentApproach(state, project)
-  if (!stage || !approach) return { ok: false, reason: 'Choose an approach first' }
+  const approach = project.approaches.find((a) => a.id === approachId)
+  const stage = approach && nextStage(state, project, approach)
+  if (!stage || !approach) return { ok: false, reason: 'Begin this first' }
   const status = stageStatus(state, content, stage)
   if (status.kind === 'waiting') return { ok: false, reason: 'Not quite there yet' }
   if (status.kind === 'needsItems') return { ok: false, reason: 'Not enough materials' }
@@ -96,7 +113,7 @@ export function completeStage(state: GameState, content: Content, projectId: str
   grant(state, stage.unlocks, events)
   if (approach.stages.every((s) => progress.stagesDone.includes(s.id))) {
     progress.approachesDone = [...progress.approachesDone, approach.id]
-    progress.approach = null
+    progress.active = progress.active.filter((id) => id !== approach.id)
     events.push({
       type: 'approachComplete',
       projectId,
@@ -106,4 +123,17 @@ export function completeStage(state: GameState, content: Content, projectId: str
   }
   state.projects[projectId] = progress
   return { ok: true, events }
+}
+
+/** Stages that can be completed right now, across every project and approach under way. */
+export function readyStages(state: GameState, content: Content) {
+  const out: { project: ProjectDef; approach: ApproachDef; stage: ProjectStageDef }[] = []
+  for (const project of availableProjects(state, content)) {
+    for (const approach of activeApproaches(state, project)) {
+      const stage = nextStage(state, project, approach)
+      if (stage && stageStatus(state, content, stage).kind === 'ready')
+        out.push({ project, approach, stage })
+    }
+  }
+  return out
 }

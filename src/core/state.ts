@@ -108,8 +108,8 @@ export interface JournalRecord {
 }
 
 export interface ProjectProgress {
-  /** The approach being worked on, or null when it is time to choose one. */
-  approach: string | null
+  /** Approaches begun and not yet finished; several can be under way at once. */
+  active: string[]
   /** Completed stage ids, across all approaches. */
   stagesDone: string[]
   /** Approaches finished so far. */
