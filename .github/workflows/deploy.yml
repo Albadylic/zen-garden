@@ -2,9 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    # ui/icons-and-journal deploys too while the owner compares the new
-    # interface. Drop it from this list before the branch merges into main.
-    branches: [main, ui/icons-and-journal]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
