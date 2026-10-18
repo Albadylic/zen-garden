@@ -44,11 +44,19 @@
   {
     "id": "old-boulder",
     "name": "Old boulder",
-    "description": "A large, lichen-spotted boulder, settled deep into the ground.",
+    "description": "A large, lichen-spotted boulder, settled deep into the ground. Frost and rain loosen small stones from it now and then.",
     "terrain": ["grass", "moss"],
     "flat": false,
     "cover": 0.4,
     "refuge": true,
+    "produces": [
+      {
+        "item": "stones",
+        "everySec": 360,
+        "amount": 1,
+        "minStage": 0
+      }
+    ],
     "facts": []
   },
   {

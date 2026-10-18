@@ -39,6 +39,8 @@ export interface DecorationEntity {
   x: number
   y: number
   fixed: boolean
+  /** Production timers, for the few decorations that give up materials (added when first needed). */
+  produceMs?: number[]
 }
 
 export type Entity = PlantEntity | StructureEntity | DecorationEntity

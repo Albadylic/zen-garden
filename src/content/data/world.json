@@ -179,7 +179,7 @@
       "item": "stones",
       "min": 1,
       "max": 1,
-      "chance": 0.3
+      "chance": 0.5
     },
     {
       "item": "bark",
@@ -246,7 +246,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.25
+          "chance": 0.45
         },
         {
           "item": "grass-divisions",
@@ -296,7 +296,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.3
+          "chance": 0.45
         },
         {
           "item": "leaf-litter",
@@ -352,7 +352,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.3
+          "chance": 0.45
         },
         {
           "item": "lichen-fragments",
@@ -452,7 +452,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.3
+          "chance": 0.45
         }
       ]
     },
@@ -490,7 +490,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.4
+          "chance": 0.55
         },
         {
           "item": "reed-stems",
@@ -534,7 +534,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.4
+          "chance": 0.55
         },
         {
           "item": "quince-cuttings",
@@ -722,7 +722,7 @@
           "item": "stones",
           "min": 1,
           "max": 1,
-          "chance": 0.3
+          "chance": 0.45
         }
       ]
     }

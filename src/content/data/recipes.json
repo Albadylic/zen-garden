@@ -28,7 +28,7 @@
     "id": "stone-path",
     "name": "Stone path",
     "inputs": {
-      "stones": 2
+      "stones": 1
     },
     "output": {
       "kind": "decoration",
@@ -39,7 +39,7 @@
     "id": "stone-arrangement",
     "name": "Stone arrangement",
     "inputs": {
-      "stones": 3
+      "stones": 2
     },
     "output": {
       "kind": "decoration",
@@ -64,7 +64,7 @@
     "name": "Bamboo water spout",
     "inputs": {
       "bamboo-canes": 4,
-      "stones": 2
+      "stones": 1
     },
     "output": {
       "kind": "decoration",
@@ -76,7 +76,7 @@
     "id": "maple-leaf-lantern",
     "name": "Maple-leaf lantern",
     "inputs": {
-      "stones": 3,
+      "stones": 2,
       "maple-leaves": 4
     },
     "output": {
@@ -115,7 +115,7 @@
     "id": "frog-shelter",
     "name": "Frog shelter",
     "inputs": {
-      "stones": 3,
+      "stones": 2,
       "clay": 2,
       "reed-stems": 2
     },
@@ -129,7 +129,7 @@
     "id": "rock-pile",
     "name": "Rock pile",
     "inputs": {
-      "stones": 3,
+      "stones": 2,
       "gravel": 2
     },
     "output": {
@@ -193,7 +193,7 @@
     "name": "Bee bank",
     "inputs": {
       "grass-stems": 2,
-      "stones": 2,
+      "stones": 1,
       "clay": 1
     },
     "output": {
@@ -231,7 +231,7 @@
     "id": "stone-bench",
     "name": "Stone bench",
     "inputs": {
-      "stones": 3
+      "stones": 2
     },
     "output": {
       "kind": "decoration",
@@ -284,7 +284,7 @@
     "name": "Stone bridge",
     "inputs": {
       "ornamental-stones": 3,
-      "stones": 2
+      "stones": 1
     },
     "output": {
       "kind": "decoration",

@@ -183,6 +183,8 @@ export interface DecorationDef {
    * Residents with one close to their shelter stay a little longer.
    */
   refuge?: boolean
+  /** Natural materials it gives up over time, such as stones loosened from an old boulder. */
+  produces?: ProductionDef[]
   look?: Look
   facts: Fact[]
 }

@@ -24,6 +24,13 @@ describe('production', () => {
     expect(items).toEqual(new Set(['twigs', 'bark', 'leaf-litter']))
   })
 
+  it('lets old boulders shed stones as they weather', () => {
+    const { content, state } = setup()
+    const boulder = state.entities.find((e) => e.defId === 'old-boulder')!
+    advance(state, content, 7 * MIN, { offline: true })
+    expect(state.drops.some((d) => d.sourceId === boulder.id && d.itemId === 'stones')).toBe(true)
+  })
+
   it('caps how many items one source leaves lying around', () => {
     const { content, state } = setup()
     advance(state, content, 6 * 60 * MIN, { offline: true })

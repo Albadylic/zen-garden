@@ -166,6 +166,7 @@ export const decorationSchema = z.object({
   flat: z.boolean(),
   cover: unit,
   refuge: z.boolean().optional(),
+  produces: z.array(productionSchema).optional(),
   look: lookSchema.optional(),
   facts: z.array(factSchema),
 }) satisfies z.ZodType<DecorationDef>

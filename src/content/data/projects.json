@@ -119,7 +119,7 @@
               }
             ],
             "cost": {
-              "stones": 2
+              "stones": 1
             },
             "unlocks": []
           }
@@ -725,7 +725,7 @@
               }
             ],
             "cost": {
-              "stones": 2
+              "stones": 1
             },
             "unlocks": []
           }
@@ -814,7 +814,7 @@
               }
             ],
             "cost": {
-              "stones": 2
+              "stones": 1
             },
             "unlocks": []
           }
