@@ -73,7 +73,7 @@ const productionSchema = z.object({
 export const itemSchema = z.object({
   id,
   name: z.string().min(1),
-  category: z.enum(['seed', 'material', 'food']),
+  category: z.enum(['seed', 'material', 'food', 'keepsake']),
   description: z.string().min(1),
   colour: z.string().regex(/^#[0-9a-f]{6}$/i),
   facts: z.array(factSchema),
@@ -321,6 +321,7 @@ export const projectSchema = z.object({
               conditions: z.array(conditionSchema).min(1),
               cost: z.record(id, z.number().int().positive()),
               unlocks: z.array(z.string()),
+              reward: z.record(id, z.number().int().positive()).optional(),
             }),
           )
           .min(1),

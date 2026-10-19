@@ -136,12 +136,44 @@ function ChapterPage() {
   )
 }
 
-/** One approach to a project: begin it, then complete its stages one by one. */
+/**
+ * What a stage gives: materials, or something rare to plant or place, marked
+ * with a star.
+ */
+function Reward({ items, done }: { items: Record<string, number>; done: boolean }) {
+  const { content } = useGame()
+  return (
+    <span className={`reward${done ? ' is-done' : ''}`} data-testid="reward">
+      {done ? 'Received: ' : 'Reward: '}
+      {Object.entries(items).map(([id, n], i) => {
+        const item = content.items[id]
+        const plant = Object.values(content.plants).find((p) => p.seedItem === id)
+        const rare =
+          item?.category === 'keepsake' || (plant !== undefined && plant.produces.length === 0)
+        const note =
+          item?.category === 'keepsake'
+            ? ' (a keepsake to place)'
+            : rare
+              ? ` (rare: ${plant!.name})`
+              : ''
+        return (
+          <span key={id} className={rare ? 'reward__rare' : undefined}>
+            {i > 0 && ', '}
+            {rare && '✦ '}
+            {item?.name ?? id} ×{n}
+            {note}
+          </span>
+        )
+      })}
+    </span>
+  )
+}
+
+/** One approach to a project, under way from the start: complete its stages one by one. */
 function ApproachPage({ project, approach }: { project: ProjectDef; approach: ApproachDef }) {
   const controller = useGame()
   const { content, state } = controller
   const garden = gardenById(content, project.garden)
-  const begun = progressOf(state, project.id).active.includes(approach.id)
   const doneStages = progressOf(state, project.id).stagesDone
   const stage = nextStage(state, project, approach)
   const status = stage && stageStatus(state, content, stage)
@@ -172,20 +204,12 @@ function ApproachPage({ project, approach }: { project: ProjectDef; approach: Ap
               <span className="stage__text">
                 <strong>{s.title}</strong>
                 {isNext && <span>{s.description}</span>}
+                {s.reward && <Reward items={s.reward} done={complete} />}
               </span>
             </li>
           )
         })}
       </ol>
-      {!begun && (
-        <button
-          type="button"
-          className="button button--primary"
-          onClick={() => controller.chooseApproach(project.id, approach.id)}
-        >
-          Begin this
-        </button>
-      )}
       {stage && (
         <div className="upgrade" data-testid="current-stage">
           <strong>{stage.title}</strong>

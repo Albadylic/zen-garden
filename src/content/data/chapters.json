@@ -156,8 +156,8 @@
       {
         "id": "a-way-forward",
         "title": "A way forward",
-        "description": "You chose how to begin restoring the grove.",
-        "hint": "Open Restore and choose how to begin restoring the grove.",
+        "description": "The plans for restoring the grove are laid out in Restore.",
+        "hint": "Open Restore to see the ways of restoring the grove.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -294,8 +294,8 @@
       {
         "id": "a-plan-for-the-pond",
         "title": "A plan for the pond",
-        "description": "You chose how to begin restoring the pond.",
-        "hint": "Open Restore and choose how to begin restoring the pond.",
+        "description": "The plans for restoring the pond are laid out in Restore.",
+        "hint": "Open Restore to see the ways of restoring the pond.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -433,8 +433,8 @@
       {
         "id": "a-quiet-plan",
         "title": "A quiet plan",
-        "description": "You chose how to begin rebuilding the stone garden.",
-        "hint": "Open Restore and choose how to begin rebuilding the stone garden.",
+        "description": "The plans for rebuilding the stone garden are laid out in Restore.",
+        "hint": "Open Restore to see the ways of rebuilding the stone garden.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -565,8 +565,8 @@
       {
         "id": "a-plan-for-the-hollow",
         "title": "A plan for the hollow",
-        "description": "You chose how to begin restoring the woodland floor.",
-        "hint": "Open Restore and choose how to begin restoring the hollow.",
+        "description": "The plans for restoring the woodland floor are laid out in Restore.",
+        "hint": "Open Restore to see the ways of restoring the hollow.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -713,8 +713,8 @@
       {
         "id": "a-plan-for-the-meadow",
         "title": "A plan for the meadow",
-        "description": "You chose how to begin sowing the meadow.",
-        "hint": "Open Restore and choose how to begin sowing the meadow.",
+        "description": "The plans for sowing the meadow are laid out in Restore.",
+        "hint": "Open Restore to see the ways of sowing the meadow.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -860,8 +860,8 @@
       {
         "id": "a-plan-for-the-stream",
         "title": "A plan for the stream",
-        "description": "You chose how to begin reconnecting the stream.",
-        "hint": "Open Restore and choose how to begin reconnecting the stream.",
+        "description": "The plans for reconnecting the stream are laid out in Restore.",
+        "hint": "Open Restore to see the ways of reconnecting the stream.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -994,8 +994,8 @@
       {
         "id": "a-plan-for-the-court",
         "title": "A plan for the court",
-        "description": "You chose how to begin restoring the court.",
-        "hint": "Open Restore and choose how to begin restoring the court.",
+        "description": "The plans for restoring the court are laid out in Restore.",
+        "hint": "Open Restore to see the ways of restoring the court.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -1141,8 +1141,8 @@
       {
         "id": "a-plan-for-the-tree",
         "title": "A plan for the tree",
-        "description": "You chose how to begin protecting the old tree.",
-        "hint": "Open Restore and choose how to begin protecting the old tree.",
+        "description": "The plans for protecting the old tree are laid out in Restore.",
+        "hint": "Open Restore to see the ways of protecting the old tree.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -1274,8 +1274,8 @@
       {
         "id": "a-plan-for-the-marsh",
         "title": "A plan for the marsh",
-        "description": "You chose how to begin restoring the marsh.",
-        "hint": "Open Restore and choose how to begin restoring the marsh.",
+        "description": "The plans for restoring the marsh are laid out in Restore.",
+        "hint": "Open Restore to see the ways of restoring the marsh.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -1407,8 +1407,8 @@
       {
         "id": "a-plan-for-the-seasons",
         "title": "A plan for the year",
-        "description": "You chose how to begin the garden for every season.",
-        "hint": "Open Restore and choose how to begin the garden for every season.",
+        "description": "The plans for the garden for every season are laid out in Restore.",
+        "hint": "Open Restore to see the plans for the garden for every season.",
         "conditions": [
           {
             "kind": "approachChosen",
@@ -1525,8 +1525,8 @@
       {
         "id": "a-plan-for-the-noble-garden",
         "title": "A noble plan",
-        "description": "You chose how to begin restoring the Noble Garden.",
-        "hint": "Open Restore and choose how to begin restoring the Noble Garden.",
+        "description": "The plans for restoring the Noble Garden are laid out in Restore.",
+        "hint": "Open Restore to see the ways of restoring the Noble Garden.",
         "conditions": [
           {
             "kind": "approachChosen",

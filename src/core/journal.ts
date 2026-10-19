@@ -124,6 +124,8 @@ function keysFor(state: GameState, e: GameEvent): string[] {
     case 'cleared':
     case 'harvested':
       return Object.keys(e.items).map((id) => `item:${id}`)
+    case 'stageComplete':
+      return Object.keys(e.reward).map((id) => `item:${id}`)
     default:
       return []
   }

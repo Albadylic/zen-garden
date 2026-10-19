@@ -27,7 +27,7 @@ export interface Look {
   size?: number
 }
 
-export type ItemCategory = 'seed' | 'material' | 'food'
+export type ItemCategory = 'seed' | 'material' | 'food' | 'keepsake'
 
 /** A preferred range for an environmental value between 0 and 1. */
 export interface Range {
@@ -337,6 +337,8 @@ export interface ProjectStageDef {
   /** Materials spent to complete the stage. */
   cost: Record<string, number>
   unlocks: string[]
+  /** Given on completing the stage: materials, or something rare to plant or place. */
+  reward?: Record<string, number>
 }
 
 export interface ApproachDef {

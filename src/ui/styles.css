@@ -1345,3 +1345,21 @@ button:focus-visible {
   display: grid;
   font-size: 0.9rem;
 }
+
+.reward {
+  font-size: 0.85rem;
+  color: var(--earth);
+}
+
+.reward.is-done {
+  color: var(--ink-soft);
+}
+
+.reward__rare {
+  color: #9a5b8a;
+  font-weight: 700;
+}
+
+.reward.is-done .reward__rare {
+  color: inherit;
+}

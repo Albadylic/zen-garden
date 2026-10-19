@@ -5,7 +5,13 @@ import { itemSources } from './sources'
 describe('item sources', () => {
   it('says where to gather an item', () => {
     const { content } = setup()
-    expect(itemSources(content, 'stones')).toEqual(['Old boulders', 'clearing overgrowth'])
+    expect(itemSources(content, 'stones').slice(0, 2)).toEqual([
+      'Old boulders',
+      'clearing overgrowth',
+    ])
+    expect(itemSources(content, 'frog-stone-keepsake')).toEqual([
+      'completing "Cut reeds" in Restore',
+    ])
     expect(itemSources(content, 'twigs')).toContain('clearing overgrowth')
     expect(itemSources(content, 'twigs')).toContain('Old black pine')
     expect(itemSources(content, 'seed-bundle')).toEqual(['making it (Seed bundle)'])

@@ -11,6 +11,7 @@ const CATEGORIES: { id: ItemCategory; label: string }[] = [
   { id: 'seed', label: 'Seeds' },
   { id: 'material', label: 'Materials' },
   { id: 'food', label: 'Food' },
+  { id: 'keepsake', label: 'Keepsakes' },
 ]
 
 /** An item held, or a recipe that makes one. */

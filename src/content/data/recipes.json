@@ -367,5 +367,148 @@
       "amount": 1
     },
     "unlock": "recipe:noble-materials"
+  },
+  {
+    "id": "deer-scarer",
+    "name": "Bamboo deer-scarer",
+    "inputs": {
+      "deer-scarer-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "deer-scarer"
+    },
+    "group": "features",
+    "unlock": "recipe:deer-scarer"
+  },
+  {
+    "id": "frog-stone",
+    "name": "Frog stone",
+    "inputs": {
+      "frog-stone-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "frog-stone"
+    },
+    "group": "features",
+    "unlock": "recipe:frog-stone"
+  },
+  {
+    "id": "snow-lantern",
+    "name": "Snow-viewing lantern",
+    "inputs": {
+      "snow-lantern-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "snow-lantern"
+    },
+    "group": "features",
+    "unlock": "recipe:snow-lantern"
+  },
+  {
+    "id": "mossy-stump",
+    "name": "Mossy stump",
+    "inputs": {
+      "mossy-stump-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "mossy-stump"
+    },
+    "group": "features",
+    "unlock": "recipe:mossy-stump"
+  },
+  {
+    "id": "bee-skep",
+    "name": "Straw bee skep",
+    "inputs": {
+      "bee-skep-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "bee-skep"
+    },
+    "group": "features",
+    "unlock": "recipe:bee-skep"
+  },
+  {
+    "id": "water-pipe",
+    "name": "Bamboo water pipe",
+    "inputs": {
+      "water-pipe-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "water-pipe"
+    },
+    "group": "features",
+    "unlock": "recipe:water-pipe"
+  },
+  {
+    "id": "viewing-bench",
+    "name": "Blossom-viewing bench",
+    "inputs": {
+      "viewing-bench-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "viewing-bench"
+    },
+    "group": "features",
+    "unlock": "recipe:viewing-bench"
+  },
+  {
+    "id": "bird-bath",
+    "name": "Stone bird bath",
+    "inputs": {
+      "bird-bath-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "bird-bath"
+    },
+    "group": "features",
+    "unlock": "recipe:bird-bath"
+  },
+  {
+    "id": "reed-screen",
+    "name": "Reed screen",
+    "inputs": {
+      "reed-screen-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "reed-screen"
+    },
+    "group": "features",
+    "unlock": "recipe:reed-screen"
+  },
+  {
+    "id": "moon-platform",
+    "name": "Moon-viewing platform",
+    "inputs": {
+      "moon-platform-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "moon-platform"
+    },
+    "group": "features",
+    "unlock": "recipe:moon-platform"
+  },
+  {
+    "id": "moon-gate",
+    "name": "Moon gate",
+    "inputs": {
+      "moon-gate-keepsake": 1
+    },
+    "output": {
+      "kind": "decoration",
+      "id": "moon-gate"
+    },
+    "group": "features",
+    "unlock": "recipe:moon-gate"
   }
 ]

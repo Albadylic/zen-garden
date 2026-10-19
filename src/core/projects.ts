@@ -1,13 +1,14 @@
 // Restoration projects: each has several approaches, each a short run of
-// stages. The player can begin as many approaches as they like and work on
-// them side by side (one while plants grow for another); nothing is ever
-// locked out, and the order only changes what is discovered first.
+// stages. Every approach is under way as soon as its project opens, so the
+// player can work on them side by side (one while plants grow for another).
+// Completing a stage can bring a reward: materials, or something rare.
 
 import type { ApproachDef, Content, ProjectDef, ProjectStageDef } from './content'
 import type { GameEvent } from './events'
-import { hasItems, removeItems } from './inventory'
+import { addItems, hasItems, removeItems } from './inventory'
 import type { ActionResult } from './layout'
 import { conditionMet } from './progression'
+import type { StepContext } from './simulation'
 import type { GameState, ProjectProgress } from './state'
 
 export function progressOf(state: GameState, projectId: string): ProjectProgress {
@@ -83,11 +84,7 @@ export function chooseApproach(
     return { ok: false, reason: 'Not available yet' }
   const approach = choosableApproaches(state, project).find((a) => a.id === approachId)
   if (!approach) return { ok: false, reason: 'Already begun' }
-  const progress = progressOf(state, projectId)
-  state.projects[projectId] = { ...progress, active: [...progress.active, approach.id] }
-  const events: GameEvent[] = [{ type: 'approachChosen', projectId, approachId }]
-  grant(state, approach.unlocks, events)
-  return { ok: true, events }
+  return { ok: true, events: beginApproach(state, project, approach) }
 }
 
 export function completeStage(
@@ -105,10 +102,14 @@ export function completeStage(
   if (status.kind === 'waiting') return { ok: false, reason: 'Not quite there yet' }
   if (status.kind === 'needsItems') return { ok: false, reason: 'Not enough materials' }
   removeItems(state, stage.cost)
+  const reward = stage.reward ?? {}
+  addItems(state, reward)
+  for (const [id, n] of Object.entries(reward))
+    state.stats.gathered[id] = (state.stats.gathered[id] ?? 0) + n
   const progress = progressOf(state, projectId)
   progress.stagesDone = [...progress.stagesDone, stage.id]
   const events: GameEvent[] = [
-    { type: 'stageComplete', projectId, stageId: stage.id, title: stage.title },
+    { type: 'stageComplete', projectId, stageId: stage.id, title: stage.title, reward },
   ]
   grant(state, stage.unlocks, events)
   if (approach.stages.every((s) => progress.stagesDone.includes(s.id))) {
@@ -136,4 +137,26 @@ export function readyStages(state: GameState, content: Content) {
     }
   }
   return out
+}
+
+/**
+ * System: every approach of a project that has opened is under way, with the
+ * discoveries it brings. (Approaches used to wait for the player to begin
+ * them; older saves catch up here.)
+ */
+export function openProjects(state: GameState, content: Content, _dtMs: number, ctx: StepContext) {
+  for (const project of availableProjects(state, content)) {
+    for (const approach of choosableApproaches(state, project))
+      ctx.events.push(...beginApproach(state, project, approach))
+  }
+}
+
+function beginApproach(state: GameState, project: ProjectDef, approach: ApproachDef): GameEvent[] {
+  const progress = progressOf(state, project.id)
+  state.projects[project.id] = { ...progress, active: [...progress.active, approach.id] }
+  const events: GameEvent[] = [
+    { type: 'approachChosen', projectId: project.id, approachId: approach.id },
+  ]
+  grant(state, approach.unlocks, events)
+  return events
 }

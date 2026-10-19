@@ -2,7 +2,7 @@
   {
     "id": "restore-grove",
     "title": "Restore the bamboo grove",
-    "description": "The grove has run wild. Choose where to begin; every approach can be finished in time.",
+    "description": "The grove has run wild. Work on its approaches side by side; every stage brings a reward.",
     "garden": "bamboo-grove",
     "requires": "area:bamboo-grove",
     "approaches": [
@@ -24,7 +24,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "bamboo-canes": 2
+            }
           },
           {
             "id": "plant-the-shade",
@@ -42,7 +45,10 @@
             "cost": {
               "bamboo-canes": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "black-bamboo-shoot": 2
+            }
           }
         ]
       },
@@ -65,7 +71,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "leaf-litter": 3
+            }
           },
           {
             "id": "residents-settle",
@@ -81,7 +90,10 @@
             "cost": {
               "leaf-litter": 3
             },
-            "unlocks": []
+            "unlocks": ["recipe:deer-scarer"],
+            "reward": {
+              "deer-scarer-keepsake": 1
+            }
           }
         ]
       },
@@ -104,7 +116,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "stones": 1
+            }
           },
           {
             "id": "water-and-stone",
@@ -121,7 +136,10 @@
             "cost": {
               "stones": 1
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "black-bamboo-shoot": 2
+            }
           }
         ]
       }
@@ -130,7 +148,7 @@
   {
     "id": "restore-pond",
     "title": "Restore the pond",
-    "description": "The old pond is clogged and bare. Choose where to begin; every approach can be finished in time.",
+    "description": "The old pond is clogged and bare. Work on its approaches side by side; every stage brings a reward.",
     "garden": "living-waters",
     "requires": "chapter:bamboo-grove",
     "approaches": [
@@ -153,7 +171,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "reed-stems": 2
+            }
           },
           {
             "id": "lilies-flower",
@@ -171,7 +192,10 @@
             "cost": {
               "reed-stems": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "pink-lily-rhizome": 2
+            }
           }
         ]
       },
@@ -195,7 +219,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "clay": 2
+            }
           },
           {
             "id": "cut-reeds",
@@ -211,7 +238,10 @@
             "cost": {
               "clay": 2
             },
-            "unlocks": []
+            "unlocks": ["recipe:frog-stone"],
+            "reward": {
+              "frog-stone-keepsake": 1
+            }
           }
         ]
       },
@@ -234,7 +264,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "clay": 1
+            }
           },
           {
             "id": "frogs-settle",
@@ -250,7 +283,10 @@
             "cost": {
               "clay": 1
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "pink-lily-rhizome": 2
+            }
           }
         ]
       }
@@ -259,7 +295,7 @@
   {
     "id": "restore-stone-garden",
     "title": "Rebuild the stone garden",
-    "description": "The stone garden is half buried. Choose where to begin; every approach can be finished in time.",
+    "description": "The stone garden is half buried. Work on its approaches side by side; every stage brings a reward.",
     "garden": "quiet-stone-garden",
     "requires": "chapter:living-waters",
     "approaches": [
@@ -282,7 +318,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "gravel": 2
+            }
           },
           {
             "id": "dry-established",
@@ -300,7 +339,10 @@
             "cost": {
               "gravel": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "cushion-moss-clump": 2
+            }
           }
         ]
       },
@@ -323,7 +365,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "river-stones": 1
+            }
           },
           {
             "id": "lichen-crust",
@@ -341,7 +386,10 @@
             "cost": {
               "river-stones": 1
             },
-            "unlocks": []
+            "unlocks": ["recipe:snow-lantern"],
+            "reward": {
+              "snow-lantern-keepsake": 1
+            }
           }
         ]
       },
@@ -364,7 +412,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "river-stones": 2
+            }
           },
           {
             "id": "stones-alive",
@@ -380,7 +431,10 @@
             "cost": {
               "river-stones": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "cushion-moss-clump": 2
+            }
           }
         ]
       }
@@ -389,7 +443,7 @@
   {
     "id": "restore-hollow",
     "title": "Restore the woodland floor",
-    "description": "The hollow is tangled and bare underneath. Choose where to begin; every approach can be finished in time.",
+    "description": "The hollow is tangled and bare underneath. Work on its approaches side by side; every stage brings a reward.",
     "garden": "fernwood-hollow",
     "requires": "chapter:quiet-stone-garden",
     "approaches": [
@@ -412,7 +466,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "leaf-mould": 2
+            }
           },
           {
             "id": "ferns-unfurl",
@@ -430,7 +487,10 @@
             "cost": {
               "leaf-mould": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "painted-fern-spores": 2
+            }
           }
         ]
       },
@@ -453,7 +513,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "deadwood": 1
+            }
           },
           {
             "id": "fungi-grow",
@@ -471,7 +534,10 @@
             "cost": {
               "deadwood": 1
             },
-            "unlocks": []
+            "unlocks": ["recipe:mossy-stump"],
+            "reward": {
+              "mossy-stump-keepsake": 1
+            }
           }
         ]
       },
@@ -494,7 +560,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "leaf-litter": 2
+            }
           },
           {
             "id": "make-mould",
@@ -510,7 +579,10 @@
             "cost": {
               "leaf-litter": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "painted-fern-spores": 2
+            }
           }
         ]
       }
@@ -519,7 +591,7 @@
   {
     "id": "sow-the-meadow",
     "title": "Sow the meadow",
-    "description": "The meadow has gone to coarse weeds. Choose where to begin; every approach can be finished in time.",
+    "description": "The meadow has gone to coarse weeds. Work on its approaches side by side; every stage brings a reward.",
     "garden": "wildflower-meadow",
     "requires": "chapter:fernwood-hollow",
     "approaches": [
@@ -541,7 +613,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "seed-heads": 2
+            }
           },
           {
             "id": "in-bloom",
@@ -559,7 +634,10 @@
             "cost": {
               "seed-heads": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "gentian-seeds": 2
+            }
           }
         ]
       },
@@ -583,7 +661,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "seed-heads": 1
+            }
           },
           {
             "id": "cut-stems",
@@ -599,7 +680,10 @@
             "cost": {
               "seed-heads": 1
             },
-            "unlocks": []
+            "unlocks": ["recipe:bee-skep"],
+            "reward": {
+              "bee-skep-keepsake": 1
+            }
           }
         ]
       },
@@ -621,7 +705,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "grass-stems": 2
+            }
           },
           {
             "id": "bees-at-home",
@@ -637,7 +724,10 @@
             "cost": {
               "grass-stems": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "gentian-seeds": 2
+            }
           }
         ]
       }
@@ -646,7 +736,7 @@
   {
     "id": "reconnect-stream",
     "title": "Reconnect the stream",
-    "description": "The stream is choked and its banks bare. Choose where to begin; every approach can be finished in time.",
+    "description": "The stream is choked and its banks bare. Work on its approaches side by side; every stage brings a reward.",
     "garden": "whispering-stream",
     "requires": "chapter:wildflower-meadow",
     "approaches": [
@@ -669,7 +759,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "pebbles": 2
+            }
           },
           {
             "id": "banks-hold",
@@ -687,7 +780,10 @@
             "cost": {
               "pebbles": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "primrose-seeds": 2
+            }
           }
         ]
       },
@@ -710,7 +806,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "stones": 1
+            }
           },
           {
             "id": "a-place-to-stand",
@@ -727,7 +826,10 @@
             "cost": {
               "stones": 1
             },
-            "unlocks": []
+            "unlocks": ["recipe:water-pipe"],
+            "reward": {
+              "water-pipe-keepsake": 1
+            }
           }
         ]
       },
@@ -750,7 +852,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "pebbles": 1
+            }
           },
           {
             "id": "leafy-perches",
@@ -768,7 +873,10 @@
             "cost": {
               "pebbles": 1
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "primrose-seeds": 2
+            }
           }
         ]
       }
@@ -777,7 +885,7 @@
   {
     "id": "restore-court",
     "title": "Restore the court",
-    "description": "The court’s borders are overgrown and its blossom forgotten. Choose where to begin; every approach can be finished in time.",
+    "description": "The court’s borders are overgrown and its blossom forgotten. Work on its approaches side by side; every stage brings a reward.",
     "garden": "blossom-court",
     "requires": "chapter:whispering-stream",
     "approaches": [
@@ -800,7 +908,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "stones": 1
+            }
           },
           {
             "id": "falling-blossom",
@@ -816,7 +927,10 @@
             "cost": {
               "stones": 1
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "peony-cutting": 2
+            }
           }
         ]
       },
@@ -838,7 +952,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "leaf-mould": 2
+            }
           },
           {
             "id": "border-flowers",
@@ -856,7 +973,10 @@
             "cost": {
               "leaf-mould": 2
             },
-            "unlocks": []
+            "unlocks": ["recipe:viewing-bench"],
+            "reward": {
+              "viewing-bench-keepsake": 1
+            }
           }
         ]
       },
@@ -879,7 +999,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "quince-fruit": 1
+            }
           },
           {
             "id": "birds-visit",
@@ -895,7 +1018,10 @@
             "cost": {
               "quince-fruit": 1
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "peony-cutting": 2
+            }
           }
         ]
       }
@@ -904,7 +1030,7 @@
   {
     "id": "protect-the-old-tree",
     "title": "Protect the old tree",
-    "description": "The oak stands alone in a tangle. Choose where to begin; every approach can be finished in time.",
+    "description": "The oak stands alone in a tangle. Work on its approaches side by side; every stage brings a reward.",
     "garden": "ancient-canopy",
     "requires": "chapter:blossom-court",
     "approaches": [
@@ -926,7 +1052,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "leaf-mould": 1
+            }
           },
           {
             "id": "understory-grown",
@@ -944,7 +1073,10 @@
             "cost": {
               "leaf-mould": 1
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "lily-bulb": 2
+            }
           }
         ]
       },
@@ -967,7 +1099,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "acorns": 2
+            }
           },
           {
             "id": "boxes-used",
@@ -983,7 +1118,10 @@
             "cost": {
               "acorns": 2
             },
-            "unlocks": []
+            "unlocks": ["recipe:bird-bath"],
+            "reward": {
+              "bird-bath-keepsake": 1
+            }
           }
         ]
       },
@@ -1006,7 +1144,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "fallen-branches": 2
+            }
           },
           {
             "id": "beetles-come",
@@ -1022,7 +1163,10 @@
             "cost": {
               "fallen-branches": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "lily-bulb": 2
+            }
           }
         ]
       }
@@ -1031,7 +1175,7 @@
   {
     "id": "restore-marsh",
     "title": "Restore the marsh",
-    "description": "The marsh is choked and silted. Choose where to begin; every approach can be finished in time.",
+    "description": "The marsh is choked and silted. Work on its approaches side by side; every stage brings a reward.",
     "garden": "reed-marsh",
     "requires": "chapter:ancient-canopy",
     "approaches": [
@@ -1054,7 +1198,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "cattail-fluff": 2
+            }
           },
           {
             "id": "beds-grown",
@@ -1072,7 +1219,10 @@
             "cost": {
               "cattail-fluff": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "egret-orchid-tuber": 2
+            }
           }
         ]
       },
@@ -1101,7 +1251,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "reed-stems": 2
+            }
           },
           {
             "id": "floating-leaves",
@@ -1119,7 +1272,10 @@
             "cost": {
               "reed-stems": 2
             },
-            "unlocks": []
+            "unlocks": ["recipe:reed-screen"],
+            "reward": {
+              "reed-screen-keepsake": 1
+            }
           }
         ]
       },
@@ -1142,7 +1298,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "clay": 1
+            }
           },
           {
             "id": "frogs-of-the-marsh",
@@ -1158,7 +1317,10 @@
             "cost": {
               "clay": 1
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "egret-orchid-tuber": 2
+            }
           }
         ]
       }
@@ -1167,7 +1329,7 @@
   {
     "id": "garden-for-every-season",
     "title": "A garden for every season",
-    "description": "This garden should be lovely all year. Choose where to begin; every approach can be finished in any season.",
+    "description": "This garden should be lovely all year. Work on its approaches side by side; every stage brings a reward.",
     "garden": "four-seasons-garden",
     "requires": "chapter:reed-marsh",
     "approaches": [
@@ -1190,7 +1352,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "evergreen-sprigs": 1
+            }
           },
           {
             "id": "through-the-year",
@@ -1206,7 +1371,10 @@
             "cost": {
               "evergreen-sprigs": 1
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "sasanqua-cutting": 2
+            }
           }
         ]
       },
@@ -1230,7 +1398,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "seed-heads": 1
+            }
           },
           {
             "id": "fruit-for-autumn",
@@ -1248,7 +1419,10 @@
             "cost": {
               "seed-heads": 1
             },
-            "unlocks": []
+            "unlocks": ["recipe:moon-platform"],
+            "reward": {
+              "moon-platform-keepsake": 1
+            }
           }
         ]
       },
@@ -1272,7 +1446,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "evergreen-sprigs": 2
+            }
           },
           {
             "id": "winter-shelter",
@@ -1289,7 +1466,10 @@
             "cost": {
               "evergreen-sprigs": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "sasanqua-cutting": 2
+            }
           }
         ]
       }
@@ -1298,7 +1478,7 @@
   {
     "id": "restore-noble-garden",
     "title": "Restore the Noble Garden",
-    "description": "The finest garden of the sanctuary, long neglected. Choose where to begin; every approach can be finished in time.",
+    "description": "The finest garden of the sanctuary, long neglected. Work on its approaches side by side; every stage brings a reward.",
     "garden": "noble-garden",
     "requires": "chapter:four-seasons-garden",
     "approaches": [
@@ -1321,7 +1501,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "ornamental-stones": 2
+            }
           },
           {
             "id": "lotus-and-edges",
@@ -1346,7 +1529,10 @@
             "cost": {
               "ornamental-stones": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "butterfly-maple-seedling": 2
+            }
           }
         ]
       },
@@ -1369,7 +1555,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "fine-timber": 1
+            }
           },
           {
             "id": "the-pavilion",
@@ -1392,7 +1581,10 @@
             "cost": {
               "fine-timber": 1
             },
-            "unlocks": []
+            "unlocks": ["recipe:moon-gate"],
+            "reward": {
+              "moon-gate-keepsake": 1
+            }
           }
         ]
       },
@@ -1414,7 +1606,10 @@
               }
             ],
             "cost": {},
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "leaf-mould": 2
+            }
           },
           {
             "id": "borders-in-flower",
@@ -1432,7 +1627,10 @@
             "cost": {
               "leaf-mould": 2
             },
-            "unlocks": []
+            "unlocks": [],
+            "reward": {
+              "butterfly-maple-seedling": 2
+            }
           }
         ]
       }

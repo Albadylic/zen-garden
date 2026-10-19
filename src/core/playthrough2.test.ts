@@ -8,7 +8,7 @@ import { visitGarden } from './gardens'
 import { upgradeOptions, upgradeStructure } from './habitats'
 import { plant, harvest } from './plants'
 import { isChapterComplete } from './progression'
-import { chooseApproach, completeStage } from './projects'
+import { completeStage } from './projects'
 import { clearOvergrowth, collectAll } from './resources'
 import { advance } from './simulation'
 import type { PlantEntity } from './state'
@@ -39,7 +39,8 @@ describe('Chapter 2 playthrough', () => {
     expect(state.inventory['bamboo-shoots']).toBe(2)
 
     expect(visitGarden(state, content, 3, -6)).toBe(true)
-    expect(chooseApproach(state, content, 'restore-grove', 'shaded-corner').ok).toBe(true)
+    // Every approach is already under way once the grove opens.
+    expect(state.projects['restore-grove']?.active).toContain('shaded-corner')
     expect(plant(state, content, 'bamboo', 0, -6).ok).toBe(true)
     expect(plant(state, content, 'forest-grass', 0, -2).ok).toBe(true)
     expect(plant(state, content, 'hosta', 0, -3).ok).toBe(true)

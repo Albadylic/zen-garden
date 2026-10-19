@@ -332,5 +332,216 @@
         "after": 1
       }
     ]
+  },
+  {
+    "id": "deer-scarer",
+    "name": "Bamboo deer-scarer",
+    "description": "A bamboo arm that fills with water, tips and knocks against a stone with a hollow clack.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": false,
+    "cover": 0.1,
+    "look": {
+      "form": "post",
+      "colour": "#b9b06a",
+      "accent": "#5a4a2a"
+    },
+    "facts": [
+      {
+        "text": "Its gentle knock marks the passing of time in the garden.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "frog-stone",
+    "name": "Frog stone",
+    "description": "A rounded stone with the look of a sitting frog, a lucky sign for any pond.",
+    "terrain": ["grass", "moss", "margin"],
+    "flat": false,
+    "cover": 0.3,
+    "refuge": true,
+    "look": {
+      "form": "stone",
+      "colour": "#8a8c7a",
+      "accent": "#6f7f4a"
+    },
+    "facts": [
+      {
+        "text": "Frog stones are said to bring good fortune home again.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "snow-lantern",
+    "name": "Snow-viewing lantern",
+    "description": "A low stone lantern with a wide roof that gathers snow beautifully.",
+    "terrain": ["grass", "moss", "gravel", "path"],
+    "flat": false,
+    "cover": 0.1,
+    "look": {
+      "form": "post",
+      "colour": "#a3a29a",
+      "accent": "#7f7e78"
+    },
+    "facts": [
+      {
+        "text": "Its broad roof is made to hold a cap of snow in winter.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "mossy-stump",
+    "name": "Mossy stump",
+    "description": "An old stump softened with moss, home to beetles, woodlice and fungi.",
+    "terrain": ["moss", "grass"],
+    "flat": false,
+    "cover": 0.5,
+    "refuge": true,
+    "look": {
+      "form": "log",
+      "colour": "#6b4c33",
+      "accent": "#7fa04e"
+    },
+    "facts": [
+      {
+        "text": "Rotting wood like this is a whole world for small creatures.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "bee-skep",
+    "name": "Straw bee skep",
+    "description": "An old woven straw hive, kept now as a quiet corner for wild bees.",
+    "terrain": ["grass", "moss"],
+    "flat": false,
+    "cover": 0.1,
+    "look": {
+      "form": "mound",
+      "colour": "#d9b86a",
+      "accent": "#a6863a"
+    },
+    "facts": [
+      {
+        "text": "Solitary bees nest in the hollow stems of its straw.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "water-pipe",
+    "name": "Bamboo water pipe",
+    "description": "A split-bamboo pipe that carries a thin trickle of water from the stream.",
+    "terrain": ["margin", "grass"],
+    "flat": false,
+    "cover": 0.1,
+    "look": {
+      "form": "post",
+      "colour": "#b9b06a",
+      "accent": "#8fb4c2"
+    },
+    "facts": [
+      {
+        "text": "Birds come to drink and bathe at its trickle.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "viewing-bench",
+    "name": "Blossom-viewing bench",
+    "description": "A long low bench for sitting beneath the blossom.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": false,
+    "cover": 0.1,
+    "look": {
+      "form": "bench",
+      "colour": "#8a6a45",
+      "accent": "#6b4c33"
+    },
+    "facts": [
+      {
+        "text": "Made for the old custom of sitting to watch the blossom fall.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "bird-bath",
+    "name": "Stone bird bath",
+    "description": "A shallow stone bowl of rainwater for birds to drink and bathe.",
+    "terrain": ["grass", "moss"],
+    "flat": false,
+    "cover": 0.1,
+    "look": {
+      "form": "stone",
+      "colour": "#a3a29a",
+      "accent": "#8fb4c2"
+    },
+    "facts": [
+      {
+        "text": "Birds bathe to keep their feathers in good order.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "reed-screen",
+    "name": "Reed screen",
+    "description": "A woven screen of reeds that shelters a quiet corner of the marsh.",
+    "terrain": ["margin", "grass"],
+    "flat": false,
+    "cover": 0.4,
+    "look": {
+      "form": "post",
+      "colour": "#c2ad6a",
+      "accent": "#8a7a4a"
+    },
+    "facts": [
+      {
+        "text": "Small birds use it as a windbreak on cold days.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "moon-platform",
+    "name": "Moon-viewing platform",
+    "description": "A low wooden platform for watching the moon rise over the garden.",
+    "terrain": ["grass", "moss", "path"],
+    "flat": true,
+    "cover": 0,
+    "look": {
+      "form": "boardwalk",
+      "colour": "#8a6a45",
+      "accent": "#6b4c33"
+    },
+    "facts": [
+      {
+        "text": "Moon viewing is an autumn custom, but the moon rises every season.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "moon-gate",
+    "name": "Moon gate",
+    "description": "A round opening in a garden wall, framing the view beyond like a full moon.",
+    "terrain": ["path", "grass"],
+    "flat": false,
+    "cover": 0.1,
+    "look": {
+      "form": "arch",
+      "colour": "#b5a58a",
+      "accent": "#7a6a50"
+    },
+    "facts": [
+      {
+        "text": "Stepping through a moon gate is said to bring a fresh start.",
+        "after": 1
+      }
+    ]
   }
 ]

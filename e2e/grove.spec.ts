@@ -38,13 +38,11 @@ test('the grove opens, an approach is chosen, and a stage is completed', async (
   await expect.poll(() => milestone(page, 'into-the-grove')).toBe(true)
   await page.keyboard.press('Escape')
 
-  // Choose the shaded corner in Restore.
+  // The shaded corner is already under way in Restore, with its rewards shown.
   await openRestorePage(page, 'A shaded planting corner')
-  await page
-    .getByTestId('approach-shaded-corner')
-    .getByRole('button', { name: 'Begin this' })
-    .click()
   await expect(page.getByTestId('current-stage')).toContainText('Clear the understory')
+  await expect(page.getByTestId('approach-shaded-corner')).toContainText('Reward: Bamboo canes ×2')
+  await expect(page.getByTestId('approach-shaded-corner')).toContainText('rare: Black bamboo')
 
   // Clear four overgrown patches in the grove, then complete the stage.
   await page.getByRole('button', { name: 'Start clearing' }).click()
@@ -62,6 +60,8 @@ test('the grove opens, an approach is chosen, and a stage is completed', async (
   await expect(complete).toBeEnabled()
   await complete.click()
   await expect(page.getByTestId('current-stage')).toContainText('Plant the shade')
+  // Completing the stage gave its reward.
+  await expect(page.getByRole('status')).toContainText('Reward: Bamboo canes ×2')
 })
 
 test('an improved shelter can branch into an insect hotel', async ({ page }) => {

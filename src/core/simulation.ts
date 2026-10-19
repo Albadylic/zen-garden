@@ -8,6 +8,7 @@ import { growPlants, spreadPlants } from './plants'
 import { ageDrops, produce } from './resources'
 import { journalSystem } from './journal'
 import { progressSystem } from './progression'
+import { openProjects } from './projects'
 import { seasonSystem } from './seasons'
 import { attractWildlife, moveWildlife } from './wildlife'
 import type { GameState } from './state'
@@ -35,6 +36,7 @@ const systems: System[] = [
   attractWildlife,
   moveWildlife,
   seasonSystem,
+  openProjects,
   progressSystem,
   journalSystem,
 ]

@@ -34,7 +34,14 @@ export type GameEvent =
   | { type: 'gift'; chapterId: string; items: Record<string, number> }
   | { type: 'seasonBegan'; season: string }
   | { type: 'approachChosen'; projectId: string; approachId: string }
-  | { type: 'stageComplete'; projectId: string; stageId: string; title: string }
+  | {
+      type: 'stageComplete'
+      projectId: string
+      stageId: string
+      title: string
+      /** What completing the stage gave the player. */
+      reward: Record<string, number>
+    }
   | { type: 'approachComplete'; projectId: string; approachId: string; title: string }
 
 export type EventSink = GameEvent[]

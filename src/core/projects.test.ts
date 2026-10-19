@@ -11,7 +11,10 @@ import {
   readyStages,
   stageStatus,
 } from './projects'
+import { buildRecipe } from './layout'
+import { sowablePlants } from './plants'
 import { clearOvergrowth } from './resources'
+import { advance } from './simulation'
 
 function grove() {
   const s = setup(4)
@@ -90,6 +93,10 @@ describe('restoration projects', () => {
     ] as const) {
       addPlant(state, content, 'hosta', x, y, 2)
     }
+    // The first stage's reward was the canes the second stage needs.
+    expect(state.inventory['bamboo-canes']).toBe(2)
+    expect(stageStatus(state, content, second).kind).toBe('ready')
+    state.inventory['bamboo-canes'] = 0
     expect(stageStatus(state, content, second).kind).toBe('needsItems')
     state.inventory['bamboo-canes'] = 2
     const done = completeStage(state, content, 'restore-grove', 'shaded-corner')
@@ -109,5 +116,36 @@ describe('restoration projects', () => {
       'wildlife-refuge',
       'path-and-stone',
     ])
+  })
+})
+
+describe('stage rewards', () => {
+  it('opens every approach without being asked', () => {
+    const { content, state, project } = grove()
+    advance(state, content, 1000)
+    expect(activeApproaches(state, project).map((a) => a.id)).toEqual([
+      'shaded-corner',
+      'wildlife-refuge',
+      'path-and-stone',
+    ])
+    // Each approach's discoveries come with it.
+    expect(state.unlocks).toContain('recipe:bamboo-fence')
+    expect(state.unlocks).toContain('recipe:bamboo-water-spout')
+  })
+
+  it('gives a rare plant to sow and a keepsake to place', () => {
+    const { content, state } = grove()
+    const approaches = content.projects['restore-grove']!.approaches
+    const last = (id: string) => approaches.find((a) => a.id === id)!.stages.at(-1)!
+    expect(last('shaded-corner').reward).toEqual({ 'black-bamboo-shoot': 2 })
+    expect(last('wildlife-refuge').reward).toEqual({ 'deer-scarer-keepsake': 1 })
+    expect(last('wildlife-refuge').unlocks).toContain('recipe:deer-scarer')
+    // Once in hand, the rare plant can be sown and the keepsake placed from Build.
+    state.inventory['black-bamboo-shoot'] = 2
+    expect(sowablePlants(state, content).map((p) => p.id)).toContain('black-bamboo')
+    state.unlocks.push('recipe:deer-scarer')
+    state.inventory['deer-scarer-keepsake'] = 1
+    expect(buildRecipe(state, content, 'deer-scarer', 2, -6).ok).toBe(true)
+    expect(state.inventory['deer-scarer-keepsake'] ?? 0).toBe(0)
   })
 })

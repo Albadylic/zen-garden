@@ -1016,5 +1016,291 @@
         "after": "into-the-noble-garden"
       }
     ]
+  },
+  {
+    "id": "black-bamboo-shoot",
+    "name": "Black bamboo shoot",
+    "category": "seed",
+    "description": "A shoot of black bamboo, given in thanks for the restored grove.",
+    "colour": "#5d7a3a",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "deer-scarer-keepsake",
+    "name": "Bamboo deer-scarer",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#b9b06a",
+    "facts": [
+      {
+        "text": "Its gentle knock marks the passing of time in the garden.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "pink-lily-rhizome",
+    "name": "Pink lily rhizome",
+    "category": "seed",
+    "description": "A rhizome of pink water lily, given in thanks for the restored pond.",
+    "colour": "#f0a3bf",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "frog-stone-keepsake",
+    "name": "Frog stone",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#8a8c7a",
+    "facts": [
+      {
+        "text": "Frog stones are said to bring good fortune home again.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "cushion-moss-clump",
+    "name": "Cushion moss clump",
+    "category": "seed",
+    "description": "A small dome of cushion moss, given in thanks for the restored stone garden.",
+    "colour": "#a6c27a",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "snow-lantern-keepsake",
+    "name": "Snow-viewing lantern",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#a3a29a",
+    "facts": [
+      {
+        "text": "Its broad roof is made to hold a cap of snow in winter.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "painted-fern-spores",
+    "name": "Painted fern spores",
+    "category": "seed",
+    "description": "Spores of the painted fern, given in thanks for the restored hollow.",
+    "colour": "#9b5a6a",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "mossy-stump-keepsake",
+    "name": "Mossy stump",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#6b4c33",
+    "facts": [
+      {
+        "text": "Rotting wood like this is a whole world for small creatures.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "gentian-seeds",
+    "name": "Gentian seeds",
+    "category": "seed",
+    "description": "Fine seeds of the Japanese gentian, given in thanks for the restored meadow.",
+    "colour": "#2f5a2f",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "bee-skep-keepsake",
+    "name": "Straw bee skep",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#d9b86a",
+    "facts": [
+      {
+        "text": "Solitary bees nest in the hollow stems of its straw.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "primrose-seeds",
+    "name": "Primrose seeds",
+    "category": "seed",
+    "description": "Seeds of the Japanese primrose, given in thanks for the restored stream.",
+    "colour": "#4f7a3a",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "water-pipe-keepsake",
+    "name": "Bamboo water pipe",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#b9b06a",
+    "facts": [
+      {
+        "text": "Birds come to drink and bathe at its trickle.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "peony-cutting",
+    "name": "Tree peony cutting",
+    "category": "seed",
+    "description": "A cutting of tree peony, given in thanks for the restored court.",
+    "colour": "#e8a6b8",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "viewing-bench-keepsake",
+    "name": "Blossom-viewing bench",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#8a6a45",
+    "facts": [
+      {
+        "text": "Made for the old custom of sitting to watch the blossom fall.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "lily-bulb",
+    "name": "Golden-rayed lily bulb",
+    "category": "seed",
+    "description": "A bulb of the golden-rayed lily, given in thanks for the protected canopy.",
+    "colour": "#d9a441",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "bird-bath-keepsake",
+    "name": "Stone bird bath",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#a3a29a",
+    "facts": [
+      {
+        "text": "Birds bathe to keep their feathers in good order.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "egret-orchid-tuber",
+    "name": "Egret orchid tuber",
+    "category": "seed",
+    "description": "A tuber of the egret orchid, given in thanks for the restored marsh.",
+    "colour": "#5f8a4a",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "reed-screen-keepsake",
+    "name": "Reed screen",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#c2ad6a",
+    "facts": [
+      {
+        "text": "Small birds use it as a windbreak on cold days.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "sasanqua-cutting",
+    "name": "Sasanqua cutting",
+    "category": "seed",
+    "description": "A cutting of sasanqua camellia, given in thanks for the four-season garden.",
+    "colour": "#e06a8a",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "moon-platform-keepsake",
+    "name": "Moon-viewing platform",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#8a6a45",
+    "facts": [
+      {
+        "text": "Moon viewing is an autumn custom, but the moon rises every season.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "butterfly-maple-seedling",
+    "name": "Butterfly maple seedling",
+    "category": "seed",
+    "description": "A seedling of the butterfly maple, given in thanks for the restored Noble Garden.",
+    "colour": "#e8b8c8",
+    "facts": [
+      {
+        "text": "Rare: it comes only from completing restoration stages.",
+        "after": 1
+      }
+    ]
+  },
+  {
+    "id": "moon-gate-keepsake",
+    "name": "Moon gate",
+    "category": "keepsake",
+    "description": "A keepsake from restoring the garden. Place it from Build, under Features.",
+    "colour": "#b5a58a",
+    "facts": [
+      {
+        "text": "Stepping through a moon gate is said to bring a fresh start.",
+        "after": 1
+      }
+    ]
   }
 ]

@@ -29,6 +29,10 @@ export function itemSources(content: Content, itemId: string, state?: GameState)
   for (const r of Object.values(content.recipes)) {
     if (r.output.kind === 'item' && r.output.id === itemId) add(`making it (${r.name})`)
   }
+  for (const p of Object.values(content.projects)) {
+    for (const a of p.approaches)
+      for (const s of a.stages) if (s.reward?.[itemId]) add(`completing "${s.title}" in Restore`)
+  }
   if (!state) return found.map((f) => f.name)
   const have = new Set(state.entities.map((e) => e.defId))
   const rank = (f: { defId?: string }) => (f.defId === undefined ? 1 : have.has(f.defId) ? 0 : 2)

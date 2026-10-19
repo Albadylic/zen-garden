@@ -30,7 +30,7 @@ import { markRead, observe, recordJournal } from '../core/journal'
 import { fillFeeder } from '../core/feeders'
 import { markChoicesSeen } from '../core/novelty'
 import { harvest, plant, sowablePlants, water } from '../core/plants'
-import { chooseApproach, completeStage } from '../core/projects'
+import { completeStage } from '../core/projects'
 import { clearOvergrowth, collectAll, collectDrop } from '../core/resources'
 import { catchUp, hasNews, type Recap } from '../core/offline'
 import { currentSeason, setCalendar } from '../core/seasons'
@@ -299,9 +299,14 @@ export class GameController {
         case 'watered':
           if (e.count > 1) this.toast(`Watered ${e.count} plants`)
           break
-        case 'stageComplete':
-          this.toast(`Restoration: ${e.title}`, 'milestone')
+        case 'stageComplete': {
+          const reward = formatItems(this.content, e.reward)
+          this.toast(
+            reward ? `Restoration: ${e.title}. Reward: ${reward}` : `Restoration: ${e.title}`,
+            'milestone',
+          )
           break
+        }
         case 'approachComplete':
           this.toast(`Approach complete: ${e.title}`, 'milestone')
           break
@@ -398,10 +403,6 @@ export class GameController {
 
   collectAll(): void {
     this.applyResult(collectAll(this.state))
-  }
-
-  chooseApproach(projectId: string, approachId: string): void {
-    this.applyResult(chooseApproach(this.state, this.content, projectId, approachId))
   }
 
   completeStage(projectId: string, approachId: string): void {

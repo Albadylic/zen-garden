@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { openGarden, openRestorePage, openTab } from './helpers'
 
-test('Restore pages through the chapter goals and every approach, several under way at once', async ({
+test('Restore pages through the chapter goals and every approach, all under way at once', async ({
   page,
 }) => {
   await openGarden(page)
@@ -9,9 +9,9 @@ test('Restore pages through the chapter goals and every approach, several under 
   await page.evaluate(() =>
     window.__zen!.controller.state.unlocks.push('area:bamboo-grove', 'chapter:bamboo-grove'),
   )
-  await openTab(page, 'Restore')
   const panel = page.getByTestId('restore-panel')
   // The first page is the chapter's goals, with the current hint.
+  await openRestorePage(page, 'Chapter goals')
   await expect(panel.getByTestId('chapter-page')).toBeVisible()
   await expect(panel.getByTestId('current-hint')).not.toBeEmpty()
   // Then one page per approach: three for the grove and three for the pond.
@@ -22,15 +22,14 @@ test('Restore pages through the chapter goals and every approach, several under 
   await expect(panel.getByTestId('project-garden')).toContainText('Living Waters')
   await expect(panel.locator('[data-motif="water"]')).toBeVisible()
 
-  // Begin two of the pond's approaches; both stay under way.
+  // Every approach is under way from the start, with no Begin button.
   await openRestorePage(page, 'A lily pond')
-  await panel.getByRole('button', { name: 'Begin this' }).click()
   await expect(panel.getByTestId('current-stage')).toBeVisible()
+  await expect(panel.getByRole('button', { name: 'Begin this' })).toHaveCount(0)
+  await expect(panel.getByTestId('approach-lily-pond')).toContainText('rare: Pink water lily')
   await openRestorePage(page, 'A reed margin')
-  await panel.getByRole('button', { name: 'Begin this' }).click()
   await expect(panel.getByTestId('current-stage')).toBeVisible()
-  await openRestorePage(page, 'A lily pond')
-  await expect(panel.getByTestId('current-stage')).toBeVisible()
+  await expect(panel.getByTestId('approach-reed-margin')).toContainText('a keepsake to place')
   expect(
     await page.evaluate(
       () =>
@@ -40,7 +39,7 @@ test('Restore pages through the chapter goals and every approach, several under 
           }
         ).projects['restore-pond']!.active,
     ),
-  ).toEqual(['lily-pond', 'reed-margin'])
+  ).toEqual(['lily-pond', 'reed-margin', 'frog-haven'])
 
   // The grove's approaches are pages too, with the grove's emblem.
   await openRestorePage(page, 'A shaded planting corner')
